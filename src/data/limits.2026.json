@@ -1,0 +1,17 @@
+{
+  "area": "Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area",
+  "effective": "2026",
+  "mtsp": {
+    "50": [58150, 66450, 74750, 83050, 89700, 96350, 103000, 109650],
+    "60": [69780, 79740, 89700, 99660, 107640, 115620, 123600, 131580]
+  },
+  "section8": null,
+  "sources": [
+    "60% limits for 1-4 people: Arlington County 2026 income and rent limits, https://www.arlingtonva.us/Government/Programs/Housing/Income-and-Rent-Limits"
+  ],
+  "notes": [
+    "PLACEHOLDER until data/build.py loads the official HUD FY2026 MTSP table.",
+    "50% limits are the 60% limits divided by 1.2. Sizes 5-8 use HUD's standard 1.08/1.16/1.24/1.32 adjustments of the 4-person limit and are not yet verified.",
+    "Section 8 limits are not loaded yet, so HUD-assisted cards do not show an under-the-limit line."
+  ]
+}

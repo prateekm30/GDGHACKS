@@ -1,0 +1,131 @@
+import type { Assessment } from '../lib/eligibility'
+import type { Building, IncomeLimits } from '../lib/types'
+import { BurdenBadge, Note, Pill, money } from './ui'
+
+const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
+
+export function CostLine({ a }: { a: Assessment }) {
+  const c = a.cost
+  if (c.kind === 'income-based') {
+    return (
+      <div className="flex flex-wrap items-center gap-2">
+        <BurdenBadge level="ok">Income-based rent</BurdenBadge>
+        <span className="text-sm text-ink-soft">
+          {c.monthly !== null ? <>You'd pay about 30% of your income, about {money(c.monthly)}/mo</> : <>You'd pay about 30% of your income</>}
+        </span>
+      </div>
+    )
+  }
+  if (c.kind === 'unknown' || c.monthly === null) {
+    return <span className="text-sm text-ink-soft">Rent limit varies by unit. Ask the property.</span>
+  }
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="text-lg font-bold">{money(c.monthly)}</span>
+      <span className="text-sm text-ink-soft">
+        max gross rent{c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}
+        {c.assumedCeiling ? ' (assumed 60% limit)' : ''}
+      </span>
+      {c.burdenPct !== null && c.level && (
+        <BurdenBadge level={c.level}>About {c.burdenPct}% of your income</BurdenBadge>
+      )}
+    </div>
+  )
+}
+
+export function LimitLine({ a, limits }: { a: Assessment; limits: IncomeLimits }) {
+  if (a.limit === 'unknown') return null
+  const text = {
+    under: 'You appear to be under the estimated income limit.',
+    over: "You appear to be over this building's estimated income limit.",
+    varies: 'Income limit varies by unit. Ask the property.',
+  }[a.limit]
+  return (
+    <p className="text-sm">
+      {text}{' '}
+      <span className="text-ink-soft">
+        ({limits.effective} limits{a.limitAmount ? `, ${money(a.limitAmount)} for your household` : ''}. The property decides.)
+      </span>
+    </p>
+  )
+}
+
+export function BuildingCard({
+  b,
+  a,
+  limits,
+  reasons = [],
+  detailed = false,
+}: {
+  b: Building
+  a: Assessment
+  limits: IncomeLimits
+  reasons?: string[]
+  detailed?: boolean
+}) {
+  return (
+    <div className="flex h-full flex-col gap-3 text-left">
+      <div className="flex flex-wrap gap-1.5">
+        <Pill>{b.program === 'LIHTC' ? 'Tax credit (LIHTC)' : 'HUD-assisted'}</Pill>
+        <Pill>{b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA'}</Pill>
+        {b.metroMiles !== null && <Pill>{b.metroMiles.toFixed(1)} mi to Metro</Pill>}
+      </div>
+      <div>
+        <h3 className="text-lg font-semibold leading-snug">{b.name}</h3>
+        <p className="text-sm text-ink-soft">
+          {b.address}, {b.city}, {b.state} {b.zip}
+        </p>
+      </div>
+      <CostLine a={a} />
+      <LimitLine a={a} limits={limits} />
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
+        <dt className="text-ink-soft">Affordable units</dt>
+        <dd>{b.affordableUnits ?? 'Unknown'}</dd>
+        <dt className="text-ink-soft">Unit sizes</dt>
+        <dd>{b.bedrooms.length ? b.bedrooms.map(BR).join(', ') : 'Unknown'}</dd>
+        <dt className="text-ink-soft">Opened</dt>
+        <dd>{b.yearPlacedInService ?? 'Unknown'}</dd>
+      </dl>
+      {reasons.length > 0 && (
+        <ul className="space-y-1 text-sm">
+          {reasons.map((r) => (
+            <li key={r} className="flex gap-2">
+              <span aria-hidden className="text-brand">✓</span>
+              {r}
+            </li>
+          ))}
+        </ul>
+      )}
+      {a.belowTypicalMinimum && (
+        <Note tone="warn">Many buildings also require income of about 2.5 times the rent. You may be below a typical minimum. Ask the property (voucher holders are often exempt).</Note>
+      )}
+      {a.oldRestrictions && <Note tone="warn">Opened over 30 years ago. Income restrictions may have ended. Confirm with the property.</Note>}
+      {a.studentRuleMayApply && <Note tone="warn">Student rules may apply. Ask the property.</Note>}
+      {detailed && (
+        <div className="mt-auto border-t border-line pt-3 text-sm">
+          <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>
+          <p className="text-ink-soft">
+            {[b.contact.org, b.contact.name].filter(Boolean).join(' · ') || 'No contact listed'}
+          </p>
+          {b.contact.phone && (
+            <a className="font-semibold text-brand underline-offset-2 hover:underline" href={`tel:${b.contact.phone.replace(/[^\d+]/g, '')}`}>
+              {b.contact.phone}
+            </a>
+          )}
+          {b.area === 'ARLINGTON' && (
+            <p className="mt-2">
+              <a
+                className="text-brand underline-offset-2 hover:underline"
+                href="https://www.arlingtonva.us/Government/Programs/Housing/Housing-Assistance/Rental-Services/Affordable-Units/Committed-Affordable-Units"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Arlington's list of affordable units (rents and minimum incomes)
+              </a>
+            </p>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}

@@ -1,0 +1,859 @@
+[
+  {
+    "id": "sample-01",
+    "name": "Sample Hazel Apartments 1",
+    "address": "100 Example Birch St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.87684407387713,
+    "lon": -76.9816503470492,
+    "program": "LIHTC",
+    "totalUnits": 20,
+    "affordableUnits": 14,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      2,
+      3
+    ],
+    "yearPlacedInService": 2015,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.6,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0100",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-02",
+    "name": "Sample Juniper Apartments 2",
+    "address": "107 Example Linden St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.87936038189538,
+    "lon": -77.01006148437507,
+    "program": "LIHTC",
+    "totalUnits": 211,
+    "affordableUnits": 174,
+    "incomeCeiling": "avg",
+    "bedrooms": [
+      0,
+      1
+    ],
+    "yearPlacedInService": 2012,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.4,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0101",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-03",
+    "name": "Sample Linden Apartments 3",
+    "address": "114 Example Maple St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.87565277315474,
+    "lon": -77.0646099059864,
+    "program": "LIHTC",
+    "totalUnits": 278,
+    "affordableUnits": 226,
+    "incomeCeiling": 50,
+    "bedrooms": [
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2020,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0102",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-04",
+    "name": "Sample Birch Homes 4",
+    "address": "121 Example Linden St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.88658012767629,
+    "lon": -77.02779414463221,
+    "program": "HUD",
+    "totalUnits": 124,
+    "affordableUnits": 72,
+    "incomeCeiling": null,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1998,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.8,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0103",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-05",
+    "name": "Sample Juniper Apartments 5",
+    "address": "128 Example Hazel St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.864689824434315,
+    "lon": -77.01812073240902,
+    "program": "LIHTC",
+    "totalUnits": 176,
+    "affordableUnits": 130,
+    "incomeCeiling": 50,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1994,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0104",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-06",
+    "name": "Sample Birch Apartments 6",
+    "address": "135 Example Birch St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.883221051787594,
+    "lon": -77.06453912707258,
+    "program": "LIHTC",
+    "totalUnits": 35,
+    "affordableUnits": 25,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1998,
+    "seniorOnly": true,
+    "disabilityOnly": false,
+    "metroMiles": 1.1,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0105",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-07",
+    "name": "Sample Birch Apartments 7",
+    "address": "142 Example Aspen St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.909123499639854,
+    "lon": -77.02134155294921,
+    "program": "LIHTC",
+    "totalUnits": 138,
+    "affordableUnits": 130,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2010,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.9,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0106",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-08",
+    "name": "Sample Aspen Homes 8",
+    "address": "149 Example Juniper St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.93516580816133,
+    "lon": -77.00826223249001,
+    "program": "HUD",
+    "totalUnits": 164,
+    "affordableUnits": 135,
+    "incomeCeiling": null,
+    "bedrooms": [
+      1,
+      2
+    ],
+    "yearPlacedInService": 2009,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.1,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0107",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-09",
+    "name": "Sample Willow Apartments 9",
+    "address": "156 Example Linden St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.89387788145984,
+    "lon": -77.11333556546519,
+    "program": "LIHTC",
+    "totalUnits": 112,
+    "affordableUnits": 100,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1993,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.2,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0108",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-10",
+    "name": "Sample Cedar Apartments 10",
+    "address": "163 Example Juniper St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.87154022541434,
+    "lon": -77.00343146110114,
+    "program": "LIHTC",
+    "totalUnits": 298,
+    "affordableUnits": 225,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2019,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0109",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-11",
+    "name": "Sample Hazel Apartments 11",
+    "address": "170 Example Linden St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.88203372635973,
+    "lon": -77.03916107196322,
+    "program": "LIHTC",
+    "totalUnits": 267,
+    "affordableUnits": 147,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1
+    ],
+    "yearPlacedInService": 2010,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0110",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-12",
+    "name": "Sample Willow Homes 12",
+    "address": "177 Example Juniper St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.861902427818585,
+    "lon": -77.06707478373642,
+    "program": "HUD",
+    "totalUnits": 227,
+    "affordableUnits": 123,
+    "incomeCeiling": null,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 2020,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.4,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0111",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-13",
+    "name": "Sample Maple Apartments 13",
+    "address": "184 Example Hazel St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.91095458852637,
+    "lon": -76.96623063724779,
+    "program": "LIHTC",
+    "totalUnits": 156,
+    "affordableUnits": 64,
+    "incomeCeiling": null,
+    "bedrooms": [
+      1,
+      2
+    ],
+    "yearPlacedInService": 2022,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0112",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-14",
+    "name": "Sample Birch Apartments 14",
+    "address": "191 Example Cedar St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.8767147708017,
+    "lon": -76.99484713585808,
+    "program": "LIHTC",
+    "totalUnits": 210,
+    "affordableUnits": 91,
+    "incomeCeiling": "avg",
+    "bedrooms": [
+      2,
+      3
+    ],
+    "yearPlacedInService": 2013,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.5,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0113",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-15",
+    "name": "Sample Maple Apartments 15",
+    "address": "198 Example Hazel St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.85653801351159,
+    "lon": -77.07872829289117,
+    "program": "LIHTC",
+    "totalUnits": 29,
+    "affordableUnits": 27,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2019,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 3,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0114",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-16",
+    "name": "Sample Linden Homes 16",
+    "address": "205 Example Willow St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.879857096048006,
+    "lon": -76.98178672117265,
+    "program": "HUD",
+    "totalUnits": 287,
+    "affordableUnits": 267,
+    "incomeCeiling": null,
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1996,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.2,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0115",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-17",
+    "name": "Sample Aspen Apartments 17",
+    "address": "212 Example Birch St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.909720877692905,
+    "lon": -76.98120861535017,
+    "program": "LIHTC",
+    "totalUnits": 268,
+    "affordableUnits": 161,
+    "incomeCeiling": "avg",
+    "bedrooms": [
+      0,
+      1,
+      2
+    ],
+    "yearPlacedInService": 1995,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.9,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0116",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-18",
+    "name": "Sample Hazel Apartments 18",
+    "address": "219 Example Juniper St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.89360956244339,
+    "lon": -77.06490081678373,
+    "program": "LIHTC",
+    "totalUnits": 295,
+    "affordableUnits": 153,
+    "incomeCeiling": 50,
+    "bedrooms": [
+      0,
+      1
+    ],
+    "yearPlacedInService": 2005,
+    "seniorOnly": true,
+    "disabilityOnly": false,
+    "metroMiles": 1.7,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0117",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-19",
+    "name": "Sample Hazel Apartments 19",
+    "address": "226 Example Willow St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.8749720791052,
+    "lon": -77.00426647896147,
+    "program": "LIHTC",
+    "totalUnits": 235,
+    "affordableUnits": 117,
+    "incomeCeiling": 50,
+    "bedrooms": [
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2008,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 1.5,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0118",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-20",
+    "name": "Sample Birch Homes 20",
+    "address": "233 Example Linden St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.8620815081159,
+    "lon": -77.01609309601416,
+    "program": "HUD",
+    "totalUnits": 232,
+    "affordableUnits": 168,
+    "incomeCeiling": null,
+    "bedrooms": [
+      1,
+      2
+    ],
+    "yearPlacedInService": 2014,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.9,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0119",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-21",
+    "name": "Sample Juniper Apartments 21",
+    "address": "240 Example Willow St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.85376561219048,
+    "lon": -77.07362709751987,
+    "program": "LIHTC",
+    "totalUnits": 86,
+    "affordableUnits": 77,
+    "incomeCeiling": null,
+    "bedrooms": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "yearPlacedInService": 2012,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.9,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0120",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-22",
+    "name": "Sample Linden Apartments 22",
+    "address": "247 Example Aspen St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.91792299969956,
+    "lon": -76.96814404942475,
+    "program": "LIHTC",
+    "totalUnits": 27,
+    "affordableUnits": 11,
+    "incomeCeiling": 60,
+    "bedrooms": [
+      0,
+      1
+    ],
+    "yearPlacedInService": 1991,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 0.3,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0121",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-23",
+    "name": "Sample Aspen Apartments 23",
+    "address": "254 Example Hazel St NW",
+    "city": "Washington",
+    "state": "DC",
+    "zip": "20001",
+    "area": "DC",
+    "lat": 38.875360902704,
+    "lon": -77.029308253857,
+    "program": "LIHTC",
+    "totalUnits": 22,
+    "affordableUnits": 11,
+    "incomeCeiling": "avg",
+    "bedrooms": [
+      1,
+      2
+    ],
+    "yearPlacedInService": 2004,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 3,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0122",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  },
+  {
+    "id": "sample-24",
+    "name": "Sample Juniper Homes 24",
+    "address": "261 Example Linden St",
+    "city": "Arlington",
+    "state": "VA",
+    "zip": "22204",
+    "area": "ARLINGTON",
+    "lat": 38.869844161472216,
+    "lon": -77.095013763865,
+    "program": "HUD",
+    "totalUnits": 138,
+    "affordableUnits": 60,
+    "incomeCeiling": null,
+    "bedrooms": [
+      1,
+      2
+    ],
+    "yearPlacedInService": 2017,
+    "seniorOnly": false,
+    "disabilityOnly": false,
+    "metroMiles": 2.9,
+    "contact": {
+      "name": null,
+      "org": "Sample Management Co.",
+      "phone": "(202) 555-0123",
+      "email": null
+    },
+    "source": {
+      "dataset": "FAKE SAMPLE DATA",
+      "url": "",
+      "retrieved": "2026-10-24"
+    },
+    "sample": true
+  }
+]
