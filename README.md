@@ -35,7 +35,7 @@ flowchart LR
   U -->|PDF or photo| OCR[pdf.js / Tesseract on device]
   OCR -->|text the user reviewed| API[Vercel Function /api/snap-text]
   API --> G[Gemma 4 via Gemini API]
-  HUD[HUD ArcGIS + HUD USER APIs] -->|data/build.py| DATA
+  HUD[HUD ArcGIS APIs] -->|GitHub Action: data/build.py| DATA
 ```
 
 ## Rubric map
@@ -58,7 +58,7 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py` | Official HUD APIs to JSON. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 331 buildings in DC and Arlington. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 
@@ -68,7 +68,8 @@ Income, picks, and photos stay in your browser (session storage, cleared when th
 ## Credits and data
 
 - HUD LIHTC Database and HUD Multifamily Assisted Properties (public domain, U.S. government)
-- HUD income limits (MTSP and Section 8)
+- 2026 income limits for the Washington-Arlington-Alexandria HUD Metro FMR Area (MTSP and Section 8)
+- WMATA Metro station locations (Open Data DC)
 - Gemma 4 via the Gemini API
 - React, Vite, Tailwind CSS, pdf.js (Apache-2.0), Tesseract.js (Apache-2.0)
 
