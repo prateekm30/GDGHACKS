@@ -1,5 +1,7 @@
 # HomePick DMV
 
+**Live:** https://gdghacks-tau.vercel.app
+
 Pick between two income-restricted buildings at a time. HomePick learns what matters to you, estimates what
 you'd pay, and gives first-time renters in Washington, DC and Arlington, VA a short list with next steps.
 Snap a form turns a rental application into a checklist with Gemma 4, quoting the form so you can check it.
