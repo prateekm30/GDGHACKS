@@ -2,24 +2,20 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
 import { BasicsForm, toSituation, type Basics } from './components/BasicsForm'
-import { Button, Card, Note } from './components/ui'
+import { Landing, type AreaChoice } from './components/Landing'
+import { LogoMark } from './components/Logo'
+import { Button, Card, Note, StepIndicator } from './components/ui'
 import limitsJson from './data/limits.2026.json'
 import { isVisible } from './lib/eligibility'
 import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
-import type { Area, Building, IncomeLimits } from './lib/types'
+import type { Building, IncomeLimits } from './lib/types'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
 const BASICS_KEY = 'homepick.basics'
 
 type Step = 'start' | 'basics' | 'pick' | 'results'
-type AreaChoice = Area | 'BOTH'
 
-const AREA_OPTIONS: { value: AreaChoice; title: string; hint: string }[] = [
-  { value: 'DC', title: 'Washington, DC', hint: 'All eight wards' },
-  { value: 'ARLINGTON', title: 'Arlington, VA', hint: 'Arlington County' },
-  { value: 'BOTH', title: 'Both', hint: 'Show me everything' },
-]
 
 // Session storage only: income is gone when the tab closes, and storage can be blocked.
 function loadBasics(): Basics | null {
@@ -54,15 +50,25 @@ export default function App() {
 
   const announce = useCallback((msg: string) => setMessage(msg), [])
 
+  const [loadTry, setLoadTry] = useState(0)
   useEffect(() => {
+    setLoadError('')
     fetch('/data/buildings.json')
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json() as Promise<Building[]>
       })
       .then(setBuildings)
-      .catch(() => setLoadError('We could not load the building list. Check your connection and reload.'))
-  }, [])
+      .catch(() => setLoadError('We could not load the building list. Check your connection and try again.'))
+  }, [loadTry])
+
+  // A real pair for the landing preview: one in DC, one in Arlington, different programs when possible.
+  const preview = useMemo<[Building, Building] | null>(() => {
+    if (!buildings) return null
+    const dc = buildings.find((b) => b.area === 'DC' && b.program === 'LIHTC' && b.metroMiles !== null && b.metroMiles < 0.5)
+    const va = buildings.find((b) => b.area === 'ARLINGTON' && b.program === 'HUD')
+    return dc && va ? [dc, va] : null
+  }, [buildings])
 
   const situation = useMemo(() => (basics ? toSituation(basics) : null), [basics])
   const prior = useMemo(() => priorFor(basics?.priorities ?? []), [basics])
@@ -132,11 +138,13 @@ export default function App() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <header className="no-print border-b border-line bg-surface">
+      <header className="no-print sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
           <button type="button" onClick={restart} className="flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
-            <span aria-hidden className="grid size-8 place-items-center rounded-lg bg-brand text-white">H</span>
-            HomePick DMV
+            <LogoMark />
+            <span className="font-display text-lg">
+              HomePick <span className="text-brand">DMV</span>
+            </span>
           </button>
           <span className="whitespace-nowrap rounded-full bg-ok-tint px-3 py-1 text-xs font-medium text-ok">
             <span className="hidden sm:inline">Your answers </span>
@@ -146,52 +154,38 @@ export default function App() {
       </header>
 
       <main id="main" className="mx-auto max-w-5xl space-y-6 px-4 py-8">
+        {buildings && step !== 'start' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
             Sample data. These buildings are made up for testing. Real HUD data loads once the data pipeline runs.
           </Note>
         )}
 
-        {loadError && <Note tone="warn">{loadError}</Note>}
+        {loadError && (
+          <Card className="mx-auto max-w-md p-6 text-center">
+            <p className="font-semibold">Something went wrong</p>
+            <p className="mt-1 text-sm text-ink-soft">{loadError}</p>
+            <Button className="mt-4" onClick={() => setLoadTry((n) => n + 1)}>
+              Try again
+            </Button>
+          </Card>
+        )}
         {!buildings && !loadError && (
-          <div role="status" className="py-16 text-center text-ink-soft">
-            Loading buildings…
+          <div role="status" aria-label="Loading buildings" className="grid gap-4 py-6 md:grid-cols-2">
+            {[0, 1].map((i) => (
+              <div key={i} className="overflow-hidden rounded-card border border-line bg-surface">
+                <div className="skeleton h-44" />
+                <div className="space-y-3 p-5">
+                  <div className="skeleton h-5 w-2/3 rounded" />
+                  <div className="skeleton h-4 w-1/2 rounded" />
+                  <div className="skeleton h-8 w-full rounded-lg" />
+                </div>
+              </div>
+            ))}
           </div>
         )}
 
-        {buildings && step === 'start' && (
-          <section aria-labelledby="start-heading" className="space-y-8 py-6">
-            <div className="max-w-2xl space-y-3">
-              <h1 id="start-heading" className="text-4xl font-bold tracking-tight sm:text-5xl">
-                Find income-restricted apartments you'd actually pick.
-              </h1>
-              <p className="text-lg text-ink-soft">
-                Answer a few quick questions, then pick between two real buildings at a time. We learn what matters to you,
-                estimate what you'd pay, and give you a short list with next steps.
-              </p>
-            </div>
-            <div>
-              <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-ink-soft">Where do you want to live?</h2>
-              <div className="grid gap-3 sm:grid-cols-3">
-                {AREA_OPTIONS.map((o) => (
-                  <button
-                    key={o.value}
-                    type="button"
-                    onClick={() => begin(o.value)}
-                    className="rounded-card border border-line bg-surface p-5 text-left shadow-card transition hover:-translate-y-0.5 hover:border-brand"
-                  >
-                    <span className="block text-lg font-semibold">{o.title}</span>
-                    <span className="text-sm text-ink-soft">{o.hint}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-            <p className="max-w-2xl text-xs text-ink-soft">
-              Estimates only. Each property decides who qualifies. We never rank by neighborhood, schools, or who lives
-              there.
-            </p>
-          </section>
-        )}
+        {buildings && step === 'start' && <Landing onBegin={begin} count={buildings.length} preview={preview} />}
 
         {buildings && step === 'pick' && pair && (
           <PickStep

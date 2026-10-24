@@ -1,4 +1,5 @@
-import { useEffect, useRef, type KeyboardEvent } from 'react'
+import { Check } from 'lucide-react'
+import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { assess } from '../lib/eligibility'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingCard } from './BuildingCard'
@@ -27,6 +28,16 @@ export function PickStep({
 }) {
   const groupRef = useRef<HTMLDivElement>(null)
   const [left, right] = pair
+  const [chosenId, setChosenId] = useState<string | null>(null)
+
+  // Show the pick for a moment (ring, check, other card fades), then move on. No delay with reduced motion.
+  function choose(b: Building, other: Building) {
+    if (chosenId) return
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduce) return onPick(b, other)
+    setChosenId(b.id)
+    window.setTimeout(() => onPick(b, other), 280)
+  }
 
   useEffect(() => {
     groupRef.current?.focus()
@@ -37,10 +48,10 @@ export function PickStep({
     if (e.target !== groupRef.current) return
     if (e.key === 'ArrowLeft') {
       e.preventDefault()
-      onPick(left, right)
+      choose(left, right)
     } else if (e.key === 'ArrowRight') {
       e.preventDefault()
-      onPick(right, left)
+      choose(right, left)
     }
   }
 
@@ -71,22 +82,38 @@ export function PickStep({
         role="group"
         aria-label={`Choose between ${left.name} and ${right.name}`}
         onKeyDown={onKeyDown}
-        className="grid gap-4 rounded-card md:grid-cols-2"
+        className="relative grid gap-4 rounded-card md:grid-cols-2"
       >
+        <span
+          aria-hidden
+          className="font-display pointer-events-none absolute left-1/2 top-1/2 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-accent text-base font-extrabold text-ink shadow-lift ring-4 ring-canvas md:grid"
+        >
+          or
+        </span>
         {[
           [left, right],
           [right, left],
         ].map(([b, other], i) => (
-          <Card key={b.id} className={`transition hover:-translate-y-0.5 hover:border-brand ${i === 0 ? 'rise-in' : 'rise-in-delay'}`}>
+          <Card
+            key={b.id}
+            className={`relative transition duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-lift ${
+              i === 0 ? 'rise-in' : 'rise-in-delay'
+            } ${chosenId === b.id ? 'scale-[1.01] border-brand ring-2 ring-brand' : chosenId ? 'scale-[0.98] opacity-40' : ''}`}
+          >
+            {chosenId === b.id && (
+              <span aria-hidden className="pop absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full bg-brand text-white shadow-lift">
+                <Check className="size-6" strokeWidth={3} />
+              </span>
+            )}
             <button
               type="button"
               className="flex h-full w-full flex-col rounded-card p-5"
-              onClick={() => onPick(b, other)}
+              onClick={() => choose(b, other)}
               aria-label={`Pick ${b.name}${i === 0 ? ' (left arrow)' : ' (right arrow)'}`}
             >
               <BuildingCard b={b} a={assess(b, limits, situation)} limits={limits} />
-              <span className="mt-4 inline-flex w-full justify-center rounded-xl bg-brand-tint py-2 text-sm font-semibold text-brand">
-                Pick this one
+              <span className="mt-4 inline-flex w-full justify-center rounded-xl bg-brand-tint py-2.5 text-sm font-semibold text-brand-strong">
+                {chosenId === b.id ? 'Picked' : 'Pick this one'}
               </span>
             </button>
           </Card>

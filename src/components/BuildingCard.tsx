@@ -1,24 +1,25 @@
 import type { Assessment } from '../lib/eligibility'
 import type { Building, IncomeLimits } from '../lib/types'
+import { Accessibility, BedDouble, Building2, Check, Hammer, HeartHandshake, MapPin, TrainFront, type LucideIcon } from 'lucide-react'
 import { BuildingPhoto } from './BuildingPhoto'
 import { BurdenBadge, Note, Pill, money } from './ui'
 
 const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
 
 /** Facts we actually have from HUD. HUD lists no amenities (laundry, parking), so we don't invent any. */
-function facts(b: Building): { icon: string; label: string }[] {
-  const out: { icon: string; label: string }[] = []
-  if (b.metroMiles !== null) out.push({ icon: '🚇', label: b.metroMiles < 0.15 ? 'Next to Metro' : `${b.metroMiles.toFixed(1)} mi to Metro` })
+function facts(b: Building): { icon: LucideIcon; label: string }[] {
+  const out: { icon: LucideIcon; label: string }[] = []
+  if (b.metroMiles !== null) out.push({ icon: TrainFront, label: b.metroMiles < 0.15 ? 'Next to Metro' : `${b.metroMiles.toFixed(1)} mi to Metro` })
   if (b.bedrooms.length) {
     const lo = Math.min(...b.bedrooms)
     const hi = Math.max(...b.bedrooms)
-    out.push({ icon: '🛏', label: lo === hi ? BR(lo) : `${BR(lo)} to ${BR(hi)}` })
+    out.push({ icon: BedDouble, label: lo === hi ? BR(lo) : `${BR(lo)} to ${BR(hi)}` })
   }
-  if (b.yearPlacedInService) out.push({ icon: '🏗', label: `Opened ${b.yearPlacedInService}` })
-  if (b.affordableUnits) out.push({ icon: '🏢', label: `${b.affordableUnits} affordable homes` })
-  out.push({ icon: '📍', label: b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA' })
-  if (b.seniorOnly) out.push({ icon: '👵', label: 'Seniors (62+)' })
-  if (b.disabilityOnly) out.push({ icon: '♿', label: 'For people with disabilities' })
+  if (b.yearPlacedInService) out.push({ icon: Hammer, label: `Opened ${b.yearPlacedInService}` })
+  if (b.affordableUnits) out.push({ icon: Building2, label: `${b.affordableUnits} affordable homes` })
+  out.push({ icon: MapPin, label: b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA' })
+  if (b.seniorOnly) out.push({ icon: HeartHandshake, label: 'Seniors (62+)' })
+  if (b.disabilityOnly) out.push({ icon: Accessibility, label: 'For people with disabilities' })
   return out
 }
 
@@ -105,9 +106,7 @@ export function BuildingCard({
         {facts(b).map((f) => (
           <li key={f.label}>
             <Pill>
-              <span aria-hidden className="mr-1">
-                {f.icon}
-              </span>
+              <f.icon aria-hidden className="mr-1 size-3.5 shrink-0 text-brand" strokeWidth={2.25} />
               {f.label}
             </Pill>
           </li>
@@ -117,7 +116,7 @@ export function BuildingCard({
         <ul className="space-y-1 text-sm">
           {reasons.map((r) => (
             <li key={r} className="flex gap-2">
-              <span aria-hidden className="text-brand">✓</span>
+              <Check aria-hidden className="mt-0.5 size-4 shrink-0 text-ok" strokeWidth={2.5} />
               {r}
             </li>
           ))}

@@ -1,5 +1,6 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import type { BurdenLevel } from '../lib/eligibility'
+import { Check } from 'lucide-react'
 
 export function Button({
   children,
@@ -7,22 +8,26 @@ export function Button({
   ...props
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' }) {
   const styles = {
-    primary: 'bg-brand text-white hover:bg-brand-strong',
-    secondary: 'bg-surface text-ink border border-line hover:border-brand hover:text-brand',
+    primary: 'bg-brand text-white shadow-sm hover:bg-brand-strong hover:shadow-md active:scale-[0.98]',
+    secondary: 'bg-surface text-ink border border-line hover:border-brand hover:text-brand active:scale-[0.98]',
     ghost: 'text-brand hover:bg-brand-tint',
   }[variant]
   return (
     <button
       {...props}
-      className={`inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition-colors disabled:opacity-50 ${styles} ${props.className ?? ''}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:pointer-events-none disabled:opacity-50 ${styles} ${props.className ?? ''}`}
     >
       {children}
     </button>
   )
 }
 
-export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
-  return <div className={`rounded-card bg-surface shadow-card border border-line ${className}`}>{children}</div>
+export function Card({ children, className = '', style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
+  return (
+    <div className={`rounded-card bg-surface shadow-card border border-line ${className}`} style={style}>
+      {children}
+    </div>
+  )
 }
 
 const BADGE: Record<BurdenLevel, string> = {
@@ -37,7 +42,7 @@ export function BurdenBadge({ level, children }: { level: BurdenLevel; children:
 
 export function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex rounded-full bg-canvas border border-line px-2.5 py-1 text-xs font-medium text-ink-soft">
+    <span className="inline-flex items-center rounded-full border border-line bg-canvas px-2.5 py-1 text-xs font-medium text-ink-soft">
       {children}
     </span>
   )
@@ -72,3 +77,34 @@ export function ProgressBar({ value, max, label }: { value: number; max: number;
 }
 
 export const money = (n: number) => '$' + Math.round(n).toLocaleString('en-US')
+
+const FUNNEL = ['Basics', 'Pick', 'Shortlist'] as const
+
+/** Where you are in the three steps. Done steps show a check. */
+export function StepIndicator({ current }: { current: 0 | 1 | 2 }) {
+  return (
+    <nav aria-label="Progress" className="no-print">
+      <ol className="flex items-center gap-2 text-xs font-semibold sm:text-sm">
+        {FUNNEL.map((name, i) => {
+          const state = i < current ? 'done' : i === current ? 'now' : 'next'
+          return (
+            <li key={name} className="flex items-center gap-2" aria-current={state === 'now' ? 'step' : undefined}>
+              <span
+                className={`grid size-6 place-items-center rounded-full text-[11px] transition-colors ${
+                  state === 'done' ? 'bg-brand text-white' : state === 'now' ? 'bg-accent text-ink' : 'bg-line text-ink-soft'
+                }`}
+              >
+                {state === 'done' ? <Check aria-hidden className="size-3.5" strokeWidth={3} /> : i + 1}
+              </span>
+              <span className={state === 'next' ? 'text-ink-soft' : 'text-ink'}>
+                {name}
+                {state === 'done' && <span className="sr-only"> (done)</span>}
+              </span>
+              {i < FUNNEL.length - 1 && <span aria-hidden className={`h-px w-6 sm:w-10 ${i < current ? 'bg-brand' : 'bg-line'}`} />}
+            </li>
+          )
+        })}
+      </ol>
+    </nav>
+  )
+}

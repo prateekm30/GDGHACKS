@@ -3,12 +3,17 @@
 /* Design tokens. Change these, not individual components. */
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, system-ui, sans-serif;
 
   --color-ink: #14213d;
-  --color-ink-soft: #4a5568;
-  --color-line: #e3e7ee;
-  --color-canvas: #f7f8fb;
+  --color-ink-soft: #4b5468;
+  --color-line: #e6e3dc;
+  --color-canvas: #f6f5f1;
   --color-surface: #ffffff;
+
+  /* Warm accent for highlights only (badges, illustration). Text on it uses ink. */
+  --color-accent: #ff8a5b;
+  --color-accent-tint: #ffeee6;
 
   --color-brand: #2754c5;
   --color-brand-strong: #1d3f99;
@@ -22,17 +27,35 @@
   --color-heavy: #b42318;
   --color-heavy-tint: #fde8e6;
 
-  --radius-card: 1rem;
-  --shadow-card: 0 1px 2px rgb(20 33 61 / 0.06), 0 4px 16px rgb(20 33 61 / 0.06);
+  --radius-card: 1.25rem;
+  --shadow-card: 0 1px 2px rgb(20 33 61 / 0.05), 0 6px 24px -8px rgb(20 33 61 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(20 33 61 / 0.06), 0 18px 40px -12px rgb(20 33 61 / 0.25);
 }
 
 @layer base {
   html { color: var(--color-ink); background: var(--color-canvas); }
   body { @apply font-sans antialiased; }
+  button:not(:disabled), [role='button'], summary, label:has(> input:not(:disabled)), a[href] { cursor: pointer; }
   :focus-visible { outline: 3px solid var(--color-brand); outline-offset: 2px; border-radius: 0.5rem; }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
   }
+}
+
+h1, h2, .font-display { font-family: var(--font-display); letter-spacing: -0.02em; }
+
+@keyframes pop {
+  0% { transform: scale(0.6); opacity: 0; }
+  60% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.pop { animation: pop 260ms ease-out both; }
+
+@keyframes shimmer { from { background-position: -400px 0; } to { background-position: 400px 0; } }
+.skeleton {
+  background: linear-gradient(90deg, var(--color-line) 0px, #f1efe9 120px, var(--color-line) 240px);
+  background-size: 800px 100%;
+  animation: shimmer 1.2s linear infinite;
 }
 
 @keyframes rise-in {
@@ -40,6 +63,8 @@
   to { opacity: 1; transform: none; }
 }
 .rise-in { animation: rise-in 220ms ease-out both; }
+@keyframes grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.grow-x { transform-origin: left; animation: grow-x 450ms cubic-bezier(.2,.7,.2,1) both; }
 .rise-in-delay { animation: rise-in 220ms ease-out 60ms both; }
 
 @media print {

@@ -1,3 +1,4 @@
+import { BedDouble, Building2, Scale, Sparkles, TrainFront, Wallet, type LucideIcon } from 'lucide-react'
 import { useId, useState, type ReactNode } from 'react'
 import type { Feature } from '../lib/ranking'
 import type { Situation } from '../lib/types'
@@ -23,13 +24,13 @@ export const toSituation = (b: Basics): Situation | null =>
       }
     : null
 
-const PRIORITY_OPTIONS: { value: Feature; label: string; icon: string }[] = [
-  { value: 'cost', label: 'Lowest rent', icon: '💵' },
-  { value: 'incomeBased', label: 'Rent based on my income', icon: '⚖️' },
-  { value: 'metro', label: 'Close to Metro', icon: '🚇' },
-  { value: 'bedrooms', label: 'More bedrooms', icon: '🛏' },
-  { value: 'newer', label: 'Newer building', icon: '✨' },
-  { value: 'size', label: 'Bigger community', icon: '🏢' },
+const PRIORITY_OPTIONS: { value: Feature; label: string; icon: LucideIcon }[] = [
+  { value: 'cost', label: 'Lowest rent', icon: Wallet },
+  { value: 'incomeBased', label: 'Rent based on my income', icon: Scale },
+  { value: 'metro', label: 'Close to Metro', icon: TrainFront },
+  { value: 'bedrooms', label: 'More bedrooms', icon: BedDouble },
+  { value: 'newer', label: 'Newer building', icon: Sparkles },
+  { value: 'size', label: 'Bigger community', icon: Building2 },
 ]
 const MAX_PRIORITIES = 3
 
@@ -145,7 +146,7 @@ export function BasicsForm({ initial, onDone }: { initial: Basics | null; onDone
             return (
               <label key={o.value} className={`${chip(on)} ${full ? 'opacity-50' : ''}`}>
                 <input type="checkbox" className="sr-only" checked={on} disabled={full} onChange={() => toggle(o.value)} />
-                <span aria-hidden>{o.icon}</span>
+                <o.icon aria-hidden className="size-4 shrink-0" />
                 {o.label}
               </label>
             )

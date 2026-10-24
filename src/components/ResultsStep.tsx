@@ -1,3 +1,4 @@
+import { Award } from 'lucide-react'
 import { assess } from '../lib/eligibility'
 import { learnedPriorities, whyReasons, type Weights } from '../lib/ranking'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
@@ -48,7 +49,10 @@ export function ResultsStep({
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <h2 id="learned-heading" className="text-lg font-semibold">What we learned about you</h2>
-              <p className="text-sm text-ink-soft">From your picks. Wrong? Go back and pick again.</p>
+              {priorities[0] && (
+                <p className="font-display mt-1 text-2xl font-bold text-brand">You care most about {priorities[0].label.charAt(0).toLowerCase() + priorities[0].label.slice(1)}.</p>
+              )}
+              <p className="mt-1 text-sm text-ink-soft">From your basics and picks. Wrong? Edit your answers or start over.</p>
             </div>
             <div className="no-print flex gap-2">
               <Button variant="secondary" onClick={onEditSituation}>
@@ -59,12 +63,15 @@ export function ResultsStep({
               </Button>
             </div>
           </div>
-          <ul className="mt-4 space-y-2">
-            {priorities.map((p) => (
-              <li key={p.feature} className="grid grid-cols-[10rem_1fr] items-center gap-3 text-sm">
-                <span>{p.label}</span>
-                <span className="h-2 rounded-full bg-line" aria-hidden>
-                  <span className="block h-2 rounded-full bg-brand" style={{ width: `${(p.weight / max) * 100}%` }} />
+          <ul className="mt-4 space-y-2.5">
+            {priorities.map((p, i) => (
+              <li key={p.feature} className="grid grid-cols-[9rem_1fr] items-center gap-3 text-sm sm:grid-cols-[12rem_1fr]">
+                <span className={i === 0 ? 'font-semibold' : ''}>{p.label}</span>
+                <span className="h-2.5 overflow-hidden rounded-full bg-line" aria-hidden>
+                  <span
+                    className={`grow-x block h-full rounded-full ${i === 0 ? 'bg-accent' : 'bg-brand'}`}
+                    style={{ width: `${(p.weight / max) * 100}%`, animationDelay: `${i * 70}ms` }}
+                  />
                 </span>
               </li>
             ))}
@@ -83,8 +90,22 @@ export function ResultsStep({
         </div>
         {shortlist.length === 0 && <p className="text-sm text-ink-soft">No buildings to show yet. Try starting over with a different area.</p>}
         <div className="grid gap-4 lg:grid-cols-3">
-          {shortlist.map((b) => (
-            <Card key={b.id} className="p-5">
+          {shortlist.map((b, i) => (
+            <Card key={b.id} className={`rise-in relative p-5 ${i === 0 ? 'ring-2 ring-accent' : ''}`} style={{ animationDelay: `${i * 90}ms` }}>
+              <span
+                className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${
+                  i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
+                }`}
+              >
+                {i === 0 ? (
+                  <>
+                    <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
+                    Best match
+                  </>
+                ) : (
+                  `#${i + 1} match`
+                )}
+              </span>
               <BuildingCard
                 b={b}
                 a={assess(b, limits, situation)}
