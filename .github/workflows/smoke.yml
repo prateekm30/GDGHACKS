@@ -1,0 +1,44 @@
+# Checks the live site end to end: health, the cached demo checklist, and one real Gemma call.
+# Run it from the Actions tab after a deploy. Uses made-up form text only.
+name: Smoke test live site
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site URL
+        default: https://gdghacks-tau.vercel.app
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Health
+        run: |
+          curl -fsS "${{ inputs.url }}/api/health" | tee health.json
+          grep -q '"ai":true' health.json
+      - name: Cached demo checklist
+        run: |
+          node -e '
+            const text = `SAMPLE APARTMENTS RENTAL APPLICATION (DEMO ONLY)\n\nPlease return this application to the leasing office by November 14, 2026.`;
+            fetch(process.argv[1] + "/api/snap-text", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
+              .then(async r => { const b = await r.json(); console.log(r.status, JSON.stringify(b, null, 1)); if (!r.ok) process.exit(1) })
+          ' "${{ inputs.url }}"
+      - name: Live Gemma checklist
+        run: |
+          node -e '
+            const text = [
+              "Maple Court Apartments (sample form for testing)",
+              "Applications are due by December 1, 2026.",
+              "Please include a $40 non-refundable application fee per adult.",
+              "Bring copies of your last three pay stubs and a valid photo ID.",
+              "Questions: call the leasing office at (202) 555-0142."
+            ].join("\n");
+            const t0 = Date.now();
+            fetch(process.argv[1] + "/api/snap-text", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
+              .then(async r => {
+                const b = await r.json();
+                console.log(r.status, (Date.now() - t0) + "ms", JSON.stringify(b, null, 1));
+                if (!r.ok || !b.items?.length) process.exit(1);
+              })
+          ' "${{ inputs.url }}"
