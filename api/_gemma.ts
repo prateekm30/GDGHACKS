@@ -1,5 +1,5 @@
 // Shared helpers for the Vercel functions. Files starting with _ are not deployed as routes.
-import { GoogleGenAI } from '@google/genai'
+import { GoogleGenAI, ThinkingLevel } from '@google/genai'
 import { findBannedPhrase } from '../shared/bannedPhrases.js'
 
 export const MAX_TEXT_BYTES = 20_000
@@ -61,16 +61,32 @@ export async function readJson<T>(request: Request): Promise<T> {
   }
 }
 
-/** Ask Gemma for JSON. Tries the primary model, then the fallback. */
+// Per-model time limits, so the primary plus the fallback still finish inside the function's 60s.
+const TIMEOUTS_MS = [25_000, 25_000]
+
+/** Ask Gemma for JSON. Tries the primary model, then the fallback. Logs timing and error kind, never content. */
 export async function askJson<T>(prompt: string): Promise<T> {
   const models = [process.env.GEMMA_MODEL || 'gemma-4-26b-a4b-it', process.env.GEMMA_FALLBACK_MODEL || 'gemma-4-31b-it']
   let lastError: unknown
-  for (const model of models) {
+  for (const [i, model] of models.entries()) {
+    const started = Date.now()
     try {
-      const res = await ai().models.generateContent({ model, contents: prompt, config: { temperature: 0 } })
+      const res = await ai().models.generateContent({
+        model,
+        contents: prompt,
+        config: {
+          temperature: 0,
+          maxOutputTokens: 1500,
+          // Extraction does not need long reasoning; minimal thinking keeps it fast and cheap.
+          thinkingConfig: { thinkingLevel: ThinkingLevel.MINIMAL },
+          abortSignal: AbortSignal.timeout(TIMEOUTS_MS[i] ?? 20_000),
+        },
+      })
+      console.log('gemma ok', model, `${Date.now() - started}ms`)
       return parseJson<T>(res.text ?? '')
     } catch (e) {
       if (e instanceof HttpError) throw e
+      console.error('gemma failed', model, `${Date.now() - started}ms`, (e as Error)?.name, String((e as Error)?.message).slice(0, 120))
       lastError = e
     }
   }
