@@ -1,6 +1,6 @@
 // Shared helpers for the Vercel functions. Files starting with _ are not deployed as routes.
 import { GoogleGenAI } from '@google/genai'
-import { findBannedPhrase } from '../shared/bannedPhrases'
+import { findBannedPhrase } from '../shared/bannedPhrases.js'
 
 export const MAX_TEXT_BYTES = 20_000
 

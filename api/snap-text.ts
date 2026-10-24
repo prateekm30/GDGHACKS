@@ -1,7 +1,7 @@
 // POST /api/snap-text  { text } -> { items: [{ type, label, quote }], cached? }
 // Receives only text the user reviewed and edited. The photo or PDF never leaves the device.
-import { DEMO_CHECKLIST, DEMO_FORM_TEXT } from '../shared/demoForm'
-import { askJson, errorResponse, HttpError, isClean, json, MAX_TEXT_BYTES, rateLimit, readJson } from './_gemma'
+import { DEMO_CHECKLIST, DEMO_FORM_TEXT } from '../shared/demoForm.js'
+import { askJson, errorResponse, HttpError, isClean, json, MAX_TEXT_BYTES, rateLimit, readJson } from './_gemma.js'
 
 const TYPES = new Set(['document', 'deadline', 'fee', 'contact'])
 const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim()

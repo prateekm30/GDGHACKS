@@ -1,6 +1,6 @@
 // GET /api/health -> whether the AI key is configured, never the key itself.
 // `envNames` lists the NAMES of AI-related variables this deployment can see, to debug a missing key.
-import { apiKey } from './_gemma'
+import { apiKey } from './_gemma.js'
 
 export function GET(): Response {
   return Response.json(
