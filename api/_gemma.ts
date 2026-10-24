@@ -4,11 +4,16 @@ import { findBannedPhrase } from '../shared/bannedPhrases'
 
 export const MAX_TEXT_BYTES = 20_000
 
+/** GEMINI_API_KEY, or GOOGLE_API_KEY (the other name Google's SDK reads). Trimmed: pasted keys often carry spaces. */
+export function apiKey(): string | undefined {
+  return (process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY)?.trim() || undefined
+}
+
 let client: GoogleGenAI | null = null
 function ai(): GoogleGenAI {
-  const apiKey = process.env.GEMINI_API_KEY
-  if (!apiKey) throw new HttpError(503, 'The AI service is not set up yet.')
-  client ??= new GoogleGenAI({ apiKey })
+  const key = apiKey()
+  if (!key) throw new HttpError(503, 'The AI service is not set up yet.')
+  client ??= new GoogleGenAI({ apiKey: key })
   return client
 }
 
