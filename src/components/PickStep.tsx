@@ -77,7 +77,7 @@ export function PickStep({
           [left, right],
           [right, left],
         ].map(([b, other], i) => (
-          <Card key={b.id} className="transition hover:-translate-y-0.5 hover:border-brand">
+          <Card key={b.id} className={`transition hover:-translate-y-0.5 hover:border-brand ${i === 0 ? 'rise-in' : 'rise-in-delay'}`}>
             <button
               type="button"
               className="flex h-full w-full flex-col rounded-card p-5"

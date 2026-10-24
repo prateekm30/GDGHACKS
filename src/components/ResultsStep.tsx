@@ -2,6 +2,7 @@ import { assess } from '../lib/eligibility'
 import { learnedPriorities, whyReasons, type Weights } from '../lib/ranking'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingCard } from './BuildingCard'
+import { Glossary } from './Glossary'
 import { SnapForm } from './SnapForm'
 import { Button, Card } from './ui'
 
@@ -123,6 +124,10 @@ export function ResultsStep({
 
       <section className="no-print">
         <SnapForm announce={announce} />
+      </section>
+
+      <section aria-labelledby="words-heading" className="no-print">
+        <Glossary />
       </section>
     </div>
   )

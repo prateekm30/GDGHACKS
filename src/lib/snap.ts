@@ -12,9 +12,9 @@ export interface ChecklistItem {
 export async function extractText(file: File, onProgress?: (pct: number) => void): Promise<string> {
   if (file.type === 'application/pdf') {
     const text = await pdfText(file)
-    // Scanned PDFs have no text layer; those need OCR on a rendered page (TODO for C).
     if (text.trim().length > 40) return text
-    throw new Error('This PDF looks scanned. Take a photo of the page instead.')
+    // Scanned PDF: no text layer, so draw each page and read it with OCR, still on the device.
+    return ocrPdfPages(file, onProgress)
   }
   return ocrImage(file, onProgress)
 }
@@ -33,7 +33,28 @@ async function pdfText(file: File): Promise<string> {
   return pages.join('\n\n')
 }
 
-async function ocrImage(file: File, onProgress?: (pct: number) => void): Promise<string> {
+const OCR_PAGES = 3
+
+async function ocrPdfPages(file: File, onProgress?: (pct: number) => void): Promise<string> {
+  const pdfjs = await import('pdfjs-dist')
+  const doc = await pdfjs.getDocument({ data: await file.arrayBuffer() }).promise
+  const pages = Math.min(doc.numPages, OCR_PAGES)
+  const out: string[] = []
+  for (let i = 1; i <= pages; i++) {
+    const page = await doc.getPage(i)
+    const viewport = page.getViewport({ scale: 2 })
+    const canvas = document.createElement('canvas')
+    canvas.width = viewport.width
+    canvas.height = viewport.height
+    await page.render({ canvas, viewport }).promise
+    const blob = await new Promise<Blob>((ok, fail) => canvas.toBlob((b) => (b ? ok(b) : fail(new Error('Could not draw page'))), 'image/png'))
+    out.push(await ocrImage(blob, (p) => onProgress?.(Math.round(((i - 1) * 100 + p) / pages))))
+  }
+  if (!out.join('').trim()) throw new Error('We could not find any text. Try a clearer photo of the page.')
+  return out.join('\n\n')
+}
+
+async function ocrImage(file: Blob, onProgress?: (pct: number) => void): Promise<string> {
   const { createWorker } = await import('tesseract.js')
   // TODO(C): self-host language data (langPath: '/tesseract') so nothing loads from a CDN.
   const worker = await createWorker('eng', 1, {

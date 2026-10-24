@@ -39,7 +39,7 @@ DC_METRO_ENTITY = "METRO47900M47900"  # Washington-Arlington-Alexandria HUD Metr
 
 # Only the fields we use. The HUD layers also carry tenant demographics; we never download them (fair housing).
 LIHTC_FIELDS = ["HUD_ID", "PROJECT", "PROJ_ADD", "PROJ_CTY", "PROJ_ST", "PROJ_ZIP", "N_UNITS", "LI_UNITS",
-                "N_0BR", "N_1BR", "N_2BR", "N_3BR", "N_4BR", "INC_CEIL", "YR_PIS", "TRGT_ELD", "TRGT_DIS",
+                "N_0BR", "N_1BR", "N_2BR", "N_3BR", "N_4BR", "INC_CEIL", "YR_PIS", "TRGT_FAM", "TRGT_ELD", "TRGT_DIS",
                 "CONTACT", "COMPANY", "CO_TEL", "COUNTY_LEVEL", "LAT", "LON"]
 MF_FIELDS = ["PROPERTY_ID", "PROPERTY_NAME_TEXT", "ADDRESS_LINE1_TEXT", "STD_CITY", "STD_ST", "STD_ZIP5",
              "TOTAL_UNIT_COUNT", "TOTAL_ASSISTED_UNIT_COUNT", "CLIENT_GROUP_NAME", "CLIENT_GROUP_TYPE",
@@ -141,11 +141,12 @@ def lihtc_building(a: dict, today: str) -> dict | None:
     # INC_CEIL codes: 1 = 50% AMGI, 2 = 60% AMGI, 3 = income averaging. VERIFY against the data dictionary.
     ceiling = {1: 50, 2: 60, 3: "avg"}.get(num(a.get("INC_CEIL")))
     bedrooms = [n for n in range(5) if (num(a.get(f"N_{n}BR")) or 0) > 0]
+    fam, eld, dis = (num(a.get(f)) == 1 for f in ("TRGT_FAM", "TRGT_ELD", "TRGT_DIS"))
     return {
         "id": f"lihtc-{a['HUD_ID']}",
-        "name": clean(a.get("PROJECT")) or "Unnamed property",
-        "address": clean(a.get("PROJ_ADD")) or "",
-        "city": (clean(a.get("PROJ_CTY")) or "").title(),
+        "name": title(clean(a.get("PROJECT"))) or "Unnamed property",
+        "address": title(clean(a.get("PROJ_ADD"))),
+        "city": title(clean(a.get("PROJ_CTY"))),
         "state": state,
         "zip": str(a.get("PROJ_ZIP") or "")[:5],
         "area": area,
@@ -156,8 +157,10 @@ def lihtc_building(a: dict, today: str) -> dict | None:
         "incomeCeiling": ceiling,
         "bedrooms": bedrooms,
         "yearPlacedInService": num(a.get("YR_PIS")),
-        "seniorOnly": num(a.get("TRGT_ELD")) == 1,  # VERIFY: 1 = yes
-        "disabilityOnly": num(a.get("TRGT_DIS")) == 1,
+        # TRGT_* = 1 means the property targets that group, not that it serves only them.
+        # Treat it as senior/disability-only only when it does not also target families.
+        "seniorOnly": eld and not fam,
+        "disabilityOnly": dis and not fam and not eld,
         "metroMiles": None,
         "contact": {"name": clean(a.get("CONTACT")), "org": clean(a.get("COMPANY")),
                     "phone": clean(a.get("CO_TEL")), "email": None},
@@ -170,13 +173,14 @@ def mf_building(a: dict, today: str) -> dict | None:
     area = area_of(a)
     if not area:
         return None
-    group = f'{a.get("CLIENT_GROUP_NAME") or ""} {a.get("CLIENT_GROUP_TYPE") or ""}'.lower()
+    group_type = (a.get("CLIENT_GROUP_TYPE") or "").lower()
+    group_name = (a.get("CLIENT_GROUP_NAME") or "").lower()
     bedrooms = [n for n in range(5) if (num(a.get(f"BD{n}_CNT1")) or 0) + (num(a.get(f"BD{n}_CNT2")) or 0) > 0]
     return {
         "id": f"hud-{a['PROPERTY_ID']}",
-        "name": clean(a.get("PROPERTY_NAME_TEXT")) or "Unnamed property",
-        "address": clean(a.get("ADDRESS_LINE1_TEXT")) or "",
-        "city": (clean(a.get("STD_CITY")) or "").title(),
+        "name": title(clean(a.get("PROPERTY_NAME_TEXT"))) or "Unnamed property",
+        "address": title(clean(a.get("ADDRESS_LINE1_TEXT"))),
+        "city": title(clean(a.get("STD_CITY"))),
         "state": state,
         "zip": str(a.get("STD_ZIP5") or "")[:5],
         "area": area,
@@ -187,17 +191,37 @@ def mf_building(a: dict, today: str) -> dict | None:
         "incomeCeiling": None,
         "bedrooms": bedrooms,
         "yearPlacedInService": None,
-        "seniorOnly": "elderly" in group,
-        "disabilityOnly": "disabled" in group and "elderly" not in group,
+        # "Family & Elderly" buildings are open to families, so only "Elderly" without "family" is senior-only.
+        "seniorOnly": group_type == "elderly" and "family" not in group_name,
+        "disabilityOnly": group_type == "disabled",
         "metroMiles": None,
         "contact": {
-            "name": clean(a.get("MGMT_CONTACT_FULL_NAME")),
-            "org": clean(a.get("MGMT_AGENT_ORG_NAME")),
+            "name": title(clean(a.get("MGMT_CONTACT_FULL_NAME"))) or None,
+            "org": title(clean(a.get("MGMT_AGENT_ORG_NAME"))) or None,
             "phone": clean(a.get("PROPERTY_ON_SITE_PHONE_NUMBER")) or clean(a.get("MGMT_CONTACT_MAIN_PHN_NBR")),
             "email": clean(a.get("MGMT_CONTACT_EMAIL_TEXT")),
         },
         "source": {"dataset": "HUD Multifamily Assisted Properties", "url": MULTIFAMILY_URL, "retrieved": today},
     }
+
+
+KEEP_UPPER = {"NW", "NE", "SW", "SE", "II", "III", "IV", "VI", "LP", "LLC", "DC", "VA", "US", "YMCA", "YWCA"}
+
+
+def title(s: str | None) -> str:
+    """HUD data is ALL CAPS. Make it readable without breaking quadrants or street letters."""
+    if not s:
+        return ""
+    out = []
+    for w in re.split(r"(\s+|-|/)", s.strip()):
+        core = w.strip(".,").upper()
+        if core in KEEP_UPPER or (len(core) == 1 and core.isalpha()) or re.fullmatch(r"\d+[A-Z]?", core):
+            out.append(w.upper())
+        elif re.fullmatch(r"\d+(ST|ND|RD|TH)", core):
+            out.append(w.lower())
+        else:
+            out.append(w[:1].upper() + w[1:].lower())
+    return "".join(out)
 
 
 def addr_key(b: dict) -> str:
@@ -218,8 +242,7 @@ def dedupe(buildings: list[dict]) -> list[dict]:
         for f in ("bedrooms", "yearPlacedInService", "totalUnits"):
             if not kept[f] and b[f]:
                 kept[f] = b[f]
-        kept["seniorOnly"] = kept["seniorOnly"] or b["seniorOnly"]
-        kept["disabilityOnly"] = kept["disabilityOnly"] or b["disabilityOnly"]
+        # Keep HUD's senior/disability flags: they say who may live there, LIHTC's only who is targeted.
     return list(by_key.values())
 
 

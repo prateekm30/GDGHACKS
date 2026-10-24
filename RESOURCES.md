@@ -5,7 +5,7 @@
 | Piece | Choice | Cost | Key needed? |
 |---|---|---|---|
 | Frontend | React 19 + Vite + TypeScript + Tailwind v4 | Free | No |
-| Backend | Vercel Functions in `api/` (3 small routes) | Free (Hobby) | No |
+| Backend | Vercel Functions in `api/` (2 small routes) | Free (Hobby) | No |
 | Hosting | Vercel: one deploy for the site and the API, preview URL per push | Free | Vercel account |
 | AI | Gemma 4 (`gemma-4-26b-a4b-it`, fallback `gemma-4-31b-it`) via the Gemini API | Free tier | `GEMINI_API_KEY` from https://aistudio.google.com/apikey |
 | On-device text reading | pdf.js (PDFs), Tesseract.js (photos) | Free | No |
@@ -32,7 +32,6 @@ made-up buildings and shows a "Sample data" banner.
 | Route | Does | Gets |
 |---|---|---|
 | `POST /api/snap-text` | Turns reviewed form text into a checklist; drops any item whose quote is not in the text | Text only, max 20 KB, rate limited |
-| `POST /api/explain` | Plain-English explainer for a fixed list of terms (optional, not wired into the UI yet) | A term name only |
 | `GET /api/health` | Says whether the AI key is set | Nothing |
 
 ## Who does what

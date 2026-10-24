@@ -5,8 +5,8 @@ export const BANNED_PATTERNS: RegExp[] = [
   /\byou(?:'re| are) (?:eligible|approved)\b/i,
   /\bapproved\b/i,
   /\bguarantee[ds]?\b/i,
-  /\bwait\s?list is open\b/i,
-  /\bwaiting list is open\b/i,
+  // "Ask if the waitlist is open" is fine; stating that it is open is not (we have no waitlist data).
+  /(?<!\b(?:if|whether) (?:the |your |their )?)\bwait(?:\s?list|ing list) is open\b/i,
 ]
 
 export function findBannedPhrase(text: string): string | null {
