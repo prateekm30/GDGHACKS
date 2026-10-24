@@ -10,7 +10,7 @@
 | AI | Gemma 4 (`gemma-4-26b-a4b-it`, fallback `gemma-4-31b-it`) via the Gemini API | Free tier | `GEMINI_API_KEY` from https://aistudio.google.com/apikey |
 | On-device text reading | pdf.js (PDFs), Tesseract.js (photos) | Free | No |
 | Building data | HUD LIHTC + HUD Multifamily ArcGIS REST APIs | Free | No |
-| Income limits | HUD USER API (Section 8) + HUD MTSP table | Free | `HUD_USER_TOKEN` (data script only) |
+| Income limits | Published 2026 table for the DC metro area (checked by tests); HUD USER API optional | Free | Optional `HUD_USER_TOKEN` |
 
 Why Vercel over Firebase or Cloud Run: the static site and the Gemma calls deploy together from the
 GitHub repo with zero config, and every PR gets a preview link to test on phones. Nothing here needs GCP.
@@ -24,8 +24,8 @@ merges the two datasets by address, adds Metro distance, and writes:
   rent ceiling type, year opened, senior/disability flags, contact, source and retrieval date)
 - `src/data/limits.2026.json`: income limits by household size 1 to 8
 
-The app loads these as static files, so there is no database. Until the script runs, the app uses 24
-made-up buildings and shows a "Sample data" banner.
+The app loads these as static files, so there is no database. A GitHub Action runs the script and commits
+the result, so Vercel redeploys with fresh data.
 
 ## API routes
 
@@ -44,6 +44,6 @@ Needs the team:
 1. Create a public GitHub repo, connect GitHub to Claude, and tell me the owner/name. I push after your OK.
 2. Import the repo in Vercel (vercel.com/new). Framework preset: Vite. Add env vars `GEMINI_API_KEY`,
    `GEMMA_MODEL`, `GEMMA_FALLBACK_MODEL`.
-3. Run `python3 data/build.py --inspect`, then `python3 data/build.py` on a laptop (this workspace cannot
-   reach HUD hosts). Paste the FY2026 MTSP rows into `limits.2026.json`.
+3. Housing data refreshes from the GitHub Actions tab (Refresh housing data, Run workflow). 2026 income
+   limits are already in, checked against the published table.
 4. Test Snap a form with a real (blank) application PDF and a phone photo.

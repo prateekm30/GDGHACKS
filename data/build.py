@@ -291,22 +291,20 @@ def build_limits() -> None:
     auth = {"Authorization": f"Bearer {token}"}
     limits = json.loads(OUT_LIMITS.read_text())
 
-    # Section 8 income limits. Response keys VERIFY: data.extremely_low.il30_p1 ... data.low.il80_p8
+    # Section 8 income limits. Response keys VERIFY: data.extremely_low.il30_p1 ... data.very_low.il50_p8
     il = get_json(f"{HUD_USER_API}/il/data/{DC_METRO_ENTITY}", headers=auth)["data"]
     limits["section8"] = {
         "30": [il["extremely_low"][f"il30_p{n}"] for n in range(1, 9)],
         "50": [il["very_low"][f"il50_p{n}"] for n in range(1, 9)],
-        "80": [il["low"][f"il80_p{n}"] for n in range(1, 9)],
     }
     limits["effective"] = str(il.get("year", limits["effective"]))
     limits["sources"] = [s for s in limits["sources"] if "huduser" not in s] + [
         f"Section 8 income limits: HUD USER API il/data/{DC_METRO_ENTITY}"]
-    limits["notes"] = [n for n in limits["notes"] if not n.startswith("Section 8")]
 
-    # MTSP limits are not in the HUD USER API. Update limits.mtsp by hand from the FY2026 MTSP table
-    # (https://www.huduser.gov/portal/datasets/mtsp.html) and remove the PLACEHOLDER note.
+    # MTSP limits are not in the HUD USER API. Each year, update limits.mtsp by hand from the MTSP table
+    # (https://www.huduser.gov/portal/datasets/mtsp.html); tests check the published values.
     OUT_LIMITS.write_text(json.dumps(limits, indent=2) + "\n")
-    print(f"Wrote Section 8 limits to {OUT_LIMITS.relative_to(ROOT)}. MTSP still needs a manual check.")
+    print(f"Wrote Section 8 limits to {OUT_LIMITS.relative_to(ROOT)}.")
 
 
 if __name__ == "__main__":

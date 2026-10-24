@@ -2,16 +2,55 @@
   "area": "Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area",
   "effective": "2026",
   "mtsp": {
-    "50": [58150, 66450, 74750, 83050, 89700, 96350, 103000, 109650],
-    "60": [69780, 79740, 89700, 99660, 107640, 115620, 123600, 131580]
+    "50": [
+      58150,
+      66450,
+      74750,
+      83050,
+      89700,
+      96350,
+      103000,
+      109650
+    ],
+    "60": [
+      69780,
+      79740,
+      89700,
+      99660,
+      107640,
+      115620,
+      123600,
+      131580
+    ]
   },
-  "section8": null,
+  "section8": {
+    "30": [
+      34900,
+      39900,
+      44900,
+      49850,
+      53850,
+      57850,
+      61850,
+      65850
+    ],
+    "50": [
+      58150,
+      66450,
+      74750,
+      83050,
+      89700,
+      96350,
+      103000,
+      109650
+    ]
+  },
   "sources": [
-    "60% limits for 1-4 people: Arlington County 2026 income and rent limits, https://www.arlingtonva.us/Government/Programs/Housing/Income-and-Rent-Limits"
+    "2026 income limits for the Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area (median family income $166,100), effective June 1, 2026, as published by Prince William County: https://www.pwcva.gov/assets/2026-10/2026%20%20Income%20limits%20with%20%20%2060%25%20AMI%20and%20uncapped%2010.26.pdf",
+    "60% limits for 1-4 people also match Arlington County's 2026 income and rent limits: https://www.arlingtonva.us/Government/Programs/Housing/Income-and-Rent-Limits"
   ],
   "notes": [
-    "PLACEHOLDER until data/build.py loads the official HUD FY2026 MTSP table.",
-    "50% limits are the 60% limits divided by 1.2. Sizes 5-8 use HUD's standard 1.08/1.16/1.24/1.32 adjustments of the 4-person limit and are not yet verified.",
-    "Section 8 limits are not loaded yet, so HUD-assisted cards do not show an under-the-limit line."
+    "MTSP 50% and 60% rows and the 30% and 50% Section 8 rows checked against the published 2026 table for all 8 household sizes.",
+    "HUD-assisted buildings are compared to the 50% (very low income) limit. Some admit up to 80%, so the app tells people to ask."
   ]
 }

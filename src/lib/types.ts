@@ -37,7 +37,7 @@ export interface IncomeLimits {
   effective: string
   mtsp: { '50': number[]; '60': number[] }
   /** Section 8 limits for HUD-assisted buildings. null until the pipeline fills them. */
-  section8: { '30': number[]; '50': number[]; '80': number[] } | null
+  section8: { '30': number[]; '50': number[] } | null
   sources: string[]
   notes: string[]
 }

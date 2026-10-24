@@ -5,7 +5,7 @@
 | Output | What it holds | Source |
 |---|---|---|
 | `public/data/buildings.json` | One row per building (see `Building` in `src/lib/types.ts`) | HUD LIHTC Database and HUD Multifamily Properties (Assisted), both public ArcGIS REST query APIs on HUD's ArcGIS Online, no key. Filtered to DC (FIPS 11001) and Arlington (51013). |
-| `src/data/limits.2026.json` | MTSP limits (for tax-credit buildings) and Section 8 limits (for HUD-assisted buildings), by household size 1 to 8 | HUD USER API (free token) for Section 8; HUD MTSP table entered by hand |
+| `src/data/limits.2026.json` | MTSP limits (for tax-credit buildings) and Section 8 limits (for HUD-assisted buildings), by household size 1 to 8 | 2026 table for the Washington-Arlington-Alexandria HUD Metro FMR Area, entered by hand and checked by tests. Optional: HUD USER API (free token) refreshes Section 8 rows. |
 
 ## Run it
 
@@ -18,9 +18,9 @@ python3 data/build.py                                  # 2. write buildings.json
 HUD_USER_TOKEN=... python3 data/build.py               # 2b. also write Section 8 limits
 ```
 
-Get a HUD USER token at https://www.huduser.gov/hudapi/public/register . Then copy the FY2026 MTSP
-50% and 60% rows for the Washington-Arlington-Alexandria area from https://www.huduser.gov/portal/datasets/mtsp.html
-into `limits.mtsp` and delete the PLACEHOLDER note. A test checks the 1BR 60% rent ceiling is $1,869.
+The 2026 limits are already in `limits.2026.json`, with sources. When HUD publishes new limits, update
+`limits.mtsp` from https://www.huduser.gov/portal/datasets/mtsp.html and the tests that pin the values.
+A HUD USER token (https://www.huduser.gov/hudapi/public/register) lets the script refresh the Section 8 rows.
 
 ## Metro distance
 

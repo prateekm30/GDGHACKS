@@ -129,8 +129,9 @@ export function assess(
         limit = situation.income <= limitAmount ? 'under' : 'over'
       }
     } else if (limits.section8) {
-      // HUD programs vary; 80% (low income) is the outer bound for most assisted housing.
-      limitAmount = limitFor(limits.section8['80'], situation.householdSize)
+      // HUD programs vary. We use the very-low-income (50%) limit most HUD-assisted buildings admit under.
+      // Some can go up to 80%, so "over" here still means "ask the property".
+      limitAmount = limitFor(limits.section8['50'], situation.householdSize)
       limit = situation.income <= limitAmount ? 'under' : 'over'
     }
   }

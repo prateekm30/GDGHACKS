@@ -64,7 +64,15 @@ describe('assess', () => {
     expect(a.cost.monthly).toBe(1300)
   })
   it('does not claim a HUD limit when Section 8 limits are not loaded', () => {
-    expect(assess(building({ program: 'HUD' }), limits, me).limit).toBe('unknown')
+    expect(assess(building({ program: 'HUD' }), { ...limits, section8: null }, me).limit).toBe('unknown')
+  })
+  it('compares HUD-assisted buildings to the 50% very-low-income limit ($58,150 for one person)', () => {
+    expect(assess(building({ program: 'HUD' }), limits, { ...me, income: 58_150 }).limit).toBe('under')
+    expect(assess(building({ program: 'HUD' }), limits, { ...me, income: 58_151 }).limit).toBe('over')
+  })
+  it('uses the published 2026 table for all 8 household sizes', () => {
+    expect(limits.mtsp['60']).toEqual([69780, 79740, 89700, 99660, 107640, 115620, 123600, 131580])
+    expect(limits.mtsp['50']).toEqual([58150, 66450, 74750, 83050, 89700, 96350, 103000, 109650])
   })
   it('warns on buildings 30+ years old', () => {
     expect(assess(building({ yearPlacedInService: 1990 }), limits, me, 2026).oldRestrictions).toBe(true)
