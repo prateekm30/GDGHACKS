@@ -1,4 +1,6 @@
 import { Award } from 'lucide-react'
+import { useReveal } from '../lib/motion'
+import { Confetti } from './Confetti'
 import { assess } from '../lib/eligibility'
 import { learnedPriorities, whyReasons, type Weights } from '../lib/ranking'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
@@ -41,16 +43,20 @@ export function ResultsStep({
 }) {
   const priorities = learnedPriorities(weights)
   const max = Math.max(...priorities.map((p) => p.weight), 1)
+  const revealRef = useReveal<HTMLDivElement>()
 
   return (
-    <div className="space-y-8">
+    <div ref={revealRef} className="space-y-10">
+      {shortlist.length > 0 && <Confetti />}
       <section aria-labelledby="learned-heading">
-        <Card className="p-5">
+        <Card className="rise-in relative overflow-hidden p-6 sm:p-8">
+          <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
-              <h2 id="learned-heading" className="text-lg font-semibold">What we learned about you</h2>
+              <h2 id="learned-heading" className="text-sm font-semibold uppercase tracking-wider text-ink-soft" style={{ fontFamily: 'var(--font-sans)' }}>What we learned about you</h2>
               {priorities[0] && (
-                <p className="font-display mt-1 text-2xl font-bold text-brand">You care most about {priorities[0].label.charAt(0).toLowerCase() + priorities[0].label.slice(1)}.</p>
+                <p className="font-display mt-1 text-3xl font-extrabold leading-tight text-ink sm:text-4xl">You care most about{' '}
+                  <span className="text-brand">{priorities[0].label.charAt(0).toLowerCase() + priorities[0].label.slice(1)}</span>.</p>
               )}
               <p className="mt-1 text-sm text-ink-soft">From your basics and picks. Wrong? Edit your answers or start over.</p>
             </div>
@@ -67,9 +73,9 @@ export function ResultsStep({
             {priorities.map((p, i) => (
               <li key={p.feature} className="grid grid-cols-[9rem_1fr] items-center gap-3 text-sm sm:grid-cols-[12rem_1fr]">
                 <span className={i === 0 ? 'font-semibold' : ''}>{p.label}</span>
-                <span className="h-2.5 overflow-hidden rounded-full bg-line" aria-hidden>
+                <span className="h-3 overflow-hidden rounded-full bg-line" aria-hidden>
                   <span
-                    className={`grow-x block h-full rounded-full ${i === 0 ? 'bg-accent' : 'bg-brand'}`}
+                    className={`grow-x block h-full rounded-full ${i === 0 ? 'bg-brand' : i === 1 ? 'bg-coral' : 'bg-accent'}`}
                     style={{ width: `${(p.weight / max) * 100}%`, animationDelay: `${i * 70}ms` }}
                   />
                 </span>
@@ -81,9 +87,14 @@ export function ResultsStep({
 
       <section aria-labelledby="short-heading" className="space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-2">
-          <h2 id="short-heading" className="text-2xl font-bold tracking-tight">
-            Your top matches
-          </h2>
+          <div>
+            <span aria-hidden className="font-hand text-2xl text-brand-strong">
+              ta-da! picked just for you
+            </span>
+            <h2 id="short-heading" className="text-3xl font-extrabold sm:text-4xl">
+              Your top matches
+            </h2>
+          </div>
           <Button variant="secondary" className="no-print" onClick={() => window.print()}>
             Print my plan
           </Button>
@@ -91,36 +102,42 @@ export function ResultsStep({
         {shortlist.length === 0 && <p className="text-sm text-ink-soft">No buildings to show yet. Try starting over with a different area.</p>}
         <div className="grid gap-4 lg:grid-cols-3">
           {shortlist.map((b, i) => (
-            <Card key={b.id} className={`rise-in relative p-5 ${i === 0 ? 'ring-2 ring-accent' : ''}`} style={{ animationDelay: `${i * 90}ms` }}>
-              <span
-                className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${
-                  i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
-                }`}
-              >
-                {i === 0 ? (
-                  <>
-                    <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
-                    Best match
-                  </>
-                ) : (
-                  `#${i + 1} match`
-                )}
-              </span>
-              <BuildingCard
-                b={b}
-                a={assess(b, limits, situation)}
-                limits={limits}
-                reasons={whyReasons(b, weights, limits, situation)}
-                detailed
-              />
-            </Card>
+            <div
+              key={b.id}
+              className={`rise-in ${i === 0 ? 'glow-border' : ''}`}
+              style={{ animationDelay: `${200 + i * 140}ms` }}
+            >
+              <Card className="group relative h-full p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+                <span
+                  className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
+                    i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
+                  }`}
+                >
+                  {i === 0 ? (
+                    <>
+                      <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
+                      Best match
+                    </>
+                  ) : (
+                    `#${i + 1} match`
+                  )}
+                </span>
+                <BuildingCard
+                  b={b}
+                  a={assess(b, limits, situation)}
+                  limits={limits}
+                  reasons={whyReasons(b, weights, limits, situation)}
+                  detailed
+                />
+              </Card>
+            </div>
           ))}
         </div>
       </section>
 
-      <section aria-labelledby="next-heading">
-        <Card className="p-5">
-          <h2 id="next-heading" className="text-lg font-semibold">Your next steps</h2>
+      <section aria-labelledby="next-heading" className="reveal">
+        <Card className="p-6 sm:p-8">
+          <h2 id="next-heading" className="text-2xl font-extrabold">Your next steps</h2>
           <ol className="mt-3 list-decimal space-y-3 pl-5 text-sm">
             <li>
               Call each building above. Ask:
@@ -143,11 +160,11 @@ export function ResultsStep({
         </Card>
       </section>
 
-      <section className="no-print">
+      <section className="no-print reveal">
         <SnapForm announce={announce} />
       </section>
 
-      <section aria-labelledby="words-heading" className="no-print">
+      <section aria-labelledby="words-heading" className="no-print reveal">
         <Glossary />
       </section>
     </div>

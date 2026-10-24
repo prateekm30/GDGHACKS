@@ -9,6 +9,7 @@ import limitsJson from './data/limits.2026.json'
 import { isVisible } from './lib/eligibility'
 import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
 import type { Building, IncomeLimits } from './lib/types'
+import { withTransition } from './lib/motion'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
@@ -88,22 +89,28 @@ export default function App() {
   const shortlist = useMemo(() => rank(pool, weights, limits, situation).slice(0, 3), [pool, weights, situation])
   const isSample = !!buildings?.some((b) => b.sample)
 
+  // Every screen change goes through here, so it gets the same transition.
+  function go(next: Step) {
+    withTransition(() => {
+      setStep(next)
+      window.scrollTo({ top: 0 })
+    })
+  }
+
   function begin(choice: AreaChoice) {
     setArea(choice)
     setPicks([])
-    setStep('basics')
-    window.scrollTo({ top: 0 })
+    go('basics')
   }
 
   function onBasicsDone(b: Basics) {
     setBasics(b)
     saveBasics(b)
-    window.scrollTo({ top: 0 })
     if (picks.length >= ROUNDS) {
-      setStep('results')
+      go('results')
       announce('Your matches are updated')
     } else {
-      setStep('pick')
+      go('pick')
       announce('First pair ready')
     }
   }
@@ -116,14 +123,13 @@ export default function App() {
   }
 
   function finish() {
-    setStep('results')
+    go('results')
     announce('Your matches are ready')
-    window.scrollTo({ top: 0 })
   }
 
   function restart() {
     setPicks([])
-    setStep('start')
+    go('start')
     announce('Starting over')
   }
 
@@ -138,10 +144,10 @@ export default function App() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <header className="no-print sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
-          <button type="button" onClick={restart} className="flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
-            <LogoMark />
+      <header className="no-print sticky top-0 z-30 border-b border-line/70 bg-canvas/80 backdrop-blur-md">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
+          <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
+            <LogoMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
             <span className="font-display text-lg">
               HomePick <span className="text-brand">DMV</span>
             </span>
@@ -153,7 +159,7 @@ export default function App() {
         </div>
       </header>
 
-      <main id="main" className="mx-auto max-w-5xl space-y-6 px-4 py-8">
+      <main id="main" className={buildings && step === 'start' ? '' : 'mx-auto max-w-5xl space-y-6 px-4 py-8'}>
         {buildings && step !== 'start' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
@@ -215,7 +221,8 @@ export default function App() {
 
         {buildings && step === 'basics' && (
           <section aria-labelledby="basics-heading">
-            <Card className="mx-auto max-w-2xl p-6 sm:p-8">
+            <Card className="rise-in relative mx-auto max-w-2xl overflow-hidden p-6 pt-8 sm:p-10">
+              <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
               <BasicsForm initial={basics} onDone={onBasicsDone} />
             </Card>
           </section>
@@ -227,15 +234,16 @@ export default function App() {
             weights={weights}
             limits={limits}
             situation={situation}
-            onEditSituation={() => setStep('basics')}
+            onEditSituation={() => go('basics')}
             onRestart={restart}
             announce={announce}
           />
         )}
       </main>
 
-      <footer className="no-print border-t border-line">
-        <div className="mx-auto max-w-5xl space-y-1 px-4 py-6 text-xs text-ink-soft">
+      <footer className="no-print bg-dusk text-white/85">
+        <div aria-hidden className="metro-stripe h-1.5" />
+        <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs">
           <p>
             Data: HUD LIHTC and HUD Multifamily datasets. Income limits {limits.effective}. Not affiliated with HUD, DC, or
             Arlington County.

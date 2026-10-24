@@ -1,9 +1,51 @@
-import { Check } from 'lucide-react'
+import { Check, Undo2 } from 'lucide-react'
 import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { assess } from '../lib/eligibility'
+import { prefersReducedMotion, tiltHandlers } from '../lib/motion'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingCard } from './BuildingCard'
-import { Button, Card, ProgressBar } from './ui'
+import { Button } from './ui'
+
+/** Progress as stops on a Metro line: done stops are filled, the current one pulses. */
+function MetroProgress({ value, max }: { value: number; max: number }) {
+  const done = Math.min(value, max)
+  return (
+    <div>
+      <div className="mb-2 flex justify-between text-xs font-semibold text-ink-soft">
+        <span>Your picks</span>
+        <span>
+          {done} of {max}
+        </span>
+      </div>
+      <div
+        role="progressbar"
+        aria-valuemin={0}
+        aria-valuemax={max}
+        aria-valuenow={done}
+        aria-label="Your picks"
+        className="relative flex items-center justify-between"
+      >
+        <span aria-hidden className="absolute inset-x-2 h-1.5 rounded-full bg-line" />
+        <span
+          aria-hidden
+          className="absolute left-2 h-1.5 rounded-full bg-brand transition-[width] duration-500 ease-out"
+          style={{ width: `calc(${(done / max) * 100}% - ${(done / max) * 1}rem)` }}
+        />
+        {Array.from({ length: max + 1 }, (_, i) => (
+          <span
+            key={i}
+            aria-hidden
+            className={`relative grid size-4 place-items-center rounded-full border-[3px] transition-colors duration-300 ${
+              i <= done ? 'border-brand bg-white' : 'border-line bg-white'
+            }`}
+          >
+            {i === done && i < max && <span className="absolute inset-[-6px] animate-ping rounded-full bg-brand/30" />}
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export function PickStep({
   pair,
@@ -30,18 +72,17 @@ export function PickStep({
   const [left, right] = pair
   const [chosenId, setChosenId] = useState<string | null>(null)
 
-  // Show the pick for a moment (ring, check, other card fades), then move on. No delay with reduced motion.
+  useEffect(() => {
+    groupRef.current?.focus({ preventScroll: true })
+  }, [])
+
+  // Show the pick for a moment (the card lifts away, the other drops), then move on. No delay with reduced motion.
   function choose(b: Building, other: Building) {
     if (chosenId) return
-    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    if (reduce) return onPick(b, other)
+    if (prefersReducedMotion()) return onPick(b, other)
     setChosenId(b.id)
-    window.setTimeout(() => onPick(b, other), 280)
+    window.setTimeout(() => onPick(b, other), 430)
   }
-
-  useEffect(() => {
-    groupRef.current?.focus()
-  }, [])
 
   // Arrow keys only while the picker has focus, so screen-reader keys are not taken over.
   function onKeyDown(e: KeyboardEvent<HTMLDivElement>) {
@@ -56,17 +97,20 @@ export function PickStep({
   }
 
   return (
-    <section aria-labelledby="pick-heading" className="space-y-5">
-      <ProgressBar value={round} max={rounds} label="Your picks" />
-      <div className="flex flex-wrap items-end justify-between gap-2">
+    <section aria-labelledby="pick-heading" className="space-y-6">
+      <MetroProgress value={round} max={rounds} />
+      <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="pick-heading" className="text-2xl font-bold tracking-tight">
+          <h2 id="pick-heading" className="text-3xl font-extrabold sm:text-4xl">
             Which would you rather live in?
           </h2>
-          <p className="text-sm text-ink-soft">Tap a building. With a keyboard, focus here and use the left and right arrow keys.</p>
+          <p className="mt-1 text-sm text-ink-soft">
+            Tap a building. With a keyboard, focus here and use the left and right arrow keys.
+          </p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" onClick={onUndo} disabled={!canUndo}>
+            <Undo2 aria-hidden className="mr-1.5 size-4" />
             Undo
           </Button>
           {round >= 3 && (
@@ -82,43 +126,58 @@ export function PickStep({
         role="group"
         aria-label={`Choose between ${left.name} and ${right.name}`}
         onKeyDown={onKeyDown}
-        className="relative grid gap-4 rounded-card md:grid-cols-2"
+        className="relative grid gap-5 rounded-card md:grid-cols-2"
       >
         <span
           aria-hidden
-          className="font-display pointer-events-none absolute left-1/2 top-1/2 z-10 hidden size-12 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-accent text-base font-extrabold text-ink shadow-lift ring-4 ring-canvas md:grid"
+          className={`wiggle font-display pointer-events-none absolute left-1/2 top-1/2 z-10 hidden size-16 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-lift ring-[6px] ring-canvas transition-opacity duration-200 md:grid ${
+            chosenId ? 'opacity-0' : ''
+          }`}
         >
           or
         </span>
         {[
           [left, right],
           [right, left],
-        ].map(([b, other], i) => (
-          <Card
-            key={b.id}
-            className={`relative transition duration-200 hover:-translate-y-0.5 hover:border-brand hover:shadow-lift ${
-              i === 0 ? 'rise-in' : 'rise-in-delay'
-            } ${chosenId === b.id ? 'scale-[1.01] border-brand ring-2 ring-brand' : chosenId ? 'scale-[0.98] opacity-40' : ''}`}
-          >
-            {chosenId === b.id && (
-              <span aria-hidden className="pop absolute right-3 top-3 z-10 grid size-10 place-items-center rounded-full bg-brand text-white shadow-lift">
-                <Check className="size-6" strokeWidth={3} />
-              </span>
-            )}
-            <button
-              type="button"
-              className="flex h-full w-full flex-col rounded-card p-5"
-              onClick={() => choose(b, other)}
-              aria-label={`Pick ${b.name}${i === 0 ? ' (left arrow)' : ' (right arrow)'}`}
+        ].map(([b, other], i) => {
+          const state = chosenId === b.id ? 'picked' : chosenId ? 'dropped' : i === 0 ? 'in-left' : 'in-right'
+          return (
+            <div
+              key={b.id}
+              className={state}
+              style={{ ['--drop-r' as string]: i === 0 ? '-4deg' : '4deg' }}
             >
-              <BuildingCard b={b} a={assess(b, limits, situation)} limits={limits} />
-              <span className="mt-4 inline-flex w-full justify-center rounded-xl bg-brand-tint py-2.5 text-sm font-semibold text-brand-strong">
-                {chosenId === b.id ? 'Picked' : 'Pick this one'}
-              </span>
-            </button>
-          </Card>
-        ))}
+              <div
+                {...tiltHandlers()}
+                className="tilt group relative h-full overflow-hidden rounded-card border-2 border-transparent bg-surface shadow-card hover:border-brand hover:shadow-lift"
+              >
+                {chosenId === b.id && (
+                  <span aria-hidden className="pop absolute right-4 top-4 z-20 grid size-14 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white">
+                    <Check className="size-8" strokeWidth={3} />
+                  </span>
+                )}
+                <span aria-hidden className="glare pointer-events-none absolute inset-0 z-10" />
+                <button
+                  type="button"
+                  className="flex h-full w-full flex-col rounded-card p-5"
+                  onClick={() => choose(b, other)}
+                  aria-label={`Pick ${b.name}${i === 0 ? ' (left arrow)' : ' (right arrow)'}`}
+                >
+                  <BuildingCard b={b} a={assess(b, limits, situation)} limits={limits} />
+                  <span className="mt-auto pt-4">
+                    <span className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand py-3 text-sm font-bold text-white transition duration-200 group-hover:bg-brand-strong">
+                      {chosenId === b.id ? 'Picked!' : 'Pick this one'}
+                    </span>
+                  </span>
+                </button>
+              </div>
+            </div>
+          )
+        })}
       </div>
+      <p aria-hidden className="font-hand text-center text-2xl text-ink-soft">
+        no wrong answers, just go with your gut
+      </p>
     </section>
   )
 }
