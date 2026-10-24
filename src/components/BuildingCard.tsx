@@ -29,7 +29,11 @@ export function CostLine({ a }: { a: Assessment }) {
       <div className="flex flex-wrap items-center gap-2">
         <BurdenBadge level="ok">Income-based rent</BurdenBadge>
         <span className="text-sm text-ink-soft">
-          {c.monthly !== null ? <>You'd pay about 30% of your income, about {money(c.monthly)}/mo</> : <>You'd pay about 30% of your income</>}
+          {c.monthly !== null ? (
+            <>About {money(c.monthly)}/mo: 30% of the income you entered</>
+          ) : (
+            <>Rent is set at about 30% of whatever your household earns</>
+          )}
         </span>
       </div>
     )
