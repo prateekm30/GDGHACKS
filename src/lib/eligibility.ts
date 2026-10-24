@@ -151,7 +151,7 @@ export function assess(
 }
 
 /** Buildings the user should see at all, given the senior/disability toggle. */
-export function isVisible(building: Building, situation: Situation | null): boolean {
+export function isVisible(building: Building, situation: Pick<Situation, 'includeSeniorDisability'> | null): boolean {
   if (building.seniorOnly || building.disabilityOnly) return !!situation?.includeSeniorDisability
   return true
 }

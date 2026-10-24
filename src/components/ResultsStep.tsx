@@ -52,7 +52,7 @@ export function ResultsStep({
             </div>
             <div className="no-print flex gap-2">
               <Button variant="secondary" onClick={onEditSituation}>
-                {situation ? 'Edit income' : 'Add income'}
+                {situation ? 'Edit my answers' : 'Add income for estimates'}
               </Button>
               <Button variant="ghost" onClick={onRestart}>
                 Start over

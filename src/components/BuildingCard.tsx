@@ -1,8 +1,26 @@
 import type { Assessment } from '../lib/eligibility'
 import type { Building, IncomeLimits } from '../lib/types'
+import { BuildingPhoto } from './BuildingPhoto'
 import { BurdenBadge, Note, Pill, money } from './ui'
 
 const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
+
+/** Facts we actually have from HUD. HUD lists no amenities (laundry, parking), so we don't invent any. */
+function facts(b: Building): { icon: string; label: string }[] {
+  const out: { icon: string; label: string }[] = []
+  if (b.metroMiles !== null) out.push({ icon: '🚇', label: b.metroMiles < 0.15 ? 'Next to Metro' : `${b.metroMiles.toFixed(1)} mi to Metro` })
+  if (b.bedrooms.length) {
+    const lo = Math.min(...b.bedrooms)
+    const hi = Math.max(...b.bedrooms)
+    out.push({ icon: '🛏', label: lo === hi ? BR(lo) : `${BR(lo)} to ${BR(hi)}` })
+  }
+  if (b.yearPlacedInService) out.push({ icon: '🏗', label: `Opened ${b.yearPlacedInService}` })
+  if (b.affordableUnits) out.push({ icon: '🏢', label: `${b.affordableUnits} affordable homes` })
+  out.push({ icon: '📍', label: b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA' })
+  if (b.seniorOnly) out.push({ icon: '👵', label: 'Seniors (62+)' })
+  if (b.disabilityOnly) out.push({ icon: '♿', label: 'For people with disabilities' })
+  return out
+}
 
 export function CostLine({ a }: { a: Assessment }) {
   const c = a.cost
@@ -65,10 +83,11 @@ export function BuildingCard({
 }) {
   return (
     <div className="flex h-full flex-col gap-3 text-left">
-      <div className="flex flex-wrap gap-1.5">
-        <Pill>{b.program === 'LIHTC' ? 'Tax credit (LIHTC)' : 'HUD-assisted'}</Pill>
-        <Pill>{b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA'}</Pill>
-        {b.metroMiles !== null && <Pill>{b.metroMiles < 0.15 ? 'Next to Metro' : `${b.metroMiles.toFixed(1)} mi to Metro`}</Pill>}
+      <div className="relative -mx-5 -mt-5 mb-1">
+        <BuildingPhoto b={b} className={`rounded-t-card ${detailed ? 'h-36' : 'h-40 sm:h-44'}`} />
+        <span className="absolute left-3 top-3 rounded-full bg-white/95 px-2.5 py-1 text-xs font-semibold text-ink shadow-sm">
+          {b.program === 'LIHTC' ? 'Tax credit (LIHTC)' : 'HUD-assisted'}
+        </span>
       </div>
       <div>
         <h3 className="text-lg font-semibold leading-snug">{b.name}</h3>
@@ -78,14 +97,18 @@ export function BuildingCard({
       </div>
       <CostLine a={a} />
       <LimitLine a={a} limits={limits} />
-      <dl className="grid grid-cols-2 gap-x-4 gap-y-1 text-sm">
-        <dt className="text-ink-soft">Affordable units</dt>
-        <dd>{b.affordableUnits ?? 'Unknown'}</dd>
-        <dt className="text-ink-soft">Unit sizes</dt>
-        <dd>{b.bedrooms.length ? b.bedrooms.map(BR).join(', ') : 'Unknown'}</dd>
-        <dt className="text-ink-soft">Opened</dt>
-        <dd>{b.yearPlacedInService ?? 'Unknown'}</dd>
-      </dl>
+      <ul aria-label="Building facts" className="flex flex-wrap gap-1.5">
+        {facts(b).map((f) => (
+          <li key={f.label}>
+            <Pill>
+              <span aria-hidden className="mr-1">
+                {f.icon}
+              </span>
+              {f.label}
+            </Pill>
+          </li>
+        ))}
+      </ul>
       {reasons.length > 0 && (
         <ul className="space-y-1 text-sm">
           {reasons.map((r) => (
@@ -103,6 +126,7 @@ export function BuildingCard({
       {a.studentRuleMayApply && <Note tone="warn">Student rules may apply. Ask the property.</Note>}
       {detailed && (
         <div className="mt-auto space-y-1 border-t border-line pt-3 text-sm">
+          <p className="text-xs text-ink-soft">HUD data doesn't list amenities like laundry or parking. Ask when you call.</p>
           {b.contact.phone || b.contact.org || b.contact.name ? (
             <>
               <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>

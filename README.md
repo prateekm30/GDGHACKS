@@ -66,12 +66,15 @@ flowchart LR
 
 Income, picks, and photos stay in your browser (session storage, cleared when the tab closes).
 `GEMINI_API_KEY` is server-side only. The API does not log request content.
+Building photos are aerial tiles from Esri World Imagery; Esri sees which public building locations are
+viewed, never anything you type.
 
 ## Credits and data
 
 - HUD LIHTC Database and HUD Multifamily Assisted Properties (public domain, U.S. government)
 - 2026 income limits for the Washington-Arlington-Alexandria HUD Metro FMR Area (MTSP and Section 8)
 - WMATA Metro station locations (Open Data DC)
+- Aerial imagery: Esri World Imagery (Esri, Maxar, Earthstar Geographics)
 - Gemma 4 via the Gemini API
 - React, Vite, Tailwind CSS, pdf.js (Apache-2.0), Tesseract.js (Apache-2.0)
 

@@ -5,7 +5,7 @@ import type { Building, IncomeLimits, Situation } from './types'
  * Pairwise preference model (Bradley-Terry / logistic regression on feature differences).
  * Runs entirely in the browser. Features never include place names or demographics.
  */
-export const FEATURES = ['cost', 'incomeBased', 'bedrooms', 'metro', 'size'] as const
+export const FEATURES = ['cost', 'incomeBased', 'bedrooms', 'metro', 'newer', 'size'] as const
 export type Feature = (typeof FEATURES)[number]
 export type Weights = Record<Feature, number>
 
@@ -14,11 +14,22 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   incomeBased: 'Rent based on your income',
   bedrooms: 'More bedrooms',
   metro: 'Closer to Metro',
+  newer: 'Newer building',
   size: 'Bigger building',
 }
 
 /** Starting belief: cost matters most. Picks move the weights away from this. */
-export const PRIOR: Weights = { cost: 1.5, incomeBased: 0.3, bedrooms: 0.3, metro: 0.6, size: 0 }
+export const PRIOR: Weights = { cost: 1.5, incomeBased: 0.3, bedrooms: 0.3, metro: 0.6, newer: 0.2, size: 0 }
+
+/** How much a "matters most" choice on the basics step raises a feature's starting weight. */
+const PRIORITY_BOOST = 1.2
+
+/** Starting weights from the basics step. Picks still move them from here. */
+export function priorFor(priorities: readonly Feature[]): Weights {
+  const w = { ...PRIOR }
+  for (const f of priorities) w[f] += PRIORITY_BOOST
+  return w
+}
 
 const LEARNING_RATE = 0.8
 const PULL_TO_PRIOR = 0.1
@@ -37,6 +48,8 @@ export function features(b: Building, limits: IncomeLimits, situation: Situation
     incomeBased: b.program === 'HUD' ? 1 : 0,
     bedrooms: Math.min(Math.max(0, ...b.bedrooms, 0), 3) / 3,
     metro: b.metroMiles === null ? 0.5 : 1 - Math.min(b.metroMiles, 3) / 3,
+    // Opened 1987 (oldest in the data) = 0, this year = 1. Unknown sits in the middle.
+    newer: b.yearPlacedInService === null ? 0.5 : Math.min(Math.max((b.yearPlacedInService - 1987) / 39, 0), 1),
     size: b.totalUnits ? Math.min(Math.log10(b.totalUnits) / 3, 1) : 0.3,
   }
 }
@@ -135,6 +148,7 @@ export function whyReasons(b: Building, w: Weights, limits: IncomeLimits, situat
     if (f === 'incomeBased') out.push('Rent is based on income, so it stays near 30% of yours')
     if (f === 'bedrooms') out.push('It has the larger units you leaned toward')
     if (f === 'metro' && b.metroMiles !== null) out.push(b.metroMiles < 0.15 ? 'Right next to a Metro station' : `About ${b.metroMiles.toFixed(1)} miles from Metro (straight line)`)
+    if (f === 'newer' && b.yearPlacedInService !== null) out.push(`Newer building, opened ${b.yearPlacedInService}`)
     if (f === 'size') out.push('It is a larger building, like ones you chose')
   }
   return out

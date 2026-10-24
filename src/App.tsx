@@ -1,19 +1,18 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
-import { SituationForm } from './components/SituationForm'
+import { BasicsForm, toSituation, type Basics } from './components/BasicsForm'
 import { Button, Card, Note } from './components/ui'
 import limitsJson from './data/limits.2026.json'
 import { isVisible } from './lib/eligibility'
-import { fit, nextPair, PRIOR, rank, type Pick } from './lib/ranking'
-import type { Area, Building, IncomeLimits, Situation } from './lib/types'
+import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
+import type { Area, Building, IncomeLimits } from './lib/types'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
-const ASK_SITUATION_AFTER = 3
-const SITUATION_KEY = 'homepick.situation'
+const BASICS_KEY = 'homepick.basics'
 
-type Step = 'start' | 'pick' | 'situation' | 'results'
+type Step = 'start' | 'basics' | 'pick' | 'results'
 type AreaChoice = Area | 'BOTH'
 
 const AREA_OPTIONS: { value: AreaChoice; title: string; hint: string }[] = [
@@ -23,21 +22,25 @@ const AREA_OPTIONS: { value: AreaChoice; title: string; hint: string }[] = [
 ]
 
 // Session storage only: income is gone when the tab closes, and storage can be blocked.
-function loadSituation(): Situation | null {
+function loadBasics(): Basics | null {
   try {
-    const raw = sessionStorage.getItem(SITUATION_KEY)
-    return raw ? (JSON.parse(raw) as Situation) : null
+    const raw = sessionStorage.getItem(BASICS_KEY)
+    return raw ? (JSON.parse(raw) as Basics) : null
   } catch {
     return null
   }
 }
-function saveSituation(s: Situation | null) {
+function saveBasics(b: Basics) {
   try {
-    if (s) sessionStorage.setItem(SITUATION_KEY, JSON.stringify(s))
-    else sessionStorage.removeItem(SITUATION_KEY)
+    sessionStorage.setItem(BASICS_KEY, JSON.stringify(b))
   } catch {
     /* storage blocked: keep it in memory only */
   }
+}
+
+/** Hide buildings whose known unit sizes are all smaller than what the person needs. Unknown sizes stay. */
+function fitsBedrooms(b: Building, needed: number | null): boolean {
+  return needed === null || b.bedrooms.length === 0 || Math.max(...b.bedrooms) >= needed
 }
 
 export default function App() {
@@ -45,8 +48,7 @@ export default function App() {
   const [loadError, setLoadError] = useState('')
   const [step, setStep] = useState<Step>('start')
   const [area, setArea] = useState<AreaChoice>('BOTH')
-  const [situation, setSituation] = useState<Situation | null>(loadSituation)
-  const [askedSituation, setAskedSituation] = useState(false)
+  const [basics, setBasics] = useState<Basics | null>(loadBasics)
   const [picks, setPicks] = useState<Pick[]>([])
   const [message, setMessage] = useState('')
 
@@ -62,11 +64,19 @@ export default function App() {
       .catch(() => setLoadError('We could not load the building list. Check your connection and reload.'))
   }, [])
 
+  const situation = useMemo(() => (basics ? toSituation(basics) : null), [basics])
+  const prior = useMemo(() => priorFor(basics?.priorities ?? []), [basics])
   const pool = useMemo(
-    () => (buildings ?? []).filter((b) => (area === 'BOTH' || b.area === area) && isVisible(b, situation)),
-    [buildings, area, situation],
+    () =>
+      (buildings ?? []).filter(
+        (b) =>
+          (area === 'BOTH' || b.area === area) &&
+          isVisible(b, { includeSeniorDisability: basics?.includeSeniorDisability ?? false }) &&
+          fitsBedrooms(b, basics?.bedroomsNeeded ?? null),
+      ),
+    [buildings, area, basics],
   )
-  const weights = useMemo(() => (picks.length ? fit(picks, limits, situation) : PRIOR), [picks, situation])
+  const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
   const pair = useMemo(() => nextPair(pool, seen, weights, limits, situation), [pool, seen, weights, situation])
   const shortlist = useMemo(() => rank(pool, weights, limits, situation).slice(0, 3), [pool, weights, situation])
@@ -75,33 +85,34 @@ export default function App() {
   function begin(choice: AreaChoice) {
     setArea(choice)
     setPicks([])
-    setStep('pick')
-    announce('First pair ready')
+    setStep('basics')
+    window.scrollTo({ top: 0 })
+  }
+
+  function onBasicsDone(b: Basics) {
+    setBasics(b)
+    saveBasics(b)
+    window.scrollTo({ top: 0 })
+    if (picks.length >= ROUNDS) {
+      setStep('results')
+      announce('Your matches are updated')
+    } else {
+      setStep('pick')
+      announce('First pair ready')
+    }
   }
 
   function onPick(chosen: Building, other: Building) {
     const next = [...picks, { chosen, other }]
     setPicks(next)
     announce(`You picked ${chosen.name}`)
-    if (next.length === ASK_SITUATION_AFTER && !situation && !askedSituation) {
-      setAskedSituation(true)
-      setStep('situation')
-    } else if (next.length >= ROUNDS) {
-      finish()
-    }
+    if (next.length >= ROUNDS) finish()
   }
 
   function finish() {
     setStep('results')
     announce('Your matches are ready')
     window.scrollTo({ top: 0 })
-  }
-
-  function onSaveSituation(s: Situation) {
-    setSituation(s)
-    saveSituation(s)
-    announce('Estimates updated')
-    setStep(picks.length >= ROUNDS ? 'results' : 'pick')
   }
 
   function restart() {
@@ -155,8 +166,8 @@ export default function App() {
                 Find income-restricted apartments you'd actually pick.
               </h1>
               <p className="text-lg text-ink-soft">
-                Choose between two buildings at a time. We learn what matters to you, estimate what you'd pay, and give you
-                a short list with next steps.
+                Answer a few quick questions, then pick between two real buildings at a time. We learn what matters to you,
+                estimate what you'd pay, and give you a short list with next steps.
               </p>
             </div>
             <div>
@@ -208,14 +219,12 @@ export default function App() {
           </Card>
         )}
 
-        {step === 'situation' && (
-          <Card className="mx-auto max-w-2xl p-6">
-            <SituationForm
-              initial={situation}
-              onSave={onSaveSituation}
-              onSkip={() => setStep(picks.length >= ROUNDS ? 'results' : 'pick')}
-            />
-          </Card>
+        {buildings && step === 'basics' && (
+          <section aria-labelledby="basics-heading">
+            <Card className="mx-auto max-w-2xl p-6 sm:p-8">
+              <BasicsForm initial={basics} onDone={onBasicsDone} />
+            </Card>
+          </section>
         )}
 
         {buildings && step === 'results' && (
@@ -224,7 +233,7 @@ export default function App() {
             weights={weights}
             limits={limits}
             situation={situation}
-            onEditSituation={() => setStep('situation')}
+            onEditSituation={() => setStep('basics')}
             onRestart={restart}
             announce={announce}
           />
