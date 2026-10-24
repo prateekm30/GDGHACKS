@@ -230,20 +230,27 @@ def addr_key(b: dict) -> str:
     return re.sub(r"\s+", " ", s).strip() + "|" + b["zip"]
 
 
+def name_key(b: dict) -> str:
+    s = re.sub(r"[^a-z0-9 ]", "", b["name"].lower())
+    s = re.sub(r"\b(apts?|apartments?|the|llc|lp)\b", "", s)
+    return re.sub(r"\s+", " ", s).strip() + "|" + b["area"]
+
+
 def dedupe(buildings: list[dict]) -> list[dict]:
     """Many buildings are in both datasets. Keep the HUD row (income-based rent), fill gaps from LIHTC."""
     by_key: dict[str, dict] = {}
+    by_name: dict[str, dict] = {}
     for b in sorted(buildings, key=lambda b: b["program"] != "HUD"):
-        k = addr_key(b)
-        if k not in by_key:
-            by_key[k] = b
+        k, nk = addr_key(b), name_key(b)
+        kept = by_key.get(k) or by_name.get(nk)
+        if kept is None:
+            by_key[k] = by_name[nk] = b
             continue
-        kept = by_key[k]
         for f in ("bedrooms", "yearPlacedInService", "totalUnits"):
             if not kept[f] and b[f]:
                 kept[f] = b[f]
         # Keep HUD's senior/disability flags: they say who may live there, LIHTC's only who is targeted.
-    return list(by_key.values())
+    return list({id(b): b for b in by_key.values()}.values())
 
 
 def build_buildings(inspect: bool) -> None:

@@ -78,8 +78,9 @@ export function rank(buildings: Building[], w: Weights, limits: IncomeLimits, si
 }
 
 /**
- * Next pair to show: among the top candidates not yet seen, the pair the model is least sure about
- * (predicted preference closest to 50/50).
+ * Next pair to show: among the top candidates not yet seen, a pair that teaches us the most.
+ * We want the two buildings to differ a lot (so the pick says something) while the model
+ * is unsure which one you'd choose (predicted preference near 50/50).
  */
 export function nextPair(
   pool: Building[],
@@ -87,20 +88,29 @@ export function nextPair(
   w: Weights,
   limits: IncomeLimits,
   situation: Situation | null,
-  topK = 8,
+  perGroup = 4,
 ): [Building, Building] | null {
-  const fresh = rank(pool.filter((b) => !seen.has(b.id)), w, limits, situation).slice(0, topK)
+  // Candidates: the best few from each program and area, so one kind of building can't crowd out the rest.
+  const ranked = rank(pool.filter((b) => !seen.has(b.id)), w, limits, situation)
+  const taken = new Map<string, number>()
+  const fresh = ranked.filter((b) => {
+    const key = `${b.program}-${b.area}`
+    const n = taken.get(key) ?? 0
+    taken.set(key, n + 1)
+    return n < perGroup
+  })
   if (fresh.length < 2) return null
+  const vecs = fresh.map((b) => features(b, limits, situation))
   let best: [Building, Building] | null = null
-  let bestGap = Infinity
+  let bestValue = -Infinity
   for (let i = 0; i < fresh.length; i++) {
     for (let j = i + 1; j < fresh.length; j++) {
-      const a = fresh.at(i) as Building
-      const b = fresh.at(j) as Building
-      const gap = Math.abs(dot(w, diff(features(a, limits, situation), features(b, limits, situation))))
-      if (gap < bestGap) {
-        bestGap = gap
-        best = [a, b]
+      const d = diff(vecs.at(i) as Vector, vecs.at(j) as Vector)
+      const spread = Math.sqrt(FEATURES.reduce((sum, f) => sum + d[f] * d[f], 0))
+      const value = spread - Math.abs(dot(w, d))
+      if (value > bestValue) {
+        bestValue = value
+        best = [fresh.at(i) as Building, fresh.at(j) as Building]
       }
     }
   }
@@ -124,7 +134,7 @@ export function whyReasons(b: Building, w: Weights, limits: IncomeLimits, situat
     if (f === 'cost') out.push('Its estimated cost fits what you picked before')
     if (f === 'incomeBased') out.push('Rent is based on income, so it stays near 30% of yours')
     if (f === 'bedrooms') out.push('It has the larger units you leaned toward')
-    if (f === 'metro' && b.metroMiles !== null) out.push(`About ${b.metroMiles.toFixed(1)} miles from Metro (straight line)`)
+    if (f === 'metro' && b.metroMiles !== null) out.push(b.metroMiles < 0.15 ? 'Right next to a Metro station' : `About ${b.metroMiles.toFixed(1)} miles from Metro (straight line)`)
     if (f === 'size') out.push('It is a larger building, like ones you chose')
   }
   return out

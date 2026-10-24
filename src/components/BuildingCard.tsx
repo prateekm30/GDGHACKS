@@ -68,7 +68,7 @@ export function BuildingCard({
       <div className="flex flex-wrap gap-1.5">
         <Pill>{b.program === 'LIHTC' ? 'Tax credit (LIHTC)' : 'HUD-assisted'}</Pill>
         <Pill>{b.area === 'DC' ? 'Washington, DC' : 'Arlington, VA'}</Pill>
-        {b.metroMiles !== null && <Pill>{b.metroMiles.toFixed(1)} mi to Metro</Pill>}
+        {b.metroMiles !== null && <Pill>{b.metroMiles < 0.15 ? 'Next to Metro' : `${b.metroMiles.toFixed(1)} mi to Metro`}</Pill>}
       </div>
       <div>
         <h3 className="text-lg font-semibold leading-snug">{b.name}</h3>
@@ -102,20 +102,37 @@ export function BuildingCard({
       {a.oldRestrictions && <Note tone="warn">Opened over 30 years ago. Income restrictions may have ended. Confirm with the property.</Note>}
       {a.studentRuleMayApply && <Note tone="warn">Student rules may apply. Ask the property.</Note>}
       {detailed && (
-        <div className="mt-auto border-t border-line pt-3 text-sm">
-          <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>
-          <p className="text-ink-soft">
-            {[b.contact.org, b.contact.name].filter(Boolean).join(' · ') || 'No contact listed'}
-          </p>
-          {b.contact.phone && (
-            <a className="font-semibold text-brand underline-offset-2 hover:underline" href={`tel:${b.contact.phone.replace(/[^\d+]/g, '')}`}>
-              {b.contact.phone}
-            </a>
+        <div className="mt-auto space-y-1 border-t border-line pt-3 text-sm">
+          {b.contact.phone || b.contact.org || b.contact.name ? (
+            <>
+              <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>
+              <p className="text-ink-soft">{[b.contact.org, b.contact.name].filter(Boolean).join(' · ')}</p>
+              {b.contact.phone && (
+                <a
+                  className="inline-block py-1 font-semibold text-brand underline-offset-2 hover:underline"
+                  href={`tel:${b.contact.phone.replace(/[^\d+]/g, '')}`}
+                >
+                  {b.contact.phone}
+                </a>
+              )}
+            </>
+          ) : (
+            <p className="text-ink-soft">HUD data has no phone for this building.</p>
           )}
+          <p>
+            <a
+              className="inline-block py-1 text-brand underline-offset-2 hover:underline"
+              href={`https://www.google.com/search?q=${encodeURIComponent(`${b.name} ${b.address} ${b.city} ${b.state} leasing`)}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Find the leasing office
+            </a>
+          </p>
           {b.area === 'ARLINGTON' && (
-            <p className="mt-2">
+            <p>
               <a
-                className="text-brand underline-offset-2 hover:underline"
+                className="inline-block py-1 text-brand underline-offset-2 hover:underline"
                 href="https://www.arlingtonva.us/Government/Programs/Housing/Housing-Assistance/Rental-Services/Affordable-Units/Committed-Affordable-Units"
                 target="_blank"
                 rel="noreferrer"
