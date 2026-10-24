@@ -26,20 +26,28 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT_BUILDINGS = ROOT / "public" / "data" / "buildings.json"
 OUT_LIMITS = ROOT / "src" / "data" / "limits.2026.json"
-STATIONS = ROOT / "data" / "metro_stations.geojson"  # WMATA stations, see data/README.md
+STATIONS = ROOT / "data" / "metro_stations.geojson"
 
-LIHTC_URL = "https://services1.arcgis.com/9lDFdeC4JIBgML6L/ArcGIS/rest/services/LIHTC/FeatureServer/0"
-MULTIFAMILY_URL = "https://egis.hud.gov/arcgis/rest/services/gotit/MultifamilyProperties/MapServer/0"
+LIHTC_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0"
+MULTIFAMILY_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0"
+STATIONS_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Rail_Bus_WebMercator/MapServer/51"
+# County FIPS: District of Columbia, Arlington County VA.
+COUNTIES = {"11001": "DC", "51013": "ARLINGTON"}
+WHERE = "COUNTY_LEVEL IN ('11001','51013')"
 HUD_USER_API = "https://www.huduser.gov/hudapi/public"
 DC_METRO_ENTITY = "METRO47900M47900"  # Washington-Arlington-Alexandria HUD Metro FMR Area. VERIFY
 
+# Only the fields we use. The HUD layers also carry tenant demographics; we never download them (fair housing).
 LIHTC_FIELDS = ["HUD_ID", "PROJECT", "PROJ_ADD", "PROJ_CTY", "PROJ_ST", "PROJ_ZIP", "N_UNITS", "LI_UNITS",
-                "INC_CEIL", "YR_PIS", "TRGT_ELD", "TRGT_DIS", "CONTACT", "COMPANY", "CO_TEL"]
+                "N_0BR", "N_1BR", "N_2BR", "N_3BR", "N_4BR", "INC_CEIL", "YR_PIS", "TRGT_ELD", "TRGT_DIS",
+                "CONTACT", "COMPANY", "CO_TEL", "COUNTY_LEVEL", "LAT", "LON"]
 MF_FIELDS = ["PROPERTY_ID", "PROPERTY_NAME_TEXT", "ADDRESS_LINE1_TEXT", "STD_CITY", "STD_ST", "STD_ZIP5",
-             "TOTAL_UNIT_COUNT", "TOTAL_ASSISTED_UNIT_COUNT", "CLIENT_GROUP_TYPE"]
+             "TOTAL_UNIT_COUNT", "TOTAL_ASSISTED_UNIT_COUNT", "CLIENT_GROUP_NAME", "CLIENT_GROUP_TYPE",
+             "PROPERTY_ON_SITE_PHONE_NUMBER", "MGMT_AGENT_ORG_NAME", "MGMT_CONTACT_FULL_NAME",
+             "MGMT_CONTACT_MAIN_PHN_NBR", "MGMT_CONTACT_EMAIL_TEXT", "COUNTY_LEVEL", "LAT", "LON"]
+MF_FIELDS += [f"BD{n}_CNT{c}" for n in range(5) for c in (1, 2)]
 
-# Rough box around Arlington County, used together with the city name.
-ARLINGTON_BOX = (-77.173, 38.827, -77.032, 38.935)  # min lon, min lat, max lon, max lat
+
 
 
 def get_json(url: str, params: dict | None = None, headers: dict | None = None) -> dict:
@@ -50,12 +58,12 @@ def get_json(url: str, params: dict | None = None, headers: dict | None = None) 
         return json.load(r)
 
 
-def query_layer(base: str, where: str) -> list[dict]:
+def query_layer(base: str, where: str, fields: list[str]) -> list[dict]:
     """Page through an ArcGIS layer. Returns attributes with lat/lon added."""
     rows, offset = [], 0
     while True:
         data = get_json(base + "/query", {
-            "where": where, "outFields": "*", "outSR": 4326, "f": "json",
+            "where": where, "outFields": ",".join(fields), "outSR": 4326, "f": "json",
             "resultOffset": offset, "resultRecordCount": 1000,
         })
         if "error" in data:
@@ -64,7 +72,8 @@ def query_layer(base: str, where: str) -> list[dict]:
         for f in feats:
             a = dict(f["attributes"])
             g = f.get("geometry") or {}
-            a["_lon"], a["_lat"] = g.get("x"), g.get("y")
+            a["_lon"] = a.get("LON") if a.get("LON") is not None else g.get("x")
+            a["_lat"] = a.get("LAT") if a.get("LAT") is not None else g.get("y")
             rows.append(a)
         if not data.get("exceededTransferLimit") or not feats:
             return rows
@@ -93,19 +102,8 @@ def clean(v) -> str | None:
     return s or None
 
 
-def in_arlington(row: dict, city_field: str) -> bool:
-    city = (row.get(city_field) or "").upper()
-    lon, lat = row.get("_lon"), row.get("_lat")
-    in_box = lon is not None and ARLINGTON_BOX[0] <= lon <= ARLINGTON_BOX[2] and ARLINGTON_BOX[1] <= lat <= ARLINGTON_BOX[3]
-    return "ARLINGTON" in city and in_box
-
-
-def area_of(state: str, row: dict, city_field: str) -> str | None:
-    if state == "DC":
-        return "DC"
-    if state == "VA" and in_arlington(row, city_field):
-        return "ARLINGTON"
-    return None
+def area_of(row: dict) -> str | None:
+    return COUNTIES.get(str(row.get("COUNTY_LEVEL") or "").zfill(5))
 
 
 def miles(lat1, lon1, lat2, lon2) -> float:
@@ -117,9 +115,14 @@ def miles(lat1, lon1, lat2, lon2) -> float:
 
 
 def load_stations() -> list[tuple[float, float]]:
+    """WMATA stations (regional layer from Open Data DC). Cached in data/ after the first run."""
     if not STATIONS.exists():
-        print(f"No {STATIONS.name}; metroMiles will be null. See data/README.md.", file=sys.stderr)
-        return []
+        try:
+            gj = get_json(STATIONS_URL + "/query", {"where": "1=1", "outFields": "NAME", "outSR": 4326, "f": "geojson"})
+            STATIONS.write_text(json.dumps(gj))
+        except Exception as e:  # noqa: BLE001
+            print(f"Could not load Metro stations ({e}); metroMiles will be null.", file=sys.stderr)
+            return []
     gj = json.loads(STATIONS.read_text())
     return [(f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0]) for f in gj["features"]]
 
@@ -132,7 +135,7 @@ def nearest_metro(lat, lon, stations) -> float | None:
 
 def lihtc_building(a: dict, today: str) -> dict | None:
     state = (a.get("PROJ_ST") or "").upper()
-    area = area_of(state, a, "PROJ_CTY")
+    area = area_of(a)
     if not area:
         return None
     # INC_CEIL codes: 1 = 50% AMGI, 2 = 60% AMGI, 3 = income averaging. VERIFY against the data dictionary.
@@ -164,10 +167,11 @@ def lihtc_building(a: dict, today: str) -> dict | None:
 
 def mf_building(a: dict, today: str) -> dict | None:
     state = (a.get("STD_ST") or "").upper()
-    area = area_of(state, a, "STD_CITY")
+    area = area_of(a)
     if not area:
         return None
-    group = (a.get("CLIENT_GROUP_TYPE") or "").lower()
+    group = f'{a.get("CLIENT_GROUP_NAME") or ""} {a.get("CLIENT_GROUP_TYPE") or ""}'.lower()
+    bedrooms = [n for n in range(5) if (num(a.get(f"BD{n}_CNT1")) or 0) + (num(a.get(f"BD{n}_CNT2")) or 0) > 0]
     return {
         "id": f"hud-{a['PROPERTY_ID']}",
         "name": clean(a.get("PROPERTY_NAME_TEXT")) or "Unnamed property",
@@ -181,7 +185,7 @@ def mf_building(a: dict, today: str) -> dict | None:
         "totalUnits": num(a.get("TOTAL_UNIT_COUNT")),
         "affordableUnits": num(a.get("TOTAL_ASSISTED_UNIT_COUNT")),
         "incomeCeiling": None,
-        "bedrooms": [],
+        "bedrooms": bedrooms,
         "yearPlacedInService": None,
         "seniorOnly": "elderly" in group,
         "disabilityOnly": "disabled" in group and "elderly" not in group,
@@ -221,13 +225,17 @@ def dedupe(buildings: list[dict]) -> list[dict]:
 
 def build_buildings(inspect: bool) -> None:
     today = date.today().isoformat()
-    lihtc = query_layer(LIHTC_URL, "PROJ_ST IN ('DC','VA')")
-    mf = query_layer(MULTIFAMILY_URL, "STD_ST IN ('DC','VA')")
+    lihtc = query_layer(LIHTC_URL, WHERE, LIHTC_FIELDS)
+    mf = query_layer(MULTIFAMILY_URL, WHERE, MF_FIELDS)
     if inspect:
         for name, rows in (("LIHTC", lihtc), ("Multifamily", mf)):
             print(f"\n{name}: {len(rows)} rows\nfields: {sorted(rows[0]) if rows else []}")
             print(json.dumps(rows[0] if rows else {}, indent=2, default=str)[:3000])
         return
+    from collections import Counter
+    for name, rows, field in (("LIHTC", lihtc, "INC_CEIL"), ("LIHTC", lihtc, "TRGT_ELD"),
+                              ("Multifamily", mf, "CLIENT_GROUP_NAME"), ("Multifamily", mf, "CLIENT_GROUP_TYPE")):
+        print(f"{name} {field} values: {dict(Counter(str(r.get(field)) for r in rows))}")
     check_fields("LIHTC", lihtc, LIHTC_FIELDS)
     check_fields("Multifamily", mf, MF_FIELDS)
 
@@ -235,6 +243,7 @@ def build_buildings(inspect: bool) -> None:
     rows += [b for a in mf if (b := mf_building(a, today))]
     rows = [b for b in dedupe(rows) if b["lat"] is not None]
     stations = load_stations()
+    print(f"Metro stations: {len(stations)}")
     for b in rows:
         b["metroMiles"] = nearest_metro(b["lat"], b["lon"], stations)
     rows.sort(key=lambda b: (b["area"], b["name"]))

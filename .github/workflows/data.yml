@@ -1,0 +1,29 @@
+# Builds public/data/buildings.json from HUD's public APIs and commits it.
+# Run it from the Actions tab (Run workflow). Optional repo secret: HUD_USER_TOKEN for Section 8 limits.
+name: Refresh housing data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-data:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build data
+        env:
+          HUD_USER_TOKEN: ${{ secrets.HUD_USER_TOKEN }}
+        run: python3 data/build.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/buildings.json src/data/limits.2026.json data/metro_stations.geojson
+          git diff --cached --quiet || git commit -m "Refresh housing data from HUD"
+          git push
