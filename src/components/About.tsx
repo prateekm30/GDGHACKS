@@ -9,7 +9,8 @@ import { money } from './ui'
 /** Who built it. Add names here. */
 const TEAM: { name: string; role: string }[] = [
   { name: 'Prateek Malekar', role: 'Product, data, and build' },
-  { name: 'Two teammates', role: 'Design, testing, and the pitch' },
+  { name: 'Sajjad Irshad', role: 'Design and testing' },
+  { name: 'Rishik Uppalapati', role: 'Pitch and demo' },
 ]
 
 const WONT: { icon: LucideIcon; title: string; body: string }[] = [
@@ -126,10 +127,10 @@ export function About({ buildings, limits, onBegin, onHow }: { buildings: Buildi
           <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
             <div>
               <p className="font-hand text-2xl text-accent">who we are</p>
-              <h2 id="who-heading" className="text-3xl font-extrabold sm:text-4xl">Three students, one weekend</h2>
+              <h2 id="who-heading" className="text-3xl font-extrabold sm:text-4xl">Three Man</h2>
               <p className="mt-3 text-white/85">
-                HomePick DMV was built at <strong>GDG Build with AI × Hacktoberfest 2026</strong> at Virginia Tech, for the “AI for Housing” track. We are a
-                team of three, and we started because people we know were paying market rent a block from buildings they would have fit.
+                HomePick DMV was built at <strong>GDG Build with AI × Hacktoberfest 2026</strong> at Virginia Tech, for the “AI for Housing” track. We are Three Man, a
+                team of three Virginia Tech students, and we started because people we know were paying market rent a block from buildings they would have fit.
               </p>
               <ul className="mt-4 space-y-2">
                 {TEAM.map((t) => (

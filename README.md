@@ -6,7 +6,7 @@ Pick between two income-restricted buildings at a time. HomePick learns what mat
 you'd pay, and gives first-time renters across the DMV (DC, suburban Maryland, and Northern Virginia) a short list with next steps.
 Snap a form turns a rental application into a checklist with Gemma 4, quoting the form so you can check it.
 
-Built for GDG Build with AI x Hacktoberfest 2026 (AI for Housing) at Virginia Tech.
+Built by **Three Man** (Prateek Malekar, Sajjad Irshad, Rishik Uppalapati) for GDG Build with AI x Hacktoberfest 2026 (AI for Housing) at Virginia Tech.
 
 ## Run it
 
