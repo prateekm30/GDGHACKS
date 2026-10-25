@@ -3,7 +3,7 @@ import { useEffect, useRef, useState, type KeyboardEvent } from 'react'
 import { assess } from '../lib/eligibility'
 import { prefersReducedMotion, tiltHandlers } from '../lib/motion'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
-import { BuildingCard } from './BuildingCard'
+import { BuildingCard, summary } from './BuildingCard'
 import { Button } from './ui'
 
 /** Progress as stops on a Metro line: done stops are filled, the current one pulses. */
@@ -130,7 +130,7 @@ export function PickStep({
       >
         <span
           aria-hidden
-          className={`wiggle font-display pointer-events-none absolute left-1/2 top-1/2 z-10 hidden size-16 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-lift ring-[6px] ring-canvas transition-opacity duration-200 md:grid ${
+          className={`wiggle font-display pointer-events-none absolute left-1/2 top-[6.5rem] z-30 hidden size-16 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-lift ring-[6px] ring-canvas transition-opacity duration-200 md:grid ${
             chosenId ? 'opacity-0' : ''
           }`}
         >
@@ -140,6 +140,7 @@ export function PickStep({
           [left, right],
           [right, left],
         ].map(([b, other], i) => {
+          const a = assess(b, limits, situation)
           const state = chosenId === b.id ? 'picked' : chosenId ? 'dropped' : i === 0 ? 'in-left' : 'in-right'
           return (
             <div
@@ -147,9 +148,11 @@ export function PickStep({
               className={state}
               style={{ ['--drop-r' as string]: i === 0 ? '-4deg' : '4deg' }}
             >
+              {/* The whole card is a click target for mouse and touch; the button below is the real control. */}
               <div
                 {...tiltHandlers()}
-                className="tilt group relative h-full overflow-hidden rounded-card border-2 border-transparent bg-surface shadow-card hover:border-brand hover:shadow-lift"
+                onClick={() => choose(b, other)}
+                className="tilt group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-card border-2 border-white/80 bg-surface shadow-card hover:border-brand hover:shadow-lift"
               >
                 {chosenId === b.id && (
                   <span aria-hidden className="pop absolute right-4 top-4 z-20 grid size-14 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white">
@@ -157,19 +160,20 @@ export function PickStep({
                   </span>
                 )}
                 <span aria-hidden className="glare pointer-events-none absolute inset-0 z-10" />
-                <button
-                  type="button"
-                  className="flex h-full w-full flex-col rounded-card p-5"
-                  onClick={() => choose(b, other)}
-                  aria-label={`Pick ${b.name}${i === 0 ? ' (left arrow)' : ' (right arrow)'}`}
-                >
-                  <BuildingCard b={b} a={assess(b, limits, situation)} limits={limits} />
-                  <span className="mt-auto pt-4">
-                    <span className="flex w-full items-center justify-center gap-2 rounded-2xl bg-brand py-3 text-sm font-bold text-white transition duration-200 group-hover:bg-brand-strong">
-                      {chosenId === b.id ? 'Picked!' : 'Pick this one'}
-                    </span>
-                  </span>
-                </button>
+                <BuildingCard b={b} a={a} limits={limits} situation={situation} />
+                <div className="px-5 pb-5">
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      choose(b, other)
+                    }}
+                    aria-label={`Pick ${summary(b, a)}.${i === 0 ? ' Left arrow key.' : ' Right arrow key.'}`}
+                    className="sheen flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brand py-3 text-sm font-bold text-white transition duration-200 hover:bg-brand-strong active:scale-[0.98]"
+                  >
+                    {chosenId === b.id ? 'Picked!' : 'Pick this one'}
+                  </button>
+                </div>
               </div>
             </div>
           )

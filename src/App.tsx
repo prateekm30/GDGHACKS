@@ -2,20 +2,22 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
 import { BasicsForm, toSituation, type Basics } from './components/BasicsForm'
-import { Landing, type AreaChoice } from './components/Landing'
+import { Landing } from './components/Landing'
+import { SnapForm } from './components/SnapForm'
 import { LogoMark } from './components/Logo'
 import { Button, Card, Note, StepIndicator } from './components/ui'
 import limitsJson from './data/limits.2026.json'
-import { isVisible } from './lib/eligibility'
+import { assess, isVisible } from './lib/eligibility'
+import { HUBS, milesBetween } from './lib/areas'
 import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
-import type { Building, IncomeLimits } from './lib/types'
+import type { Area, Building, IncomeLimits } from './lib/types'
 import { withTransition } from './lib/motion'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
 const BASICS_KEY = 'homepick.basics'
 
-type Step = 'start' | 'basics' | 'pick' | 'results'
+type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap'
 
 
 // Session storage only: income is gone when the tab closes, and storage can be blocked.
@@ -44,7 +46,8 @@ export default function App() {
   const [buildings, setBuildings] = useState<Building[] | null>(null)
   const [loadError, setLoadError] = useState('')
   const [step, setStep] = useState<Step>('start')
-  const [area, setArea] = useState<AreaChoice>('BOTH')
+  // Empty means all of the DMV.
+  const [areas, setAreas] = useState<ReadonlySet<Area>>(() => new Set())
   const [basics, setBasics] = useState<Basics | null>(loadBasics)
   const [picks, setPicks] = useState<Pick[]>([])
   const [message, setMessage] = useState('')
@@ -63,30 +66,31 @@ export default function App() {
       .catch(() => setLoadError('We could not load the building list. Check your connection and try again.'))
   }, [loadTry])
 
-  // A real pair for the landing preview: one in DC, one in Arlington, different programs when possible.
-  const preview = useMemo<[Building, Building] | null>(() => {
-    if (!buildings) return null
-    const dc = buildings.find((b) => b.area === 'DC' && b.program === 'LIHTC' && b.metroMiles !== null && b.metroMiles < 0.5)
-    const va = buildings.find((b) => b.area === 'ARLINGTON' && b.program === 'HUD')
-    return dc && va ? [dc, va] : null
-  }, [buildings])
-
   const situation = useMemo(() => (basics ? toSituation(basics) : null), [basics])
-  const prior = useMemo(() => priorFor(basics?.priorities ?? []), [basics])
-  const pool = useMemo(
-    () =>
-      (buildings ?? []).filter(
-        (b) =>
-          (area === 'BOTH' || b.area === area) &&
-          isVisible(b, { includeSeniorDisability: basics?.includeSeniorDisability ?? false }) &&
-          fitsBedrooms(b, basics?.bedroomsNeeded ?? null),
-      ),
-    [buildings, area, basics],
-  )
+  const hub = HUBS.find((h) => h.id === basics?.workHub) ?? null
+  const prior = useMemo(() => priorFor(basics?.priorities ?? [], !!hub), [basics, hub])
+  const pool = useMemo(() => {
+    const kept = (buildings ?? []).filter(
+      (b) =>
+        (areas.size === 0 || areas.has(b.area)) &&
+        isVisible(b, { includeSeniorDisability: basics?.includeSeniorDisability ?? false }) &&
+        fitsBedrooms(b, basics?.bedroomsNeeded ?? null) &&
+        !(basics?.hideOverLimit && situation && assess(b, limits, situation).limit === 'over'),
+    )
+    // Distance to work or school is worked out here in the browser and never saved.
+    return hub ? kept.map((b) => ({ ...b, commuteMiles: Math.round(milesBetween(b.lat, b.lon, hub.lat, hub.lon) * 10) / 10 })) : kept
+  }, [buildings, areas, basics, situation, hub])
   const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
   const pair = useMemo(() => nextPair(pool, seen, weights, limits, situation), [pool, seen, weights, situation])
-  const shortlist = useMemo(() => rank(pool, weights, limits, situation).slice(0, 3), [pool, weights, situation])
+  // Top three, but if the top two are the same kind of building, the third is the best of the other kind.
+  // Income-based buildings all show the same rent, so three of them in a row tells you little.
+  const shortlist = useMemo(() => {
+    const ranked = rank(pool, weights, limits, situation)
+    const top = ranked.slice(0, 2)
+    const other = top.length === 2 && top[0]?.program === top[1]?.program ? ranked.find((b) => b.program !== top[0]?.program) : undefined
+    return [...top, other ?? ranked[2]].filter((b): b is Building => !!b)
+  }, [pool, weights, situation])
   const isSample = !!buildings?.some((b) => b.sample)
 
   // Every screen change goes through here, so it gets the same transition.
@@ -97,10 +101,18 @@ export default function App() {
     })
   }
 
-  function begin(choice: AreaChoice) {
-    setArea(choice)
+  function begin() {
     setPicks([])
     go('basics')
+  }
+
+  function toggleArea(a: Area) {
+    setAreas((prev) => {
+      const next = new Set(prev)
+      if (next.has(a)) next.delete(a)
+      else next.add(a)
+      return next
+    })
   }
 
   function onBasicsDone(b: Basics) {
@@ -149,7 +161,7 @@ export default function App() {
           <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
             <LogoMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
             <span className="font-display text-lg">
-              HomePick <span className="text-brand">DMV</span>
+              HomePick <span className="text-brand-strong">DMV</span>
             </span>
           </button>
           <span className="whitespace-nowrap rounded-full bg-ok-tint px-3 py-1 text-xs font-medium text-ok">
@@ -159,8 +171,8 @@ export default function App() {
         </div>
       </header>
 
-      <main id="main" className={buildings && step === 'start' ? '' : 'mx-auto max-w-5xl space-y-6 px-4 py-8'}>
-        {buildings && step !== 'start' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
+      <main id="main" className={step === 'start' ? '' : 'mx-auto max-w-6xl space-y-6 px-4 py-8'}>
+        {step !== 'start' && step !== 'snap' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
             Sample data. These buildings are made up for testing. Real HUD data loads once the data pipeline runs.
@@ -176,7 +188,7 @@ export default function App() {
             </Button>
           </Card>
         )}
-        {!buildings && !loadError && (
+        {!buildings && !loadError && (step === 'pick' || step === 'results') && (
           <div role="status" aria-label="Loading buildings" className="grid gap-4 py-6 md:grid-cols-2">
             {[0, 1].map((i) => (
               <div key={i} className="overflow-hidden rounded-card border border-line bg-surface">
@@ -191,7 +203,25 @@ export default function App() {
           </div>
         )}
 
-        {buildings && step === 'start' && <Landing onBegin={begin} count={buildings.length} preview={preview} />}
+        {step === 'start' && (
+          <Landing
+            buildings={buildings}
+            selected={areas}
+            onToggleArea={toggleArea}
+            onClearAreas={() => setAreas(new Set())}
+            onBegin={begin}
+            onSnap={() => go('snap')}
+          />
+        )}
+
+        {step === 'snap' && (
+          <section className="rise-in mx-auto max-w-3xl space-y-4">
+            <Button variant="secondary" onClick={() => go('start')}>
+              Back to home
+            </Button>
+            <SnapForm announce={announce} />
+          </section>
+        )}
 
         {buildings && step === 'pick' && pair && (
           <PickStep
@@ -219,12 +249,14 @@ export default function App() {
           </Card>
         )}
 
-        {buildings && step === 'basics' && (
-          <section aria-labelledby="basics-heading">
-            <Card className="rise-in relative mx-auto max-w-2xl overflow-hidden p-6 pt-8 sm:p-10">
-              <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
-              <BasicsForm initial={basics} onDone={onBasicsDone} />
-            </Card>
+        {step === 'basics' && (
+          <section
+            aria-labelledby="basics-heading"
+            className="rise-in relative overflow-hidden rounded-[2rem] p-5 shadow-card sm:p-10"
+            style={{ background: 'linear-gradient(160deg, #ffe7c2 0%, #ffd3c4 55%, #f6cde6 100%)' }}
+          >
+            <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
+            <BasicsForm initial={basics} onDone={onBasicsDone} limits={limits} />
           </section>
         )}
 
@@ -245,8 +277,8 @@ export default function App() {
         <div aria-hidden className="metro-stripe h-1.5" />
         <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs">
           <p>
-            Data: HUD LIHTC and HUD Multifamily datasets. Income limits {limits.effective}. Not affiliated with HUD, DC, or
-            Arlington County.
+            Data: HUD LIHTC and HUD Multifamily datasets. County outlines: U.S. Census TIGERweb. Income limits {limits.effective}{' '}
+            for the Washington-Arlington-Alexandria HUD metro area. Not affiliated with HUD or any local government.
           </p>
           <p>
             Also try{' '}

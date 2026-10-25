@@ -15,12 +15,20 @@ async function settle(p, ms = 900) {
 }
 ;(async () => {
   const b = await chromium.launch()
+  // What a judge sees before scrolling, on a small laptop and a phone.
+  for (const [name, vp] of [['fold-laptop', { width: 1024, height: 768 }], ['fold-phone', { width: 390, height: 844 }]]) {
+    const p = await b.newPage({ viewport: vp, deviceScaleFactor: 2 })
+    await p.goto(url)
+    await p.waitForTimeout(400)
+    await p.screenshot({ path: `${out}/${name}-0400ms.png` })
+    await p.close()
+  }
   for (const [name, vp] of [['desktop', { width: 1280, height: 900 }], ['phone', { width: 390, height: 844 }]]) {
     const p = await b.newPage({ viewport: vp, deviceScaleFactor: 2 })
     await p.goto(url)
     await settle(p, 2600)
     await p.screenshot({ path: `${out}/${name}-1-start.png`, fullPage: true })
-    await p.getByRole('button', { name: /^Both/ }).click()
+    await p.getByRole('button', { name: /^Search all/ }).click()
     await p.getByText('First, the basics').waitFor()
     await p.locator('input[inputmode=numeric]').fill('52000')
     await p.waitForTimeout(700)

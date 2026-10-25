@@ -48,6 +48,18 @@ export function ResultsStep({
   return (
     <div ref={revealRef} className="space-y-10">
       {shortlist.length > 0 && <Confetti />}
+      <nav aria-label="On this page" className="no-print flex gap-2 overflow-x-auto pb-1">
+        {[
+          ['#matches', 'Your matches'],
+          ['#next-steps', 'Next steps'],
+          ['#snap', 'Snap a form'],
+          ['#words', 'Words to know'],
+        ].map(([href, label]) => (
+          <a key={href} href={href} className="shrink-0 rounded-full bg-dusk px-3.5 py-2 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-ink">
+            {label}
+          </a>
+        ))}
+      </nav>
       <section aria-labelledby="learned-heading">
         <Card className="rise-in relative overflow-hidden p-6 sm:p-8">
           <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
@@ -85,7 +97,7 @@ export function ResultsStep({
         </Card>
       </section>
 
-      <section aria-labelledby="short-heading" className="space-y-4">
+      <section id="matches" aria-labelledby="short-heading" className="scroll-mt-24 space-y-4">
         <div className="flex flex-wrap items-end justify-between gap-2">
           <div>
             <span aria-hidden className="font-hand text-2xl text-brand-strong">
@@ -107,27 +119,30 @@ export function ResultsStep({
               className={`rise-in ${i === 0 ? 'glow-border' : ''}`}
               style={{ animationDelay: `${200 + i * 140}ms` }}
             >
-              <Card className="group relative h-full p-5 transition duration-300 hover:-translate-y-1 hover:shadow-lift">
-                <span
-                  className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
-                    i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
-                  }`}
-                >
-                  {i === 0 ? (
-                    <>
-                      <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
-                      Best match
-                    </>
-                  ) : (
-                    `#${i + 1} match`
-                  )}
-                </span>
+              <Card className="group relative h-full overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-lift">
                 <BuildingCard
                   b={b}
                   a={assess(b, limits, situation)}
                   limits={limits}
+                  situation={situation}
                   reasons={whyReasons(b, weights, limits, situation)}
                   detailed
+                  badge={
+                    <span
+                      className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
+                        i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
+                      }`}
+                    >
+                      {i === 0 ? (
+                        <>
+                          <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
+                          Best match
+                        </>
+                      ) : (
+                        `#${i + 1} match`
+                      )}
+                    </span>
+                  }
                 />
               </Card>
             </div>
@@ -135,7 +150,7 @@ export function ResultsStep({
         </div>
       </section>
 
-      <section aria-labelledby="next-heading" className="reveal">
+      <section id="next-steps" aria-labelledby="next-heading" className="reveal scroll-mt-24">
         <Card className="p-6 sm:p-8">
           <h2 id="next-heading" className="text-2xl font-extrabold">Your next steps</h2>
           <ol className="mt-3 list-decimal space-y-3 pl-5 text-sm">
@@ -160,11 +175,11 @@ export function ResultsStep({
         </Card>
       </section>
 
-      <section className="no-print reveal">
+      <section id="snap" className="no-print reveal scroll-mt-24">
         <SnapForm announce={announce} />
       </section>
 
-      <section aria-labelledby="words-heading" className="no-print reveal">
+      <section id="words" aria-labelledby="words-heading" className="no-print reveal scroll-mt-24">
         <Glossary />
       </section>
     </div>

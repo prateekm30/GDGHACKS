@@ -1,5 +1,17 @@
 export type Program = 'LIHTC' | 'HUD'
-export type Area = 'DC' | 'ARLINGTON'
+export type Area =
+  | 'DC'
+  | 'MONTGOMERY'
+  | 'PRINCE_GEORGES'
+  | 'FREDERICK'
+  | 'SOUTHERN_MD'
+  | 'ARLINGTON'
+  | 'ALEXANDRIA'
+  | 'FAIRFAX'
+  | 'LOUDOUN'
+  | 'PRINCE_WILLIAM'
+  | 'FREDERICKSBURG'
+  | 'FAUQUIER_CLARKE'
 
 /** One row of public/data/buildings.json. Built by data/build.py from HUD files. */
 export interface Building {
@@ -7,7 +19,7 @@ export interface Building {
   name: string
   address: string
   city: string
-  state: 'DC' | 'VA'
+  state: 'DC' | 'VA' | 'MD'
   zip: string
   area: Area
   lat: number
@@ -20,11 +32,17 @@ export interface Building {
   incomeCeiling: 50 | 60 | 'avg' | null
   /** Bedroom sizes that exist in the building (0 = studio). Empty if unknown. */
   bedrooms: number[]
+  /** Number of units by bedroom count ("0" = studio). Missing in older data. */
+  unitMix?: Record<string, number>
   yearPlacedInService: number | null
   seniorOnly: boolean
   disabilityOnly: boolean
   /** Straight-line miles to the nearest Metro station. */
   metroMiles: number | null
+  /** Name of the nearest Metro station. */
+  metroStation?: string | null
+  /** Straight-line miles to the work or school spot the person chose. Added in the browser, never stored. */
+  commuteMiles?: number | null
   contact: { name: string | null; org: string | null; phone: string | null; email: string | null }
   source: { dataset: string; url: string; retrieved: string }
   /** True for the made-up rows in the dev sample. Never shown as real. */
@@ -47,4 +65,6 @@ export interface Situation {
   householdSize: number
   allFullTimeStudents: boolean
   includeSeniorDisability: boolean
+  /** Has a Housing Choice Voucher (Section 8). Changes what they'd pay at tax-credit buildings. */
+  voucher?: boolean
 }

@@ -3,7 +3,7 @@
 **Live:** https://gdghacks-tau.vercel.app
 
 Pick between two income-restricted buildings at a time. HomePick learns what matters to you, estimates what
-you'd pay, and gives first-time renters in Washington, DC and Arlington, VA a short list with next steps.
+you'd pay, and gives first-time renters across the DMV (DC, suburban Maryland, and Northern Virginia) a short list with next steps.
 Snap a form turns a rental application into a checklist with Gemma 4, quoting the form so you can check it.
 
 Built for GDG Build with AI x Hacktoberfest 2026 (AI for Housing) at Virginia Tech.
@@ -44,7 +44,7 @@ flowchart LR
 
 | Criterion | Where to look |
 |---|---|
-| Problem and impact | Persona: young workers in DC and Arlington under the 60% limit ($69,780 for one person, 2026) |
+| Problem and impact | Persona: young workers across the DMV under the 60% limit ($69,780 for one person, 2026) |
 | AI integration | Multimodal Snap a form: on-device OCR, Gemma 4 extraction, quote verification |
 | Architecture | `src/lib` tested logic, `api/` small functions, static data |
 | Safety and grounding | Quote check (server and browser), banned-phrase filter, no AI in eligibility math |
@@ -60,7 +60,7 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 331 buildings in DC and Arlington. A GitHub Action rebuilds and commits it. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings in all 20 counties and cities of HUD's Washington metro income-limit area, plus Census county outlines for the map. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 

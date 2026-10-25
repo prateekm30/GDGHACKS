@@ -72,6 +72,14 @@ export function bedroomsFor(building: Building, householdSize: number): number |
   return sizes.find((b) => b >= needed) ?? null
 }
 
+/** The ceiling rent for each bedroom size the building has, so cards show how this building's rents step up. */
+export function rentTable(building: Building, limits: IncomeLimits): { bedrooms: number; monthly: number }[] {
+  if (building.program !== 'LIHTC' || building.incomeCeiling === 'avg') return []
+  const ceiling = building.incomeCeiling ?? 60
+  const sizes = building.bedrooms.length ? [...building.bedrooms].sort((a, b) => a - b) : [0, 1, 2, 3]
+  return sizes.map((n) => ({ bedrooms: n, monthly: lihtcRentCeiling(limits, ceiling, n) }))
+}
+
 export function estimateCost(
   building: Building,
   limits: IncomeLimits,
@@ -137,7 +145,7 @@ export function assess(
   }
 
   const belowTypicalMinimum =
-    !!situation && cost.kind === 'ceiling' && cost.monthly !== null && situation.income < cost.monthly * 12 * MIN_INCOME_MULTIPLE
+    !!situation && !situation.voucher && cost.kind === 'ceiling' && cost.monthly !== null && situation.income < cost.monthly * 12 * MIN_INCOME_MULTIPLE
 
   return {
     limit,

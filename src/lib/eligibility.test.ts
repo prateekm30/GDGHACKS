@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import limitsJson from '../data/limits.2026.json'
 import { findBannedPhrase } from '../../shared/bannedPhrases'
-import { amiPercent, assess, burdenLevel, imputedLimit, isVisible, lihtcRentCeiling } from './eligibility'
-import { fit, PRIOR } from './ranking'
+import { amiPercent, assess, burdenLevel, imputedLimit, isVisible, lihtcRentCeiling, rentTable } from './eligibility'
+import { fit, PRIOR, priorFor, rank, score, whyReasons } from './ranking'
 import type { Building, IncomeLimits, Situation } from './types'
 
 const limits = limitsJson as IncomeLimits
@@ -121,5 +121,37 @@ describe('ranking', () => {
     const w1 = fit([{ chosen: a, other: b }], limits, me)
     const w2 = fit([{ chosen: swappedA, other: swappedB }], limits, me)
     expect(w2).toEqual(w1)
+  })
+})
+
+describe('DMV expansion', () => {
+  it('lists each unit size the building has, stepping up by size', () => {
+    const t = rentTable(building({ bedrooms: [2, 0, 1] }), limits)
+    expect(t.map((r) => r.bedrooms)).toEqual([0, 1, 2])
+    expect(t[1]?.monthly).toBe(1869)
+    expect(t[0]!.monthly).toBeLessThan(t[2]!.monthly)
+  })
+  it('has no rent table for income-based or mixed-tier buildings', () => {
+    expect(rentTable(building({ program: 'HUD' }), limits)).toEqual([])
+    expect(rentTable(building({ incomeCeiling: 'avg' }), limits)).toEqual([])
+  })
+  it('does not warn about minimum income for voucher holders', () => {
+    const low: Situation = { ...me, income: 30000 }
+    expect(assess(building(), limits, low).belowTypicalMinimum).toBe(true)
+    expect(assess(building(), limits, { ...low, voucher: true }).belowTypicalMinimum).toBe(false)
+  })
+  it('ranks the closer building higher once commute matters', () => {
+    const near = building({ id: 'near', commuteMiles: 1 })
+    const far = building({ id: 'far', commuteMiles: 18 })
+    const w = priorFor(['commute'], true)
+    expect(rank([far, near], w, limits, me)[0]?.id).toBe('near')
+  })
+  it('ignores commute when no work spot was chosen', () => {
+    const a = building({ id: 'a' })
+    const b = building({ id: 'b' })
+    expect(score(a, priorFor(['commute']), limits, me)).toBe(score(b, priorFor(['commute']), limits, me))
+  })
+  it('never mentions a commute reason without a distance', () => {
+    expect(whyReasons(building(), priorFor(['commute']), limits, me).join(' ')).not.toMatch(/work or school/)
   })
 })

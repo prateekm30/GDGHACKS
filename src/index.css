@@ -10,8 +10,8 @@
   --color-ink: #1d1433;
   --color-ink-soft: #5a4f6e;
   --color-line: #f0e2d0;
-  --color-canvas: #fff7ec;
-  --color-surface: #ffffff;
+  --color-canvas: #fdf0e1;
+  --color-surface: #fffaf4;
 
   /* Sunshine yellow for highlights. Text on it uses ink. */
   --color-accent: #ffc53d;
@@ -88,7 +88,7 @@ body::before {
 .word { display: inline-block; animation: word-rise 700ms cubic-bezier(.2,.8,.2,1) both; }
 
 /* Hand-drawn underline that draws itself. */
-@keyframes draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+@keyframes draw { from { stroke-dashoffset: 1; opacity: 0; } 2% { opacity: 1; } to { stroke-dashoffset: 0; opacity: 1; } }
 .draw { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 900ms ease-out 900ms both; }
 
 /* Hero scene */
@@ -169,3 +169,24 @@ body::before {
   .reveal { opacity: 1; transform: none; }
   .glow-border::before, .glow-border::after { display: none; }
 }
+
+/* Landing hero: text is visible from the first frame; it only slides a little. */
+@keyframes nudge { from { transform: translateY(0.35em); } to { transform: none; } }
+.nudge { display: inline-block; animation: nudge 520ms cubic-bezier(.2,.8,.2,1) both; }
+
+@keyframes county-in { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: none; } }
+.map-county { transform-box: fill-box; transform-origin: center; animation: county-in 600ms cubic-bezier(.2,.8,.2,1) both; }
+
+/* Photo carousel */
+.no-scrollbar { scrollbar-width: none; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+
+@keyframes sheen { from { transform: translateX(-120%) skewX(-20deg); } to { transform: translateX(220%) skewX(-20deg); } }
+.sheen { position: relative; overflow: hidden; }
+.sheen::after { content: ""; position: absolute; inset: 0; width: 40%; background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent); transform: translateX(-120%) skewX(-20deg); }
+.sheen:hover::after { animation: sheen 900ms ease-out; }
+
+@keyframes bump { 0% { transform: scale(1); } 40% { transform: scale(1.12); } 100% { transform: scale(1); } }
+.bump { animation: bump 320ms cubic-bezier(.2,.9,.3,1.4); }
+@keyframes grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+.grow-y { transform-origin: bottom; animation: grow-y 700ms cubic-bezier(.2,.8,.2,1) 150ms both; }

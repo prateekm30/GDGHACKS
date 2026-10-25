@@ -17,7 +17,7 @@ GitHub repo with zero config, and every PR gets a preview link to test on phones
 
 ## Housing data: no scraping
 
-We query HUD's official public APIs, which return JSON. `data/build.py` filters to DC and Arlington,
+We query HUD's official public APIs, which return JSON. `data/build.py` filters to the 20 counties and cities in HUD's Washington-Arlington-Alexandria metro area (one income-limit table covers them all),
 merges the two datasets by address, adds Metro distance, and writes:
 
 - `public/data/buildings.json`: an array of buildings (name, address, program, units, bedroom sizes,

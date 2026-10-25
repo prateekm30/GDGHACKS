@@ -5,7 +5,7 @@ import type { Building, IncomeLimits, Situation } from './types'
  * Pairwise preference model (Bradley-Terry / logistic regression on feature differences).
  * Runs entirely in the browser. Features never include place names or demographics.
  */
-export const FEATURES = ['cost', 'incomeBased', 'bedrooms', 'metro', 'newer', 'size'] as const
+export const FEATURES = ['cost', 'incomeBased', 'bedrooms', 'metro', 'newer', 'size', 'commute', 'cozy'] as const
 export type Feature = (typeof FEATURES)[number]
 export type Weights = Record<Feature, number>
 
@@ -16,17 +16,21 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   metro: 'Closer to Metro',
   newer: 'Newer building',
   size: 'Bigger building',
+  commute: 'Close to work or school',
+  cozy: 'Smaller, quieter building',
 }
 
 /** Starting belief: cost matters most. Picks move the weights away from this. */
-export const PRIOR: Weights = { cost: 1.5, incomeBased: 0.3, bedrooms: 0.3, metro: 0.6, newer: 0.2, size: 0 }
+export const PRIOR: Weights = { cost: 1.5, incomeBased: 0.3, bedrooms: 0.3, metro: 0.6, newer: 0.2, size: 0, commute: 0, cozy: 0 }
 
 /** How much a "matters most" choice on the basics step raises a feature's starting weight. */
 const PRIORITY_BOOST = 1.2
 
 /** Starting weights from the basics step. Picks still move them from here. */
-export function priorFor(priorities: readonly Feature[]): Weights {
+export function priorFor(priorities: readonly Feature[], hasCommute = false): Weights {
   const w = { ...PRIOR }
+  // Knowing where someone works matters even if they didn't rank it.
+  if (hasCommute) w.commute = 0.6
   for (const f of priorities) w[f] += PRIORITY_BOOST
   return w
 }
@@ -51,6 +55,9 @@ export function features(b: Building, limits: IncomeLimits, situation: Situation
     // Opened 1987 (oldest in the data) = 0, this year = 1. Unknown sits in the middle.
     newer: b.yearPlacedInService === null ? 0.5 : Math.min(Math.max((b.yearPlacedInService - 1987) / 39, 0), 1),
     size: b.totalUnits ? Math.min(Math.log10(b.totalUnits) / 3, 1) : 0.3,
+    // 0 at 20+ miles, 1 next door. Unknown (no work spot chosen) is flat, so it never changes the order.
+    commute: b.commuteMiles == null ? 0.5 : 1 - Math.min(b.commuteMiles, 20) / 20,
+    cozy: b.totalUnits ? 1 - Math.min(Math.log10(b.totalUnits) / 3, 1) : 0.7,
   }
 }
 
@@ -120,7 +127,9 @@ export function nextPair(
     for (let j = i + 1; j < fresh.length; j++) {
       const d = diff(vecs.at(i) as Vector, vecs.at(j) as Vector)
       const spread = Math.sqrt(FEATURES.reduce((sum, f) => sum + d[f] * d[f], 0))
-      const value = spread - Math.abs(dot(w, d))
+      // Two income-based buildings show the same rent (30% of income), so prefer pairs that differ on cost.
+      const sameCost = fresh.at(i)?.program === 'HUD' && fresh.at(j)?.program === 'HUD' ? 0.35 : 0
+      const value = spread - Math.abs(dot(w, d)) - sameCost
       if (value > bestValue) {
         bestValue = value
         best = [fresh.at(i) as Building, fresh.at(j) as Building]
@@ -150,6 +159,8 @@ export function whyReasons(b: Building, w: Weights, limits: IncomeLimits, situat
     if (f === 'metro' && b.metroMiles !== null) out.push(b.metroMiles < 0.15 ? 'Right next to a Metro station' : `About ${b.metroMiles.toFixed(1)} miles from Metro (straight line)`)
     if (f === 'newer' && b.yearPlacedInService !== null) out.push(`Newer building, opened ${b.yearPlacedInService}`)
     if (f === 'size') out.push('It is a larger building, like ones you chose')
+    if (f === 'commute' && b.commuteMiles != null) out.push(`About ${b.commuteMiles.toFixed(1)} miles from your work or school (straight line)`)
+    if (f === 'cozy' && b.totalUnits) out.push(`A smaller building, ${b.totalUnits} homes in all`)
   }
   return out
 }
