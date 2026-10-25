@@ -75,7 +75,7 @@ export function ResultsStep({
       const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent set at 30% of your income' : 'rent varies'
       return `${i + 1}. ${b.name} — ${addressLine(b)} — ${cost}${b.contact.phone ? ` — ${b.contact.phone}` : ''}`
     })
-    const text = ['My HomePick DMV shortlist (estimates; each property decides who qualifies):', ...lines, 'https://gdghacks-tau.vercel.app'].join('\n')
+    const text = ['My HomePick DMV shortlist, from 1,700 income-restricted buildings across the DMV (estimates; each property decides who qualifies):', ...lines, 'https://gdghacks-tau.vercel.app'].join('\n')
     try {
       if (navigator.share) {
         await navigator.share({ title: 'My HomePick DMV shortlist', text })

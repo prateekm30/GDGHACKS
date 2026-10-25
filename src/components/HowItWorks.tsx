@@ -77,7 +77,7 @@ export function HowItWorks({
         </div>
         <ul className="relative mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-12 sm:grid-cols-4">
           {[
-            { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#ffd166' },
+            { big: buildings?.reduce((n, b) => n + (b.affordableUnits ?? 0), 0) ?? 120000, small: `income-restricted homes in ${(buildings?.length ?? 1700).toLocaleString('en-US')} buildings`, color: '#ffd166' },
             { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#e0b3ff' },
             { big: 2026, small: 'income limits, checked against the source', color: '#ffc53d', plain: true },
             { big: 0, small: 'sign-ups. Your answers stay on your device', color: '#ffe0a3' },

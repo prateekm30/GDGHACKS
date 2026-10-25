@@ -58,6 +58,11 @@ export function Landing({
       ? (buildings?.length ?? 0)
       : [...selected].reduce((n, a) => n + (counts.get(a) ?? 0), 0)
     : null
+  // Homes, not just buildings: a building here holds anywhere from 4 to 2,000 income-restricted apartments.
+  const chosenHomes = buildings
+    ? buildings.filter((b) => selected.size === 0 || selected.has(b.area)).reduce((n, b) => n + (b.affordableUnits ?? 0), 0)
+    : null
+  const homesText = chosenHomes ? ` · ${Math.round(chosenHomes / 1000).toLocaleString('en-US')}k homes` : ''
   const searchLabel = selected.size === 0 ? 'Search all of the DMV' : `Search ${selected.size} ${selected.size === 1 ? 'area' : 'areas'}`
   let w = 0
 
@@ -128,7 +133,7 @@ export function Landing({
                 <span>
                   {searchLabel}
                   <span className="block font-sans text-xs font-medium text-white/80">
-                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} real buildings · about two minutes`}
+                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} buildings${homesText} · about two minutes`}
                   </span>
                 </span>
                 <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-ink transition-transform duration-200 group-hover:translate-x-1">
@@ -196,7 +201,7 @@ export function Landing({
                 <span>
                   {searchLabel}
                   <span className="block font-sans text-xs font-medium text-white/80">
-                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} real buildings`}
+                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} buildings${homesText}`}
                   </span>
                 </span>
                 <span className="grid size-10 place-items-center rounded-full bg-accent text-ink transition-transform duration-200 group-hover:translate-x-1">
