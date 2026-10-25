@@ -29,7 +29,7 @@ export class HttpError extends Error {
 export function json(body: unknown, status = 200): Response {
   return new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', 'X-Instance': INSTANCE },
   })
 }
 
@@ -49,6 +49,8 @@ export function errorResponse(e: unknown): Response {
 // the hard ceiling is the Gemini API quota and budget alert set in Google AI Studio. Three windows:
 // per IP per minute, per IP per day, and all callers per hour on this instance.
 const LIMITS = { perIpMinute: 6, perIpDay: 40, allHour: 120 }
+/** Random per cold start, returned in an x-instance header so a burst test can see how many instances it hit. */
+export const INSTANCE = Math.random().toString(36).slice(2, 8)
 const hits = new Map<string, number[]>()
 let allHits: number[] = []
 export class RateLimited extends HttpError {
