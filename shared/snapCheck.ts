@@ -65,7 +65,7 @@ export function labelFitsText(label: string, text: string): boolean {
   return unknown <= Math.max(1, Math.floor(words.length / 3))
 }
 
-export type ScamKind = 'gift-card' | 'payment-app' | 'wire' | 'crypto' | 'pay-before-viewing' | 'pressure'
+export type ScamKind = 'gift-card' | 'payment-app' | 'wire' | 'crypto' | 'pay-before-viewing' | 'pay-to-contact' | 'pressure'
 
 export interface ScamSignal {
   kind: ScamKind
@@ -74,6 +74,9 @@ export interface ScamSignal {
   /** Plain-language reason, written by code. */
   why: string
 }
+
+const MONEY = String.raw`(?:\$\s?\d[\d,]*(?:\.\d\d)?|\b\d[\d,]*(?:\.\d\d)?\s?(?:dollars?|usd|bucks)\b)`
+const CONTACT = String.raw`(?:[\w.+-]+@[\w-]+(?:\.[\w-]+)+|\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}|[@$][a-z][\w-]{2,})`
 
 // Patterns scammers use in fake listings and applications. Matching is on the person's own text, by code.
 const SCAM_PATTERNS: { kind: ScamKind; re: RegExp; why: string }[] = [
@@ -85,6 +88,17 @@ const SCAM_PATTERNS: { kind: ScamKind; re: RegExp; why: string }[] = [
     kind: 'pay-before-viewing',
     re: /\b((?:deposit|holding fee|payment|money|fee)[^.\n]{0,40}\b(?:before|prior to)[^.\n]{0,30}\b(?:viewing|showing|tour|seeing|visit)|(?:hold|reserve|secure)[^.\n]{0,20}\b(?:unit|apartment|home)[^.\n]{0,30}\b(?:deposit|payment|fee)|(?:keys?|lease)[^.\n]{0,30}\b(?:mailed|shipped|sent)[^.\n]{0,30}\b(?:after|once)[^.\n]{0,20}\b(?:payment|deposit|wire))\b/i,
     why: 'Never pay to hold a home you have not seen with a leasing agent.',
+  },
+  {
+    // "Send 500 dollars to apply@example.com": money straight to an email, phone number, or app handle, with no
+    // trigger word like Zelle. Paying the leasing office at an address is not flagged.
+    kind: 'pay-to-contact',
+    re: new RegExp(
+      String.raw`(?:\b(?:send|pay|transfer|deposit|forward|e-?mail|text)\b[^.\n]{0,40}?${MONEY}[^.\n]{0,40}?\bto\b[^.\n]{0,16}?${CONTACT}` +
+        String.raw`|${MONEY}[^.\n]{0,40}?\b(?:sent|paid|transferred|deposited|emailed|forwarded)\b[^.\n]{0,16}?\bto\b[^.\n]{0,16}?${CONTACT})`,
+      'i',
+    ),
+    why: 'Real properties take fees at the office or through their own portal, not sent to a personal email, phone number, or handle.',
   },
   { kind: 'pressure', re: /\b(act now|today only|within (?:24|48) hours or|other applicants are waiting|out of the country|overseas|on a mission|cannot show the (?:unit|apartment))\b/i, why: 'Pressure and "I am overseas" stories are common in rental scams.' },
 ]

@@ -1,8 +1,8 @@
 import { ShieldCheck } from 'lucide-react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
-import { BasicsForm, toSituation, type Basics } from './components/BasicsForm'
+import { BasicsForm, sanitizeBasics, toSituation, type Basics } from './components/BasicsForm'
 import { Landing } from './components/Landing'
 import { SnapForm } from './components/SnapForm'
 import { LogoMark } from './components/Logo'
@@ -12,7 +12,7 @@ import { assess, isVisible } from './lib/eligibility'
 import { HUBS, milesBetween } from './lib/areas'
 import { fit, nextPair, priorFor, rank, shortlistFrom, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
-import { withTransition } from './lib/motion'
+import { prefersReducedMotion, withTransition } from './lib/motion'
 import { loadStreetViewKey } from './lib/streetview'
 import { Skyline } from './components/Skyline'
 import { Lamp } from './components/Lamp'
@@ -40,7 +40,7 @@ const stepFromState = (state: unknown): Step => {
 function loadBasics(): Basics | null {
   try {
     const raw = sessionStorage.getItem(BASICS_KEY)
-    return raw ? (JSON.parse(raw) as Basics) : null
+    return raw ? sanitizeBasics(JSON.parse(raw)) : null
   } catch {
     return null
   }
@@ -99,12 +99,23 @@ export default function App() {
   const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
   const pair = useMemo(() => nextPair(pool, seen, weights, limits, situation), [pool, seen, weights, situation])
-  const shortlist = useMemo(() => shortlistFrom(rank(pool, weights, limits, situation)), [pool, weights, situation])
+  const shortlist = useMemo(
+    () => shortlistFrom(rank(pool, weights, limits, situation), 3, (b) => !situation || assess(b, limits, situation).limit !== 'over'),
+    [pool, weights, situation],
+  )
   const isSample = !!buildings?.some((b) => b.sample)
 
   // Every screen change goes through here, so it gets the same transition and a history entry: the browser's
   // Back button goes to the previous screen instead of leaving the site.
+  const stepRef = useRef(step)
+  stepRef.current = step
+  const basicsRef = useRef(basics)
+  basicsRef.current = basics
+
   function go(next: Step, fromHistory = false) {
+    // The picker and the results need the basics; Forward after "Start over" must not open an empty picker.
+    if ((next === 'pick' || next === 'results') && !basicsRef.current) next = 'basics'
+    if (fromHistory && next === stepRef.current) return
     if (!fromHistory) {
       try {
         window.history.pushState({ step: next }, '', next === 'start' ? window.location.pathname : `#${next}`)
@@ -124,10 +135,40 @@ export default function App() {
     } catch {
       /* ignore */
     }
-    const onPop = (e: PopStateEvent) => go(stepFromState(e.state), true)
+    const onPop = (e: PopStateEvent) => {
+      // An in-page link (#main, #matches) makes a history entry with no step. Stay on this screen.
+      if (!STEPS.includes((e.state as { step?: Step } | null)?.step as Step)) {
+        try {
+          window.history.replaceState({ step: stepRef.current }, '', window.location.href)
+        } catch {
+          /* ignore */
+        }
+        return
+      }
+      go(stepFromState(e.state), true)
+    }
     window.addEventListener('popstate', onPop)
     return () => window.removeEventListener('popstate', onPop)
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // In-page links ("Skip to content", the results menu, "Choose my areas first") scroll and move focus on this
+  // screen without touching the URL, so they never look like a navigation to the app's history.
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return
+      const a = (e.target as Element | null)?.closest?.('a[href^="#"]')
+      const id = a?.getAttribute('href')?.slice(1)
+      if (!id || STEPS.includes(id as Step)) return
+      const el = document.getElementById(decodeURIComponent(id))
+      if (!el) return
+      e.preventDefault()
+      if (!el.hasAttribute('tabindex') && !/^(A|BUTTON|INPUT|SELECT|TEXTAREA)$/.test(el.tagName)) el.setAttribute('tabindex', '-1')
+      el.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'start' })
+      el.focus({ preventScroll: true })
+    }
+    document.addEventListener('click', onClick)
+    return () => document.removeEventListener('click', onClick)
   }, [])
 
   // The tab title says where you are.
@@ -159,6 +200,7 @@ export default function App() {
 
   function onBasicsDone(b: Basics) {
     setBasics(b)
+    basicsRef.current = b
     saveBasics(b)
     if (picks.length >= ROUNDS) {
       go('results')

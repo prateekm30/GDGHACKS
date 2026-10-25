@@ -1,4 +1,4 @@
-import { estimateCost } from './eligibility'
+import { assess, estimateCost } from './eligibility'
 import type { Building, IncomeLimits, Situation } from './types'
 
 /**
@@ -93,12 +93,30 @@ export function fit(picks: Pick[], limits: IncomeLimits, situation: Situation | 
   return w
 }
 
+/**
+ * Taste never outranks the income limit. A building the app says you appear to be over the limit for always
+ * ranks below every one you appear to fit (the penalty is larger than any possible taste score), and "maybe"
+ * buildings (HUD, between the 50% and 80% limits) give up a little. The penalty is not part of the learned
+ * features, so picks still teach the model about taste only.
+ */
+export const OVER_LIMIT_PENALTY = 100
+export const MAYBE_LIMIT_PENALTY = 0.75
+
+export function eligibilityPenalty(b: Building, limits: IncomeLimits, situation: Situation | null): number {
+  if (!situation) return 0
+  const { limit } = assess(b, limits, situation)
+  return limit === 'over' ? OVER_LIMIT_PENALTY : limit === 'maybe' ? MAYBE_LIMIT_PENALTY : 0
+}
+
 export function score(b: Building, w: Weights, limits: IncomeLimits, situation: Situation | null): number {
-  return dot(w, features(b, limits, situation))
+  return dot(w, features(b, limits, situation)) - eligibilityPenalty(b, limits, situation)
 }
 
 export function rank(buildings: Building[], w: Weights, limits: IncomeLimits, situation: Situation | null): Building[] {
-  return [...buildings].sort((a, b) => score(b, w, limits, situation) - score(a, w, limits, situation))
+  return buildings
+    .map((b) => ({ b, s: score(b, w, limits, situation) }))
+    .sort((x, y) => y.s - x.s)
+    .map((x) => x.b)
 }
 
 /**
@@ -172,12 +190,13 @@ export function learnedPriorities(w: Weights, prior: Weights = PRIOR, chosen: re
  * The top three, mixing programs: at most two of one kind when the other kind has a candidate. Income-based
  * buildings all show the same rent (30% of income), so three of them in a row tells the person little.
  */
-export function shortlistFrom(ranked: Building[], n = 3): Building[] {
+export function shortlistFrom(ranked: Building[], n = 3, fits: (b: Building) => boolean = () => true): Building[] {
   const out: Building[] = []
   for (const b of ranked) {
     if (out.length >= n) break
     const same = out.filter((o) => o.program === b.program).length
-    if (same >= n - 1 && ranked.some((o) => !out.includes(o) && o.program !== b.program)) continue
+    // Mix programs, but never by swapping in a building you are over the limit for.
+    if (same >= n - 1 && ranked.some((o) => !out.includes(o) && o.program !== b.program && (fits(o) || !fits(b)))) continue
     out.push(b)
   }
   return out

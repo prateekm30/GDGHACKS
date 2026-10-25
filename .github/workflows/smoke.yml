@@ -62,6 +62,7 @@ jobs:
               "Return this application by December 5, 2026.",
               "To hold the unit, send a $900 deposit by Zelle before viewing.",
               "Keys will be mailed after payment is received.",
+              "Or send 500 dollars to apply@example.com.",
               "Bring your last two pay stubs."
             ].join("\n");
             fetch(process.argv[1] + "/api/snap-text", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
@@ -71,7 +72,7 @@ jobs:
                 const out = JSON.parse(raw);
                 if (!r.ok) process.exit(1);
                 const kinds = (out.warnings || []).map(w => w.kind);
-                if (!kinds.includes("payment-app") || !kinds.includes("pay-before-viewing")) { console.log("missing scam warnings", kinds); process.exit(1); }
+                if (!kinds.includes("payment-app") || !kinds.includes("pay-before-viewing") || !kinds.includes("pay-to-contact")) { console.log("missing scam warnings", kinds); process.exit(1); }
                 const hay = text.toLowerCase();
                 for (const it of out.items || []) {
                   for (const w of it.label.toLowerCase().match(/\S*\d\S*|\S+@\S+/g) || []) {
@@ -81,16 +82,35 @@ jobs:
                 console.log("warnings", kinds, "items", (out.items || []).length, "risky", (out.items || []).filter(i => i.risky).length);
               })
           ' "${{ inputs.url }}"
-      - name: Street View key present and answering (informational)
+      - name: Street View key is locked to the site
+        # Uses Google's free metadata endpoint. A key restricted to the site must refuse requests with no referrer
+        # or someone else's. If either gets "OK", the restriction is not applied in Google Cloud (see README).
+        continue-on-error: true
         run: |
-          asset=$(curl -sS "${{ inputs.url }}/" | grep -o '/assets/index-[^"]*\.js' | head -1)
-          key=$(curl -sS "${{ inputs.url }}$asset" | grep -oE 'VITE_GOOGLE_MAPS_KEY[^"]*"[^"]*"' | head -1; curl -sS "${{ inputs.url }}$asset" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
-          key=$(echo "$key" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
-          [ -n "$key" ] || key=$(curl -sS "${{ inputs.url }}/api/config" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
-          if [ -z "$key" ]; then echo "No Street View key in the bundle or /api/config: cards show aerial views."; exit 0; fi
-          # The key is referrer-restricted, so send the site as the referrer. 1330 7th St NW has a photo.
-          code=$(curl -sS -o /dev/null -w '%{http_code}' -e "${{ inputs.url }}/" "https://maps.googleapis.com/maps/api/streetview?size=640x360&location=38.9076,-77.0220&radius=80&source=outdoor&return_error_code=true&key=$key")
-          echo "Street View Static API answered $code (200 = working, 403 = key restriction or API not enabled, 404 = no photo there)"
+          key=$(curl -sS "${{ inputs.url }}/api/config" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
+          if [ -z "$key" ]; then echo "No Street View key served: cards show aerial views."; exit 0; fi
+          meta="https://maps.googleapis.com/maps/api/streetview/metadata?location=38.9076,-77.0220&radius=80&source=outdoor&key=$key"
+          site=$(curl -sS -e "${{ inputs.url }}/" "$meta" | grep -oE '"status" *: *"[A-Z_]+"' | grep -oE '[A-Z_]{2,}')
+          none=$(curl -sS "$meta" | grep -oE '"status" *: *"[A-Z_]+"' | grep -oE '[A-Z_]{2,}')
+          fake=$(curl -sS -e "https://not-this-site.example/" "$meta" | grep -oE '"status" *: *"[A-Z_]+"' | grep -oE '[A-Z_]{2,}')
+          echo "From the site: $site (want OK)"
+          echo "No referrer:   $none (want REQUEST_DENIED)"
+          echo "Other site:    $fake (want REQUEST_DENIED)"
+          if [ "$none" = "OK" ] || [ "$fake" = "OK" ]; then
+            echo "::warning::The Street View key is NOT restricted to the site in Google Cloud. Anyone can use it."
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Accessibility (axe) on the live site
+        # The site's CSP blocks injected scripts, which is what axe is, so the test browser alone bypasses CSP.
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          UI_CHECK_URL="${{ inputs.url }}" node scripts/ui-check.cjs
       - name: Rate limit under a burst from one address (informational)
         # The limiter is per serverless instance. This prints the status and instance id of nine quick calls;
         # a 429 proves the limiter, while nine different instance ids explain a run without one.

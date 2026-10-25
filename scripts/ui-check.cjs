@@ -1,4 +1,7 @@
 // Headless checks that unit tests can't cover. Builds must exist (npm run build). Starts its own preview server.
+// UI_CHECK_URL=https://... runs the same checks against a deployed site instead. The site's Content-Security-Policy
+// forbids injected scripts (which is what axe is), so for that run the test browser bypasses CSP. Only the test
+// browser: the site's policy is unchanged.
 // Fails on: any axe violation on the start, basics, pick, or results screens (normal and reduced motion),
 // a headline without word spaces, a missing h1, both pick cards not fitting one phone screen, or sideways scroll.
 const { spawn } = require('node:child_process')
@@ -6,7 +9,8 @@ const { chromium } = require('playwright')
 const { AxeBuilder } = require('@axe-core/playwright')
 
 const PORT = 4321 + Math.floor(Math.random() * 500)
-const URL = `http://localhost:${PORT}`
+const LIVE = process.env.UI_CHECK_URL
+const URL = LIVE ? LIVE.replace(/\/$/, '') : `http://localhost:${PORT}`
 const failures = []
 const fail = (msg) => failures.push(msg)
 
@@ -28,7 +32,7 @@ async function axe(page, label) {
 }
 
 async function walk(browser, { reducedMotion, viewport, mobile }) {
-  const ctx = await browser.newContext({ viewport, reducedMotion, isMobile: mobile, hasTouch: mobile })
+  const ctx = await browser.newContext({ viewport, reducedMotion, isMobile: mobile, hasTouch: mobile, bypassCSP: !!LIVE })
   const p = await ctx.newPage()
   const tag = `${viewport.width}px${reducedMotion === 'reduce' ? ' reduced-motion' : ''}`
   await p.goto(URL)
@@ -73,7 +77,7 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
 }
 
 ;(async () => {
-  const server = spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' })
+  const server = LIVE ? null : spawn('npx', ['vite', 'preview', '--port', String(PORT), '--strictPort'], { stdio: 'ignore' })
   try {
     await waitFor(URL)
     const browser = await chromium.launch()
@@ -82,7 +86,7 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
     await walk(browser, { reducedMotion: 'no-preference', viewport: { width: 390, height: 844 }, mobile: true })
     await browser.close()
   } finally {
-    server.kill()
+    server?.kill()
   }
   if (failures.length) {
     console.error('\nUI checks failed:\n- ' + failures.join('\n- '))

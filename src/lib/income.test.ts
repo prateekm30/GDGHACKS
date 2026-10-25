@@ -78,3 +78,30 @@ describe('hero reel picks', async () => {
     expect(new Set(reel.map((b) => b.area)).size).toBe(2)
   })
 })
+
+describe('income edge cases', async () => {
+  const { incomeProblem } = await import('./income')
+  const { sanitizeBasics } = await import('../components/BasicsForm')
+  it('rejects text that is not a whole number', () => {
+    for (const bad of ['99999999999999999999', '1e9', '-500', 'abc', '52000abc', 'NaN', 'Infinity', '0', '$', '1.2.3']) expect(parseIncome(bad)).toBeNull()
+  })
+  it('flags incomes too large to be real', () => {
+    expect(incomeProblem(parseIncome('999999999999'), 'year')).toMatch(/1,000,000/)
+    expect(incomeProblem(90000, 'month')).toMatch(/83,333/)
+    expect(incomeProblem(52000, 'year')).toBeNull()
+    expect(incomeProblem(4300, 'month')).toBeNull()
+  })
+  it('cleans saved answers someone edited by hand', () => {
+    expect(sanitizeBasics(null)).toBeNull()
+    expect(sanitizeBasics('x')).toBeNull()
+    const b = sanitizeBasics({ householdSize: 99, income: 1e20, bedroomsNeeded: -1, priorities: ['cost', 'evil', 'cost', 'metro', 'size', 'newer'], workHub: '<script>', voucher: 'yes', hideOverLimit: true })!
+    expect(b.householdSize).toBe(1)
+    expect(b.income).toBeNull()
+    expect(b.bedroomsNeeded).toBeNull()
+    expect(b.priorities).toEqual(['cost', 'metro', 'size'])
+    expect(b.workHub).toBeNull()
+    expect(b.voucher).toBe(false)
+    expect(b.hideOverLimit).toBe(false)
+    expect(sanitizeBasics({ householdSize: 3, income: 52000, incomePeriod: 'month', bedroomsNeeded: 2, priorities: ['cost'] })).toMatchObject({ householdSize: 3, income: 52000, incomePeriod: 'month', bedroomsNeeded: 2 })
+  })
+})

@@ -3,6 +3,19 @@ import type { IncomeLimits } from './types'
 
 export type IncomePeriod = 'year' | 'month'
 
+/** Above this a number is a typo, not an income for income-restricted housing ($1M a year, $83,333 a month). */
+export const MAX_YEARLY_INCOME = 1_000_000
+/** Longest income box entry: "1,000,000.00" plus a little room. */
+export const INCOME_MAX_CHARS = 14
+
+/** A plain message when a typed income cannot be right, or null when it can. */
+export function incomeProblem(typed: number | null, period: IncomePeriod): string | null {
+  if (typed === null) return null
+  const max = period === 'month' ? Math.floor(MAX_YEARLY_INCOME / 12) : MAX_YEARLY_INCOME
+  if (typed > max) return `That is more than ${period === 'month' ? '$83,333 a month' : '$1,000,000 a year'}. Check the number.`
+  return null
+}
+
 /** Yearly income of a monthly amount, and back. Monthly is what students and hourly workers know. */
 export const toYearly = (n: number, period: IncomePeriod) => (period === 'month' ? n * 12 : n)
 export const fromYearly = (yearly: number, period: IncomePeriod) => (period === 'month' ? Math.round(yearly / 12) : yearly)
@@ -28,8 +41,9 @@ export function sliderRange(limits: IncomeLimits, period: IncomePeriod): { min: 
  * Cents are dropped. Anything that is not a number is null.
  */
 export function parseIncome(raw: string): number | null {
-  const s = raw.replace(/[\s$,]/g, '').toLowerCase()
-  const m = s.match(/^(\d+(?:\.\d+)?)(k)?/)
+  const s = raw.slice(0, 40).replace(/[\s$,]/g, '').toLowerCase()
+  // The whole entry must be a number (with an optional k): "52000abc" or "1e9" is not an income.
+  const m = s.match(/^(\d{1,12}(?:\.\d+)?)(k)?$/)
   if (!m) return null
   let n = Number(m[1])
   if (m[2]) n *= 1000

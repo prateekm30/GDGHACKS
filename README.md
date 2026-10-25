@@ -23,8 +23,20 @@ falls back to highlighted lines.
 
 Street View photos need `GOOGLE_MAPS_BROWSER_KEY` (or `VITE_GOOGLE_MAPS_KEY`): a browser key restricted in
 Google Cloud to the site's address and to the Street View Static API. The page reads it from `/api/config` at
-runtime, so adding it in Vercel needs no rebuild. It is public by design; the restrictions are what protect it.
-`/api/health` lists the names of the Google variables the deployment can see, never the values.
+runtime, so adding it in Vercel needs no rebuild. It is public by design; the restrictions are what protect it,
+so they must actually be set in Google Cloud Console:
+
+1. **APIs & Services > Credentials**, open the key. Application restrictions: **Websites**, with
+   `https://gdghacks-tau.vercel.app/*` as the only entry. API restrictions: **Restrict key**, with only
+   **Street View Static API** ticked. Save, then allow about five minutes.
+2. **APIs & Services > Street View Static API > Quotas**: set **Requests per day** to a cap such as 2,000.
+3. **Billing > Budgets & alerts**: a budget of a few dollars with email alerts at 50%, 90%, and 100%.
+
+The smoke workflow checks step 1 from outside: Google must answer `REQUEST_DENIED` with no referrer or another
+site's referrer. A referrer can be faked by a script, so the daily quota in step 2 is the real ceiling on cost.
+On the page, the landing reel loads street photos only while it is on screen, plays six frames on its own and
+then waits for a tap, and loads at most 12 street photos per page view. `/api/health` says only whether Street
+View is on, never anything about the key.
 
 ## AI model
 
@@ -90,12 +102,15 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 
 ## Testing and accessibility
 
-- `npm test`: 73 unit tests for eligibility math, ranking, guardrails, the API rate limiter, and text chunking.
+- `npm test`: unit tests for eligibility math, ranking, guardrails, the API rate limiter, and text chunking.
 - `npm run check:ui` (also run in CI, `.github/workflows/ci.yml`): builds the site, then walks the start,
   basics, pick, and results screens in headless Chromium at 1280px and 390px, with and without reduced
   motion. It fails on any axe-core violation (WCAG 2.0/2.1/2.2 A and AA rules), a headline that does not
   read as separate words, a missing `h1`, focus that does not move to the new screen, two pick cards that are
   not side by side on a phone, or sideways scroll.
+- The smoke workflow runs the same walk against the live site (`UI_CHECK_URL=... node scripts/ui-check.cjs`).
+  The site's Content-Security-Policy blocks injected scripts, and axe is one, so that run's test browser alone
+  bypasses CSP (Playwright `bypassCSP`). The policy the site sends is unchanged.
 - Last run before submission: **0 axe violations on all 4 screens**, both motion modes, both widths.
 - Checked by hand: keyboard-only flow (tab, arrow keys in the picker, pause button on the hero slideshow),
   VoiceOver labels on the pick buttons, 200% zoom on a 1024px window.

@@ -52,6 +52,9 @@ describe('banned phrases: the app never promises eligibility or a waitlist', () 
     "You're eligible",
     'You are approved',
     'Application approved',
+    'Your application has been approved',
+    'You have been approved for this unit',
+    'Pre-approved for this apartment',
     'Guaranteed approval',
     'We guarantee a unit',
     'The waitlist is open',
@@ -68,6 +71,9 @@ describe('banned phrases: the app never promises eligibility or a waitlist', () 
     'Call to schedule your income interview',
     'Ask if the waitlist is open',
     'The property decides who can rent',
+    'Bring a HUD-approved photo ID',
+    'Pay by an approved form of payment: money order or cashier check',
+    'Forms approved by the DC Housing Authority',
   ])('allows "%s"', (text) => {
     expect(findBannedPhrase(text)).toBeNull()
   })
@@ -179,6 +185,10 @@ describe('scam signals: payment methods and tactics scammers use get a warning',
     ['pay-before-viewing', 'A $300 deposit is required before viewing the apartment'],
     ['pay-before-viewing', 'Keys will be mailed after payment is received'],
     ['pressure', 'I am out of the country and cannot show the unit'],
+    ['pay-to-contact', 'send 500 dollars to apply@example.com'],
+    ['pay-to-contact', 'Please send the $950 deposit to rentals.dc@gmail.com today'],
+    ['pay-to-contact', 'Pay $200 application fee to (202) 555-0199'],
+    ['pay-to-contact', 'A $75 fee must be sent to @dcrentals'],
   ])('flags %s in "%s"', (kind, text) => {
     expect(scamSignals(text).map((s) => s.kind)).toContain(kind)
   })
@@ -186,6 +196,8 @@ describe('scam signals: payment methods and tactics scammers use get a warning',
   it('stays quiet on a normal application', () => {
     expect(scamSignals(DEMO_FORM_TEXT)).toEqual([])
     expect(scamSignals(FORM)).toEqual([])
+    expect(scamSignals('Pay the $35 application fee to the leasing office at 1200 First St NE.')).toEqual([])
+    expect(scamSignals('Email questions to leasing@example.org. The fee is $40.')).toEqual([])
   })
 
   it('marks the risky item itself', () => {

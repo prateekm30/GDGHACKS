@@ -15,10 +15,10 @@ import {
   Wallet,
   type LucideIcon,
 } from 'lucide-react'
-import { useId, useState, type ReactNode } from 'react'
+import { useId, useState, type ReactNode, useRef } from 'react'
 import { HUBS } from '../lib/areas'
-import { fromYearly, incomeFloor, parseIncome, sliderRange, toYearly, type IncomePeriod } from '../lib/income'
-import type { Feature } from '../lib/ranking'
+import { fromYearly, INCOME_MAX_CHARS, incomeFloor, incomeProblem, MAX_YEARLY_INCOME, parseIncome, sliderRange, toYearly, type IncomePeriod } from '../lib/income'
+import { FEATURES, type Feature } from '../lib/ranking'
 import type { IncomeLimits, Situation } from '../lib/types'
 import { money } from './ui'
 
@@ -36,6 +36,31 @@ export interface Basics {
   workHub?: string | null
   voucher?: boolean
   hideOverLimit?: boolean
+}
+
+/**
+ * Saved answers come back from session storage, which anyone can edit. Keep only values the form itself could
+ * have produced; anything else falls back to the default or is dropped.
+ */
+export function sanitizeBasics(raw: unknown): Basics | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Record<string, unknown>
+  const int = (v: unknown, lo: number, hi: number) => (typeof v === 'number' && Number.isInteger(v) && v >= lo && v <= hi ? v : null)
+  const income = typeof r.income === 'number' && Number.isFinite(r.income) && r.income >= 1 && r.income <= MAX_YEARLY_INCOME ? Math.floor(r.income) : null
+  return {
+    householdSize: int(r.householdSize, 1, 8) ?? 1,
+    income,
+    incomePeriod: r.incomePeriod === 'month' ? 'month' : 'year',
+    bedroomsNeeded: int(r.bedroomsNeeded, 0, 3),
+    priorities: Array.isArray(r.priorities)
+      ? [...new Set(r.priorities.filter((p): p is Feature => (FEATURES as readonly unknown[]).includes(p)))].slice(0, MAX_PRIORITIES)
+      : ['cost'],
+    allFullTimeStudents: r.allFullTimeStudents === true,
+    includeSeniorDisability: r.includeSeniorDisability === true,
+    workHub: typeof r.workHub === 'string' && HUBS.some((h) => h.id === r.workHub) ? r.workHub : null,
+    voucher: r.voucher === true,
+    hideOverLimit: r.hideOverLimit === true && income !== null,
+  }
 }
 
 export const toSituation = (b: Basics): Situation | null =>
@@ -124,14 +149,18 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
   const [voucher, setVoucher] = useState(initial?.voucher ?? false)
   const [hideOver, setHideOver] = useState(initial?.hideOverLimit ?? false)
   const typed = parseIncome(income)
+  const problem = incomeProblem(typed, period)
+  // Text in the box that is not a number at all ("abc", "1e9", "-500").
+  const unreadable = income.trim() !== '' && typed === null
   /** Yearly, whatever the box says. All eligibility math stays yearly. */
-  const incomeNum = typed ? toYearly(typed, period) : null
+  const incomeNum = typed && !problem ? toYearly(typed, period) : null
+  const incomeRef = useRef<HTMLInputElement>(null)
   const floor = incomeFloor(limits)
   const range = sliderRange(limits, period)
   // A "yearly" number under a year of the cheapest capped rent is almost always a monthly one; a "monthly" number
   // over the top of the slider is almost always yearly. Offer the switch instead of refusing.
   const looksMonthly = period === 'year' && !!typed && typed < floor
-  const looksYearly = period === 'month' && !!typed && typed > range.max
+  const looksYearly = period === 'month' && !!typed && !problem && typed > range.max
   /** The toggle converts the number; the nudge keeps it ("yes, that 1,000 was per month"). */
   function switchPeriod(next: IncomePeriod, keepNumber = false) {
     if (next === period) return
@@ -150,6 +179,10 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
       className="grid gap-8 lg:grid-cols-[1fr_20rem]"
       onSubmit={(e) => {
         e.preventDefault()
+        if (problem || unreadable) {
+          incomeRef.current?.focus()
+          return
+        }
         onDone({
           householdSize: size,
           income: incomeNum,
@@ -229,6 +262,10 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
                 $
               </span>
               <input
+                ref={incomeRef}
+                maxLength={INCOME_MAX_CHARS}
+                aria-invalid={problem || unreadable ? true : undefined}
+                aria-describedby={problem || unreadable ? `${id}-income-error` : undefined}
                 id={`${id}-income`}
                 aria-label={`${period === 'month' ? 'Monthly' : 'Yearly'} household income in dollars`}
                 inputMode="decimal"
@@ -254,6 +291,11 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               onChange={(e) => setIncome(Number(e.target.value).toLocaleString('en-US'))}
               className="w-full accent-brand"
             />
+            {(problem || unreadable) && (
+              <p id={`${id}-income-error`} role="alert" className="rounded-xl bg-heavy-tint px-3 py-2 text-sm font-medium text-heavy">
+                {problem ?? 'Type the income as a number, like 52,000 or 52k.'}
+              </p>
+            )}
             {(looksMonthly || looksYearly) && (
               <p role="status" className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl bg-accent/25 px-3 py-2 text-sm text-ink">
                 <span>

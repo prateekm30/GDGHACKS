@@ -7,7 +7,7 @@ import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingCard } from './BuildingCard'
 import { Glossary } from './Glossary'
 import { SnapForm } from './SnapForm'
-import { Button, Card } from './ui'
+import { Button, Card, Note } from './ui'
 
 const QUESTIONS = [
   'Is your waitlist open, and how long is it?',
@@ -49,6 +49,10 @@ export function ResultsStep({
   const max = Math.max(...priorities.map((p) => p.weight), 1)
   const fromPicks = priorities.filter((p) => p.source === 'picks').length
   const revealRef = useReveal<HTMLDivElement>()
+  // Ranking already puts every building you appear to fit first. If the shortlist still has "over" buildings,
+  // there were not enough others; say so instead of calling one the best match.
+  const over = shortlist.map((b) => !!situation && assess(b, limits, situation).limit === 'over')
+  const allOver = shortlist.length > 0 && over.every(Boolean)
 
   return (
     <div ref={revealRef} className="space-y-10">
@@ -131,6 +135,21 @@ export function ResultsStep({
           </Button>
         </div>
         {shortlist.length === 0 && <p className="text-sm text-ink-soft">No buildings to show yet. Try starting over with a different area.</p>}
+        {allOver ? (
+          <div className="mb-4">
+            <Note tone="warn">
+              At the income you entered, you appear to be over the estimated limit for every building we can show here. These are
+              the closest fits to your picks, not matches. Check the income you entered (yearly, before taxes), or ask the
+              property: limits change every year and the property decides.
+            </Note>
+          </div>
+        ) : (
+          over.some(Boolean) && (
+            <div className="mb-4">
+              <Note tone="warn">Only a few buildings here fit your estimated income limit, so the list also shows closest fits that are over it.</Note>
+            </div>
+          )
+        )}
         <div className="grid gap-4 lg:grid-cols-3">
           {shortlist.map((b, i) => (
             <div
@@ -152,7 +171,9 @@ export function ResultsStep({
                         i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
                       }`}
                     >
-                      {i === 0 ? (
+                      {over[i] ? (
+                        `#${i + 1} · over the limit (est.)`
+                      ) : i === 0 ? (
                         <>
                           <Award aria-hidden className="size-3.5" strokeWidth={2.5} />
                           Best match

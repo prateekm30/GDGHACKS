@@ -10,6 +10,13 @@ import { TileView } from './BuildingPhoto'
 import { RowhouseArt, hashString } from './Skyline'
 
 const HOLD_MS = 4600
+/**
+ * Street View photos are billed per image. The reel plays on its own for this many frames, then waits for a
+ * tap, and loads at most STREET_CAP street photos per page view (aerial tiles after that). So a visitor who
+ * just reads the page costs about 8 images, once, instead of one every few seconds for as long as the tab is open.
+ */
+const AUTO_FRAMES = 6
+const STREET_CAP = 12
 
 /**
  * One building per area first, then a second lap, so the reel tours the whole region. With the Street View
@@ -73,7 +80,24 @@ export function HeroReel({
   const [failed, setFailed] = useState<Set<string>>(() => new Set())
   // Buildings whose street photo did not load (Google has none after all): the aerial view takes over.
   const [noStreet, setNoStreet] = useState<Set<string>>(() => new Set())
-  const streetFor = (f: Building) => !!apiKey && index?.[f.id] === 'a' && !noStreet.has(f.id)
+  // Street photos load only while the reel is on screen, and only up to STREET_CAP per page view.
+  const rootRef = useRef<HTMLDivElement>(null)
+  const [onScreen, setOnScreen] = useState(false)
+  const [requested, setRequested] = useState<ReadonlySet<string>>(() => new Set())
+  const [autoSteps, setAutoSteps] = useState(0)
+  const streetFor = (f: Building) =>
+    !!apiKey && index?.[f.id] === 'a' && !noStreet.has(f.id) && (requested.has(f.id) || (onScreen && requested.size < STREET_CAP))
+
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setOnScreen(true)
+      return
+    }
+    const io = new IntersectionObserver(([e]) => setOnScreen(e.isIntersecting), { rootMargin: '120px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [])
 
   // The reel changes once the index arrives; start it over so the frame and the label agree.
   useEffect(() => {
@@ -90,15 +114,29 @@ export function HeroReel({
     setI(((next % n) + n) % n)
   }
 
-  // Auto-advance unless hovered, focused, hidden, or the person prefers less motion.
+  // Auto-advance unless hovered, focused, off screen, hidden, done with its few frames, or the person prefers
+  // less motion. After AUTO_FRAMES it waits for a tap.
+  const autoRunning = !still && !paused && !stopped && onScreen && n > 1 && autoSteps < AUTO_FRAMES
   useEffect(() => {
-    if (still || paused || stopped || n < 2 || document.visibilityState === 'hidden') return
-    timer.current = window.setTimeout(() => go(i + 1), HOLD_MS)
+    if (!autoRunning || document.visibilityState === 'hidden') return
+    timer.current = window.setTimeout(() => {
+      setAutoSteps((s) => s + 1)
+      go(i + 1)
+    }, HOLD_MS)
     return () => {
       if (timer.current) window.clearTimeout(timer.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [i, paused, stopped, n, still])
+  }, [i, autoRunning])
+
+  // Count each street photo once, when it is first shown (the next frame is fetched early only while playing).
+  useEffect(() => {
+    const want = [reel[i], autoRunning ? reel[(i + 1) % Math.max(n, 1)] : undefined].filter(
+      (f): f is Building => !!f && streetFor(f) && !requested.has(f.id),
+    )
+    if (want.length) setRequested((s) => new Set([...s, ...want.map((f) => f.id)]))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [i, autoRunning, onScreen, apiKey, index, reel])
 
   // Clear the outgoing frame once its fade is done.
   useEffect(() => {
@@ -123,6 +161,7 @@ export function HeroReel({
 
   return (
     <div
+      ref={rootRef}
       className={`tilt group/reel relative overflow-hidden rounded-[2rem] bg-dusk shadow-lift ring-1 ring-white/70 ${className}`}
       {...tiltHandlers(4)}
       onPointerEnter={() => setPaused(true)}
@@ -147,7 +186,8 @@ export function HeroReel({
         {reel.map((f, k) => {
           const active = k === i
           const leaving = k === prev
-          const next = k === (i + 1) % n
+          // The next frame is fetched ahead only while the reel plays on its own.
+          const next = k === (i + 1) % n && autoRunning
           if (!active && !leaving && !next) return null
           return (
             <div
@@ -224,7 +264,7 @@ export function HeroReel({
             <div className="flex flex-1 gap-1">
               {reel.slice(0, Math.min(n, 12)).map((f, k) => (
                 <span key={f.id} className="h-1 flex-1 overflow-hidden rounded-full bg-white/25">
-                  <span className={`block h-full bg-accent ${k === i % 12 ? (still || paused || stopped ? 'w-full' : 'reel-bar') : k < i % 12 ? 'w-full' : 'w-0'}`} />
+                  <span className={`block h-full bg-accent ${k === i % 12 ? (autoRunning ? 'reel-bar' : 'w-full') : k < i % 12 ? 'w-full' : 'w-0'}`} />
                 </span>
               ))}
             </div>

@@ -239,3 +239,22 @@ describe('income tiers beyond 50 and 60 (DC covenants)', async () => {
     expect(assess(b30, limits, s).limit).toBe('over')
   })
 })
+
+describe('ranking never puts over-the-limit buildings above ones you fit', async () => {
+  const { rank, shortlistFrom, PRIOR } = await import('./ranking')
+  const { assess } = await import('./eligibility')
+  const limits = (await import('../data/limits.2026.json')).default as import('./types').IncomeLimits
+  const buildings = (await import('../../public/data/buildings.json')).default as unknown as import('./types').Building[]
+  it.each([52000, 75000, 95000, 140000])('at $%i for one person', (income) => {
+    const s = { income, householdSize: 1, allFullTimeStudents: false, includeSeniorDisability: false, voucher: false }
+    const ranked = rank(buildings, PRIOR, limits, s)
+    const status = ranked.map((b) => assess(b, limits, s).limit)
+    const firstOver = status.indexOf('over')
+    const lastFit = status.map((x) => x !== 'over').lastIndexOf(true)
+    // Every non-over building comes before the first over one.
+    if (firstOver !== -1) expect(lastFit).toBeLessThan(firstOver)
+    const top = shortlistFrom(ranked, 3, (b) => assess(b, limits, s).limit !== 'over')
+    const fitting = status.filter((x) => x !== 'over').length
+    if (fitting >= 3) for (const b of top) expect(assess(b, limits, s).limit).not.toBe('over')
+  })
+})

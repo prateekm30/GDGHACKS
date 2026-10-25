@@ -5,6 +5,9 @@ import { scamSignals } from '../../shared/snapCheck'
 import { extractText, highlightLines, requestChecklist, type ChecklistItem } from '../lib/snap'
 import { Button, Card, Note } from './ui'
 
+/** About four pages of dense text: four requests at most, under the per-minute limit. */
+const MAX_SNAP_CHARS = 60_000
+
 type Phase = 'idle' | 'reading' | 'review' | 'asking' | 'done' | 'error'
 
 const TYPE_LABEL = { document: 'Bring', deadline: 'Deadline', fee: 'Fee', contact: 'Contact' } as const
@@ -13,6 +16,8 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [progress, setProgress] = useState(0)
   const [text, setText] = useState('')
+  // A form is a few pages. Past this it is a whole document; we keep the first part and say so.
+  const [clipped, setClipped] = useState(false)
   const [items, setItems] = useState<ChecklistItem[]>([])
   const [failed, setFailed] = useState<[number, number]>([0, 1])
   const [confirmed, setConfirmed] = useState<Record<number, boolean>>({})
@@ -26,7 +31,8 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
     announce('Reading your form on this device')
     try {
       const t = await extractText(file, setProgress)
-      setText(t)
+      setClipped(t.length > MAX_SNAP_CHARS)
+      setText(t.slice(0, MAX_SNAP_CHARS))
       setPhase('review')
       announce('Text ready to review')
     } catch (e) {
@@ -130,8 +136,12 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
               id="snap-text"
               className="h-48 w-full rounded-xl border border-line p-3 font-mono text-xs"
               value={text}
+              maxLength={MAX_SNAP_CHARS}
               onChange={(e) => setText(e.target.value)}
             />
+            {(clipped || text.length >= MAX_SNAP_CHARS) && (
+              <Note tone="warn">This is longer than a rental form usually is, so only the first part is kept. Snap one form at a time.</Note>
+            )}
             <Button onClick={makeChecklist} disabled={phase === 'asking' || text.trim().length < 20}>
               {phase === 'asking' ? `Making checklist…${progress && progress < 100 ? ` ${progress}%` : ''}` : 'Make my checklist'}
             </Button>
