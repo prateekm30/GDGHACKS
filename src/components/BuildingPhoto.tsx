@@ -166,7 +166,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
           >
             <ChevronRight aria-hidden className="size-5" />
           </button>
-          <span aria-hidden className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-full bg-black/35 px-2 py-1">
+          <span aria-hidden className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 gap-1.5 rounded-md bg-black/35 px-2 py-1">
             {views.map((v, i) => (
               <span key={v.label} className={`h-1.5 rounded-full bg-white transition-all duration-300 ${i === index ? 'w-4' : 'w-1.5 opacity-60'}`} />
             ))}
@@ -183,7 +183,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
           target="_blank"
           rel="noreferrer"
           onClick={(e) => e.stopPropagation()}
-          className="absolute bottom-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-ink shadow transition hover:bg-accent"
+          className="absolute bottom-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-md bg-white/95 px-2.5 py-1 text-[11px] font-bold text-ink shadow transition hover:bg-accent"
         >
           {street === 'ok' ? 'Look around' : 'Street View'}
           <ExternalLink aria-hidden className="size-3" />

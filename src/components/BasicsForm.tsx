@@ -111,7 +111,7 @@ function Question({ n, title, hint, children }: { n: number; title: string; hint
 /** A switch that is a real checkbox underneath. */
 function Toggle({ checked, onChange, children, hint }: { checked: boolean; onChange: (v: boolean) => void; children: ReactNode; hint?: ReactNode }) {
   return (
-    <label className="flex cursor-pointer items-start gap-3 rounded-2xl p-3 text-sm transition hover:bg-white/60 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand">
+    <label className="flex cursor-pointer items-start gap-3 rounded-lg p-3 text-sm transition hover:bg-white/60 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand">
       <input type="checkbox" role="switch" className="peer sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <span
         aria-hidden
@@ -201,7 +201,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
         <div>
           <p className="font-hand text-2xl text-brand-strong">let's see what fits</p>
           <h1 id="basics-heading" className="text-3xl font-extrabold sm:text-4xl">
-            Check what you may qualify for
+            <span className="ln-mask"><span className="ln">Check what you may qualify for</span></span>
           </h1>
           <p className="mt-1 text-sm text-ink-soft">
             Income-restricted buildings each have an income limit. Tell us your household and income once, and we only show the ones you appear to fit.
@@ -211,7 +211,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
 
         <Question n={1} title="Who's moving in, including you?">
           <div className="flex flex-wrap items-center gap-4">
-            <div className="flex items-center gap-1 rounded-full bg-white/70 p-1 shadow-card">
+            <div className="flex items-center gap-1 rounded-lg bg-white/70 p-1 shadow-card">
               <button
                 type="button"
                 aria-label="Fewer people"
@@ -247,11 +247,11 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
 
         <Question n={2} title="Household income, before taxes" hint="Needed: we only show buildings your income appears to fit, and we estimate what you'd pay. It never leaves this device.">
           <div className="max-w-md space-y-3">
-            <div role="radiogroup" aria-label="Is that a monthly or a yearly amount?" className="inline-flex rounded-full bg-white/70 p-1 text-sm font-bold">
+            <div role="radiogroup" aria-label="Is that a monthly or a yearly amount?" className="inline-flex rounded-lg bg-white/70 p-1 text-sm font-bold">
               {(['month', 'year'] as const).map((p) => (
                 <label
                   key={p}
-                  className={`cursor-pointer rounded-full px-3.5 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
+                  className={`cursor-pointer rounded-md px-3.5 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
                     period === p ? 'bg-dusk text-white shadow' : 'text-ink-soft hover:text-ink'
                   }`}
                 >
@@ -307,7 +307,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
                     ? `${money(typed ?? 0)} a year is less than a year of the cheapest capped rent here (${money(floor)}). Is that a monthly amount?`
                     : `${money(typed ?? 0)} a month is more than most yearly incomes here. Is that a yearly amount?`}
                 </span>
-                <button type="button" onClick={() => switchPeriod(looksMonthly ? 'month' : 'year', true)} className="rounded-full bg-dusk px-3 py-1 font-bold text-white">
+                <button type="button" onClick={() => switchPeriod(looksMonthly ? 'month' : 'year', true)} className="rounded-md bg-dusk px-3 py-1 font-bold text-white">
                   {looksMonthly ? 'Yes, per month' : 'Yes, per year'}
                 </button>
               </p>
@@ -332,7 +332,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               return (
                 <label
                   key={o.label}
-                  className={`flex cursor-pointer flex-col items-center gap-1.5 rounded-2xl border-2 px-2 py-3 text-center text-sm font-bold transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
+                  className={`flex cursor-pointer flex-col items-center gap-1.5 rounded-xl border-2 px-2 py-3 text-center text-sm font-bold transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
                     on ? '-translate-y-0.5 border-dusk bg-dusk text-white shadow-lift' : 'border-transparent bg-white/70 hover:-translate-y-0.5 hover:bg-white'
                   }`}
                 >
@@ -361,7 +361,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               return (
                 <label
                   key={o.value}
-                  className={`relative flex cursor-pointer items-center gap-3 rounded-2xl border-2 p-3 text-sm font-bold transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
+                  className={`relative flex cursor-pointer items-center gap-3 rounded-xl border-2 p-3 text-sm font-bold transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
                     on ? 'border-dusk shadow-lift' : 'border-transparent hover:-translate-y-0.5'
                   } ${full ? 'opacity-45' : ''}`}
                   style={{ background: on ? o.color : `${o.color}55`, transform: on ? `rotate(${i % 2 ? 1 : -1}deg)` : undefined }}
@@ -403,7 +403,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
         </Question>
 
         <Question n={5} title="A few more things">
-          <div className="space-y-1 rounded-3xl bg-white/45 p-2">
+          <div className="space-y-1 rounded-xl bg-white/45 p-2">
             <Toggle checked={voucher} onChange={setVoucher} hint="We'll show what you'd likely pay with it at tax-credit buildings.">
               I have a Housing Choice Voucher (Section 8)
             </Toggle>
@@ -465,7 +465,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               {priorities.map((p) => {
                 const o = PRIORITY_OPTIONS.find((x) => x.value === p)
                 return (
-                  <span key={p} className="pop rounded-full px-2.5 py-1 text-xs font-bold text-ink" style={{ background: o?.color }}>
+                  <span key={p} className="pop rounded-md px-2.5 py-1 text-xs font-bold text-ink" style={{ background: o?.color }}>
                     {o?.label}
                   </span>
                 )

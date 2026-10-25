@@ -166,7 +166,7 @@ export function PickDemo({ buildings, limits }: { buildings: Building[] | null; 
       <p className="mt-3 min-h-6 text-sm text-white/85" aria-live="polite">
         {lesson ? (
           <span className="rise-in inline-flex items-center gap-2">
-            <span className="rounded-full bg-accent px-2 py-0.5 text-xs font-bold text-ink">Learned: {lesson.tag}</span>
+            <span className="rounded-md bg-accent px-2 py-0.5 text-xs font-bold text-ink">Learned: {lesson.tag}</span>
             {lesson.text}
           </span>
         ) : (

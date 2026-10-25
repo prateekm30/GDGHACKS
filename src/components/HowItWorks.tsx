@@ -58,7 +58,8 @@ export function HowItWorks({
             How it works
           </p>
           <h1 className="mt-3 max-w-3xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">
-            Three stops, <span className="text-accent">about two minutes.</span>
+            <span className="ln-mask"><span className="ln">Three stops, </span></span>
+            <span className="ln-mask text-accent"><span className="ln" style={{ '--i': 1 } as CSSProperties}>about two minutes.</span></span>
           </h1>
           <p className="mt-3 max-w-xl text-white/80">Every step below is live. Try it here, then start for real.</p>
         </div>

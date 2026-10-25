@@ -1,5 +1,5 @@
 import { ArrowRight, Camera, MapPinned } from 'lucide-react'
-import { Fragment, useMemo, type CSSProperties } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 import { magneticHandlers, spotlightHandlers, useReveal } from '../lib/motion'
 import type { Area, Building, IncomeLimits } from '../lib/types'
 import { AreaChecklist, DmvMap } from './DmvMap'
@@ -8,8 +8,8 @@ import { Petals } from './Petals'
 import { Skyline } from './Skyline'
 import { money } from './ui'
 
-const HEADLINE = ['Income-restricted', 'homes', 'you', 'can', 'actually', 'afford,']
-const HEADLINE_2 = ['one', 'pick', 'at', 'a', 'time.']
+const HEADLINE_LINES = ['Income-restricted', 'homes you can', 'actually afford,']
+const HEADLINE_2 = 'one pick at a time.'
 
 function Cloud({ className }: { className: string }) {
   return (
@@ -97,28 +97,30 @@ export function Landing({
               <span aria-hidden className="metro-stripe h-px w-10" />
               Income-restricted apartments · DC, Maryland, Virginia
             </p>
-            <h1 id="start-heading" className="text-[2.6rem] font-extrabold leading-[0.98] text-ink sm:text-6xl lg:text-[3.25rem] xl:text-6xl">
-              {HEADLINE.map((word) => (
-                <Fragment key={`a-${word}`}>
-                  <span className="nudge relative" style={{ '--i': w++ } as CSSProperties}>
-                    {word}
-                    {word === 'afford,' && (
-                      <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
-                        <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#ff9f43" strokeWidth="6" strokeLinecap="round" className="draw" />
-                      </svg>
-                    )}
-                  </span>{' '}
-                </Fragment>
+            <h1 id="start-heading" className="text-[2.3rem] font-extrabold leading-[0.96] text-ink sm:text-6xl lg:text-[3.3rem] xl:text-[3.7rem]">
+              {HEADLINE_LINES.map((line) => (
+                <span key={line} className="ln-mask">
+                  <span className="ln relative" style={{ '--i': w++ } as CSSProperties}>
+                    {line.endsWith('afford,') ? (
+                      <>
+                        {line.slice(0, -'afford,'.length)}
+                        <span className="relative inline-block">
+                          afford,{' '}
+                          <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1 left-0 h-3 w-[86%]">
+                            <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#ff9f43" strokeWidth="6" strokeLinecap="round" className="draw" />
+                          </svg>
+                        </span>
+                      </>
+                    ) : (
+                      line
+                    )}{' '}
+                  </span>
+                </span>
               ))}
-              <span className="text-brand-strong">
-                {HEADLINE_2.map((word, i) => (
-                  <Fragment key={`b-${i}`}>
-                    <span className="nudge" style={{ '--i': w++ } as CSSProperties}>
-                      {word}
-                    </span>
-                    {i < HEADLINE_2.length - 1 ? ' ' : ''}
-                  </Fragment>
-                ))}
+              <span className="ln-mask text-brand-strong">
+                <span className="ln" style={{ '--i': w++ } as CSSProperties}>
+                  {HEADLINE_2}
+                </span>
               </span>
             </h1>
             <p className="max-w-xl text-base text-ink sm:text-lg lg:text-base xl:text-lg">
@@ -153,7 +155,7 @@ export function Landing({
               </button>
               <a
                 href="#areas"
-                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-white/50 px-5 font-semibold text-ink ring-1 ring-white/70 backdrop-blur transition hover:bg-white/80"
+                className="liquid-glass inline-flex min-h-12 items-center justify-center gap-2 rounded-xl px-5 font-semibold text-ink transition hover:bg-white/55"
               >
                 <MapPinned aria-hidden className="size-4 text-brand-strong" />
                 Choose my areas first
@@ -162,7 +164,7 @@ export function Landing({
             <button
               type="button"
               onClick={onSnap}
-              className="group inline-flex max-w-full items-center gap-2 rounded-full bg-white/60 px-3 py-2 text-left text-sm font-semibold text-ink transition hover:bg-white"
+              className="liquid-glass group inline-flex max-w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm font-semibold text-ink transition hover:bg-white/55"
             >
               <Camera aria-hidden className="size-4 shrink-0 text-brand-strong" />
               Already have an application form? Snap it into a checklist

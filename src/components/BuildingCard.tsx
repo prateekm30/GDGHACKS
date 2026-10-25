@@ -106,7 +106,7 @@ function MarketCompare({ b, monthly, bedrooms }: { b: Building; monthly: number 
         <span>HUD estimate for ZIP {b.zip}</span>
       </p>
       {saves !== null && saves > 0 && (
-        <span className="rounded-full bg-ok-tint px-2.5 py-1 text-xs font-bold text-ok">About {money(saves)}/mo less</span>
+        <span className="rounded-md bg-ok-tint px-2.5 py-1 text-xs font-bold text-ok">About {money(saves)}/mo less</span>
       )}
     </div>
   )
@@ -374,11 +374,11 @@ export function BuildingCard({
           </dl>
           {(b.seniorOnly || b.disabilityOnly || a.belowTypicalMinimum || a.oldRestrictions || a.studentRuleMayApply) && (
             <p className="flex flex-wrap gap-1 text-[10px] font-semibold text-stretch sm:text-xs">
-              {b.seniorOnly && <span className="rounded-full bg-violet/10 px-2 py-0.5 text-violet">Seniors 62+</span>}
-              {b.disabilityOnly && <span className="rounded-full bg-violet/10 px-2 py-0.5 text-violet">Disability housing</span>}
-              {a.belowTypicalMinimum && <span className="rounded-full bg-stretch-tint px-2 py-0.5">May be below min. income</span>}
-              {a.oldRestrictions && <span className="rounded-full bg-stretch-tint px-2 py-0.5">Restrictions may have ended</span>}
-              {a.studentRuleMayApply && <span className="rounded-full bg-stretch-tint px-2 py-0.5">Student rules</span>}
+              {b.seniorOnly && <span className="rounded-md bg-violet/10 px-2 py-0.5 text-violet">Seniors 62+</span>}
+              {b.disabilityOnly && <span className="rounded-md bg-violet/10 px-2 py-0.5 text-violet">Disability housing</span>}
+              {a.belowTypicalMinimum && <span className="rounded-md bg-stretch-tint px-2 py-0.5">May be below min. income</span>}
+              {a.oldRestrictions && <span className="rounded-md bg-stretch-tint px-2 py-0.5">Restrictions may have ended</span>}
+              {a.studentRuleMayApply && <span className="rounded-md bg-stretch-tint px-2 py-0.5">Student rules</span>}
             </p>
           )}
           <details className="mt-auto text-xs sm:text-sm" onClick={(e) => e.stopPropagation()}>
@@ -407,7 +407,7 @@ export function BuildingCard({
         <div>
           <h3 className="font-display text-xl font-bold leading-tight">{b.name}</h3>
           <p className="mt-0.5 text-sm text-ink-soft">{addressLine(b)}</p>
-          <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-canvas px-2 py-0.5 text-xs font-semibold">
+          <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-md bg-canvas px-2 py-0.5 text-xs font-semibold">
             <span aria-hidden className="size-2.5 rounded-full" style={{ background: info.color }} />
             {areaLabel(b.area)}
           </p>
@@ -438,12 +438,12 @@ export function BuildingCard({
         {(b.seniorOnly || b.disabilityOnly) && (
           <p className="flex flex-wrap gap-1.5">
             {b.seniorOnly && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet">
+              <span className="inline-flex items-center gap-1 rounded-md bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet">
                 <HeartHandshake aria-hidden className="size-3.5" /> Seniors (62+)
               </span>
             )}
             {b.disabilityOnly && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet">
+              <span className="inline-flex items-center gap-1 rounded-md bg-violet/10 px-2.5 py-1 text-xs font-semibold text-violet">
                 <Accessibility aria-hidden className="size-3.5" /> For people with disabilities
               </span>
             )}

@@ -236,7 +236,7 @@ export function HeroReel({
         <div key={b.id} className="reel-label pointer-events-none absolute inset-x-0 bottom-0 z-20 p-4 text-white sm:p-5">
           <div className="flex items-end justify-between gap-3">
             <div className="min-w-0">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur">
+              <span className="inline-flex items-center gap-1.5 rounded-md bg-white/15 px-2.5 py-1 text-[11px] font-bold uppercase tracking-wider backdrop-blur">
                 <span className="size-2 rounded-full" style={{ background: area.color }} />
                 {area.state === 'DC' ? 'Washington, DC' : `${area.short}, ${area.state}`}
               </span>

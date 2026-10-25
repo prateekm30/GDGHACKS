@@ -347,7 +347,7 @@ export default function App() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-40 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <nav aria-label="Site" className="pill-nav no-print fixed left-1/2 top-3 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full py-1.5 pl-3 pr-1.5 sm:top-5 sm:gap-3 sm:pl-4">
+      <nav aria-label="Site" className="pill-nav no-print fixed left-1/2 top-3 z-30 flex -translate-x-1/2 items-center gap-2 rounded-xl py-1.5 pl-3 pr-1.5 sm:top-5 sm:gap-3 sm:pl-4">
         <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-full font-bold tracking-tight">
           <LogoMark className="size-7 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
           <span className="font-display text-base sm:text-lg">
@@ -361,11 +361,11 @@ export default function App() {
           Our goal
         </button>
         {step === 'start' || step === 'how' || step === 'about' ? (
-          <button type="button" onClick={begin} className="inline-flex min-h-9 items-center rounded-full bg-dusk px-3.5 text-xs font-bold text-white transition hover:bg-ink sm:text-sm">
+          <button type="button" onClick={begin} className="inline-flex min-h-9 items-center rounded-lg bg-dusk px-3.5 text-xs font-bold text-white transition hover:bg-ink sm:text-sm">
             Start
           </button>
         ) : (
-          <button type="button" onClick={restart} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full bg-brand-tint px-3.5 text-xs font-bold text-brand-strong transition hover:bg-brand hover:text-white sm:text-sm">
+          <button type="button" onClick={restart} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-lg bg-brand-tint px-3.5 text-xs font-bold text-brand-strong transition hover:bg-brand hover:text-white sm:text-sm">
             Start over
           </button>
         )}

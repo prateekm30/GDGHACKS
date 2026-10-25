@@ -1,5 +1,7 @@
 import { ArrowRight, Ban, Camera, Eye, Landmark, ShieldCheck, Sparkles, Users, type LucideIcon } from 'lucide-react'
+import type { CSSProperties } from 'react'
 import { useReveal } from '../lib/motion'
+import { TileMosaic } from './TileMosaic'
 import type { Building, IncomeLimits } from '../lib/types'
 import { CountUp } from './CountUp'
 import { Glossary } from './Glossary'
@@ -36,18 +38,23 @@ export function About({ buildings, limits, onBegin, onHow }: { buildings: Buildi
   return (
     <div ref={revealRef} className="about">
       <section className="dusk-top relative overflow-hidden pt-20 text-white sm:pt-24">
-        <div className="relative mx-auto max-w-6xl px-4 pb-8">
-          <p className="eyebrow flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">
-            <span aria-hidden className="h-px w-10 bg-accent" />
-            Our goal
-          </p>
-          <h1 id="about-heading" className="mt-3 max-w-3xl text-4xl font-extrabold leading-[1.02] sm:text-6xl">
-            Income-restricted housing, <span className="text-accent">made findable.</span>
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg text-white/85">
-            Across DC, Maryland, and Virginia, about {homes ? Math.round(homes / 1000).toLocaleString('en-US') : '120'},000 apartments have rents capped or set by income
-            because the building took public money. Most of the working people who fit them have never heard the phrase. We built HomePick to change that.
-          </p>
+        <div className="relative mx-auto grid max-w-6xl items-center gap-8 px-4 pb-8 lg:grid-cols-[1.1fr_0.9fr]">
+          <div>
+            <p className="eyebrow flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-white/70">
+              <span aria-hidden className="h-px w-10 bg-accent" />
+              Our goal
+            </p>
+            <h1 id="about-heading" className="mt-3 max-w-3xl text-4xl font-extrabold leading-[0.98] sm:text-6xl">
+              <span className="ln-mask"><span className="ln" style={{ '--i': 0 } as CSSProperties}>Income-restricted </span></span>
+              <span className="ln-mask"><span className="ln" style={{ '--i': 1 } as CSSProperties}>housing, </span></span>
+              <span className="ln-mask text-accent"><span className="ln" style={{ '--i': 2 } as CSSProperties}>made findable.</span></span>
+            </h1>
+            <p className="mt-4 max-w-2xl text-lg text-white/85">
+              Across DC, Maryland, and Virginia, about {homes ? Math.round(homes / 1000).toLocaleString('en-US') : '120'},000 apartments have rents capped or set by income
+              because the building took public money. Most of the working people who fit them have never heard the phrase. We built HomePick to change that.
+            </p>
+          </div>
+          <TileMosaic buildings={buildings} className="hidden h-[26rem] lg:block" />
         </div>
       </section>
 
@@ -59,7 +66,7 @@ export function About({ buildings, limits, onBegin, onHow }: { buildings: Buildi
             { n: one, label: 'yearly income a single person can earn and still fit most tax-credit homes (60% of area median, 2026)', fmt: money },
           ].map((s) => (
             <div key={s.label} className="reveal">
-              <p className="font-display text-4xl font-extrabold text-accent sm:text-5xl">{s.n === null ? '…' : <CountUp value={s.n} duration={1400} format={s.fmt} />}</p>
+              <p className="num-light text-5xl text-accent sm:text-6xl">{s.n === null ? '…' : <CountUp value={s.n} duration={1400} format={s.fmt} />}</p>
               <p className="mt-1 max-w-xs text-sm text-white/80">{s.label}</p>
             </div>
           ))}

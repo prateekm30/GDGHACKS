@@ -115,7 +115,7 @@ export function PickStep({
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 id="pick-heading" className="text-xl font-extrabold sm:text-4xl">
-            Which would you rather live in?
+            <span className="ln-mask"><span className="ln">Which would you rather live in?</span></span>
           </h1>
           <p className="mt-1 text-sm text-ink-soft">
             <span className="sm:hidden">Tap the one you'd rather live in.</span>
@@ -145,7 +145,7 @@ export function PickStep({
       >
         <span
           aria-hidden
-          className={`wiggle font-display pointer-events-none absolute left-1/2 top-16 z-30 grid size-10 place-items-center rounded-full bg-accent text-sm font-extrabold text-ink shadow-lift ring-4 ring-canvas transition-opacity duration-200 sm:top-[6.5rem] sm:size-16 sm:text-xl sm:ring-[6px] ${
+          className={`font-hand pointer-events-none absolute left-1/2 top-14 z-30 grid size-9 -translate-x-1/2 place-items-center rounded-lg bg-ink text-base text-white shadow-lift transition-opacity duration-200 sm:top-[6.2rem] sm:size-12 sm:text-2xl ${
             chosenId ? 'opacity-0' : ''
           }`}
         >

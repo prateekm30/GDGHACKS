@@ -9,7 +9,7 @@ export function Button({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' }) {
   const styles = {
     primary: 'bg-brand text-white shadow-sm hover:bg-brand-strong hover:shadow-md active:scale-[0.98]',
-    secondary: 'bg-white/55 text-ink ring-1 ring-white/70 backdrop-blur hover:bg-white/85 hover:text-brand-strong active:scale-[0.98]',
+    secondary: 'liquid-glass text-ink hover:bg-white/60 hover:text-brand-strong active:scale-[0.98]',
     ghost: 'text-brand-strong hover:bg-brand-tint',
   }[variant]
   return (
@@ -37,12 +37,12 @@ const BADGE: Record<BurdenLevel, string> = {
 }
 
 export function BurdenBadge({ level, children }: { level: BurdenLevel; children: ReactNode }) {
-  return <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${BADGE[level]}`}>{children}</span>
+  return <span className={`inline-flex rounded-md px-2 py-0.5 text-xs font-semibold ${BADGE[level]}`}>{children}</span>
 }
 
 export function Pill({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center rounded-full border border-line bg-canvas px-2.5 py-1 text-xs font-medium text-ink-soft">
+    <span className="chip bg-white/60 text-ink-soft">
       {children}
     </span>
   )

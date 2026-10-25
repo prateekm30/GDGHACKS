@@ -165,7 +165,7 @@ export function ResultsStep({
               ta-da! picked just for you
             </span>
             <h1 id="short-heading" className="text-3xl font-extrabold sm:text-4xl">
-              Your top matches
+              <span className="ln-mask"><span className="ln">Your top matches</span></span>
             </h1>
             {note && <p className="mt-1 max-w-xl text-sm text-ink-soft">{note}</p>}
           </div>
@@ -184,7 +184,7 @@ export function ResultsStep({
             {topMonthly !== null && (
               <div className="glass-panel p-4">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">{topCost?.cost.kind === 'income-based' ? "What you'd pay at #1" : 'Rent cap at #1'}</dt>
-                <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
+                <dd className="num-light text-4xl text-ink">
                   <CountUp value={topMonthly} duration={1300} format={money} />
                   <span className="text-sm font-semibold text-ink-soft">/mo</span>
                 </dd>
@@ -193,7 +193,7 @@ export function ResultsStep({
             {topMarket !== null && (
               <div className="glass-panel p-4">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">Typical rent nearby (HUD)</dt>
-                <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
+                <dd className="num-light text-4xl text-ink">
                   <CountUp value={topMarket} duration={1300} format={money} />
                   <span className="text-sm font-semibold text-ink-soft">/mo</span>
                 </dd>
@@ -202,7 +202,7 @@ export function ResultsStep({
             {saving !== null && (
               <div className="glass-dark col-span-2 p-4 text-white sm:col-span-1">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/70">You could keep (est.)</dt>
-                <dd className="font-display text-3xl font-extrabold tabular-nums">
+                <dd className="num-light text-4xl">
                   <CountUp value={saving * 12} duration={1600} format={money} />
                   <span className="text-sm font-semibold text-white/70">/yr</span>
                 </dd>
@@ -243,7 +243,7 @@ export function ResultsStep({
                   detailed
                   badge={
                     <span
-                      className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
+                      className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-md px-3 py-1 text-xs font-bold shadow-sm ${
                         i === 0 ? 'bg-accent text-ink' : 'bg-white/95 text-ink'
                       }`}
                     >
