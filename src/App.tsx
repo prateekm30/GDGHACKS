@@ -384,7 +384,7 @@ export default function App() {
         <div aria-hidden className="metro-stripe h-1.5" />
         <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs">
           <p>
-            Data: HUD LIHTC and HUD Multifamily datasets. County outlines: U.S. Census TIGERweb. Income limits {limits.effective}{' '}
+            Data: HUD LIHTC, Multifamily, and Public Housing datasets; USDA Rural Development rentals; DC DHCD, Maryland DHCD, and City of Alexandria affordable housing lists. County outlines: U.S. Census TIGERweb. Income limits {limits.effective}{' '}
             for the Washington-Arlington-Alexandria HUD metro area. Not affiliated with HUD or any local government.
           </p>
           <p>

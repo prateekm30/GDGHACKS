@@ -215,7 +215,7 @@ function UnitMix({ b }: { b: Building }) {
       <div>
         <p className="text-[11px] font-bold uppercase tracking-wide text-ink-soft">Unit mix</p>
         <div aria-hidden className="mt-1 h-2.5 rounded-full bg-line" />
-        <p className="mt-1 text-xs text-ink-soft">Not listed in HUD data</p>
+        <p className="mt-1 text-xs text-ink-soft">Not listed in {sourceName(b)}</p>
       </div>
     )
   }
