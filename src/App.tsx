@@ -12,6 +12,8 @@ import { HUBS, milesBetween } from './lib/areas'
 import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
 import { withTransition } from './lib/motion'
+import { Skyline } from './components/Skyline'
+import { Lamp } from './components/Lamp'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
@@ -106,6 +108,11 @@ export default function App() {
     go('basics')
   }
 
+  function startIn(a: Area) {
+    setAreas(new Set([a]))
+    begin()
+  }
+
   function toggleArea(a: Area) {
     setAreas((prev) => {
       const next = new Set(prev)
@@ -152,7 +159,8 @@ export default function App() {
   }, [step, pair, buildings, picks.length])
 
   return (
-    <div className="min-h-dvh bg-canvas text-ink">
+    <div data-step={step} className="min-h-dvh bg-canvas text-ink">
+      <Lamp />
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
@@ -207,10 +215,12 @@ export default function App() {
         {step === 'start' && (
           <Landing
             buildings={buildings}
+            limits={limits}
             selected={areas}
             onToggleArea={toggleArea}
             onClearAreas={() => setAreas(new Set())}
             onBegin={begin}
+            onStartIn={startIn}
             onSnap={() => go('snap')}
           />
         )}
@@ -274,6 +284,11 @@ export default function App() {
         )}
       </main>
 
+      {step !== 'start' && (
+        <div aria-hidden className="dusk-fade no-print pt-10">
+          <Skyline night className="block h-24 w-full sm:h-32" />
+        </div>
+      )}
       <footer className="no-print bg-dusk text-white/85">
         <div aria-hidden className="metro-stripe h-1.5" />
         <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs">

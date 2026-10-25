@@ -147,7 +147,7 @@ export function AreaChecklist({
   return (
     <fieldset>
       <legend className="sr-only">Areas to search</legend>
-      <div className="-mx-4 flex snap-x gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-1.5">
+      <div className="-mx-4 flex max-w-[calc(100%+2rem)] snap-x gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 sm:pb-0 lg:gap-1.5">
         {AREAS.map((a) => {
           const checked = selected.has(a.id)
           return (

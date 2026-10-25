@@ -1,41 +1,35 @@
 import { ArrowRight, Camera, MapPinned, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react'
-import { Suspense, lazy, useMemo, type CSSProperties } from 'react'
+import { useMemo, type CSSProperties } from 'react'
 import { AREAS } from '../lib/areas'
 import { magneticHandlers, spotlightHandlers, useReveal } from '../lib/motion'
-import type { Area, Building } from '../lib/types'
+import type { Area, Building, IncomeLimits } from '../lib/types'
 import { CountUp } from './CountUp'
 import { AreaChecklist, DmvMap } from './DmvMap'
-import { RowhouseArt, Skyline } from './Skyline'
+import { HeroReel } from './HeroReel'
+import { IncomeDemo, PickDemo, ShortlistDemo } from './MiniDemos'
+import { Skyline } from './Skyline'
 
-const HouseScene = lazy(() => import('./HouseScene'))
-
-function hasWebGL() {
-  try {
-    const c = document.createElement('canvas')
-    return !!(c.getContext('webgl2') || c.getContext('webgl'))
-  } catch {
-    return false
-  }
-}
-
-const STEPS: { title: string; body: string; detail: string; icon: LucideIcon }[] = [
+const STEPS: { title: string; body: string; detail: string; icon: LucideIcon; time: string }[] = [
   {
     title: 'Tell us the basics',
     body: 'Household size, bedrooms, where you work, and what matters most. Income is optional.',
     detail: 'Nothing you type leaves your phone. We use it only to estimate rent and check income limits.',
     icon: ShieldCheck,
+    time: 'late afternoon',
   },
   {
     title: 'Pick this or that',
     body: 'Eight quick choices between two real buildings. Each pick teaches it what you like.',
     detail: 'The ranking runs in your browser on building facts only. Never on neighborhoods, schools, or who lives there.',
     icon: Sparkles,
+    time: 'dusk',
   },
   {
     title: 'Get your shortlist',
     body: 'Your top matches, what you might pay, who to call, and what to bring.',
     detail: 'Every card shows the income limit, the rent cap or income-based rent, and HUD’s typical rent nearby.',
     icon: MapPinned,
+    time: 'night',
   },
 ]
 
@@ -50,19 +44,27 @@ function Cloud({ className }: { className: string }) {
   )
 }
 
+/**
+ * The landing page is one day in the DMV: morning in the hero, afternoon over the map, dusk at the numbers,
+ * night by the time you reach the steps. Scrolling moves the sun; windows come on as it gets dark.
+ */
 export function Landing({
   buildings,
+  limits,
   selected,
   onToggleArea,
   onClearAreas,
   onBegin,
+  onStartIn,
   onSnap,
 }: {
   buildings: Building[] | null
+  limits: IncomeLimits
   selected: ReadonlySet<Area>
   onToggleArea: (a: Area) => void
   onClearAreas: () => void
   onBegin: () => void
+  onStartIn: (a: Area) => void
   onSnap: () => void
 }) {
   const revealRef = useReveal<HTMLDivElement>()
@@ -79,21 +81,16 @@ export function Landing({
     : null
   const areaNames = AREAS.map((a) => (a.state === 'DC' ? a.name : `${a.name}, ${a.state}`))
   const searchLabel = selected.size === 0 ? 'Search all of the DMV' : `Search ${selected.size} ${selected.size === 1 ? 'area' : 'areas'}`
-  const webgl = useMemo(hasWebGL, [])
   let w = 0
 
   return (
-    <div ref={revealRef}>
-      <section
-        aria-labelledby="start-heading"
-        {...spotlightHandlers()}
-        className="relative overflow-hidden"
-        style={{ background: 'linear-gradient(170deg, #e2eeff 0%, #cfe0fe 45%, #c9d3fa 100%)' }}
-      >
-        {/* Sky: sun and clouds sit on their own scroll speeds, so the hero has depth as you scroll. */}
+    <div ref={revealRef} className="day">
+      {/* ---------- Morning: the hero ---------- */}
+      <section aria-labelledby="start-heading" {...spotlightHandlers()} className="hero relative overflow-hidden">
+        {/* Sky layers. The sun sinks and the night veil rises as you scroll (CSS scroll timelines). */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="px-sun absolute -right-20 -top-16 lg:bottom-6 lg:right-[38%] lg:top-auto">
-            <svg viewBox="0 0 200 200" className="sun-rise size-64 opacity-70 lg:size-40 lg:opacity-100">
+          <div className="px-sun absolute -right-20 -top-16 lg:left-[47%] lg:-top-12 lg:right-auto">
+            <svg viewBox="0 0 200 200" className="sun-rise size-64 opacity-70 lg:size-32 lg:opacity-100">
               <circle cx="100" cy="100" r="96" fill="#e6f6ff" className="sun-glow" />
               <circle cx="100" cy="100" r="62" fill="#a9e4f0" />
             </svg>
@@ -102,10 +99,12 @@ export function Landing({
             <Cloud className="drift absolute top-[12%] w-36 opacity-80" />
             <Cloud className="drift-slow absolute top-[48%] w-24 opacity-70" />
           </div>
+          <div className="night-veil absolute inset-0" />
+          <div className="stars absolute inset-0" />
           <div className="spotlight absolute inset-0" />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-start gap-6 px-4 pb-10 pt-5 sm:pt-8 lg:grid-cols-[1.1fr_1fr] lg:gap-8">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-10 pt-5 sm:pt-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
           <div className="px-copy min-w-0 space-y-4">
             <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-xs font-semibold text-ink shadow-sm">
               <span aria-hidden className="metro-stripe h-2 w-8 rounded-full" />
@@ -172,27 +171,21 @@ export function Landing({
           </div>
 
           <div className="px-map relative min-w-0">
-            <div className="relative overflow-hidden rounded-[2rem] shadow-lift ring-1 ring-white/80" style={{ background: 'radial-gradient(120% 90% at 50% 20%, #f1f6ff 0%, #d9e6fd 55%, #c9d3fa 100%)' }}>
-              {webgl ? (
-                <Suspense fallback={<RowhouseArt seed={7} className="block h-[320px] w-full sm:h-[420px]" />}>
-                  <HouseScene className="h-[320px] w-full sm:h-[420px]" />
-                </Suspense>
-              ) : (
-                <RowhouseArt seed={7} className="block h-[320px] w-full sm:h-[420px]" />
-              )}
-              <span aria-hidden className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-dusk/85 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
-                {webgl ? 'Drag to spin' : 'Illustration'}
-              </span>
-            </div>
-            <p className="font-hand mt-2 text-center text-xl text-ink">every home here is a real building in HUD's data</p>
+            <HeroReel buildings={buildings} limits={limits} onStartIn={onStartIn} className="h-[340px] sm:h-[440px]" />
+            <p className="font-hand mt-2 text-center text-xl text-ink">real roofs, real blocks: every one is a building in HUD's data</p>
           </div>
         </div>
         <Skyline className="px-skyline relative block h-28 w-full sm:h-36" />
       </section>
 
-      <section id="areas" aria-labelledby="areas-heading" className="scroll-mt-20 bg-canvas">
-        <div className="mx-auto grid max-w-6xl items-start gap-6 px-4 py-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
-          <div className="reveal space-y-4">
+      {/* ---------- Afternoon: where ---------- */}
+      <section id="areas" aria-labelledby="areas-heading" className="afternoon relative scroll-mt-20 overflow-hidden">
+        <div aria-hidden className="pointer-events-none absolute inset-0">
+          <span className="glow-orb absolute -left-24 top-10 size-72 rounded-full" style={{ background: 'radial-gradient(circle, rgb(111 216 227 / 0.45), transparent 70%)' }} />
+          <span className="glow-orb glow-orb-late absolute -right-20 bottom-0 size-80 rounded-full" style={{ background: 'radial-gradient(circle, rgb(79 125 240 / 0.35), transparent 70%)' }} />
+        </div>
+        <div className="relative mx-auto grid max-w-6xl items-start gap-6 px-4 py-14 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+          <div className="reveal min-w-0 space-y-4">
             <p className="font-hand text-2xl text-brand-strong">first, where?</p>
             <h2 id="areas-heading" className="text-3xl font-extrabold sm:text-4xl">
               Where do you want to live?
@@ -200,7 +193,7 @@ export function Landing({
             <p className="text-ink-soft">
               Pick any counties and cities, or none to search all of them. All twelve share the same 2026 income limits.
             </p>
-            <div className="space-y-3 rounded-[1.75rem] bg-surface p-4 shadow-card ring-1 ring-line">
+            <div className="space-y-3 rounded-[1.75rem] bg-white/70 p-4 shadow-card ring-1 ring-white backdrop-blur">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-sm font-bold">Areas</span>
                 {selected.size > 0 && (
@@ -228,16 +221,15 @@ export function Landing({
               </button>
             </div>
           </div>
-          <div className="reveal relative min-w-0 rounded-[1.75rem] bg-surface p-3 shadow-card ring-1 ring-line sm:p-4" style={{ '--d': '120ms' } as CSSProperties}>
+          <div className="reveal relative min-w-0 rounded-[1.75rem] bg-white/70 p-3 shadow-card ring-1 ring-white backdrop-blur sm:p-4" style={{ '--d': '120ms' } as CSSProperties}>
             <DmvMap selected={selected} onToggle={onToggleArea} buildings={buildings} />
             <p className="font-hand mt-1 text-center text-xl text-ink">tap a county to choose it · each dot is a building</p>
           </div>
         </div>
       </section>
 
-      <div aria-hidden className="metro-stripe h-2" />
-
-      <section className="bg-dusk text-white">
+      {/* ---------- Dusk: the numbers ---------- */}
+      <section className="dusk relative overflow-hidden text-white">
         <div aria-hidden className="marquee overflow-hidden border-b border-white/10 py-3">
           <div className="marquee-track flex w-max gap-8 whitespace-nowrap font-display text-sm font-bold uppercase tracking-[0.18em] text-white/70">
             {[...areaNames, ...areaNames].map((n, i) => (
@@ -248,7 +240,7 @@ export function Landing({
             ))}
           </div>
         </div>
-        <ul className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 sm:grid-cols-4">
+        <ul className="relative mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-12 sm:grid-cols-4">
           {[
             { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#7dd3fc' },
             { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#a5b4fc' },
@@ -265,67 +257,84 @@ export function Landing({
         </ul>
       </section>
 
-      <section aria-labelledby="how-heading" className="mx-auto max-w-6xl px-4 py-16">
-        <div className="reveal flex flex-wrap items-end justify-between gap-2">
-          <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">
-            How it works
-          </h2>
-          <span className="font-hand text-2xl text-brand-strong">three stops, about two minutes</span>
-        </div>
-        {/* Each step pins while the next one slides over it. The previous card shrinks back as it is covered. */}
-        <ol className="mt-8">
-          {STEPS.map((s, i) => (
-            <li key={s.title} className={`stack-slot ${i < STEPS.length - 1 ? 'min-h-[56svh]' : ''}`}>
-              <div
-                className="stack-card sticky overflow-hidden rounded-[2rem] shadow-lift ring-1 ring-white"
-                style={{
-                  top: `calc(5.5rem + ${i * 1.25}rem)`,
-                  background: ['linear-gradient(135deg, #e2eafc, #dff5f8)', 'linear-gradient(135deg, #d6e5fd, #c7d2fe)', 'linear-gradient(135deg, #141a3f, #1e3a8a)'][i],
-                }}
-              >
-                <div className={`grid gap-6 p-6 sm:grid-cols-[auto_1fr] sm:p-10 ${i === 2 ? 'text-white' : ''}`}>
-                  <span
-                    className={`font-display grid size-14 place-items-center rounded-full text-xl font-extrabold ${
-                      i === 2 ? 'bg-accent text-ink' : 'border-[5px] border-brand bg-white text-ink'
-                    }`}
-                  >
-                    {i + 1}
-                  </span>
-                  <div>
-                    <s.icon aria-hidden className={`size-7 ${i === 2 ? 'text-accent' : 'text-brand-strong'}`} />
-                    <h3 className="mt-3 font-display text-2xl font-extrabold sm:text-3xl">{s.title}</h3>
-                    <p className={`mt-2 max-w-xl text-base sm:text-lg ${i === 2 ? 'text-white/90' : 'text-ink'}`}>{s.body}</p>
-                    <p className={`mt-3 max-w-xl text-sm ${i === 2 ? 'text-white/70' : 'text-ink-soft'}`}>{s.detail}</p>
+      {/* ---------- Night: how it works, with working demos ---------- */}
+      <section aria-labelledby="how-heading" className="night relative overflow-hidden text-white">
+        <div aria-hidden className="stars stars-on absolute inset-0" />
+        <div className="relative mx-auto max-w-6xl px-4 pb-20 pt-16">
+          <div className="reveal flex flex-wrap items-end justify-between gap-2">
+            <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">
+              How it works
+            </h2>
+            <span className="font-hand text-2xl text-accent">three stops, about two minutes. try each one.</span>
+          </div>
+          {/* Each step pins while the next one slides over it. The previous card shrinks back as it is covered. */}
+          <ol className="mt-8">
+            {STEPS.map((s, i) => (
+              <li key={s.title} className={`stack-slot ${i < STEPS.length - 1 ? 'min-h-[60svh]' : ''}`}>
+                <div className="stack-card night-card sticky overflow-hidden rounded-[2rem] ring-1 ring-white/15" style={{ top: `calc(5.5rem + ${i * 1.25}rem)` }}>
+                  <div className="grid gap-6 p-6 sm:grid-cols-[auto_1fr] sm:p-10">
+                    <span className="font-display grid size-14 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-[0_0_40px_rgb(111_216_227/0.45)]">
+                      {i + 1}
+                    </span>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-3">
+                        <s.icon aria-hidden className="size-7 text-accent" />
+                        <span className="font-hand text-xl text-white/60">{s.time}</span>
+                      </div>
+                      <h3 className="mt-3 font-display text-2xl font-extrabold sm:text-3xl">{s.title}</h3>
+                      <p className="mt-2 max-w-xl text-base text-white/90 sm:text-lg">{s.body}</p>
+                      <p className="mt-3 max-w-xl text-sm text-white/65">{s.detail}</p>
+                      {i === 0 && <IncomeDemo limits={limits} />}
+                      {i === 1 && <PickDemo buildings={buildings} limits={limits} />}
+                      {i === 2 && <ShortlistDemo buildings={buildings} />}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </li>
-          ))}
-        </ol>
+              </li>
+            ))}
+          </ol>
 
-        <div className="reveal mt-10 grid items-center gap-6 overflow-hidden rounded-[2rem] bg-gradient-to-br from-brand-tint to-accent-tint p-6 shadow-card ring-1 ring-white sm:grid-cols-[1fr_auto] sm:p-8">
-          <div>
-            <p className="font-hand text-2xl text-brand-strong">got the paperwork?</p>
-            <h2 className="mt-1 text-2xl font-extrabold sm:text-3xl">Snap an application form, get a checklist</h2>
-            <p className="mt-2 max-w-xl text-sm text-ink-soft">
-              Upload a PDF or photo. It's read on your device, then Gemma turns the text you approve into a list of what to
-              bring and do. Your photo never leaves your phone.
-            </p>
+          <div className="reveal glass-card mt-12 grid items-center gap-6 p-6 sm:grid-cols-[1fr_auto] sm:p-8">
+            <div>
+              <p className="font-hand text-2xl text-accent">got the paperwork?</p>
+              <h2 className="mt-1 text-2xl font-extrabold sm:text-3xl">Snap an application form, get a checklist</h2>
+              <p className="mt-2 max-w-xl text-sm text-white/75">
+                Upload a PDF or photo. It's read on your device, then Gemma turns the text you approve into a list of what to
+                bring and do. Your photo never leaves your phone.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={onSnap}
+              {...magneticHandlers()}
+              className="magnetic sheen inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-accent px-5 py-3 font-bold text-ink hover:bg-white active:scale-[0.98]"
+            >
+              <Camera aria-hidden className="size-5" />
+              Snap a form
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={onSnap}
-            {...magneticHandlers()}
-            className="magnetic sheen inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-dusk px-5 py-3 font-bold text-white hover:bg-ink active:scale-[0.98]"
-          >
-            <Camera aria-hidden className="size-5" />
-            Snap a form
-          </button>
-        </div>
 
-        <p className="reveal mt-6 max-w-2xl text-sm text-ink-soft">
-          Estimates only. Each property decides who qualifies. We never rank by neighborhood, schools, or who lives there.
-        </p>
+          <div className="reveal mt-12 text-center">
+            <p className="font-hand text-2xl text-white/70">ready when you are</p>
+            <button
+              type="button"
+              onClick={onBegin}
+              {...magneticHandlers()}
+              className="magnetic sheen group mt-3 inline-flex min-h-14 items-center gap-4 rounded-2xl bg-white px-6 py-3 font-display text-lg font-bold text-ink shadow-lift hover:bg-accent active:scale-[0.98]"
+            >
+              {searchLabel}
+              <span className="grid size-10 place-items-center rounded-full bg-dusk text-white transition-transform duration-200 group-hover:translate-x-1">
+                <ArrowRight aria-hidden className="size-5" />
+              </span>
+            </button>
+          </div>
+
+          <p className="reveal mx-auto mt-10 max-w-2xl text-center text-sm text-white/60">
+            Estimates only. Each property decides who qualifies. We never rank by neighborhood, schools, or who lives there.
+          </p>
+        </div>
+        {/* Home at night: the same block, lights on. */}
+        <Skyline night className="relative block h-28 w-full sm:h-36" />
       </section>
     </div>
   )

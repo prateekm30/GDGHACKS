@@ -1,4 +1,5 @@
 // Hand-drawn DC rowhouses, the Capitol, the Monument, and a Metro train. All decorative SVG, no images.
+import { useRef, type PointerEvent } from 'react'
 
 const HOUSE_COLORS = ['#2453c9', '#3b82f6', '#60a5fa', '#1e3a8a', '#0e7490', '#14b8a6', '#4f46e5', '#818cf8', '#22a6c3', '#93c5fd']
 const TRIM = '#f8fbfe'
@@ -75,6 +76,10 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
             className={flicker ? 'win' : undefined}
             style={flicker ? { animationDelay: `${(r() * -12).toFixed(1)}s`, animationDuration: `${(7 + r() * 8).toFixed(1)}s` } : undefined}
           />
+          {/* Comes on as night falls (--night is driven by scroll) or when the pointer is near the house. */}
+          {!lit && (
+            <rect x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill="#dff3ff" className="win-night" style={{ animationDelay: `${(r() * 1.2).toFixed(2)}s` }} />
+          )}
         </g>,
       )
     }
@@ -82,7 +87,7 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
   const doorX = x + gapX + doorCol * (winW + gapX) - 2
   const doorW = winW + 4
   return (
-    <g>
+    <g className="house" data-x={x + w / 2}>
       {turret && <path d={`M${x + w * 0.2} ${top} L${x + w * 0.5} ${top - 34} L${x + w * 0.8} ${top} Z`} fill="#141a3f" />}
       {gable && !turret && <path d={`M${x} ${top} L${x + w / 2} ${top - 22} L${x + w} ${top} Z`} fill={color} />}
       <rect x={x} y={top} width={w} height={h} fill={color} />
@@ -99,14 +104,51 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
 }
 
 /** The hero skyline: monuments behind, rowhouses in front, a Metro train on the line. */
-export function Skyline({ className = '', animated = true }: { className?: string; animated?: boolean }) {
+export function Skyline({ className = '', animated = true, night = false }: { className?: string; animated?: boolean; night?: boolean }) {
   const W = 1440
   const ground = 250
   const houses = makeHouses(7, W, 70, 120, 120, 190)
+  const ref = useRef<SVGSVGElement>(null)
+
+  // Windows light up in the houses under the pointer, like walking down the block at dusk.
+  function onMove(e: PointerEvent<SVGSVGElement>) {
+    const svg = ref.current
+    if (!svg || e.pointerType === 'touch') return
+    const r = svg.getBoundingClientRect()
+    // preserveAspectRatio="xMidYMax slice": the drawing is scaled to cover, centered on x.
+    const scale = Math.max(r.width / W, r.height / 320)
+    const x = (e.clientX - r.left - (r.width - W * scale) / 2) / scale
+    for (const g of svg.querySelectorAll<SVGGElement>('g.house')) {
+      const hx = Number(g.dataset.x)
+      g.classList.toggle('is-near', Math.abs(hx - x) < 110)
+    }
+  }
+  function onLeave() {
+    ref.current?.querySelectorAll('g.house.is-near').forEach((g) => g.classList.remove('is-near'))
+  }
+
   return (
-    <svg aria-hidden viewBox={`0 0 ${W} 320`} preserveAspectRatio="xMidYMax slice" className={className}>
+    <svg
+      ref={ref}
+      aria-hidden
+      viewBox={`0 0 ${W} 320`}
+      preserveAspectRatio="xMidYMax slice"
+      className={`${className} ${night ? 'is-night' : ''}`}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+    >
+      {night && (
+        <g>
+          {Array.from({ length: 40 }, (_, i) => {
+            const r = rng(i * 7 + 3)
+            return <circle key={i} cx={r() * W} cy={r() * 150} r={0.8 + r() * 1.4} fill="#eaf6ff" className="star" style={{ animationDelay: `${(r() * -6).toFixed(1)}s` }} />
+          })}
+          <circle cx="1180" cy="70" r="26" fill="#eaf6ff" />
+          <circle cx="1192" cy="62" r="22" fill="#141a3f" />
+        </g>
+      )}
       {/* Monuments, far away */}
-      <g fill="#7d8fc9" opacity="0.55">
+      <g fill={night ? '#3b4a86' : '#7d8fc9'} opacity="0.55">
         <path d="M1010 250 L1016 40 L1022 30 L1028 40 L1034 250 Z" />
         <rect x="280" y="170" width="200" height="80" />
         <rect x="320" y="140" width="120" height="30" />

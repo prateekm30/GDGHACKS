@@ -37,12 +37,12 @@ function Pin() {
 }
 
 /** A 3x3 block of map tiles, shifted so the building sits in the middle of the frame. */
-function TileView({ b, layer, zoom, onFail }: { b: Building; layer: keyof typeof LAYERS; zoom: number; onFail: () => void }) {
+export function TileView({ b, layer, zoom, onFail, eager = false, className = 'ken-burns' }: { b: Building; layer: keyof typeof LAYERS; zoom: number; onFail: () => void; eager?: boolean; className?: string }) {
   const { x, y } = toPixels(b.lat, b.lon, zoom)
   const tx = Math.floor(x / TILE)
   const ty = Math.floor(y / TILE)
   return (
-    <div aria-hidden className="ken-burns absolute inset-0">
+    <div aria-hidden className={`${className} absolute inset-0`}>
       <div
         className="absolute grid grid-cols-3"
         style={{ width: TILE * 3, left: `calc(50% - ${x - (tx - 1) * TILE}px)`, top: `calc(50% - ${y - (ty - 1) * TILE}px)` }}
@@ -55,7 +55,7 @@ function TileView({ b, layer, zoom, onFail }: { b: Building; layer: keyof typeof
               width={TILE}
               height={TILE}
               alt=""
-              loading="lazy"
+              loading={eager ? "eager" : "lazy"}
               decoding="async"
               draggable={false}
               onError={onFail}
