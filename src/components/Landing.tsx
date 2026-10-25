@@ -7,6 +7,7 @@ import { CountUp } from './CountUp'
 import { AreaChecklist, DmvMap } from './DmvMap'
 import { HeroReel } from './HeroReel'
 import { IncomeDemo, PickDemo, ShortlistDemo } from './MiniDemos'
+import { Petals } from './Petals'
 import { Skyline } from './Skyline'
 
 const STEPS: { title: string; body: string; detail: string; icon: LucideIcon; time: string }[] = [
@@ -57,6 +58,7 @@ export function Landing({
   onBegin,
   onStartIn,
   onSnap,
+  firstVisit = false,
 }: {
   buildings: Building[] | null
   limits: IncomeLimits
@@ -66,6 +68,8 @@ export function Landing({
   onBegin: () => void
   onStartIn: (a: Area) => void
   onSnap: () => void
+  /** The intro zoom is playing: hold the headline words back until the page has settled. */
+  firstVisit?: boolean
 }) {
   const revealRef = useReveal<HTMLDivElement>()
   const counts = useMemo(() => {
@@ -84,7 +88,7 @@ export function Landing({
   let w = 0
 
   return (
-    <div ref={revealRef} className="day">
+    <div ref={revealRef} className="day" style={{ '--wb': firstVisit ? '900ms' : '0ms' } as CSSProperties}>
       {/* ---------- Morning: the hero ---------- */}
       <section aria-labelledby="start-heading" {...spotlightHandlers()} className="hero relative overflow-hidden">
         {/* Sky layers. The sun sinks and the night veil rises as you scroll (CSS scroll timelines). */}
@@ -102,9 +106,10 @@ export function Landing({
           <div className="night-veil absolute inset-0" />
           <div className="stars absolute inset-0" />
           <div className="spotlight absolute inset-0" />
+          <Petals count={12} />
         </div>
 
-        <div className="relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-10 pt-5 sm:pt-8 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+        <div className="relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-10 pt-20 sm:pt-28 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
           <div className="px-copy min-w-0 space-y-4">
             <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-xs font-semibold text-ink shadow-sm">
               <span aria-hidden className="metro-stripe h-2 w-8 rounded-full" />
@@ -113,7 +118,7 @@ export function Landing({
             <h1 id="start-heading" className="text-[2.6rem] font-extrabold leading-[0.98] text-ink sm:text-6xl lg:text-[3.25rem] xl:text-6xl">
               {HEADLINE.map((word) => (
                 <Fragment key={`a-${word}`}>
-                  <span className="nudge relative" style={{ animationDelay: `${w++ * 35}ms` }}>
+                  <span className="nudge relative" style={{ '--i': w++ } as CSSProperties}>
                     {word}
                     {word === 'afford,' && (
                       <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
@@ -126,7 +131,7 @@ export function Landing({
               <span className="text-brand-strong">
                 {HEADLINE_2.map((word, i) => (
                   <Fragment key={`b-${i}`}>
-                    <span className="nudge" style={{ animationDelay: `${w++ * 35}ms` }}>
+                    <span className="nudge" style={{ '--i': w++ } as CSSProperties}>
                       {word}
                     </span>
                     {i < HEADLINE_2.length - 1 ? ' ' : ''}

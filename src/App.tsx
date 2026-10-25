@@ -37,6 +37,7 @@ const stepFromState = (state: unknown): Step => {
 
 
 const PICKS_KEY = 'homepick.picks.v1'
+const INTRO_KEY = 'homepick.intro.v1'
 const AREAS_KEY = 'homepick.areas.v1'
 
 /** The screen to open on load: a refresh mid-flow stays where you were (the URL hash names the step). */
@@ -96,6 +97,17 @@ export default function App() {
     return new Set(Array.isArray(saved) ? (saved.filter((a) => AREAS.some((k) => k.id === a)) as Area[]) : [])
   })
   const [picks, setPicks] = useState<Pick[]>([])
+  // First arrival only: the page grows out of a blurred sunrise. Not after a refresh, not with reduced motion.
+  const introRan = useRef(step === 'start' && !prefersReducedMotion() && !loadJson(INTRO_KEY, false))
+  const [intro, setIntro] = useState(introRan.current)
+  useEffect(() => {
+    if (!introRan.current) return
+    saveJson(INTRO_KEY, true)
+    const t = window.setTimeout(() => setIntro(false), 1700)
+    return () => window.clearTimeout(t)
+  }, [])
+  // The spotlight plays when the picks just finished, not when the results come back from history.
+  const celebrateRef = useRef(false)
   // Picks are kept by id in this tab's session storage so a refresh mid-flow keeps the rounds you did.
   const savedPicks = useRef<unknown>(loadJson<unknown>(PICKS_KEY, []))
   const [message, setMessage] = useState('')
@@ -268,11 +280,13 @@ export default function App() {
   }
 
   function finish() {
+    celebrateRef.current = true
     go('results')
     announce('Your matches are ready')
   }
 
   function restart() {
+    celebrateRef.current = false
     setPicks([])
     go('start')
     announce('Starting over')
@@ -293,31 +307,37 @@ export default function App() {
   }, [step, pair, buildings, picks.length])
 
   return (
-    <div data-step={step} className="min-h-dvh bg-canvas text-ink">
+    <>
+      {intro && <div aria-hidden className="intro-backdrop" />}
+      <div data-step={step} className={`app-shell relative min-h-dvh bg-canvas text-ink ${intro ? 'intro-run' : ''}`}>
       <Lamp />
-      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
+      <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-40 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <header className="no-print relative sticky top-0 z-30 border-b border-line/70 bg-canvas/80 backdrop-blur-md">
-        <span aria-hidden className="scroll-progress absolute inset-x-0 bottom-0 h-0.5 bg-brand" />
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
-          <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
-            <LogoMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
-            <span className="font-display text-lg">
-              HomePick <span className="text-brand-strong">DMV</span>
-            </span>
-          </button>
-          <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-ok-tint px-2.5 py-1 text-xs font-medium text-ok sm:px-3">
-            <ShieldCheck aria-hidden className="size-3.5" />
-            <span className="hidden sm:inline">Your answers stay on this device</span>
-            <span className="hidden min-[400px]:inline sm:hidden">Stays on this device</span>
-            <span className="min-[400px]:hidden">On-device</span>
-            <span className="sr-only">: your answers stay on this device</span>
+      <nav aria-label="Site" className="pill-nav no-print fixed left-1/2 top-3 z-30 flex -translate-x-1/2 items-center gap-2 rounded-full py-1.5 pl-3 pr-1.5 sm:top-5 sm:gap-3 sm:pl-4">
+        <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-full font-bold tracking-tight">
+          <LogoMark className="size-7 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
+          <span className="font-display text-base sm:text-lg">
+            HomePick <span className="text-brand-strong">DMV</span>
           </span>
-        </div>
-      </header>
+        </button>
+        <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-ok-tint px-2 py-1 text-[11px] font-medium text-ok sm:px-2.5 sm:text-xs">
+          <ShieldCheck aria-hidden className="size-3.5" />
+          <span className="hidden sm:inline">Stays on this device</span>
+          <span className="sr-only sm:hidden">Your answers stay on this device</span>
+        </span>
+        {step === 'start' ? (
+          <button type="button" onClick={begin} className="inline-flex min-h-9 items-center rounded-full bg-dusk px-3.5 text-xs font-bold text-white transition hover:bg-ink sm:text-sm">
+            Start
+          </button>
+        ) : (
+          <button type="button" onClick={restart} className="inline-flex min-h-9 items-center whitespace-nowrap rounded-full bg-brand-tint px-3.5 text-xs font-bold text-brand-strong transition hover:bg-brand hover:text-white sm:text-sm">
+            Start over
+          </button>
+        )}
+      </nav>
 
-      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 py-5 sm:space-y-6 sm:py-8'}`}>
+      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 pb-5 pt-20 sm:space-y-6 sm:pb-8 sm:pt-24'}`}>
         {step !== 'start' && step !== 'snap' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
@@ -359,6 +379,7 @@ export default function App() {
             onBegin={begin}
             onStartIn={startIn}
             onSnap={() => go('snap')}
+            firstVisit={introRan.current}
           />
         )}
 
@@ -420,6 +441,7 @@ export default function App() {
             onEditSituation={() => go('basics')}
             onRestart={restart}
             announce={announce}
+            celebrate={celebrateRef.current}
           />
         )}
       </main>
@@ -453,6 +475,7 @@ export default function App() {
       <div aria-live="polite" className="sr-only">
         {message}
       </div>
-    </div>
+      </div>
+    </>
   )
 }

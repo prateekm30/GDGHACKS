@@ -1,5 +1,10 @@
-import { Award } from 'lucide-react'
-import { useReveal } from '../lib/motion'
+import { Award, Share2 } from 'lucide-react'
+import { useState } from 'react'
+import { prefersReducedMotion, useReveal } from '../lib/motion'
+import { marketFor, SpotlightReveal } from './SpotlightReveal'
+import { addressLine } from './BuildingCard'
+import { CountUp } from './CountUp'
+import { money } from './ui'
 import { Confetti } from './Confetti'
 import { assess } from '../lib/eligibility'
 import { learnedPriorities, whyReasons, type Feature, type Weights } from '../lib/ranking'
@@ -34,6 +39,7 @@ export function ResultsStep({
   onEditSituation,
   onRestart,
   announce,
+  celebrate = false,
 }: {
   shortlist: Building[]
   weights: Weights
@@ -44,6 +50,8 @@ export function ResultsStep({
   onEditSituation: () => void
   onRestart: () => void
   announce: (msg: string) => void
+  /** True when the person just finished picking (not on refresh, Back, or Forward): spotlight and confetti. */
+  celebrate?: boolean
 }) {
   const priorities = learnedPriorities(weights, prior, chosen)
   const max = Math.max(...priorities.map((p) => p.weight), 1)
@@ -53,10 +61,37 @@ export function ResultsStep({
   // there were not enough others; say so instead of calling one the best match.
   const over = shortlist.map((b) => !!situation && assess(b, limits, situation).limit === 'over')
   const allOver = shortlist.length > 0 && over.every(Boolean)
+  // The spotlight runs once, when the picks just finished and motion is allowed; then the cards slide in.
+  const [spot, setSpot] = useState(() => celebrate && shortlist.length > 0 && !allOver && !prefersReducedMotion())
+  const top = shortlist[0]
+  const topCost = top ? assess(top, limits, situation) : null
+  const topMonthly = topCost?.cost.monthly ?? null
+  const topMarket = top && topCost ? marketFor(top, topCost.cost.bedrooms) : null
+  const saving = topMonthly !== null && topMarket !== null && topMarket > topMonthly ? topMarket - topMonthly : null
+
+  async function share() {
+    const lines = shortlist.map((b, i) => {
+      const c = assess(b, limits, situation).cost
+      const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent is 30% of income' : 'rent varies'
+      return `${i + 1}. ${b.name} — ${addressLine(b)} — ${cost}${b.contact.phone ? ` — ${b.contact.phone}` : ''}`
+    })
+    const text = ['My HomePick DMV shortlist (estimates; each property decides who qualifies):', ...lines, 'https://gdghacks-tau.vercel.app'].join('\n')
+    try {
+      if (navigator.share) {
+        await navigator.share({ title: 'My HomePick DMV shortlist', text })
+        return
+      }
+      await navigator.clipboard.writeText(text)
+      announce('Shortlist copied to your clipboard')
+    } catch {
+      announce('Could not share. Use Print my plan instead.')
+    }
+  }
 
   return (
     <div ref={revealRef} className="space-y-10">
-      {shortlist.length > 0 && <Confetti />}
+      {spot && top && <SpotlightReveal b={top} limits={limits} situation={situation} onDone={() => setSpot(false)} />}
+      {celebrate && shortlist.length > 0 && !spot && <Confetti />}
       <nav aria-label="On this page" className="no-print flex gap-2 overflow-x-auto pb-1">
         {[
           ['#matches', 'Your matches'],
@@ -130,10 +165,47 @@ export function ResultsStep({
               Your top matches
             </h1>
           </div>
-          <Button variant="secondary" className="no-print" onClick={() => window.print()}>
-            Print my plan
-          </Button>
+          <div className="no-print flex flex-wrap gap-2">
+            <Button variant="secondary" onClick={share}>
+              <Share2 aria-hidden className="size-4" />
+              Share my shortlist
+            </Button>
+            <Button variant="secondary" onClick={() => window.print()}>
+              Print my plan
+            </Button>
+          </div>
         </div>
+        {top && !allOver && (topMonthly !== null || topMarket !== null) && (
+          <dl className="stat-strip grid grid-cols-2 gap-3 sm:grid-cols-3">
+            {topMonthly !== null && (
+              <div className="rounded-2xl bg-surface p-4 shadow-card">
+                <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">{topCost?.cost.kind === 'income-based' ? "What you'd pay at #1" : 'Rent cap at #1'}</dt>
+                <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
+                  <CountUp value={topMonthly} duration={1300} format={money} />
+                  <span className="text-sm font-semibold text-ink-soft">/mo</span>
+                </dd>
+              </div>
+            )}
+            {topMarket !== null && (
+              <div className="rounded-2xl bg-surface p-4 shadow-card">
+                <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">Typical rent nearby (HUD)</dt>
+                <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
+                  <CountUp value={topMarket} duration={1300} format={money} />
+                  <span className="text-sm font-semibold text-ink-soft">/mo</span>
+                </dd>
+              </div>
+            )}
+            {saving !== null && (
+              <div className="col-span-2 rounded-2xl bg-dusk p-4 text-white shadow-card sm:col-span-1">
+                <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/70">You could keep (est.)</dt>
+                <dd className="font-display text-3xl font-extrabold tabular-nums">
+                  <CountUp value={saving * 12} duration={1600} format={money} />
+                  <span className="text-sm font-semibold text-white/70">/yr</span>
+                </dd>
+              </div>
+            )}
+          </dl>
+        )}
         {shortlist.length === 0 && <p className="text-sm text-ink-soft">No buildings to show yet. Try starting over with a different area.</p>}
         {allOver ? (
           <div className="mb-4">
@@ -154,8 +226,8 @@ export function ResultsStep({
           {shortlist.map((b, i) => (
             <div
               key={b.id}
-              className={`rise-in ${i === 0 ? 'glow-border' : ''}`}
-              style={{ animationDelay: `${200 + i * 140}ms` }}
+              className={`${celebrate && i > 0 ? (i === 1 ? 'in-left' : 'in-right') : 'rise-in'} ${i === 0 ? 'glow-border' : ''}`}
+              style={{ animationDelay: `${200 + i * 160}ms` }}
             >
               <Card className="group relative h-full overflow-hidden transition duration-300 hover:-translate-y-1 hover:shadow-lift">
                 <BuildingCard
