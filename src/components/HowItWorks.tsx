@@ -109,7 +109,7 @@ export function HowItWorks({
               <li key={s.title} className={`stack-slot ${i < STEPS.length - 1 ? 'min-h-[60svh]' : ''}`}>
                 <div className="stack-card night-card sticky overflow-hidden rounded-card ring-1 ring-white/15" style={{ top: `calc(5.5rem + ${i * 1.25}rem)` }}>
                   <div className="grid gap-6 p-6 sm:grid-cols-[auto_1fr] sm:p-10">
-                    <span className="font-display grid size-14 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-[0_0_40px_rgb(111_216_227/0.45)]">
+                    <span className="font-display grid size-14 place-items-center rounded-xl bg-accent text-xl font-extrabold text-ink shadow-[0_0_40px_rgb(111_216_227/0.45)]">
                       {i + 1}
                     </span>
                     <div className="min-w-0">

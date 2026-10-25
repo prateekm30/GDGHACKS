@@ -159,7 +159,7 @@ export function PickDemo({ buildings, limits }: { buildings: Building[] | null; 
         ) : (
           <div className="skeleton col-span-2 h-32 rounded-2xl opacity-40" />
         )}
-        <span aria-hidden className="pointer-events-none absolute left-1/2 top-9 grid size-8 -translate-x-1/2 place-items-center rounded-full bg-white text-xs font-extrabold text-ink shadow">
+        <span aria-hidden className="pointer-events-none absolute left-1/2 top-9 grid size-8 -translate-x-1/2 place-items-center rounded-lg bg-white text-xs font-extrabold text-ink shadow">
           or
         </span>
       </div>
@@ -198,7 +198,7 @@ export function ShortlistDemo({ buildings }: { buildings: Building[] | null }) {
           onPointerLeave={() => setHover(null)}
           className={`glass-card grid grid-cols-[auto_1fr_auto] items-center gap-3 p-3 transition ${hover === i ? 'bg-white/20' : ''} ${i === 0 ? 'glow-border' : ''}`}
         >
-          <span className="grid size-8 place-items-center rounded-full bg-accent font-display text-sm font-extrabold text-ink">{i + 1}</span>
+          <span className="grid size-8 place-items-center rounded-lg bg-accent font-display text-sm font-extrabold text-ink">{i + 1}</span>
           <div className="min-w-0">
             <p className="truncate text-sm font-bold text-white">{r.b.name}</p>
             <p className="truncate text-xs text-white/75">{hover === i ? r.why : `${r.b.city}, ${r.b.state}`}</p>
