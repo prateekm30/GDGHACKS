@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { useRef, useState, type UIEvent } from 'react'
-import { streetViewUrl, useStreetViewKey } from '../lib/streetview'
+import { streetViewUrl, useStreetViewKey, useStreetViewSource, type StreetViewSource } from '../lib/streetview'
 import type { Building } from '../lib/types'
 import { RowhouseArt, hashString } from './Skyline'
 
@@ -72,10 +72,10 @@ export function TileView({ b, layer, zoom, onFail, eager = false, className = 'k
 }
 
 /** The street-level photo from Google. Hidden (and dropped from the views) when Google has none for this spot. */
-function StreetPhoto({ b, apiKey, onFail, onLoad }: { b: Building; apiKey: string; onFail: () => void; onLoad: () => void }) {
+function StreetPhoto({ b, apiKey, source, onFail, onLoad }: { b: Building; apiKey: string; source?: StreetViewSource; onFail: () => void; onLoad: () => void }) {
   return (
     <img
-      src={streetViewUrl(b, apiKey)}
+      src={streetViewUrl(b, apiKey, source)}
       alt=""
       loading="lazy"
       decoding="async"
@@ -97,9 +97,10 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
   // 'unknown' while the photo loads; 'none' drops the slide and the aerial view leads instead.
   const [street, setStreet] = useState<'unknown' | 'ok' | 'none'>('unknown')
   const apiKey = useStreetViewKey()
+  const source = useStreetViewSource(b.id)
   const [index, setIndex] = useState(0)
   const track = useRef<HTMLDivElement>(null)
-  const lead = !apiKey || street === 'none' ? [] : [STREET_VIEW]
+  const lead = !apiKey || street === 'none' || source === 'n' ? [] : [STREET_VIEW]
   const views = failed ? VIEWS.slice(0, 1) : single ? [...lead, ...VIEWS.slice(0, 1)].slice(0, 1) : [...lead, ...VIEWS]
 
   function go(i: number, e?: { stopPropagation: () => void }) {
@@ -133,7 +134,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
                 <>
                   {/* The aerial tiles sit under the photo while it loads, so the frame is never blank. */}
                   {street !== 'ok' && <TileView b={b} layer="imagery" zoom={18} onFail={() => setFailed(true)} />}
-                  <StreetPhoto b={b} apiKey={apiKey} onFail={() => setStreet('none')} onLoad={() => setStreet('ok')} />
+                  <StreetPhoto key={source ?? 'x'} b={b} apiKey={apiKey} source={source} onFail={() => setStreet('none')} onLoad={() => setStreet('ok')} />
                 </>
               ) : (
                 <>

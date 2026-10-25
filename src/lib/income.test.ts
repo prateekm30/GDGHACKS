@@ -29,6 +29,10 @@ describe('street view asks by address, not by HUD coordinates', () => {
     expect(streetViewLocation(b)).toBe('1330 7th St NW, Washington, DC 20001')
     expect(streetViewLocation({ ...b, address: '2549 Elvans Rd SE Apt 204' })).toBe('2549 Elvans Rd SE, Washington, DC 20001')
   })
+  it('looks at the coordinates when the index says the address is wrong (an office or shopping center)', () => {
+    expect(streetViewLocation(b, 'c')).toBe('38.907600,-77.022000')
+    expect(streetViewLocation(b, 'a')).toBe('1330 7th St NW, Washington, DC 20001')
+  })
   it('falls back to coordinates for addresses Google cannot place', () => {
     expect(usableAddress('Lot 3 On Noble Way')).toBe(false)
     expect(usableAddress('Scattered Sites')).toBe(false)

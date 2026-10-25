@@ -10,10 +10,28 @@ if (!KEY_SHAPE.test(key)) key = ''
 let asked = false
 const listeners = new Set<() => void>()
 
-/** Fetch the runtime key once. Safe to call many times. */
+/**
+ * Per-building choice made offline with Google's free metadata endpoint (.github/scripts/streetview-index.cjs):
+ * 'a' look at the street address, 'c' look at HUD's coordinates, 'n' no photo. Missing while loading or for a
+ * building not in the index, in which case the address is used.
+ */
+export type StreetViewSource = 'a' | 'c' | 'n'
+let index: Record<string, StreetViewSource> | null = null
+
+/** Fetch the runtime key and the per-building index once. Safe to call many times. */
 export function loadStreetViewKey(): void {
-  if (asked || key || typeof fetch === 'undefined') return
+  if (asked || typeof fetch === 'undefined') return
   asked = true
+  fetch('/data/streetview.json')
+    .then((r) => (r.ok ? (r.json() as Promise<{ byId?: Record<string, StreetViewSource> }>) : null))
+    .then((j) => {
+      if (j?.byId) {
+        index = j.byId
+        listeners.forEach((l) => l())
+      }
+    })
+    .catch(() => {})
+  if (key) return
   fetch('/api/config')
     .then((r) => (r.ok ? (r.json() as Promise<{ streetViewKey?: string | null }>) : null))
     .then((c) => {
@@ -38,15 +56,29 @@ export function useStreetViewKey(): string {
   return useSyncExternalStore(subscribe, () => key, () => key)
 }
 
+/** Where this building's photo should look, from the index; undefined while the index loads or for unknown ids. */
+export function useStreetViewSource(id: string): StreetViewSource | undefined {
+  return useSyncExternalStore(subscribe, () => index?.[id], () => index?.[id])
+}
+
+/** For tests. */
+export function setStreetViewIndex(byId: Record<string, StreetViewSource> | null) {
+  index = byId
+  listeners.forEach((l) => l())
+}
+
 /** Something Google can geocode: a street number and a street. "Lot 3 On Noble Way" or "Scattered Sites" is not. */
 export function usableAddress(address: string | null | undefined): boolean {
   if (!address) return false
   return /^\d+[a-z]?\s+\S/i.test(address.trim()) && !/\b(lot|scattered|various|multiple|p\.?o\.? box)\b/i.test(address)
 }
 
-/** Where to point Street View: the street address when it is usable, else the HUD coordinates. */
-export function streetViewLocation(b: { address: string; city: string; state: string; zip: string; lat: number; lon: number }): string {
-  if (usableAddress(b.address)) return `${b.address.replace(/\s+(apt|unit|ste|suite|#)\s*\S+$/i, '')}, ${b.city}, ${b.state} ${b.zip}`.trim()
+/** Where to point Street View: the street address when it is usable (and the index does not say otherwise), else the HUD coordinates. */
+export function streetViewLocation(
+  b: { address: string; city: string; state: string; zip: string; lat: number; lon: number },
+  source?: StreetViewSource,
+): string {
+  if (source !== 'c' && usableAddress(b.address)) return `${b.address.replace(/\s+(apt|unit|ste|suite|#)\s*\S+$/i, '')}, ${b.city}, ${b.state} ${b.zip}`.trim()
   return `${b.lat.toFixed(6)},${b.lon.toFixed(6)}`
 }
 
@@ -59,13 +91,14 @@ export function streetViewLocation(b: { address: string; city: string; state: st
 export function streetViewUrl(
   b: { address: string; city: string; state: string; zip: string; lat: number; lon: number },
   k = key,
+  source?: StreetViewSource,
   width = 640,
   height = 360,
 ): string {
   const q = new URLSearchParams({
     size: `${width}x${height}`,
-    location: streetViewLocation(b),
-    radius: '50',
+    location: streetViewLocation(b, source),
+    radius: source === 'c' ? '80' : '50',
     source: 'outdoor',
     fov: '80',
     pitch: '5',

@@ -1,0 +1,40 @@
+# Decides per building whether Street View should look at the street address or at HUD's coordinates, using
+# Google's free metadata endpoint, and commits public/data/streetview.json. Also uploads image pairs for the
+# buildings where the two disagree, so a person can check which side is right.
+name: Street View index
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: Site URL (for the public browser key and the building list)
+        default: https://gdghacks-tau.vercel.app
+      prefer:
+        description: In a conflict, prefer the address (a) or the coordinates (c)
+        default: c
+
+permissions:
+  contents: write
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the index
+        env:
+          SV_PREFER: ${{ inputs.prefer }}
+        run: node .github/scripts/streetview-index.cjs "${{ inputs.url }}" public/data/streetview.json conflicts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: streetview-conflicts
+          path: conflicts
+      - name: Commit the index
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/data/streetview.json
+          git diff --cached --quiet && echo "No change" && exit 0
+          git commit -m "Street View index: where each building's photo should look"
+          git pull --rebase origin main
+          git push origin HEAD:main
