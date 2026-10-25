@@ -210,7 +210,7 @@ export function ResultsStep({
             )}
           </dl>
         )}
-        {shortlist.length === 0 && <p className="text-sm text-ink-soft">No buildings to show yet. Try starting over with a different area.</p>}
+        {shortlist.length === 0 && <p className="text-sm text-ink-soft">Nothing fits those answers any more. Edit your answers, or start over with other areas.</p>}
         {allOver ? (
           <div className="mb-4">
             <Note tone="warn">

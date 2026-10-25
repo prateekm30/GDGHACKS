@@ -292,7 +292,12 @@ export default function App() {
     }
   }
 
+  // A double tap must count once: the second tap lands on the next pair a few milliseconds later.
+  const lastPickAt = useRef(0)
   function onPick(chosen: Building, other: Building) {
+    const now = Date.now()
+    if (now - lastPickAt.current < 350) return
+    lastPickAt.current = now
     const next = [...picks, { chosen, other }]
     setPicks(next)
     announce(`You picked ${chosen.name}`)
@@ -304,6 +309,13 @@ export default function App() {
     go('results')
     announce('Your matches are ready')
   }
+
+  // Mid-flow with nothing left to compare (a small pool, or answers edited to a smaller one): show the matches
+  // from the picks so far instead of an empty picker.
+  useEffect(() => {
+    if (step === 'pick' && buildings && !pair && picks.length > 0) finish()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step, buildings, pair, picks.length])
 
   function restart() {
     celebrateRef.current = false
@@ -416,7 +428,7 @@ export default function App() {
             <Button variant="secondary" onClick={() => go('start')}>
               Back to home
             </Button>
-            <SnapForm announce={announce} />
+            <SnapForm announce={announce} standalone />
           </section>
         )}
 

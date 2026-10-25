@@ -162,14 +162,25 @@ export function splitText(text: string, maxBytes = CHUNK_BYTES): string[] {
 }
 
 async function requestOne(text: string): Promise<ChecklistItem[]> {
-  const res = await fetch('/api/snap-text', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text }),
-  })
-  if (!res.ok) throw new Error((await res.json().catch(() => null))?.error ?? 'The AI service is unavailable.')
-  const body = (await res.json()) as { items: ChecklistItem[]; cached?: boolean }
-  return verifyItems(body.items, text)
+  let res: Response
+  try {
+    res = await fetch('/api/snap-text', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ text }),
+    })
+  } catch {
+    // Offline, blocked, or the server did not answer: the browser's own words ("Failed to fetch") help nobody.
+    throw new Error('Could not reach the checklist service. Check your connection and try again.')
+  }
+  if (!res.ok) {
+    const said = (await res.json().catch(() => null))?.error
+    if (res.status === 429) throw new Error('Too many requests right now. Wait a minute and try again.')
+    throw new Error(typeof said === 'string' && said ? said : 'The AI service is unavailable right now. Try again in a moment.')
+  }
+  const body = (await res.json().catch(() => null)) as { items?: unknown } | null
+  if (!body || !Array.isArray(body.items)) throw new Error('The AI service sent back something we could not read. Try again.')
+  return verifyItems(body.items as ChecklistItem[], text)
 }
 
 /**

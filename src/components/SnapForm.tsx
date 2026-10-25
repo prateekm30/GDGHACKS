@@ -12,7 +12,7 @@ type Phase = 'idle' | 'reading' | 'review' | 'asking' | 'done' | 'error'
 
 const TYPE_LABEL = { document: 'Bring', deadline: 'Deadline', fee: 'Fee', contact: 'Contact' } as const
 
-export function SnapForm({ announce }: { announce: (msg: string) => void }) {
+export function SnapForm({ announce, standalone = false }: { announce: (msg: string) => void; standalone?: boolean }) {
   const [phase, setPhase] = useState<Phase>('idle')
   const [progress, setProgress] = useState(0)
   const [text, setText] = useState('')
@@ -65,7 +65,7 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
     <Card className="p-5">
       <div className="space-y-4">
         <div>
-          <h2 className="text-lg font-semibold">Snap a form</h2>
+          {standalone ? <h1 className="text-2xl font-extrabold">Snap a form</h1> : <h2 className="text-lg font-semibold">Snap a form</h2>}
           <p className="text-sm text-ink-soft">
             Add an application or a letter from a property. We read it on your device and turn it into a checklist.
           </p>
@@ -127,7 +127,7 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
           </div>
         )}
 
-        {(phase === 'review' || phase === 'asking') && (
+        {(phase === 'review' || phase === 'asking' || phase === 'error') && (
           <div className="space-y-2">
             <label className="block text-sm font-medium" htmlFor="snap-text">
               Check the text. Delete anything personal before you continue.
