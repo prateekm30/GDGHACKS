@@ -50,7 +50,7 @@ flowchart LR
 | Safety and grounding | Quote check (server and browser), banned-phrase filter, no AI in eligibility math |
 | Privacy | Income and files stay on the device; only reviewed text is sent; no logging |
 | Inclusive design | Keyboard picker, screen reader labels and live region, focus styles, reduced motion, plain language |
-| Deployment and cost | One free Vercel deploy, static data, small model, cached demo result, rate limit |
+| Deployment and cost | One free Vercel deploy, static data, small model, cached demo result, rate limit. A checklist is one Gemma call of roughly 1,500 input and 300 output tokens: free on the Gemini API free tier, and well under a cent at Flash-class paid rates |
 | Docs | This README, `RESOURCES.md`, `data/README.md` |
 
 ## How it works
@@ -60,14 +60,54 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings in all 20 counties and cities of HUD's Washington metro income-limit area, plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 
 Income, picks, and photos stay in your browser (session storage, cleared when the tab closes).
 `GEMINI_API_KEY` is server-side only. The API does not log request content.
 Building photos are aerial tiles from Esri World Imagery; Esri sees which public building locations are
-viewed, never anything you type.
+viewed, never anything you type. The OCR engine and English language data are served from this site
+(copied from `node_modules` at build time), so reading a form makes no request to any CDN. Fonts load from
+Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) are set in `vercel.json`.
+
+## Testing and accessibility
+
+- `npm test`: 73 unit tests for eligibility math, ranking, guardrails, the API rate limiter, and text chunking.
+- `npm run check:ui` (also run in CI, `.github/workflows/ci.yml`): builds the site, then walks the start,
+  basics, pick, and results screens in headless Chromium at 1280px and 390px, with and without reduced
+  motion. It fails on any axe-core violation (WCAG 2.0/2.1/2.2 A and AA rules), a headline that does not
+  read as separate words, a missing `h1`, focus that does not move to the new screen, two pick cards that are
+  not side by side on a phone, or sideways scroll.
+- Last run before submission: **0 axe violations on all 4 screens**, both motion modes, both widths.
+- Checked by hand: keyboard-only flow (tab, arrow keys in the picker, pause button on the hero slideshow),
+  VoiceOver labels on the pick buttons, 200% zoom on a 1024px window.
+- Not tested: real screen readers other than VoiceOver, Windows High Contrast mode, Safari on iOS before 16,
+  text contrast on the animated gradient backgrounds beyond the fixed pairs below.
+- Contrast: body text `#2a1a3a` and headline accent `#8e1247` were checked against the lightest and darkest
+  stops of every background gradient (`#ffe3b0`, `#d7b8ff`, `#fff3ea`) and all pass 4.5:1. Gold `#ffc53d`
+  and white are only used as text on the dark plum backgrounds (`#2a1f4d` and darker), at 9:1 or better.
+
+## Known limitations
+
+- **Phone numbers:** 572 of 923 buildings (62%) have no phone in HUD's data. Those cards say so and link a
+  web search for the leasing office instead.
+- **Waitlists and vacancies:** HUD data has neither. Every card says to call and ask.
+- **Rent figures are caps, not asking rents.** Tax-credit caps come from HUD's MTSP tables for the whole
+  metro area at the building's tier; real rents are often lower. Income-based rent is estimated at 30% of
+  the income you enter.
+- **Eligibility is estimated**, never decided. The app says "you appear to be under the limit" and the
+  property decides. Student rules, minimum incomes, and credit checks vary by building.
+- **Rate limiting is per serverless instance** (6 calls a minute and 40 a day per address, 120 an hour per
+  instance). The hard ceiling is the Gemini API quota and budget alert in Google AI Studio.
+- **OCR is English only** and reads up to 10 pages of a PDF (3 pages when the PDF is a scan). Photos are
+  downscaled to 2200px before reading. HEIC photos open on Safari; other browsers ask for JPG or PNG.
+- **Long forms** are sent in pieces of about 16 KB each, so a 40-page packet means several AI calls.
+- **Building names and contacts** are as HUD publishes them, tidied (capitalization, "Apts", SOME's
+  properties). Some names are the legal project name, not the sign on the door.
+- **No interior photos.** HUD has none and listing photos are copyrighted, so cards show aerial, neighborhood,
+  and street-map views of the real location with a Street View link.
+- **No ranking on neighborhood, school, or demographic data**, on purpose (fair housing).
 
 ## Credits and data
 

@@ -1,5 +1,5 @@
 import { ArrowRight, Camera, MapPinned, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react'
-import { useMemo, type CSSProperties } from 'react'
+import { Fragment, useMemo, type CSSProperties } from 'react'
 import { AREAS } from '../lib/areas'
 import { magneticHandlers, spotlightHandlers, useReveal } from '../lib/motion'
 import type { Area, Building, IncomeLimits } from '../lib/types'
@@ -112,20 +112,25 @@ export function Landing({
             </span>
             <h1 id="start-heading" className="text-[2.6rem] font-extrabold leading-[0.98] text-ink sm:text-6xl lg:text-[3.25rem] xl:text-6xl">
               {HEADLINE.map((word) => (
-                <span key={`a-${word}`} className="nudge relative mr-[0.22em]" style={{ animationDelay: `${w++ * 35}ms` }}>
-                  {word}
-                  {word === 'afford,' && (
-                    <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
-                      <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#ff9f43" strokeWidth="6" strokeLinecap="round" className="draw" />
-                    </svg>
-                  )}
-                </span>
+                <Fragment key={`a-${word}`}>
+                  <span className="nudge relative" style={{ animationDelay: `${w++ * 35}ms` }}>
+                    {word}
+                    {word === 'afford,' && (
+                      <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
+                        <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#ff9f43" strokeWidth="6" strokeLinecap="round" className="draw" />
+                      </svg>
+                    )}
+                  </span>{' '}
+                </Fragment>
               ))}
               <span className="text-brand-strong">
                 {HEADLINE_2.map((word, i) => (
-                  <span key={`b-${i}`} className="nudge mr-[0.22em]" style={{ animationDelay: `${w++ * 35}ms` }}>
-                    {word}
-                  </span>
+                  <Fragment key={`b-${i}`}>
+                    <span className="nudge" style={{ animationDelay: `${w++ * 35}ms` }}>
+                      {word}
+                    </span>
+                    {i < HEADLINE_2.length - 1 ? ' ' : ''}
+                  </Fragment>
                 ))}
               </span>
             </h1>

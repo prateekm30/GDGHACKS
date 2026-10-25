@@ -58,5 +58,5 @@ export function Confetti() {
     return () => cancelAnimationFrame(frame)
   }, [])
 
-  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-50 h-dvh w-screen" />
+  return <canvas ref={ref} aria-hidden className="pointer-events-none fixed inset-0 z-20 h-dvh w-screen" />
 }

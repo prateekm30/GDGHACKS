@@ -203,7 +203,7 @@ def lihtc_building(a: dict, today: str) -> dict | None:
     fam, eld, dis = (num(a.get(f)) == 1 for f in ("TRGT_FAM", "TRGT_ELD", "TRGT_DIS"))
     return {
         "id": f"lihtc-{a['HUD_ID']}",
-        "name": title(clean(a.get("PROJECT"))) or "Unnamed property",
+        "name": clean_name(title(clean(a.get("PROJECT")))) or "Unnamed property",
         "address": title(clean(a.get("PROJ_ADD"))),
         "city": title(clean(a.get("PROJ_CTY"))),
         "state": state,
@@ -240,7 +240,7 @@ def mf_building(a: dict, today: str) -> dict | None:
     bedrooms = [int(n) for n in mix]
     return {
         "id": f"hud-{a['PROPERTY_ID']}",
-        "name": title(clean(a.get("PROPERTY_NAME_TEXT"))) or "Unnamed property",
+        "name": clean_name(title(clean(a.get("PROPERTY_NAME_TEXT")))) or "Unnamed property",
         "address": title(clean(a.get("ADDRESS_LINE1_TEXT"))),
         "city": title(clean(a.get("STD_CITY"))),
         "state": state,
@@ -286,6 +286,32 @@ def title(s: str | None) -> str:
         else:
             out.append(w[:1].upper() + w[1:].lower())
     return "".join(out)
+
+
+SMALL_WORDS = {"of", "at", "and", "the", "on", "in", "for", "by"}
+
+
+def clean_name(s: str) -> str:
+    """Tidy HUD property names: SOME (the DC nonprofit), 'Apts', trailing '(the)', and lowercase words in parentheses."""
+    if not s:
+        return s
+    n = s.strip()
+    n = re.sub(r"^Some[\s-]+(?=The\b)", "SOME: ", n)
+    n = re.sub(r"^Some\b", "SOME", n)
+    n = re.sub(r"\bApts?\.?(?=\s|$|-)", lambda m: "Apartments" if m.group(0).lower().startswith("apts") else "Apartment", n)
+    n = re.sub(r",\s*inc\.?$", ", Inc.", n, flags=re.I)
+    m = re.fullmatch(r"(.*?)\s*\(the\)", n, flags=re.I)
+    if m:
+        n = "The " + m.group(1)
+    # Words inside parentheses come out lowercase from title(); capitalize them.
+    n = re.sub(r"\(([^)]*)\)", lambda m: "(" + " ".join(w[:1].upper() + w[1:] for w in m.group(1).split(" ")) + ")", n)
+    # Small words stay lowercase unless they start the name.
+    words = n.split(" ")
+    n = " ".join(
+        w[:1].upper() + w[1:] if i == 0 or words[i - 1].endswith(":") else (w.lower() if w.lower() in SMALL_WORDS else w)
+        for i, w in enumerate(words)
+    )
+    return re.sub(r"\s{2,}", " ", n).strip()
 
 
 def addr_key(b: dict) -> str:

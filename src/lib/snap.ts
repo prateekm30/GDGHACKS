@@ -10,13 +10,42 @@ export interface ChecklistItem {
 }
 
 export async function extractText(file: File, onProgress?: (pct: number) => void): Promise<string> {
-  if (file.type === 'application/pdf') {
+  if (file.type === 'application/pdf' || /\.pdf$/i.test(file.name)) {
     const text = await pdfText(file)
     if (text.trim().length > 40) return text
     // Scanned PDF: no text layer, so draw each page and read it with OCR, still on the device.
     return ocrPdfPages(file, onProgress)
   }
-  return ocrImage(file, onProgress)
+  return ocrImage(await normalizeImage(file), onProgress)
+}
+
+const MAX_SIDE = 2200
+
+/**
+ * Decode the photo in the browser and redraw it as a PNG no wider than 2200px. This handles iPhone HEIC on
+ * Safari (which can decode it), shrinks 12MP photos so OCR takes seconds not minutes, and fixes orientation.
+ */
+async function normalizeImage(file: File): Promise<Blob> {
+  const heic = /heic|heif/i.test(file.type) || /\.(heic|heif)$/i.test(file.name)
+  let bitmap: ImageBitmap
+  try {
+    bitmap = await createImageBitmap(file, { imageOrientation: 'from-image' })
+  } catch {
+    throw new Error(
+      heic
+        ? 'This browser cannot open HEIC photos. On iPhone, share the photo as JPEG, take a screenshot of the form, or set Settings > Camera > Formats to Most Compatible.'
+        : 'We could not open that image. Try a JPG, PNG, or PDF.',
+    )
+  }
+  const scale = Math.min(1, MAX_SIDE / Math.max(bitmap.width, bitmap.height))
+  const canvas = document.createElement('canvas')
+  canvas.width = Math.round(bitmap.width * scale)
+  canvas.height = Math.round(bitmap.height * scale)
+  const ctx = canvas.getContext('2d')
+  if (!ctx) return file
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height)
+  bitmap.close()
+  return new Promise<Blob>((ok, fail) => canvas.toBlob((b) => (b ? ok(b) : fail(new Error('Could not read the photo'))), 'image/png'))
 }
 
 async function pdfText(file: File): Promise<string> {
@@ -56,8 +85,12 @@ async function ocrPdfPages(file: File, onProgress?: (pct: number) => void): Prom
 
 async function ocrImage(file: Blob, onProgress?: (pct: number) => void): Promise<string> {
   const { createWorker } = await import('tesseract.js')
-  // TODO(C): self-host language data (langPath: '/tesseract') so nothing loads from a CDN.
+  // Everything OCR needs is served from this site (copied from node_modules at build time by
+  // scripts/copy-tesseract.mjs), so no file, and no request, goes to a CDN.
   const worker = await createWorker('eng', 1, {
+    workerPath: '/tesseract/worker.min.js',
+    corePath: '/tesseract/',
+    langPath: '/tesseract/',
     logger: (m: { status: string; progress: number }) => {
       if (m.status === 'recognizing text') onProgress?.(Math.round(m.progress * 100))
     },
@@ -85,7 +118,32 @@ export function highlightLines(text: string): { line: string; hit: boolean }[] {
     .map((line) => ({ line, hit: KEYWORDS.test(line) }))
 }
 
-export async function requestChecklist(text: string): Promise<ChecklistItem[]> {
+/** The API takes 20 KB per call. Long forms are split at paragraph or line breaks and sent one piece at a time. */
+export const CHUNK_BYTES = 16_000
+export function splitText(text: string, maxBytes = CHUNK_BYTES): string[] {
+  const size = (s: string) => new TextEncoder().encode(s).length
+  if (size(text) <= maxBytes) return [text]
+  const out: string[] = []
+  let cur = ''
+  for (const para of text.split(/\n{2,}|\n(?=\S)/)) {
+    const piece = para.trim()
+    if (!piece) continue
+    if (cur && size(cur + '\n\n' + piece) > maxBytes) {
+      out.push(cur)
+      cur = ''
+    }
+    if (size(piece) > maxBytes) {
+      // One giant paragraph: hard-split by characters.
+      for (let i = 0; i < piece.length; i += maxBytes / 4) out.push(piece.slice(i, i + maxBytes / 4))
+      continue
+    }
+    cur = cur ? cur + '\n\n' + piece : piece
+  }
+  if (cur) out.push(cur)
+  return out
+}
+
+async function requestOne(text: string): Promise<ChecklistItem[]> {
   const res = await fetch('/api/snap-text', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -94,4 +152,22 @@ export async function requestChecklist(text: string): Promise<ChecklistItem[]> {
   if (!res.ok) throw new Error((await res.json().catch(() => null))?.error ?? 'The AI service is unavailable.')
   const body = (await res.json()) as { items: ChecklistItem[]; cached?: boolean }
   return verifyItems(body.items, text)
+}
+
+export async function requestChecklist(text: string, onProgress?: (done: number, total: number) => void): Promise<ChecklistItem[]> {
+  const parts = splitText(text)
+  const items: ChecklistItem[] = []
+  const seen = new Set<string>()
+  for (const [i, part] of parts.entries()) {
+    onProgress?.(i, parts.length)
+    for (const it of await requestOne(part)) {
+      const key = norm(it.quote)
+      if (!seen.has(key)) {
+        seen.add(key)
+        items.push(it)
+      }
+    }
+  }
+  onProgress?.(parts.length, parts.length)
+  return items
 }

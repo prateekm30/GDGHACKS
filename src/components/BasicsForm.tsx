@@ -214,6 +214,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               max={150000}
               step={1000}
               value={incomeNum ?? 0}
+              aria-valuetext={incomeNum ? `${money(incomeNum)} a year` : 'No income entered'}
               onChange={(e) => setIncome(Number(e.target.value) ? Number(e.target.value).toLocaleString('en-US') : '')}
               className="w-full accent-brand"
             />

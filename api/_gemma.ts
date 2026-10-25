@@ -34,21 +34,46 @@ export function json(body: unknown, status = 200): Response {
 }
 
 export function errorResponse(e: unknown): Response {
+  if (e instanceof RateLimited) {
+    const res = json({ error: e.message }, 429)
+    res.headers.set('Retry-After', String(e.retryAfterSec))
+    return res
+  }
   if (e instanceof HttpError) return json({ error: e.message }, e.status)
   // Never log request content; only the error kind.
   console.error('api error', (e as Error)?.name)
   return json({ error: 'The AI service is unavailable. Try again in a minute.' }, 502)
 }
 
-// Best effort only: each serverless instance has its own memory. Enough to stop a runaway demo loop.
+// Rate limits. Each serverless instance keeps its own counters, so this slows abuse rather than stopping it;
+// the hard ceiling is the Gemini API quota and budget alert set in Google AI Studio. Three windows:
+// per IP per minute, per IP per day, and all callers per hour on this instance.
+const LIMITS = { perIpMinute: 6, perIpDay: 40, allHour: 120 }
 const hits = new Map<string, number[]>()
-export function rateLimit(request: Request, perMinute = 10) {
+let allHits: number[] = []
+export class RateLimited extends HttpError {
+  constructor(public retryAfterSec: number, message: string) {
+    super(429, message)
+  }
+}
+export function rateLimit(request: Request, now = Date.now()) {
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
-  const now = Date.now()
-  const recent = (hits.get(ip) ?? []).filter((t) => now - t < 60_000)
-  if (recent.length >= perMinute) throw new HttpError(429, 'Too many requests. Wait a minute and try again.')
-  recent.push(now)
-  hits.set(ip, recent)
+  const mine = (hits.get(ip) ?? []).filter((t) => now - t < 86_400_000)
+  const lastMinute = mine.filter((t) => now - t < 60_000)
+  allHits = allHits.filter((t) => now - t < 3_600_000)
+  if (lastMinute.length >= LIMITS.perIpMinute) throw new RateLimited(60, 'Too many requests. Wait a minute and try again.')
+  if (mine.length >= LIMITS.perIpDay) throw new RateLimited(3600, 'Daily limit reached for this connection. Try again tomorrow.')
+  if (allHits.length >= LIMITS.allHour) throw new RateLimited(600, 'The AI service is busy. Try again in a few minutes.')
+  mine.push(now)
+  hits.set(ip, mine)
+  allHits.push(now)
+  // Keep memory bounded if many addresses show up.
+  if (hits.size > 5_000) hits.clear()
+}
+/** For tests. */
+export function resetRateLimit() {
+  hits.clear()
+  allHits = []
 }
 
 export async function readJson<T>(request: Request): Promise<T> {

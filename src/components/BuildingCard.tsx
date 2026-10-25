@@ -223,6 +223,7 @@ export function BuildingCard({
   situation,
   reasons = [],
   detailed = false,
+  compact = false,
   badge,
 }: {
   b: Building
@@ -231,6 +232,8 @@ export function BuildingCard({
   situation: Situation | null
   reasons?: string[]
   detailed?: boolean
+  /** Short card for the picker: the facts that decide a pick, with the rest behind "More". */
+  compact?: boolean
   badge?: ReactNode
 }) {
   const pb = programBadge(b)
@@ -252,6 +255,103 @@ export function BuildingCard({
       : b.metroMiles > 5
         ? 'None within 5 mi'
         : `${b.metroMiles < 0.15 ? 'Next to' : `${b.metroMiles.toFixed(1)} mi to`} ${b.metroStation ?? 'Metro'}`
+
+  if (compact) {
+    const c = a.cost
+    const price =
+      c.kind === 'income-based'
+        ? { label: "What you'd pay", value: c.monthly !== null ? money(c.monthly) : '30% of income', per: c.monthly !== null, cls: 'bg-ok-tint/70', lcls: 'text-ok' }
+        : c.kind === 'ceiling' && c.monthly !== null
+          ? { label: `Rent cap${c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}`, value: money(c.monthly), per: true, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
+          : { label: 'Rent cap', value: 'Varies', per: false, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
+    const market = b.marketRent?.[String(Math.min(c.bedrooms ?? 1, 4))]
+    const limitText = { under: 'Under the income limit (est.)', over: 'Over the income limit (est.)', varies: 'Limit varies by unit', unknown: 'Add income to check the limit' }[a.limit]
+    const LimitIcon = { under: CircleCheck, over: CircleAlert, varies: CircleHelp, unknown: CircleHelp }[a.limit]
+    const limitCls = { under: 'text-ok', over: 'text-heavy', varies: 'text-stretch', unknown: 'text-ink-soft' }[a.limit]
+    return (
+      <article className="flex h-full flex-col text-left">
+        <div className="relative">
+          <BuildingPhoto b={b} className="h-20 sm:h-40" single />
+          <span className={`absolute left-2 top-2 z-10 rounded-full px-2 py-0.5 text-[10px] font-bold shadow-sm sm:text-xs ${pb.cls}`}>{pb.text}</span>
+          {badge}
+        </div>
+        <div className="flex flex-1 flex-col gap-2 p-2.5 sm:gap-3 sm:p-4">
+          <div>
+            <h3 className="font-display line-clamp-2 text-sm font-bold leading-tight sm:text-xl">{b.name}</h3>
+            <p className="mt-0.5 flex items-center gap-1 truncate text-[11px] text-ink-soft sm:text-sm">
+              <span aria-hidden className="size-2 shrink-0 rounded-full" style={{ background: info.color }} />
+              {b.city}, {b.state}
+            </p>
+          </div>
+          <div className={`rounded-xl p-2 sm:p-3 ${price.cls}`}>
+            <p className={`text-[10px] font-bold uppercase tracking-wide sm:text-xs ${price.lcls}`}>{price.label}</p>
+            <p className="font-display text-xl font-extrabold leading-tight text-ink sm:text-3xl">
+              {price.value}
+              {price.per && <span className="text-xs font-bold text-ink-soft sm:text-base">/mo</span>}
+            </p>
+            {c.kind === 'ceiling' && c.burdenPct !== null && c.level ? (
+              <p className="mt-1 text-[11px] sm:text-sm">
+                <BurdenBadge level={c.level}>About {c.burdenPct}% of income</BurdenBadge>
+              </p>
+            ) : c.kind === 'income-based' ? (
+              <p className="mt-0.5 text-[11px] text-ink-soft sm:text-xs">Rent follows your income</p>
+            ) : null}
+            {market && (
+              <p className="mt-1 text-[11px] text-ink-soft sm:text-xs">
+                Typical nearby <b className="text-ink">{money(market)}</b>
+              </p>
+            )}
+          </div>
+          <p className={`flex items-start gap-1 text-[11px] font-medium sm:text-sm ${limitCls}`}>
+            <LimitIcon aria-hidden className="mt-0.5 size-3.5 shrink-0" />
+            {limitText}
+          </p>
+          <dl className="flex flex-wrap gap-1 text-[11px] sm:text-xs">
+            {[
+              [BedDouble, 'Sizes', bedroomText],
+              [TrainFront, 'Metro', metro],
+              [CalendarDays, 'Opened', b.yearPlacedInService ?? 'Not listed'],
+              [Building2, 'Homes', homes],
+            ].map(([Icon, label, value]) => {
+              const I = Icon as LucideIcon
+              return (
+                <div key={label as string} className="inline-flex max-w-full items-center gap-1 rounded-lg bg-canvas/80 px-1.5 py-1">
+                  <dt className="sr-only">{label as string}</dt>
+                  <I aria-hidden className="size-3 shrink-0 text-brand" />
+                  <dd className="truncate font-semibold">{value as ReactNode}</dd>
+                </div>
+              )
+            })}
+            {b.commuteMiles != null && (
+              <div className="inline-flex items-center gap-1 rounded-lg bg-canvas/80 px-1.5 py-1">
+                <dt className="sr-only">To your work or school</dt>
+                <BriefcaseBusiness aria-hidden className="size-3 text-brand" />
+                <dd className="font-semibold">{b.commuteMiles.toFixed(1)} mi to work</dd>
+              </div>
+            )}
+          </dl>
+          {(b.seniorOnly || b.disabilityOnly || a.belowTypicalMinimum || a.oldRestrictions || a.studentRuleMayApply) && (
+            <p className="flex flex-wrap gap-1 text-[10px] font-semibold text-stretch sm:text-xs">
+              {b.seniorOnly && <span className="rounded-full bg-violet/10 px-2 py-0.5 text-violet">Seniors 62+</span>}
+              {b.disabilityOnly && <span className="rounded-full bg-violet/10 px-2 py-0.5 text-violet">Disability housing</span>}
+              {a.belowTypicalMinimum && <span className="rounded-full bg-stretch-tint px-2 py-0.5">May be below min. income</span>}
+              {a.oldRestrictions && <span className="rounded-full bg-stretch-tint px-2 py-0.5">Restrictions may have ended</span>}
+              {a.studentRuleMayApply && <span className="rounded-full bg-stretch-tint px-2 py-0.5">Student rules</span>}
+            </p>
+          )}
+          <details className="mt-auto text-xs sm:text-sm" onClick={(e) => e.stopPropagation()}>
+            <summary className="cursor-pointer rounded-lg py-1 font-semibold text-brand-strong hover:bg-brand-tint">More about this building</summary>
+            <div className="mt-2 space-y-3">
+              <p className="text-ink-soft">{b.address}, {b.city}, {b.state} {b.zip} · {areaLabel(b.area)}</p>
+              <PricePanel b={b} a={a} limits={limits} situation={situation} />
+              <LimitRow a={a} limits={limits} />
+              <UnitMix b={b} />
+            </div>
+          </details>
+        </div>
+      </article>
+    )
+  }
 
   return (
     <article className="flex h-full flex-col text-left">

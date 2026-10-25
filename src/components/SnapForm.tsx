@@ -35,7 +35,7 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
     setPhase('asking')
     announce('Making your checklist')
     try {
-      const found = await requestChecklist(text)
+      const found = await requestChecklist(text, (done, total) => total > 1 && setProgress(Math.round((done / total) * 100)))
       setItems(found)
       setConfirmed(Object.fromEntries(found.map((_, i) => [i, true])))
       setPhase('done')
@@ -58,12 +58,12 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
         </div>
         <Note>Your file never leaves this device. Only the text you review below is sent to make the checklist.</Note>
 
-        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-line p-6 text-center text-sm hover:border-brand">
+        <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-line p-6 text-center text-sm transition hover:border-brand has-[:focus-visible]:border-brand has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand">
           <span className="font-semibold text-brand">Choose a PDF or photo</span>
-          <span className="text-ink-soft">PDF, JPG, or PNG</span>
+          <span className="text-ink-soft">PDF, JPG, PNG, or HEIC (iPhone). English text. Up to 10 pages.</span>
           <input
             type="file"
-            accept="application/pdf,image/*"
+            accept="application/pdf,image/*,.heic,.heif"
             className="sr-only"
             onChange={(e) => e.target.files?.[0] && onFile(e.target.files[0])}
           />
@@ -100,7 +100,7 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
               onChange={(e) => setText(e.target.value)}
             />
             <Button onClick={makeChecklist} disabled={phase === 'asking' || text.trim().length < 20}>
-              {phase === 'asking' ? 'Making checklist…' : 'Make my checklist'}
+              {phase === 'asking' ? `Making checklist…${progress && progress < 100 ? ` ${progress}%` : ''}` : 'Make my checklist'}
             </Button>
           </div>
         )}

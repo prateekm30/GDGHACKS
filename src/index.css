@@ -19,7 +19,7 @@
 
   /* Blue: buttons, links, the brand. White text on it passes AA. */
   --color-brand: #cf2f6a;
-  --color-brand-strong: #9e1b52;
+  --color-brand-strong: #8e1247;
   --color-brand-tint: #ffe3ee;
 
   /* Illustration only (never body text). Neighboring hues so gradients stay calm. */

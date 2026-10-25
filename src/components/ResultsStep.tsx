@@ -83,13 +83,16 @@ export function ResultsStep({
           </div>
           <ul className="mt-4 space-y-2.5">
             {priorities.map((p, i) => (
-              <li key={p.feature} className="grid grid-cols-[9rem_1fr] items-center gap-3 text-sm sm:grid-cols-[12rem_1fr]">
+              <li key={p.feature} className="grid grid-cols-[9rem_1fr_3rem] items-center gap-3 text-sm sm:grid-cols-[12rem_1fr_3rem]">
                 <span className={i === 0 ? 'font-semibold' : ''}>{p.label}</span>
                 <span className="h-3 overflow-hidden rounded-full bg-line" aria-hidden>
                   <span
                     className={`grow-x block h-full rounded-full ${i === 0 ? 'bg-brand' : i === 1 ? 'bg-coral' : 'bg-accent'}`}
                     style={{ width: `${(p.weight / max) * 100}%`, animationDelay: `${i * 70}ms` }}
                   />
+                </span>
+                <span className="text-right text-xs font-semibold tabular-nums text-ink-soft">
+                  {Math.round((p.weight / max) * 100)}%<span className="sr-only"> of your strongest priority</span>
                 </span>
               </li>
             ))}
@@ -103,9 +106,9 @@ export function ResultsStep({
             <span aria-hidden className="font-hand text-2xl text-brand-strong">
               ta-da! picked just for you
             </span>
-            <h2 id="short-heading" className="text-3xl font-extrabold sm:text-4xl">
+            <h1 id="short-heading" className="text-3xl font-extrabold sm:text-4xl">
               Your top matches
-            </h2>
+            </h1>
           </div>
           <Button variant="secondary" className="no-print" onClick={() => window.print()}>
             Print my plan

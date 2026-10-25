@@ -6,3 +6,4 @@ dist
 data/raw
 __pycache__
 *.tsbuildinfo
+public/tesseract

@@ -152,6 +152,14 @@ export default function App() {
     announce('Starting over')
   }
 
+  // Move focus to the new screen's content so keyboard and screen reader users land on it. The picker focuses
+  // its own group, so it is skipped here.
+  useEffect(() => {
+    if (step === 'start' || step === 'pick') return
+    const el = document.getElementById('main')
+    el?.focus({ preventScroll: true })
+  }, [step])
+
   // Pool ran out before the rounds did: go straight to results.
   useEffect(() => {
     if (step === 'pick' && buildings && !pair && picks.length > 0) finish()
@@ -180,7 +188,7 @@ export default function App() {
         </div>
       </header>
 
-      <main id="main" className={step === 'start' ? '' : 'mx-auto max-w-6xl space-y-6 px-4 py-8'}>
+      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 py-5 sm:space-y-6 sm:py-8'}`}>
         {step !== 'start' && step !== 'snap' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
@@ -249,6 +257,7 @@ export default function App() {
             }}
             canUndo={picks.length > 0}
             onFinish={finish}
+            announce={announce}
           />
         )}
         {buildings && step === 'pick' && !pair && picks.length === 0 && (

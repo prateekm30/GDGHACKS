@@ -57,6 +57,7 @@ export function PickStep({
   onUndo,
   canUndo,
   onFinish,
+  announce,
 }: {
   pair: [Building, Building]
   round: number
@@ -67,13 +68,17 @@ export function PickStep({
   onUndo: () => void
   canUndo: boolean
   onFinish: () => void
+  announce?: (msg: string) => void
 }) {
   const groupRef = useRef<HTMLDivElement>(null)
   const [left, right] = pair
   const [chosenId, setChosenId] = useState<string | null>(null)
 
+  // Each new pair: focus the picker and say what the choice is.
   useEffect(() => {
     groupRef.current?.focus({ preventScroll: true })
+    announce?.(`Round ${round + 1} of ${rounds}: ${left.name} or ${right.name}`)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Show the pick for a moment (the card lifts away, the other drops), then move on. No delay with reduced motion.
@@ -97,15 +102,16 @@ export function PickStep({
   }
 
   return (
-    <section aria-labelledby="pick-heading" className="space-y-6">
+    <section aria-labelledby="pick-heading" className="space-y-3 sm:space-y-6">
       <MetroProgress value={round} max={rounds} />
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h2 id="pick-heading" className="text-3xl font-extrabold sm:text-4xl">
+          <h1 id="pick-heading" className="text-xl font-extrabold sm:text-4xl">
             Which would you rather live in?
-          </h2>
+          </h1>
           <p className="mt-1 text-sm text-ink-soft">
-            Tap a building. With a keyboard, focus here and use the left and right arrow keys.
+            <span className="sm:hidden">Tap the one you'd rather live in.</span>
+            <span className="hidden sm:inline">Tap a building. With a keyboard, focus here and use the left and right arrow keys.</span>
           </p>
         </div>
         <div className="flex gap-2">
@@ -120,17 +126,18 @@ export function PickStep({
           )}
         </div>
       </div>
+      {/* Two columns at every width, so both buildings are on screen together, even on a phone. */}
       <div
         ref={groupRef}
         tabIndex={0}
         role="group"
         aria-label={`Choose between ${left.name} and ${right.name}`}
         onKeyDown={onKeyDown}
-        className="relative grid gap-5 rounded-card md:grid-cols-2"
+        className="relative grid grid-cols-2 gap-2.5 rounded-card sm:gap-5"
       >
         <span
           aria-hidden
-          className={`wiggle font-display pointer-events-none absolute left-1/2 top-[6.5rem] z-30 hidden size-16 place-items-center rounded-full bg-accent text-xl font-extrabold text-ink shadow-lift ring-[6px] ring-canvas transition-opacity duration-200 md:grid ${
+          className={`wiggle font-display pointer-events-none absolute left-1/2 top-16 z-30 grid size-10 place-items-center rounded-full bg-accent text-sm font-extrabold text-ink shadow-lift ring-4 ring-canvas transition-opacity duration-200 sm:top-[6.5rem] sm:size-16 sm:text-xl sm:ring-[6px] ${
             chosenId ? 'opacity-0' : ''
           }`}
         >
@@ -143,11 +150,7 @@ export function PickStep({
           const a = assess(b, limits, situation)
           const state = chosenId === b.id ? 'picked' : chosenId ? 'dropped' : i === 0 ? 'in-left' : 'in-right'
           return (
-            <div
-              key={b.id}
-              className={state}
-              style={{ ['--drop-r' as string]: i === 0 ? '-4deg' : '4deg' }}
-            >
+            <div key={b.id} className={`min-w-0 ${state}`} style={{ ['--drop-r' as string]: i === 0 ? '-4deg' : '4deg' }}>
               {/* The whole card is a click target for mouse and touch; the button below is the real control. */}
               <div
                 {...tiltHandlers()}
@@ -155,13 +158,13 @@ export function PickStep({
                 className="tilt group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-card border-2 border-white/80 bg-surface shadow-card hover:border-brand hover:shadow-lift"
               >
                 {chosenId === b.id && (
-                  <span aria-hidden className="pop absolute right-4 top-4 z-20 grid size-14 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white">
-                    <Check className="size-8" strokeWidth={3} />
+                  <span aria-hidden className="pop absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white sm:size-14">
+                    <Check className="size-6 sm:size-8" strokeWidth={3} />
                   </span>
                 )}
                 <span aria-hidden className="glare pointer-events-none absolute inset-0 z-10" />
-                <BuildingCard b={b} a={a} limits={limits} situation={situation} />
-                <div className="px-5 pb-5">
+                <BuildingCard b={b} a={a} limits={limits} situation={situation} compact />
+                <div className="px-2.5 pb-2.5 sm:px-4 sm:pb-4">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -169,7 +172,7 @@ export function PickStep({
                       choose(b, other)
                     }}
                     aria-label={`Pick ${summary(b, a)}.${i === 0 ? ' Left arrow key.' : ' Right arrow key.'}`}
-                    className="sheen flex min-h-12 w-full items-center justify-center gap-2 rounded-2xl bg-brand py-3 text-sm font-bold text-white transition duration-200 hover:bg-brand-strong active:scale-[0.98]"
+                    className="sheen flex min-h-11 w-full items-center justify-center gap-2 rounded-xl bg-brand py-2 text-sm font-bold text-white transition duration-200 hover:bg-brand-strong active:scale-[0.98] sm:min-h-12 sm:rounded-2xl sm:py-3"
                   >
                     {chosenId === b.id ? 'Picked!' : 'Pick this one'}
                   </button>

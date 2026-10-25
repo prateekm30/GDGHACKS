@@ -13,6 +13,26 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     steps:
+      - name: Security headers and caching
+        run: |
+          curl -sSI "${{ inputs.url }}/" | tee home.txt
+          grep -qi '^content-security-policy:' home.txt
+          grep -qi '^x-content-type-options: nosniff' home.txt
+          grep -qi '^x-frame-options: deny' home.txt
+          asset=$(curl -sS "${{ inputs.url }}/" | grep -o '/assets/index-[^"]*\.js' | head -1)
+          curl -sSI "${{ inputs.url }}$asset" | tee asset.txt
+          grep -qi 'cache-control: public, max-age=31536000, immutable' asset.txt
+          curl -sSI "${{ inputs.url }}/data/buildings.json" | grep -i 'cache-control'
+          curl -sS -o /dev/null -w '%{http_code}\n' "${{ inputs.url }}/tesseract/eng.traineddata.gz" | grep -q 200
+          curl -sS -o /dev/null -w '%{http_code}\n' "${{ inputs.url }}/no-such-page" | grep -q 404
+      - name: Rate limit holds for a burst from one address
+        run: |
+          codes=""
+          for i in $(seq 1 9); do
+            codes="$codes $(curl -sS -o /dev/null -w '%{http_code}' -X POST -H 'Content-Type: application/json' --data '{"text":"Please bring two pay stubs and a photo ID to the leasing office by next Friday."}' "${{ inputs.url }}/api/snap-text")"
+          done
+          echo "$codes"
+          echo "$codes" | grep -q 429
       - name: Health
         run: |
           curl -fsS "${{ inputs.url }}/api/health" | tee health.json

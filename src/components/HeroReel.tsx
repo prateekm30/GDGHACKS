@@ -1,4 +1,4 @@
-import { ArrowRight, MapPin } from 'lucide-react'
+import { ArrowRight, MapPin, Pause, Play } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import { areaInfo } from '../lib/areas'
 import { lihtcRentCeiling } from '../lib/eligibility'
@@ -57,6 +57,7 @@ export function HeroReel({
   const [i, setI] = useState(0)
   const [prev, setPrev] = useState<number | null>(null)
   const [paused, setPaused] = useState(false)
+  const [stopped, setStopped] = useState(false)
   const [failed, setFailed] = useState<Set<string>>(() => new Set())
   const timer = useRef<number | null>(null)
   const still = useMemo(prefersReducedMotion, [])
@@ -70,13 +71,13 @@ export function HeroReel({
 
   // Auto-advance unless hovered, focused, hidden, or the person prefers less motion.
   useEffect(() => {
-    if (still || paused || n < 2 || document.visibilityState === 'hidden') return
+    if (still || paused || stopped || n < 2 || document.visibilityState === 'hidden') return
     timer.current = window.setTimeout(() => go(i + 1), HOLD_MS)
     return () => {
       if (timer.current) window.clearTimeout(timer.current)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [i, paused, n, still])
+  }, [i, paused, stopped, n, still])
 
   // Clear the outgoing frame once its fade is done.
   useEffect(() => {
@@ -189,7 +190,7 @@ export function HeroReel({
             <div className="flex flex-1 gap-1">
               {reel.slice(0, Math.min(n, 12)).map((f, k) => (
                 <span key={f.id} className="h-1 flex-1 overflow-hidden rounded-full bg-white/25">
-                  <span className={`block h-full bg-accent ${k === i % 12 ? (still || paused ? 'w-full' : 'reel-bar') : k < i % 12 ? 'w-full' : 'w-0'}`} />
+                  <span className={`block h-full bg-accent ${k === i % 12 ? (still || paused || stopped ? 'w-full' : 'reel-bar') : k < i % 12 ? 'w-full' : 'w-0'}`} />
                 </span>
               ))}
             </div>
@@ -200,6 +201,17 @@ export function HeroReel({
         </div>
       )}
       <span className="absolute right-2 top-2 z-20 rounded bg-black/50 px-1.5 py-0.5 text-[10px] text-white/90">Aerial · Esri, Maxar</span>
+      {n > 1 && !still && (
+        <button
+          type="button"
+          onClick={() => setStopped((v) => !v)}
+          aria-pressed={stopped}
+          aria-label={stopped ? 'Play the slideshow' : 'Pause the slideshow'}
+          className="absolute left-2 top-2 z-30 grid size-9 place-items-center rounded-full bg-black/50 text-white backdrop-blur transition hover:bg-black/70 focus-visible:ring-4 focus-visible:ring-accent"
+        >
+          {stopped ? <Play aria-hidden className="size-4" /> : <Pause aria-hidden className="size-4" />}
+        </button>
+      )}
     </div>
   )
 }
