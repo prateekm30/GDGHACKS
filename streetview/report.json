@@ -1,0 +1,142 @@
+[
+ {
+  "id": "alx-588645251b",
+  "name": "28th Street",
+  "address": "3102 S 28th St, Alexandria",
+  "asked": "3102 S 28th St, Alexandria, VA 22302",
+  "status": "OK",
+  "date": "2025-04",
+  "panoToHudFeet": 95,
+  "image": 200
+ },
+ {
+  "id": "alx-7f0ece36c0",
+  "name": "The Grayson",
+  "address": "1200 North Henry Street, Alexandria",
+  "asked": "1200 North Henry Street, Alexandria, VA 22314",
+  "status": "OK",
+  "date": "2025-04",
+  "panoToHudFeet": 122,
+  "image": 200
+ },
+ {
+  "id": "dc-286125",
+  "name": "1400 Montana Ave NE",
+  "address": "1400 Montana Avenue NE, Washington",
+  "asked": "1400 Montana Avenue NE, Washington, DC 20018",
+  "status": "OK",
+  "date": "2019-10",
+  "panoToHudFeet": 81,
+  "image": 200
+ },
+ {
+  "id": "dc-253506",
+  "name": "7440 Georgia Ave NW",
+  "address": "7440 Georgia Avenue NW, Washington",
+  "asked": "7440 Georgia Avenue NW, Washington, DC 20012",
+  "status": "OK",
+  "date": "2025-09",
+  "panoToHudFeet": 121,
+  "image": 200
+ },
+ {
+  "id": "dc-308348",
+  "name": "City Homes at Sheridan Station 2c",
+  "address": "2500 Sayles Place SE, Washington",
+  "asked": "2500 Sayles Place SE, Washington, DC 20020",
+  "status": "OK",
+  "date": "2026-08",
+  "panoToHudFeet": 54,
+  "image": 200
+ },
+ {
+  "id": "lihtc-DCB20191003",
+  "name": "Harlow (Aka Square 769n)",
+  "address": "1100 2nd Place, SE, Washington",
+  "asked": "1100 2nd Place, SE, Washington, DC 20003",
+  "status": "OK",
+  "date": "2025-07",
+  "panoToHudFeet": 87,
+  "image": 200
+ },
+ {
+  "id": "lihtc-DCB20110805",
+  "name": "Milestone Apartments-Sherman (New Beginnings)",
+  "address": "2922 Sherman Ave NW, Washington",
+  "asked": "2922 Sherman Ave NW, Washington, DC 20001",
+  "status": "OK",
+  "date": "2022-08",
+  "panoToHudFeet": 69,
+  "image": 200
+ },
+ {
+  "id": "lihtc-DCB20181003",
+  "name": "SOME: The Conway Center",
+  "address": "120 45th Street, NE, Washington",
+  "asked": "120 45th Street, NE, Washington, DC 20019",
+  "status": "OK",
+  "date": "2022-07",
+  "panoToHudFeet": 57,
+  "image": 200
+ },
+ {
+  "id": "dc-320396",
+  "name": "The Robeson - Spring Flats Family - Affordable",
+  "address": "1001 Spring Road NW, Washington",
+  "asked": "1001 Spring Road NW, Washington, DC 20010",
+  "status": "OK",
+  "date": "2025-04",
+  "panoToHudFeet": 104,
+  "image": 200
+ },
+ {
+  "id": "lihtc-DCB20020065",
+  "name": "Worthington Woods Apartments",
+  "address": "4419 Third St SE, Washington",
+  "asked": "4419 Third St SE, Washington, DC 20032",
+  "status": "OK",
+  "date": "2026-10",
+  "panoToHudFeet": 73,
+  "image": 200
+ },
+ {
+  "id": "md-5538",
+  "name": "Potomac Homes",
+  "address": "312 N. Market St., Frederick",
+  "asked": "312 N. Market St., Frederick, MD 21701",
+  "status": "OK",
+  "date": "2024-07",
+  "panoToHudFeet": 43,
+  "image": 200
+ },
+ {
+  "id": "md-5062",
+  "name": "Bethesda Commons Aka Fields of Bethesda",
+  "address": "5079 Bradley Blvd, Chevy Chase",
+  "asked": "5079 Bradley Blvd, Chevy Chase, MD 20815",
+  "status": "OK",
+  "date": "2019-09",
+  "panoToHudFeet": 517,
+  "image": 200
+ },
+ {
+  "id": "lihtc-MDA20060095",
+  "name": "Spring Garden Apartments",
+  "address": "8007 Eastern Ave, Silver Spring",
+  "asked": "8007 Eastern Ave, Silver Spring, MD 20910",
+  "status": "OK",
+  "date": "2021-10",
+  "panoToHudFeet": 169,
+  "image": 200
+ },
+ {
+  "id": "lihtc-MDA20110038",
+  "name": "Rainier Manor",
+  "address": "3001 Queens Chapel Rd, Mt Rainier",
+  "asked": "3001 Queens Chapel Rd, Mt Rainier, MD 20712",
+  "status": "OK",
+  "date": "2021-10",
+  "panoToHudFeet": 124,
+  "image": 200
+ }
+]
