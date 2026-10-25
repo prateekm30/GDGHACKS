@@ -64,31 +64,57 @@ def socrata(domain, q):
             for r in j.get("results", [])]
 
 
-states = "STATE IN ('DC','MD','VA')"
-# HUD hub: everything it serves
-probe("hud.services", lambda: [s["name"] for s in get_json(HUB, {"f": "json"}).get("services", [])])
-for svc in ("Public_Housing_Developments", "Public_Housing_Buildings", "HUD_Insured_Multifamily_Properties", "Multifamily_Properties_Assisted",
-            "LIHTC", "Housing_Choice_Vouchers_by_Tract", "HOME_Activities", "USDA_Rural_Development_Multifamily"):
-    probe(f"hud.{svc}", lambda s=svc: arcgis_layer(f"{HUB}/{s}/FeatureServer/0", (WHERE, "1=1")))
-# Current sources: raw counts in our counties
-probe("hud.lihtc.count", lambda: count(f"{HUB}/LIHTC/FeatureServer/0", WHERE))
-probe("hud.mf.count", lambda: count(f"{HUB}/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0", WHERE))
-# DC
-probe("dc.housing.layers", lambda: [(l["id"], l["name"]) for l in get_json(
-    "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Housing_WebMercator/MapServer", {"f": "json"}).get("layers", [])])
-probe("dc.affordable", lambda: arcgis_layer("https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Housing_WebMercator/MapServer/62"))
-probe("dc.search", lambda: arcgis_search("affordable housing", "owner:DCGISopendata"))
-probe("dc.search.iz", lambda: arcgis_search("inclusionary zoning", "owner:DCGISopendata"))
-# Counties and states
-for name, q in (("arlington", "committed affordable housing Arlington"), ("montgomery", "MPDU Montgomery County"),
-                ("fairfax", "affordable housing Fairfax County"), ("alexandria", "affordable housing Alexandria"),
-                ("loudoun", "affordable dwelling unit Loudoun"), ("princegeorges", "affordable housing Prince George's"),
-                ("usda", "USDA Rural Development multifamily housing"), ("virginia", "Virginia Housing affordable rental"),
-                ("maryland", "Maryland DHCD affordable rental housing"), ("hoc", "Housing Opportunities Commission properties")):
-    probe(f"search.{name}", lambda q=q: arcgis_search(q))
-probe("socrata.montgomery", lambda: socrata("data.montgomerycountymd.gov", "affordable housing"))
-probe("socrata.montgomery.mpdu", lambda: socrata("data.montgomerycountymd.gov", "MPDU"))
-probe("socrata.arlington", lambda: socrata("data.arlingtonva.us", "affordable"))
+def hub_search(site, q):
+    j = get_json(f"https://{site}/api/search/v1/collections/all/items", {"q": q, "limit": 10})
+    return [{"title": f.get("properties", {}).get("title"), "type": f.get("properties", {}).get("type"),
+             "url": f.get("properties", {}).get("url"), "id": f.get("id")} for f in j.get("features", [])]
+
+
+def null_geometry(url, where):
+    rows, offset, nulls, total = [], 0, 0, 0
+    while True:
+        j = get_json(url + "/query", {"where": where, "outFields": "HUD_ID,PROJ_ADD,PROJ_CTY,PROJ_ST,N_UNITS,YR_PIS", "returnGeometry": "true",
+                                      "outSR": 4326, "resultOffset": offset, "resultRecordCount": 1000, "f": "json"})
+        feats = j.get("features", [])
+        for f in feats:
+            total += 1
+            if not f.get("geometry"):
+                nulls += 1
+                if len(rows) < 12:
+                    rows.append(f["attributes"])
+        if not j.get("exceededTransferLimit") or not feats:
+            break
+        offset += len(feats)
+    return {"total": total, "nullGeometry": nulls, "examples": rows}
+
+
+MD_COUNTIES = "('MONTGOMERY','PRINCE GEORGE''S','FREDERICK','CHARLES','CALVERT')"
+TARGETS = {
+    "hud.ph.dev": (f"{HUB}/Public_Housing_Developments/FeatureServer/0", (WHERE,)),
+    "hud.usda.assets": (f"{HUB}/USDA_Rural_Housing_Assets/FeatureServer/0", ("1=1",)),
+    "hud.mf.pipeline": (f"{HUB}/Multifamily_Properties_and_Pipeline/FeatureServer/0", (WHERE, "1=1")),
+    "hud.s202": (f"{HUB}/HUD_Section_202_Properties/FeatureServer/0", (WHERE, "1=1")),
+    "dc.affordable": ("https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62", ("1=1",)),
+    "dc.hfa": ("https://services.arcgis.com/neT9SoYxizqTHZPH/arcgis/rest/services/Housing_Finance_Agency_Portfolio/FeatureServer/0", ("1=1",)),
+    "alx.caf": ("https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/0", ("1=1",)),
+    "moco.mpdu": ("https://services.arcgis.com/hdlG36cOubTzNDBb/arcgis/rest/services/MoCo_Rental_MPDU_Locations_WFL1/FeatureServer/0", ("1=1",)),
+    "md.mfsites": ("https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0", ("1=1",)),
+    "shimberg.2026": ("https://services8.arcgis.com/GfH4uM8d7iVMXBlB/arcgis/rest/services/HUD_RD_Properties_as_of_2026_02_04/FeatureServer/0", ("1=1",)),
+    "pg.umd": ("https://services1.arcgis.com/qTQ6qYkHpxlu0G82/arcgis/rest/services/Prince_George_s_County_Affordable_Housing/FeatureServer/0", ("1=1",)),
+}
+for name, (url, wheres) in TARGETS.items():
+    probe(name, lambda u=url, w=wheres: arcgis_layer(u, w))
+probe("hud.lihtc.nullgeom", lambda: null_geometry(f"{HUB}/LIHTC/FeatureServer/0", WHERE))
+probe("hud.mf.nullgeom", lambda: null_geometry(f"{HUB}/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0", WHERE))
+for site, q in (("gisdata-arlgis.opendata.arcgis.com", "affordable"), ("data-fairfaxcountygis.opendata.arcgis.com", "affordable housing"),
+                ("geohub-loudoungis.opendata.arcgis.com", "affordable"), ("gisdata.pgplanning.org", "affordable housing"),
+                ("data.princegeorgescountymd.gov", "affordable"), ("data-mcgov-gis.opendata.arcgis.com", "MPDU")):
+    probe(f"hub.{site.split('.')[0]}", lambda s=site, q=q: hub_search(s, q))
+probe("search.arlington2", lambda: arcgis_search("Arlington County affordable housing CAF", 'orgid:0HCyYvHeF3dpfdG4'))
+probe("search.arlington3", lambda: arcgis_search("Arlington committed affordable"))
+probe("search.fairfax2", lambda: arcgis_search("Fairfax County affordable dwelling unit rental"))
+probe("socrata.pg", lambda: socrata("data.princegeorgescountymd.gov", "affordable housing"))
+probe("socrata.moco.mpdu.rows", lambda: get_json("https://data.montgomerycountymd.gov/resource/pbh5-g4e5.json", {"$limit": 3}))
 
 Path("probe").mkdir(exist_ok=True)
 Path("probe/report.json").write_text(json.dumps(report, indent=1, default=str))
