@@ -36,7 +36,7 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
   const p = await ctx.newPage()
   const tag = `${viewport.width}px${reducedMotion === 'reduce' ? ' reduced-motion' : ''}`
   await p.goto(URL)
-  await p.waitForTimeout(800)
+  await p.waitForTimeout(1900) // the hero entrance (headline lines, copy, frame) takes about 1.6 s; axe must not read mid-fade colors
   const h1 = await p.locator('h1').first().innerText()
   if (!/Income-restricted homes you can actually afford, one pick at a time\./.test(h1.replace(/\s+/g, ' '))) fail(`${tag} start: headline text is "${h1}"`)
   const sw = await p.evaluate(() => document.documentElement.scrollWidth)

@@ -93,7 +93,7 @@ export function Landing({
 
         <div className="relative mx-auto grid max-w-6xl items-center gap-6 px-4 pb-8 pt-20 sm:pt-24 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
           <div className="px-copy min-w-0 space-y-4">
-            <p className="eyebrow flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-ink/70">
+            <p className="eyebrow hero-in flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-ink/70" style={{ '--i': 0 } as CSSProperties}>
               <span aria-hidden className="metro-stripe h-px w-10" />
               Income-restricted apartments · DC, Maryland, Virginia
             </p>
@@ -123,20 +123,20 @@ export function Landing({
                 </span>
               </span>
             </h1>
-            <p className="max-w-xl text-base text-ink sm:text-lg lg:text-base xl:text-lg">
+            <p className="hero-in max-w-xl text-base text-ink sm:text-lg lg:text-base xl:text-lg" style={{ '--i': 5 } as CSSProperties}>
               Income-restricted means the rent is capped, or set by your income, because the building took public money. Earn under the
               limit and you can apply: in 2026 that is up to <strong>{money(limits.mtsp['60'][0] ?? 0)}</strong> a year for one person at most tax-credit buildings.{' '}
               <button type="button" onClick={onAbout} className="font-semibold text-brand-strong underline decoration-2 underline-offset-4 hover:text-brand">
                 What is income-restricted housing?
               </button>
             </p>
-            <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold uppercase tracking-[0.14em] text-ink/70">
+            <p className="hero-in flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold uppercase tracking-[0.14em] text-ink/70" style={{ '--i': 6 } as CSSProperties}>
               <span>{chosenCount === null ? '…' : chosenCount.toLocaleString('en-US')} income-restricted buildings</span>
               <span>{chosenHomes ? `about ${Math.round(chosenHomes / 1000).toLocaleString('en-US')},000 homes` : '…'}</span>
               <span>Public records only</span>
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="hero-in flex flex-col gap-3 sm:flex-row sm:items-center" style={{ '--i': 7 } as CSSProperties}>
               <button
                 type="button"
                 onClick={onBegin}
@@ -172,7 +172,7 @@ export function Landing({
             </button>
           </div>
 
-          <div className="px-map relative min-w-0">
+          <div className="px-map frame-reveal relative min-w-0">
             <HeroReel buildings={buildings} limits={limits} onStartIn={onStartIn} className="h-[340px] sm:h-[440px]" />
             <p className="font-hand mt-2 text-center text-xl text-ink">real streets, real doors: every one is a building in HUD's data</p>
           </div>

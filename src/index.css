@@ -387,3 +387,11 @@ html { scroll-behavior: smooth; }
 .tile .tile-cap { position: absolute; inset-x: 0; bottom: 0; padding: 0.55rem 0.7rem; background: linear-gradient(180deg, transparent, rgb(26 16 48 / 0.78)); color: #fff; font-size: 0.7rem; font-weight: 600; line-height: 1.2; }
 @media (prefers-reduced-motion: reduce) { .mosaic-col { animation: none; } .ln { animation: none; transform: none; } }
 @media print { .ln { animation: none !important; transform: none !important; } }
+
+/* Hero entrance: copy settles in after the headline lines; the reel frame is unmasked left to right. */
+.hero-in { animation: hero-in 900ms cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--wb, 0ms) + 120ms + var(--i, 0) * 70ms); }
+@keyframes hero-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.frame-reveal { animation: frame-reveal 1.3s cubic-bezier(.16,1,.3,1) both; animation-delay: calc(var(--wb, 0ms) + 350ms); }
+@keyframes frame-reveal { from { clip-path: inset(0 100% 0 0 round 1.1rem); opacity: 0.4; } to { clip-path: inset(0 0 0 0 round 1.1rem); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .hero-in, .frame-reveal { animation: none; } }
+@media print { .hero-in, .frame-reveal { animation: none !important; } }
