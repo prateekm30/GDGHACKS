@@ -31,9 +31,22 @@ STATIONS = ROOT / "data" / "metro_stations.geojson"
 LIHTC_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0"
 MULTIFAMILY_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0"
 STATIONS_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Rail_Bus_WebMercator/MapServer/51"
-# County FIPS: District of Columbia, Arlington County VA.
-COUNTIES = {"11001": "DC", "51013": "ARLINGTON"}
-WHERE = "COUNTY_LEVEL IN ('11001','51013')"
+# Every county and city in HUD's Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area, so one table of
+# income limits applies to all of them. Grouped into the areas people pick from.
+COUNTIES = {
+    "11001": "DC",
+    "24031": "MONTGOMERY", "24033": "PRINCE_GEORGES", "24021": "FREDERICK",
+    "24017": "SOUTHERN_MD", "24009": "SOUTHERN_MD",
+    "51013": "ARLINGTON", "51510": "ALEXANDRIA",
+    "51059": "FAIRFAX", "51600": "FAIRFAX", "51610": "FAIRFAX",
+    "51107": "LOUDOUN",
+    "51153": "PRINCE_WILLIAM", "51683": "PRINCE_WILLIAM", "51685": "PRINCE_WILLIAM",
+    "51179": "FREDERICKSBURG", "51177": "FREDERICKSBURG", "51630": "FREDERICKSBURG",
+    "51061": "FAUQUIER_CLARKE", "51043": "FAUQUIER_CLARKE",
+}
+WHERE = "COUNTY_LEVEL IN (" + ",".join(f"'{c}'" for c in COUNTIES) + ")"
+OUT_MAP = ROOT / "public" / "data" / "dmv-map.json"
+TIGER_COUNTIES = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer"
 HUD_USER_API = "https://www.huduser.gov/hudapi/public"
 DC_METRO_ENTITY = "METRO47900M47900"  # Washington-Arlington-Alexandria HUD Metro FMR Area. VERIFY
 
@@ -114,7 +127,7 @@ def miles(lat1, lon1, lat2, lon2) -> float:
     return 2 * r * math.asin(math.sqrt(a))
 
 
-def load_stations() -> list[tuple[float, float]]:
+def load_stations() -> list[tuple[float, float, str]]:
     """WMATA stations (regional layer from Open Data DC). Cached in data/ after the first run."""
     if not STATIONS.exists():
         try:
@@ -124,13 +137,34 @@ def load_stations() -> list[tuple[float, float]]:
             print(f"Could not load Metro stations ({e}); metroMiles will be null.", file=sys.stderr)
             return []
     gj = json.loads(STATIONS.read_text())
-    return [(f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0]) for f in gj["features"]]
+    return [(f["geometry"]["coordinates"][1], f["geometry"]["coordinates"][0], title(f["properties"].get("NAME") or ""))
+            for f in gj["features"]]
 
 
-def nearest_metro(lat, lon, stations) -> float | None:
+def nearest_metro(lat, lon, stations) -> tuple[float | None, str | None]:
     if lat is None or not stations:
-        return None
-    return round(min(miles(lat, lon, s[0], s[1]) for s in stations), 1)
+        return None, None
+    d, name = min((miles(lat, lon, s[0], s[1]), s[2]) for s in stations)
+    return round(d, 1), name or None
+
+
+def build_map() -> None:
+    """County outlines for the location picker, from the Census TIGERweb service. Optional: the app works without it."""
+    try:
+        layers = get_json(TIGER_COUNTIES, {"f": "json"})["layers"]
+        layer = next(l["id"] for l in layers if l["name"].lower() == "counties")
+        data = get_json(f"{TIGER_COUNTIES}/{layer}/query", {
+            "where": "GEOID IN (" + ",".join(f"'{c}'" for c in COUNTIES) + ")",
+            "outFields": "GEOID,NAME", "outSR": 4326, "f": "json", "returnGeometry": "true",
+            "maxAllowableOffset": 0.003, "geometryPrecision": 4,
+        })
+        shapes = [{"fips": f["attributes"]["GEOID"], "name": f["attributes"]["NAME"],
+                   "area": COUNTIES[f["attributes"]["GEOID"]], "rings": f["geometry"]["rings"]}
+                  for f in data["features"]]
+        OUT_MAP.write_text(json.dumps(shapes, separators=(",", ":")))
+        print(f"Wrote {len(shapes)} county outlines to {OUT_MAP.relative_to(ROOT)}")
+    except Exception as e:  # noqa: BLE001
+        print(f"Could not build the county map ({e}); the app falls back to a list.", file=sys.stderr)
 
 
 def lihtc_building(a: dict, today: str) -> dict | None:
@@ -140,7 +174,8 @@ def lihtc_building(a: dict, today: str) -> dict | None:
         return None
     # INC_CEIL codes: 1 = 50% AMGI, 2 = 60% AMGI, 3 = income averaging. VERIFY against the data dictionary.
     ceiling = {1: 50, 2: 60, 3: "avg"}.get(num(a.get("INC_CEIL")))
-    bedrooms = [n for n in range(5) if (num(a.get(f"N_{n}BR")) or 0) > 0]
+    mix = {str(n): c for n in range(5) if (c := num(a.get(f"N_{n}BR")) or 0) > 0}
+    bedrooms = [int(n) for n in mix]
     fam, eld, dis = (num(a.get(f)) == 1 for f in ("TRGT_FAM", "TRGT_ELD", "TRGT_DIS"))
     return {
         "id": f"lihtc-{a['HUD_ID']}",
@@ -156,12 +191,14 @@ def lihtc_building(a: dict, today: str) -> dict | None:
         "affordableUnits": num(a.get("LI_UNITS")),
         "incomeCeiling": ceiling,
         "bedrooms": bedrooms,
+        "unitMix": mix,
         "yearPlacedInService": num(a.get("YR_PIS")),
         # TRGT_* = 1 means the property targets that group, not that it serves only them.
         # Treat it as senior/disability-only only when it does not also target families.
         "seniorOnly": eld and not fam,
         "disabilityOnly": dis and not fam and not eld,
         "metroMiles": None,
+        "metroStation": None,
         "contact": {"name": clean(a.get("CONTACT")), "org": clean(a.get("COMPANY")),
                     "phone": clean(a.get("CO_TEL")), "email": None},
         "source": {"dataset": "HUD LIHTC Database", "url": LIHTC_URL, "retrieved": today},
@@ -175,7 +212,8 @@ def mf_building(a: dict, today: str) -> dict | None:
         return None
     group_type = (a.get("CLIENT_GROUP_TYPE") or "").lower()
     group_name = (a.get("CLIENT_GROUP_NAME") or "").lower()
-    bedrooms = [n for n in range(5) if (num(a.get(f"BD{n}_CNT1")) or 0) + (num(a.get(f"BD{n}_CNT2")) or 0) > 0]
+    mix = {str(n): c for n in range(5) if (c := (num(a.get(f"BD{n}_CNT1")) or 0) + (num(a.get(f"BD{n}_CNT2")) or 0)) > 0}
+    bedrooms = [int(n) for n in mix]
     return {
         "id": f"hud-{a['PROPERTY_ID']}",
         "name": title(clean(a.get("PROPERTY_NAME_TEXT"))) or "Unnamed property",
@@ -190,11 +228,13 @@ def mf_building(a: dict, today: str) -> dict | None:
         "affordableUnits": num(a.get("TOTAL_ASSISTED_UNIT_COUNT")),
         "incomeCeiling": None,
         "bedrooms": bedrooms,
+        "unitMix": mix,
         "yearPlacedInService": None,
         # "Family & Elderly" buildings are open to families, so only "Elderly" without "family" is senior-only.
         "seniorOnly": group_type == "elderly" and "family" not in group_name,
         "disabilityOnly": group_type == "disabled",
         "metroMiles": None,
+        "metroStation": None,
         "contact": {
             "name": title(clean(a.get("MGMT_CONTACT_FULL_NAME"))) or None,
             "org": title(clean(a.get("MGMT_AGENT_ORG_NAME"))) or None,
@@ -205,7 +245,7 @@ def mf_building(a: dict, today: str) -> dict | None:
     }
 
 
-KEEP_UPPER = {"NW", "NE", "SW", "SE", "II", "III", "IV", "VI", "LP", "LLC", "DC", "VA", "US", "YMCA", "YWCA"}
+KEEP_UPPER = {"NW", "NE", "SW", "SE", "II", "III", "IV", "VI", "LP", "LLC", "DC", "VA", "MD", "US", "YMCA", "YWCA", "UDC", "GWU", "NIH"}
 
 
 def title(s: str | None) -> str:
@@ -275,11 +315,11 @@ def build_buildings(inspect: bool) -> None:
     stations = load_stations()
     print(f"Metro stations: {len(stations)}")
     for b in rows:
-        b["metroMiles"] = nearest_metro(b["lat"], b["lon"], stations)
+        b["metroMiles"], b["metroStation"] = nearest_metro(b["lat"], b["lon"], stations)
     rows.sort(key=lambda b: (b["area"], b["name"]))
 
     OUT_BUILDINGS.write_text(json.dumps(rows, indent=1))
-    by_area = {a: sum(1 for b in rows if b["area"] == a) for a in ("DC", "ARLINGTON")}
+    by_area = dict(Counter(b["area"] for b in rows))
     print(f"Wrote {len(rows)} buildings to {OUT_BUILDINGS.relative_to(ROOT)}: {by_area}")
 
 
@@ -313,4 +353,5 @@ if __name__ == "__main__":
     args = ap.parse_args()
     build_buildings(args.inspect)
     if not args.inspect:
+        build_map()
         build_limits()
