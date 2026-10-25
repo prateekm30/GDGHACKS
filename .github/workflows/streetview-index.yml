@@ -10,8 +10,8 @@ on:
         description: Site URL (for the public browser key and the building list)
         default: https://gdghacks-tau.vercel.app
       prefer:
-        description: In a conflict, prefer the address (a) or the coordinates (c)
-        default: c
+        description: When address and coordinates disagree, prefer the address (a), the coordinates (c), or neither (n, aerial leads)
+        default: n
 
 permissions:
   contents: write

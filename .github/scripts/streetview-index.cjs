@@ -15,7 +15,7 @@ const feet = (a, b, c, d) => {
   return Math.round(2 * r * Math.asin(Math.sqrt(x)))
 }
 // In a conflict, which side wins. Set from looking at the saved pairs: see README "Street View".
-const PREFER_IN_CONFLICT = process.env.SV_PREFER || 'c'
+const PREFER_IN_CONFLICT = process.env.SV_PREFER || 'n'
 
 async function meta(key, location, radius) {
   const q = new URLSearchParams({ location, radius: String(radius), source: 'outdoor', key })

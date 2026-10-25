@@ -140,11 +140,15 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
   properties). Some names are the legal project name, not the sign on the door.
 - **No interior photos.** HUD has none and listing photos are copyrighted, so cards show a Google Street View
   photo (when a key is set), then aerial, neighborhood, and street-map views, with a link to look around in
-  Google Maps. Street View is asked for by **street address**, not HUD's coordinates: HUD points can sit on the
-  wrong side of a block or on a parcel centroid, which put the neighbor in the frame. Google geocodes the
-  address, takes the nearest outdoor photo within 50 m and aims at the address; with no photo, or an address
-  Google cannot place ("Lot 3 On Noble Way"), the aerial view leads. A photo can still show the street rather
-  than the building for large complexes set back from the road.
+  Google Maps. Where the photo looks is decided **per building** ahead of time (`public/data/streetview.json`,
+  built by the "Street View index" workflow from Google's free metadata endpoint): it asks Google for the
+  nearest outdoor photo both by **street address** and by **HUD's coordinates**. When both land within about
+  100 m of each other, the address wins (it aims the camera at the door). When only one side has a photo, that
+  side is used. When they disagree by more than 100 m, neither is trusted and the **aerial view leads**, because
+  a review of the disagreeing pairs showed each side wrong about half the time (HUD points on a parcel centroid
+  or across the street; addresses that geocode to a shopping center or a road). Buildings with no photo at all,
+  or an address Google cannot place ("Lot 3 On Noble Way"), also lead with the aerial view. A photo can still
+  show the street rather than the building for large complexes set back from the road.
 - **No ranking on neighborhood, school, or demographic data**, on purpose (fair housing).
 
 ## Credits and data
