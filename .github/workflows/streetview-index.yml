@@ -25,10 +25,14 @@ jobs:
         env:
           SV_PREFER: ${{ inputs.prefer }}
         run: node .github/scripts/streetview-index.cjs "${{ inputs.url }}" public/data/streetview.json conflicts
-      - uses: actions/upload-artifact@v4
-        with:
-          name: streetview-conflicts
-          path: conflicts
+      - name: Save the conflict image pairs to the streetview-conflicts branch
+        run: |
+          cd conflicts
+          git init -q -b streetview-conflicts
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add . && git commit -qm "Street View conflict pairs (address vs coordinates)"
+          git push -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" streetview-conflicts
       - name: Commit the index
         run: |
           git config user.name "github-actions[bot]"
