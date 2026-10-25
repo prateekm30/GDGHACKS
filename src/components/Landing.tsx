@@ -1,11 +1,22 @@
 import { ArrowRight, Camera, MapPinned, ShieldCheck, Sparkles, type LucideIcon } from 'lucide-react'
-import { useMemo, type CSSProperties } from 'react'
+import { Suspense, lazy, useMemo, type CSSProperties } from 'react'
 import { AREAS } from '../lib/areas'
 import { magneticHandlers, spotlightHandlers, useReveal } from '../lib/motion'
 import type { Area, Building } from '../lib/types'
 import { CountUp } from './CountUp'
 import { AreaChecklist, DmvMap } from './DmvMap'
-import { Skyline } from './Skyline'
+import { RowhouseArt, Skyline } from './Skyline'
+
+const HouseScene = lazy(() => import('./HouseScene'))
+
+function hasWebGL() {
+  try {
+    const c = document.createElement('canvas')
+    return !!(c.getContext('webgl2') || c.getContext('webgl'))
+  } catch {
+    return false
+  }
+}
 
 const STEPS: { title: string; body: string; detail: string; icon: LucideIcon }[] = [
   {
@@ -67,6 +78,8 @@ export function Landing({
       : [...selected].reduce((n, a) => n + (counts.get(a) ?? 0), 0)
     : null
   const areaNames = AREAS.map((a) => (a.state === 'DC' ? a.name : `${a.name}, ${a.state}`))
+  const searchLabel = selected.size === 0 ? 'Search all of the DMV' : `Search ${selected.size} ${selected.size === 1 ? 'area' : 'areas'}`
+  const webgl = useMemo(hasWebGL, [])
   let w = 0
 
   return (
@@ -122,35 +135,30 @@ export function Landing({
               and hands you a shortlist.
             </p>
 
-            <div className="space-y-3 rounded-[1.75rem] bg-white/45 p-4 shadow-card ring-1 ring-white/70 backdrop-blur-md">
-              <div className="flex items-center justify-between gap-2">
-                <h2 className="text-sm font-bold text-ink" style={{ fontFamily: 'var(--font-sans)', letterSpacing: 0 }}>
-                  Where do you want to live?{' '}
-                  <span className="font-medium text-ink-soft">Pick any, or none for all.</span>
-                </h2>
-                {selected.size > 0 && (
-                  <button type="button" onClick={onClearAreas} className="shrink-0 rounded-lg px-2 py-1 text-xs font-bold text-brand-strong hover:bg-white/60">
-                    Clear
-                  </button>
-                )}
-              </div>
-              <AreaChecklist selected={selected} onToggle={onToggleArea} counts={counts} />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <button
                 type="button"
                 onClick={onBegin}
                 {...magneticHandlers()}
-                className="magnetic sheen group flex min-h-13 w-full items-center justify-between gap-3 rounded-2xl bg-dusk px-5 py-3.5 text-left font-display text-lg font-bold text-white shadow-lift hover:bg-ink active:scale-[0.98]"
+                className="magnetic sheen group inline-flex min-h-14 items-center justify-between gap-4 rounded-2xl bg-dusk px-5 py-3 text-left font-display text-lg font-bold text-white shadow-lift hover:bg-ink active:scale-[0.98]"
               >
                 <span>
-                  {selected.size === 0 ? 'Search all of the DMV' : `Search ${selected.size} ${selected.size === 1 ? 'area' : 'areas'}`}
+                  {searchLabel}
                   <span className="block font-sans text-xs font-medium text-white/80">
-                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} real buildings`}
+                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} real buildings · about two minutes`}
                   </span>
                 </span>
-                <span className="grid size-10 place-items-center rounded-full bg-accent text-ink transition-transform duration-200 group-hover:translate-x-1">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-accent text-ink transition-transform duration-200 group-hover:translate-x-1">
                   <ArrowRight aria-hidden className="size-5" />
                 </span>
               </button>
+              <a
+                href="#areas"
+                className="inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl bg-white/70 px-5 font-semibold text-ink transition hover:bg-white"
+              >
+                <MapPinned aria-hidden className="size-4 text-brand-strong" />
+                Choose my areas first
+              </a>
             </div>
             <button
               type="button"
@@ -163,12 +171,68 @@ export function Landing({
             </button>
           </div>
 
-          <div className="px-map relative min-w-0 rounded-[1.75rem] bg-white/35 p-3 shadow-card ring-1 ring-white/70 backdrop-blur-md sm:p-4">
+          <div className="px-map relative min-w-0">
+            <div className="relative overflow-hidden rounded-[2rem] shadow-lift ring-1 ring-white/80" style={{ background: 'radial-gradient(120% 90% at 50% 20%, #f1f6ff 0%, #d9e6fd 55%, #c9d3fa 100%)' }}>
+              {webgl ? (
+                <Suspense fallback={<RowhouseArt seed={7} className="block h-[320px] w-full sm:h-[420px]" />}>
+                  <HouseScene className="h-[320px] w-full sm:h-[420px]" />
+                </Suspense>
+              ) : (
+                <RowhouseArt seed={7} className="block h-[320px] w-full sm:h-[420px]" />
+              )}
+              <span aria-hidden className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-dusk/85 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                {webgl ? 'Drag to spin' : 'Illustration'}
+              </span>
+            </div>
+            <p className="font-hand mt-2 text-center text-xl text-ink">every home here is a real building in HUD's data</p>
+          </div>
+        </div>
+        <Skyline className="px-skyline relative block h-28 w-full sm:h-36" />
+      </section>
+
+      <section id="areas" aria-labelledby="areas-heading" className="scroll-mt-20 bg-canvas">
+        <div className="mx-auto grid max-w-6xl items-start gap-6 px-4 py-12 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
+          <div className="reveal space-y-4">
+            <p className="font-hand text-2xl text-brand-strong">first, where?</p>
+            <h2 id="areas-heading" className="text-3xl font-extrabold sm:text-4xl">
+              Where do you want to live?
+            </h2>
+            <p className="text-ink-soft">
+              Pick any counties and cities, or none to search all of them. All twelve share the same 2026 income limits.
+            </p>
+            <div className="space-y-3 rounded-[1.75rem] bg-surface p-4 shadow-card ring-1 ring-line">
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-bold">Areas</span>
+                {selected.size > 0 && (
+                  <button type="button" onClick={onClearAreas} className="shrink-0 rounded-lg px-2 py-1 text-xs font-bold text-brand-strong hover:bg-brand-tint">
+                    Clear
+                  </button>
+                )}
+              </div>
+              <AreaChecklist selected={selected} onToggle={onToggleArea} counts={counts} />
+              <button
+                type="button"
+                onClick={onBegin}
+                {...magneticHandlers()}
+                className="magnetic sheen group flex min-h-13 w-full items-center justify-between gap-3 rounded-2xl bg-brand px-5 py-3.5 text-left font-display text-lg font-bold text-white shadow-lift hover:bg-brand-strong active:scale-[0.98]"
+              >
+                <span>
+                  {searchLabel}
+                  <span className="block font-sans text-xs font-medium text-white/80">
+                    {chosenCount === null ? 'Loading buildings…' : `${chosenCount.toLocaleString('en-US')} real buildings`}
+                  </span>
+                </span>
+                <span className="grid size-10 place-items-center rounded-full bg-accent text-ink transition-transform duration-200 group-hover:translate-x-1">
+                  <ArrowRight aria-hidden className="size-5" />
+                </span>
+              </button>
+            </div>
+          </div>
+          <div className="reveal relative min-w-0 rounded-[1.75rem] bg-surface p-3 shadow-card ring-1 ring-line sm:p-4" style={{ '--d': '120ms' } as CSSProperties}>
             <DmvMap selected={selected} onToggle={onToggleArea} buildings={buildings} />
             <p className="font-hand mt-1 text-center text-xl text-ink">tap a county to choose it · each dot is a building</p>
           </div>
         </div>
-        <Skyline className="px-skyline relative block h-28 w-full sm:h-36" />
       </section>
 
       <div aria-hidden className="metro-stripe h-2" />

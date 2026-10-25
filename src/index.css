@@ -228,3 +228,5 @@ body::before {
   .magnetic, .magnetic:hover { transform: none; }
   .stack-card { transform: none; filter: none; }
 }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }

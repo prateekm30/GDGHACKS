@@ -28,7 +28,7 @@ async function settle(p, ms = 900) {
     await p.goto(url)
     await settle(p, 2600)
     await p.screenshot({ path: `${out}/${name}-1-start.png`, fullPage: true })
-    await p.getByRole('button', { name: /^Search all/ }).click()
+    await p.getByRole('button', { name: /^Search all/ }).first().click()
     await p.getByText('First, the basics').waitFor()
     await p.locator('input[inputmode=numeric]').fill('52000')
     await p.waitForTimeout(700)
