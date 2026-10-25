@@ -47,6 +47,8 @@ COUNTIES = {
 WHERE = "COUNTY_LEVEL IN (" + ",".join(f"'{c}'" for c in COUNTIES) + ")"
 OUT_MAP = ROOT / "public" / "data" / "dmv-map.json"
 TIGER_COUNTIES = "https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/State_County/MapServer"
+# HUD Small Area Fair Market Rents by ZIP (FY2026): HUD's estimate of a modest market rent, utilities included.
+SAFMR_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/HUD_PDR_Small_Area_Fair_Market_Rents/FeatureServer/1"
 HUD_USER_API = "https://www.huduser.gov/hudapi/public"
 DC_METRO_ENTITY = "METRO47900M47900"  # Washington-Arlington-Alexandria HUD Metro FMR Area. VERIFY
 
@@ -146,6 +148,28 @@ def nearest_metro(lat, lon, stations) -> tuple[float | None, str | None]:
         return None, None
     d, name = min((miles(lat, lon, s[0], s[1]), s[2]) for s in stations)
     return round(d, 1), name or None
+
+
+def add_market_rents(rows: list[dict]) -> None:
+    """Attach HUD's Small Area Fair Market Rent for each building's ZIP, so cards can compare against the market."""
+    zips = sorted({b["zip"] for b in rows if re.fullmatch(r"\d{5}", b["zip"] or "")})
+    by_zip: dict[str, dict] = {}
+    try:
+        for i in range(0, len(zips), 100):
+            chunk = zips[i:i + 100]
+            fields = ["ID", "HUD_CODE"] + [f"SAFMR_{n}BR" for n in range(5)]
+            for a in query_layer(SAFMR_URL, "ID IN (" + ",".join(f"'{z}'" for z in chunk) + ")", fields):
+                by_zip[str(a["ID"])] = a
+    except SystemExit as e:
+        print(f"Could not load market rents ({e}); cards will skip the comparison.", file=sys.stderr)
+        return
+    hit = 0
+    for b in rows:
+        a = by_zip.get(b["zip"])
+        if a and a.get("HUD_CODE") == DC_METRO_ENTITY:
+            b["marketRent"] = {str(n): num(a.get(f"SAFMR_{n}BR")) for n in range(5) if num(a.get(f"SAFMR_{n}BR"))}
+            hit += 1
+    print(f"Market rents: {len(by_zip)} ZIPs, matched {hit} of {len(rows)} buildings")
 
 
 def build_map() -> None:
@@ -316,6 +340,7 @@ def build_buildings(inspect: bool) -> None:
     print(f"Metro stations: {len(stations)}")
     for b in rows:
         b["metroMiles"], b["metroStation"] = nearest_metro(b["lat"], b["lon"], stations)
+    add_market_rents(rows)
     rows.sort(key=lambda b: (b["area"], b["name"]))
 
     OUT_BUILDINGS.write_text(json.dumps(rows, indent=1))
