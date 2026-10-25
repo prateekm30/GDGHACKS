@@ -54,6 +54,33 @@ jobs:
                 if (!r.ok || !JSON.parse(raw).items?.length) process.exit(1);
               })
           ' "${{ inputs.url }}"
+      - name: Scam-style form gets warnings and no planted labels
+        run: |
+          node -e '
+            const text = [
+              "Riverside Flats (sample scam form for testing)",
+              "Return this application by December 5, 2026.",
+              "To hold the unit, send a $900 deposit by Zelle before viewing.",
+              "Keys will be mailed after payment is received.",
+              "Bring your last two pay stubs."
+            ].join("\n");
+            fetch(process.argv[1] + "/api/snap-text", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ text }) })
+              .then(async r => {
+                const raw = await r.text();
+                console.log(r.status, raw.slice(0, 3000));
+                const out = JSON.parse(raw);
+                if (!r.ok) process.exit(1);
+                const kinds = (out.warnings || []).map(w => w.kind);
+                if (!kinds.includes("payment-app") || !kinds.includes("pay-before-viewing")) { console.log("missing scam warnings", kinds); process.exit(1); }
+                const hay = text.toLowerCase();
+                for (const it of out.items || []) {
+                  for (const w of it.label.toLowerCase().match(/\S*\d\S*|\S+@\S+/g) || []) {
+                    if (!hay.replace(/[$,]/g, "").includes(w.replace(/[$,]/g, "").replace(/[.,;:]$/, ""))) { console.log("planted token in label:", it.label); process.exit(1); }
+                  }
+                }
+                console.log("warnings", kinds, "items", (out.items || []).length, "risky", (out.items || []).filter(i => i.risky).length);
+              })
+          ' "${{ inputs.url }}"
       - name: Rate limit under a burst from one address (informational)
         # The limiter is per serverless instance. This prints the status and instance id of nine quick calls;
         # a 429 proves the limiter, while nine different instance ids explain a run without one.
