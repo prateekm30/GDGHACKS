@@ -5,7 +5,7 @@
   "address": "3102 S 28th St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.838015071154594,
   "lon": -77.10660982915672,
@@ -32,6 +32,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -40,7 +47,7 @@
   "address": "607 Notabene Dr",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.84162178670777,
   "lon": -77.06718128838139,
@@ -67,6 +74,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -75,7 +89,7 @@
   "address": "318 S Whiting St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.81055953699052,
   "lon": -77.1350735052014,
@@ -102,6 +116,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -110,7 +131,7 @@
   "address": "600 North Royal Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.79879495464343,
   "lon": -77.04465276869023,
@@ -137,6 +158,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -145,7 +173,7 @@
   "address": "3902 Old Dominion Blvd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.84206010572599,
   "lon": -77.06644032369418,
@@ -172,6 +200,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -180,7 +215,7 @@
   "address": "891 W Glebe Rd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.843612346813835,
   "lon": -77.07110482468931,
@@ -194,7 +229,7 @@
   "yearPlacedInService": null,
   "seniorOnly": false,
   "disabilityOnly": false,
-  "website": "www.arha.us",
+  "website": "https://www.arha.us",
   "metroMiles": 1.4,
   "metroStation": "Pentagon City",
   "contact": {
@@ -207,6 +242,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -215,7 +257,7 @@
   "address": "1200 Madison St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81364693706215,
   "lon": -77.05088027078905,
@@ -242,6 +284,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -272,7 +321,7 @@
   "contact": {
    "name": "Joann Gerhart",
    "org": "Dreyfuss Management LLC",
-   "phone": "703-548-4946",
+   "phone": "(703) 548-4946",
    "email": "jgerhart@dreyfuss.net"
   },
   "source": {
@@ -344,7 +393,7 @@
   "address": "3481 Duke St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.809195479630134,
   "lon": -77.090169086126,
@@ -371,6 +420,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -379,7 +435,7 @@
   "address": "238 S West St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.803962970264216,
   "lon": -77.05488940375167,
@@ -406,6 +462,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -414,7 +477,7 @@
   "address": "1131 N Beauregard St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.823186624891335,
   "lon": -77.13383534965415,
@@ -441,6 +504,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -449,7 +519,7 @@
   "address": "750 Thornton Way",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.79236321980907,
   "lon": -77.05062881084763,
@@ -476,6 +546,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -528,7 +605,7 @@
   "address": "3425 North Beauregard Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.84086753194517,
   "lon": -77.10872303774984,
@@ -556,7 +633,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
+  }
  },
  {
   "id": "lihtc-VAA20100010",
@@ -605,7 +689,7 @@
   "address": "1700 W Braddock Road",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.82654654854807,
   "lon": -77.08513655091072,
@@ -632,6 +716,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -640,7 +731,7 @@
   "address": "4505 W Braddock Rd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.83104893850719,
   "lon": -77.1063028623911,
@@ -667,6 +758,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
   }
  },
  {
@@ -771,7 +869,7 @@
   "address": "401 S Reynolds St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.80841381695226,
   "lon": -77.12975797878941,
@@ -798,6 +896,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -806,7 +911,7 @@
   "address": "267 S Whiting St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.810264882732156,
   "lon": -77.13708252049017,
@@ -833,6 +938,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -882,7 +994,7 @@
   "address": "2251 Eisenhower Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.801161172542315,
   "lon": -77.067984861712,
@@ -909,6 +1021,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -988,7 +1107,7 @@
   "contact": {
    "name": "Patricia W. Waddy",
    "org": "Borger Management Inc",
-   "phone": "703.823.5444",
+   "phone": "(703) 823-5444",
    "email": "PatW@donohoe.com"
   },
   "source": {
@@ -1010,7 +1129,7 @@
   "address": "400 N Washington Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.808897730724894,
   "lon": -77.04637855777214,
@@ -1038,7 +1157,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
+  }
  },
  {
   "id": "lihtc-VAA19980065",
@@ -1096,7 +1222,7 @@
   "address": "3051 Mount Vernon Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.832897678167804,
   "lon": -77.05957611412072,
@@ -1123,6 +1249,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -1157,7 +1290,7 @@
   "contact": {
    "name": "Denise Tessauro",
    "org": "Franklin Group Companies LLC",
-   "phone": "703-370-8280",
+   "phone": "(703) 370-8280",
    "email": "dtessauro@tfjgroup.com"
   },
   "source": {
@@ -1228,7 +1361,7 @@
   "address": "2801 Seay Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.80803809674136,
   "lon": -77.07835405395882,
@@ -1255,6 +1388,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -1392,7 +1532,7 @@
   "address": "120 S Payne Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.8052067622799,
   "lon": -77.05354834592949,
@@ -1419,6 +1559,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -1427,7 +1574,7 @@
   "address": "525 Montgomery Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81410998925996,
   "lon": -77.04324499879782,
@@ -1454,6 +1601,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -1462,7 +1616,7 @@
   "address": "4380 King St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.83742295617176,
   "lon": -77.10442790492333,
@@ -1489,6 +1643,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -1497,7 +1658,7 @@
   "address": "909 Gibbon St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.79977960719212,
   "lon": -77.05085911084335,
@@ -1524,6 +1685,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -1579,7 +1747,7 @@
   "address": "4680 W Braddock Rd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.83533380942259,
   "lon": -77.10955600344579,
@@ -1606,6 +1774,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
   }
  },
  {
@@ -1614,7 +1789,7 @@
   "address": "518 N Fairfax St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.809710689108236,
   "lon": -77.04120251087659,
@@ -1641,6 +1816,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -1649,7 +1831,7 @@
   "address": "450 Swann Avenue",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.82940174356746,
   "lon": -77.05188623122935,
@@ -1676,6 +1858,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
   }
  },
  {
@@ -2044,7 +2233,7 @@
   "address": "2900 Seay St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.808016979221065,
   "lon": -77.07925814024784,
@@ -2071,6 +2260,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2126,7 +2322,7 @@
   "address": "2200 Mill Road",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.799348275695195,
   "lon": -77.06787945983874,
@@ -2153,6 +2349,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2161,7 +2364,7 @@
   "address": "2351 Eisenhower Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.801254842082855,
   "lon": -77.06921296050889,
@@ -2188,6 +2391,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2196,7 +2406,7 @@
   "address": "601 Four Mile Rd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.843085734700104,
   "lon": -77.06657474346493,
@@ -2223,6 +2433,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -2231,7 +2448,7 @@
   "address": "211 Aspen St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.83473907182761,
   "lon": -77.06358455531692,
@@ -2259,7 +2476,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
+  }
  },
  {
   "id": "lihtc-VAA20191019",
@@ -2318,7 +2542,7 @@
   "address": "2900 Main Line Blvd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.8316909603466,
   "lon": -77.04986713275522,
@@ -2345,6 +2569,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
   }
  },
  {
@@ -2353,7 +2584,7 @@
   "address": "27 S Bragg St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22312",
   "area": "ALEXANDRIA",
   "lat": 38.81626743048935,
   "lon": -77.14159543565148,
@@ -2380,6 +2611,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1990,
+   "1": 2050,
+   "2": 2290,
+   "3": 2890,
+   "4": 3400
   }
  },
  {
@@ -2428,7 +2666,7 @@
   "address": "701 N Alfred St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81227082955698,
   "lon": -77.04730383008184,
@@ -2455,6 +2693,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2498,7 +2743,7 @@
   "address": "3812 Old Dominion Boulevard",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.841389589071035,
   "lon": -77.06690686980538,
@@ -2525,6 +2770,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -2574,7 +2826,7 @@
   "address": "4401 Ford Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.836576657923366,
   "lon": -77.10392129577681,
@@ -2601,6 +2853,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -2609,7 +2868,7 @@
   "address": "2500 N Van Dorn St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.83263518912106,
   "lon": -77.09975149900094,
@@ -2636,6 +2895,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -2644,7 +2910,7 @@
   "address": "3001 Park Center Dr",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.835550816974454,
   "lon": -77.10409181617558,
@@ -2671,6 +2937,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
@@ -2703,7 +2976,7 @@
   "contact": {
    "name": "Janell Diaz",
    "org": "Alexandria Redevelopment And Housing Authority",
-   "phone": "703-549-7115",
+   "phone": "(703) 549-7115",
    "email": "jdiaz@arha.us"
   },
   "source": {
@@ -2726,7 +2999,7 @@
   "address": "501 Holland La",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.801909139427856,
   "lon": -77.06032747040047,
@@ -2753,6 +3026,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2808,7 +3088,7 @@
   "address": "330 N West St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.80923712996508,
   "lon": -77.05407131889683,
@@ -2835,6 +3115,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -2889,7 +3176,7 @@
   "address": "451 Swann Avenue",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.82909357545378,
   "lon": -77.0518596312053,
@@ -2916,6 +3203,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
   }
  },
  {
@@ -2966,7 +3260,7 @@
   "address": "5802 Sanger Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.82874792901572,
   "lon": -77.13099957778664,
@@ -2993,6 +3287,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -3047,7 +3348,7 @@
   "address": "1000 Montgomery St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81447277066769,
   "lon": -77.04825781713593,
@@ -3074,6 +3375,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3082,7 +3390,7 @@
   "address": "483 N Armistead St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.82059392959094,
   "lon": -77.13049898669031,
@@ -3109,6 +3417,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
   }
  },
  {
@@ -3117,7 +3432,7 @@
   "address": "2811 King Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.81640645608176,
   "lon": -77.0736532669032,
@@ -3145,7 +3460,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
+  }
  },
  {
   "id": "alx-772a527f83",
@@ -3153,7 +3475,7 @@
   "address": "2602 Main Line Boulevard",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.82968409981504,
   "lon": -77.0503257417625,
@@ -3180,6 +3502,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
   }
  },
  {
@@ -3188,7 +3517,7 @@
   "address": "4901 Seminary Rd",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.83166811872645,
   "lon": -77.11262905244728,
@@ -3215,6 +3544,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
   }
  },
  {
@@ -3274,7 +3610,7 @@
   "address": "650 Potomac Av",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22301",
   "area": "ALEXANDRIA",
   "lat": 38.82285908304115,
   "lon": -77.0490842321075,
@@ -3301,6 +3637,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2330,
+   "1": 2400,
+   "2": 2680,
+   "3": 3380,
+   "4": 3980
   }
  },
  {
@@ -3350,7 +3693,7 @@
   "address": "3518 Duke St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.80892518453504,
   "lon": -77.09164142778688,
@@ -3378,7 +3721,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
+  }
  },
  {
   "id": "alx-9b37242d32",
@@ -3386,7 +3736,7 @@
   "address": "1112 First Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.8157571444,
   "lon": -77.04984913478977,
@@ -3413,6 +3763,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3421,7 +3778,7 @@
   "address": "2000 N Beauregard Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.83437120386004,
   "lon": -77.1191180712697,
@@ -3448,6 +3805,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
   }
  },
  {
@@ -3456,7 +3820,7 @@
   "address": "900 N Henry St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.815138382285994,
   "lon": -77.04950016713471,
@@ -3483,6 +3847,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3491,7 +3862,7 @@
   "address": "1260 Braddock Pl",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81486460933843,
   "lon": -77.05175379995129,
@@ -3518,6 +3889,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3526,7 +3904,7 @@
   "address": "2470 Mandeville Lane",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.80270005495618,
   "lon": -77.07195821756198,
@@ -3553,6 +3931,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3561,7 +3946,7 @@
   "address": "1200 North Henry Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.8180120378491,
   "lon": -77.04938033758845,
@@ -3588,6 +3973,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3596,7 +3988,7 @@
   "address": "625 N Patrick",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.811637895544244,
   "lon": -77.0487427628365,
@@ -3623,6 +4015,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3631,7 +4030,7 @@
   "address": "1100 North Fayette Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.81730970842678,
   "lon": -77.05053185399652,
@@ -3658,6 +4057,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3666,7 +4072,7 @@
   "address": "1200 North Fayette Street",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.817865623895024,
   "lon": -77.0504129594535,
@@ -3693,6 +4099,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3701,7 +4114,7 @@
   "address": "2827 Telek Place",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22314",
   "area": "ALEXANDRIA",
   "lat": 38.80418338694789,
   "lon": -77.08198080169299,
@@ -3728,6 +4141,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2810,
+   "1": 2900,
+   "2": 3230,
+   "3": 4080,
+   "4": 4790
   }
  },
  {
@@ -3736,7 +4156,7 @@
   "address": "2875 N Beauregard St",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.836669392145005,
   "lon": -77.11411162597105,
@@ -3763,6 +4183,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
   }
  },
  {
@@ -3771,7 +4198,7 @@
   "address": "511 Four Mile Road",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22305",
   "area": "ALEXANDRIA",
   "lat": 38.84358862969418,
   "lon": -77.06528473366912,
@@ -3798,6 +4225,13 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1890,
+   "1": 1950,
+   "2": 2170,
+   "3": 2740,
+   "4": 3220
   }
  },
  {
@@ -3806,7 +4240,7 @@
   "address": "260 Yoakum Pky",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22304",
   "area": "ALEXANDRIA",
   "lat": 38.811270272859254,
   "lon": -77.13864541498279,
@@ -3834,7 +4268,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 2230,
+   "1": 2300,
+   "2": 2560,
+   "3": 3230,
+   "4": 3800
+  }
  },
  {
   "id": "alx-1ec37e2044",
@@ -3842,7 +4283,7 @@
   "address": "5000 Fairbanks Ave",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22311",
   "area": "ALEXANDRIA",
   "lat": 38.83698169306295,
   "lon": -77.11549567694796,
@@ -3870,7 +4311,14 @@
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
   },
-  "groupHome": true
+  "groupHome": true,
+  "marketRent": {
+   "0": 1890,
+   "1": 1920,
+   "2": 2160,
+   "3": 2700,
+   "4": 3190
+  }
  },
  {
   "id": "alx-77dcd8299e",
@@ -3878,7 +4326,7 @@
   "address": "2451 Menokin Dr",
   "city": "Alexandria",
   "state": "VA",
-  "zip": "",
+  "zip": "22302",
   "area": "ALEXANDRIA",
   "lat": 38.83147606614194,
   "lon": -77.09530744078896,
@@ -3905,11 +4353,18 @@
    "dataset": "City of Alexandria Committed Affordable Rentals",
    "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
   "id": "ph-VA004000009",
-  "name": "West Glebe LP",
+  "name": "West Glebe",
   "address": "859 W Glebe Rd",
   "city": "Alexandria",
   "state": "VA",
@@ -4477,7 +4932,7 @@
   "contact": {
    "name": "Patricia W. Waddy",
    "org": "Borger Management Inc",
-   "phone": "703.521.9100",
+   "phone": "(703) 521-9100",
    "email": "pwaddy@borgemanagement.com"
   },
   "source": {
@@ -4521,7 +4976,7 @@
   "contact": {
    "name": "Ron George",
    "org": "Community Residences, Inc.",
-   "phone": "703-553-9546",
+   "phone": "(703) 553-9546",
    "email": "rgeorge@mycri.org"
   },
   "source": {
@@ -4647,7 +5102,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-758-9104",
+   "phone": "(301) 758-9104",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -4695,7 +5150,7 @@
   "contact": {
    "name": "Kymberly Priester",
    "org": "Kettler Management Inc",
-   "phone": "703.524.1337",
+   "phone": "(703) 524-1337",
    "email": "kpriester@kettler.com"
   },
   "source": {
@@ -4919,7 +5374,7 @@
   "contact": {
    "name": "Robert Gawronski",
    "org": "Senior Lifestyles Management Corporation",
-   "phone": "703-528-0162",
+   "phone": "(703) 528-0162",
    "email": "rgawronski@seniorlifestyle.com"
   },
   "source": {
@@ -4963,7 +5418,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-538-6000",
+   "phone": "(703) 538-6000",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -5451,7 +5906,7 @@
   "contact": {
    "name": "Nina Hambrick",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703.528.7751",
+   "phone": "(703) 528-7751",
    "email": "nina.hambrick@slnusbaum.net"
   },
   "source": {
@@ -5627,7 +6082,7 @@
   "contact": {
    "name": "Tracey Banks",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-538-6000",
+   "phone": "(703) 538-6000",
    "email": "TBanks@qpmgmt.com"
   },
   "source": {
@@ -6027,7 +6482,7 @@
   "contact": {
    "name": "Dennis Manning",
    "org": "Community Residences, Inc.",
-   "phone": "703-241-7943",
+   "phone": "(703) 241-7943",
    "email": "dmanning@comres.org"
   },
   "source": {
@@ -6162,7 +6617,7 @@
   "contact": {
    "name": "Marilyn Barton",
    "org": "Community Residences, Inc.",
-   "phone": "703-671-6939",
+   "phone": "(703) 671-6939",
    "email": "mbarton@mycri.org"
   },
   "source": {
@@ -6441,7 +6896,7 @@
   "contact": {
    "name": "Dennis Manning",
    "org": "Community Residences, Inc.",
-   "phone": "703-276-9453",
+   "phone": "(703) 276-9453",
    "email": "dmanning@comres.org"
   },
   "source": {
@@ -6678,7 +7133,7 @@
   "contact": {
    "name": "Leon N. Weiner & Associates",
    "org": "Weiner Partners, LLC",
-   "phone": "703-931-5700",
+   "phone": "(703) 931-5700",
    "email": "TLamberto@LNWA.com"
   },
   "source": {
@@ -8519,7 +8974,7 @@
   "contact": {
    "name": "Monica Areford",
    "org": "Enterprise Residential LLC",
-   "phone": "202-387-7558",
+   "phone": "(202) 387-7558",
    "email": "mareford@enterpriseresidential.org"
   },
   "source": {
@@ -9163,7 +9618,7 @@
  },
  {
   "id": "dc-63551",
-  "name": "1431 E Street NE Renovation",
+  "name": "1431 E Street NE",
   "address": "1431 E Street NE",
   "city": "Washington",
   "state": "DC",
@@ -9254,7 +9709,7 @@
  },
  {
   "id": "dc-259017",
-  "name": "1445 Spring Rd NW Renovation",
+  "name": "1445 Spring Rd NW",
   "address": "1445 Spring Road NW",
   "city": "Washington",
   "state": "DC",
@@ -11188,7 +11643,7 @@
  },
  {
   "id": "dc-150176",
-  "name": "1847-9 Good Hope Rd SE Renovation TOPA",
+  "name": "1847-9 Good Hope Rd SE",
   "address": "1847 Good Hope Road SE",
   "city": "Washington",
   "state": "DC",
@@ -11951,7 +12406,7 @@
  },
  {
   "id": "dc-50871",
-  "name": "22 Atlantic Cooperative Association, Inc. (Acq)",
+  "name": "22 Atlantic Cooperative",
   "address": "22 Atlantic Street SE",
   "city": "Washington",
   "state": "DC",
@@ -14307,7 +14762,7 @@
  },
  {
   "id": "dc-221525",
-  "name": "3218 Wisconsin Ave NW - Acquisition/Critical Repairs",
+  "name": "3218 Wisconsin Ave NW",
   "address": "3218 Wisconsin Avenue NW",
   "city": "Washington",
   "state": "DC",
@@ -15213,7 +15668,7 @@
  },
  {
   "id": "dc-289376",
-  "name": "4040 8th St NW TOPA",
+  "name": "4040 8th St NW",
   "address": "4040 A 8th Street NW",
   "city": "Washington",
   "state": "DC",
@@ -16034,7 +16489,7 @@
  },
  {
   "id": "dc-246749",
-  "name": "505 Jefferson Street NW Renovation",
+  "name": "505 Jefferson Street NW",
   "address": "505 Jefferson Street NW",
   "city": "Washington",
   "state": "DC",
@@ -16305,7 +16760,7 @@
  },
  {
   "id": "dc-285180",
-  "name": "5400 5th St Acquisition",
+  "name": "5400 5th St",
   "address": "5400 5th Street NW",
   "city": "Washington",
   "state": "DC",
@@ -16379,7 +16834,7 @@
   "contact": {
    "name": "David Weil",
    "org": "Weil Enterprises",
-   "phone": "202-265-0405",
+   "phone": "(202) 265-0405",
    "email": "dweil@weilent.com"
   },
   "source": {
@@ -17570,7 +18025,7 @@
  },
  {
   "id": "dc-253506",
-  "name": "7440 Georgia Ave NW TOPA",
+  "name": "7440 Georgia Ave NW",
   "address": "7440 Georgia Avenue NW",
   "city": "Washington",
   "state": "DC",
@@ -18381,7 +18836,7 @@
  },
  {
   "id": "dc-254163",
-  "name": "919 Sheridan LLC",
+  "name": "919 Sheridan",
   "address": "919 Sheridan Street NW",
   "city": "Washington",
   "state": "DC",
@@ -18681,7 +19136,7 @@
   "contact": {
    "name": "Lloyd Yates",
    "org": "Residential One/Ahd Management LLC",
-   "phone": "202-397-1862",
+   "phone": "(202) 397-1862",
    "email": "Lloyd.Yates@res1.net"
   },
   "source": {
@@ -19022,7 +19477,7 @@
   "lat": 38.833531,
   "lon": -76.985768,
   "program": "LIHTC",
-  "totalUnits": 105,
+  "totalUnits": 155,
   "affordableUnits": 105,
   "incomeCeiling": null,
   "bedrooms": [
@@ -19226,7 +19681,7 @@
   "contact": {
    "name": "Bernardo Coles",
    "org": "Community Realty Management Inc",
-   "phone": "(202)745-7434",
+   "phone": "(202) 745-7434",
    "email": "bcoles@crmresidential.com"
   },
   "source": {
@@ -19365,7 +19820,7 @@
   "contact": {
    "name": "Jenny Rufino",
    "org": "Winn Managed Properties LLC",
-   "phone": "202-561-8600",
+   "phone": "(202) 561-8600",
    "email": "jrufino@winnco.com"
   },
   "source": {
@@ -19505,7 +19960,7 @@
   "contact": {
    "name": "Jenny Rufino",
    "org": "Winn Managed Properties LLC",
-   "phone": "202-561-8600",
+   "phone": "(202) 561-8600",
    "email": "jrufino@winnco.com"
   },
   "source": {
@@ -19936,7 +20391,7 @@
  },
  {
   "id": "dc-334557",
-  "name": "Banner Lane (Sursum Corda Phase 1, South Parcel)",
+  "name": "Banner Lane (Sursum Corda)",
   "address": "22 Banner Lane NW",
   "city": "Washington",
   "state": "DC",
@@ -20125,7 +20580,7 @@
   "lat": 38.887969,
   "lon": -76.93619699999999,
   "program": "LIHTC",
-  "totalUnits": 119,
+  "totalUnits": 121,
   "affordableUnits": 119,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -20455,7 +20910,7 @@
   "contact": {
    "name": "Ein White",
    "org": "Winn Management Company LLC",
-   "phone": "(202)583-0454",
+   "phone": "(202) 583-0454",
    "email": "iwhite@winnco.com"
   },
   "source": {
@@ -20508,7 +20963,7 @@
   "contact": {
    "name": null,
    "org": "Metro Management Group",
-   "phone": "202-582-2100",
+   "phone": "(202) 582-2100",
    "email": null
   },
   "source": {
@@ -20554,7 +21009,7 @@
   "contact": {
    "name": "Rob Rosales",
    "org": "Noble Realty Advisors LLC",
-   "phone": "202-581-1633",
+   "phone": "(202) 581-1633",
    "email": "rrosales@noblerealtyadvisors.com"
   },
   "source": {
@@ -20664,7 +21119,7 @@
  },
  {
   "id": "dc-8937",
-  "name": "Blair Road Project",
+  "name": "Blair Road",
   "address": "5422 Blair Road NE",
   "city": "Washington",
   "state": "DC",
@@ -21076,7 +21531,7 @@
   "contact": {
    "name": "Scott Altman",
    "org": "The Donaldson Group LLC",
-   "phone": "202-529-3150",
+   "phone": "(202) 529-3150",
    "email": "saltman@thedonaldsongroup.com"
   },
   "source": {
@@ -21103,7 +21558,7 @@
   "lat": 38.926971,
   "lon": -76.996376,
   "program": "LIHTC",
-  "totalUnits": 79,
+  "totalUnits": 80,
   "affordableUnits": 79,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -21573,7 +22028,7 @@
   "contact": {
    "name": "Mary Amador",
    "org": "Active Residential Management Services, Inc.",
-   "phone": "202-726-5833",
+   "phone": "(202) 726-5833",
    "email": "mamador@activerms.com"
   },
   "source": {
@@ -22162,7 +22617,7 @@
   "contact": {
    "name": "Rossnat Roddriguez",
    "org": "Horning Management Company LLC",
-   "phone": "(202)678-3888",
+   "phone": "(202) 678-3888",
    "email": "rossnat@horningdc.com"
   },
   "source": {
@@ -22292,7 +22747,7 @@
   "contact": {
    "name": "Fred Gibbs",
    "org": "Fkgibbs Company, LLC",
-   "phone": "202 518-0636",
+   "phone": "(202) 518-0636",
    "email": "fred@fkgibbs.com"
   },
   "source": {
@@ -22935,7 +23390,7 @@
   "contact": {
    "name": "Constance Bunn",
    "org": "Weil Enterprises",
-   "phone": "202-265-0405",
+   "phone": "(202) 265-0405",
    "email": "cgbunn@weilent.com"
   },
   "source": {
@@ -23260,7 +23715,7 @@
   "contact": {
    "name": "Peter Larson",
    "org": "Horning Management Company LLC",
-   "phone": "202-332-1628",
+   "phone": "(202) 332-1628",
    "email": "plarson@horningbrothers.com"
   },
   "source": {
@@ -23349,7 +23804,7 @@
   "contact": {
    "name": "Tsebelu Kema",
    "org": "Nmi Property Management LLC",
-   "phone": "202-722-4048",
+   "phone": "(202) 722-4048",
    "email": "tse@newmarketinvestors.com"
   },
   "source": {
@@ -23399,7 +23854,7 @@
   "contact": {
    "name": "Jennifer Mccarthy",
    "org": "Franklin Group Companies LLC",
-   "phone": "202-234-6900",
+   "phone": "(202) 234-6900",
    "email": "jmccarthy@fgcompanies.com"
   },
   "source": {
@@ -23740,7 +24195,7 @@
  },
  {
   "id": "hud-800003700",
-  "name": "Covington Family Association Cooperative, Inc.",
+  "name": "Covington Family Cooperative",
   "address": "1848 Columbia Rd NW",
   "city": "Washington",
   "state": "DC",
@@ -23772,7 +24227,7 @@
   "contact": {
    "name": "Mario Lloyde",
    "org": "Vision Realty Management Company",
-   "phone": "(202)232-2519",
+   "phone": "(202) 232-2519",
    "email": "mario@visionrealtymgt.com"
   },
   "source": {
@@ -24011,7 +24466,7 @@
  },
  {
   "id": "dc-149791",
-  "name": "DCHA Headquarters - Phase 1",
+  "name": "DCHA Headquarters Phase 1",
   "address": "1133 North Capitol Street NE",
   "city": "Washington",
   "state": "DC",
@@ -24240,7 +24695,7 @@
  },
  {
   "id": "dc-313299",
-  "name": "Dock 79 - Florida Rock revised PUD (phase 1)",
+  "name": "Dock 79",
   "address": "79 Potomac Avenue SE",
   "city": "Washington",
   "state": "DC",
@@ -24401,7 +24856,7 @@
   "contact": {
    "name": "Delia P. Robin",
    "org": "Dels Management Services",
-   "phone": "202-562-1363",
+   "phone": "(202) 562-1363",
    "email": "delsrobin@hotmail.com"
   },
   "source": {
@@ -24510,7 +24965,7 @@
  },
  {
   "id": "dc-315791",
-  "name": "Eckington Park - ONE501 - 1501 Harry Thomas Way,",
+  "name": "Eckington Park - ONE501 - 1501 Harry Thomas Way",
   "address": "1501 Harry Thomas Way NE",
   "city": "Washington",
   "state": "DC",
@@ -24765,7 +25220,7 @@
   "contact": {
    "name": "Jay Wilson",
    "org": "Enterprise Residential LLC",
-   "phone": "202-832-0400",
+   "phone": "(202) 832-0400",
    "email": "jwilson@enterprisecommunity.org"
   },
   "source": {
@@ -24815,7 +25270,7 @@
   "contact": {
    "name": "Dexter Clark",
    "org": "Enterprise Residential LLC",
-   "phone": "202-832-1400",
+   "phone": "(202) 832-1400",
    "email": "dclark@enterpriseresidential.org"
   },
   "source": {
@@ -24860,7 +25315,7 @@
   "contact": {
    "name": "Gayle Filo",
    "org": "Enterprise Residential LLC",
-   "phone": "443-451-6800",
+   "phone": "(443) 451-6800",
    "email": "gfilo@enterpriseresidential.org"
   },
   "source": {
@@ -25651,7 +26106,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "202-396-3121",
+   "phone": "(202) 396-3121",
    "email": "dmcguill@pratumco.com"
   },
   "source": {
@@ -25828,7 +26283,7 @@
   "contact": {
    "name": "Juan E. Gaddis",
    "org": "Fort Lincoln Realty Co.",
-   "phone": "529-7730",
+   "phone": "(202) 529-7730",
    "email": "jgaddis@fortliincolnrealty.com"
   },
   "source": {
@@ -25872,7 +26327,7 @@
   "contact": {
    "name": "Juan H. Gaddis",
    "org": "Fort Lincoln Realty Co.",
-   "phone": "529-7731",
+   "phone": "(202) 529-7731",
    "email": "jgaddis@fortlincolnrealty.com"
   },
   "source": {
@@ -26146,7 +26601,7 @@
   "contact": {
    "name": "Michelle  Reed",
    "org": "Novo Management Corporation",
-   "phone": "202-797-8767",
+   "phone": "(202) 797-8767",
    "email": "mreed@livenovo.com"
   },
   "source": {
@@ -26280,7 +26735,7 @@
   "contact": {
    "name": "Carlton Einsel",
    "org": "The Donaldson Group LLC",
-   "phone": "202-678-5800",
+   "phone": "(202) 678-5800",
    "email": "ceinsel@donaldsonmgt.com"
   },
   "source": {
@@ -26372,7 +26827,7 @@
   "contact": {
    "name": "J.anthony Ross",
    "org": "Residential One LLC Fka Rs Property Management LLC",
-   "phone": "202-244-7400",
+   "phone": "(202) 244-7400",
    "email": "tross@res1.net"
   },
   "source": {
@@ -26529,7 +26984,7 @@
  },
  {
   "id": "dc-334683",
-  "name": "Gallery 64/Museum Place - Randall School redevelopment",
+  "name": "Gallery 64 / Museum Place",
   "address": "64 H Street SW",
   "city": "Washington",
   "state": "DC",
@@ -26606,7 +27061,7 @@
   "contact": {
    "name": "Evelyn Starks Spicer",
    "org": "Poah Communities LLC",
-   "phone": "(202)889-0030",
+   "phone": "(202) 889-0030",
    "email": "estarksspicer@poahcommunities.com"
   },
   "source": {
@@ -26876,7 +27331,7 @@
   "contact": {
    "name": "Asa Ewings",
    "org": "Armor Realty Mortgage,llc",
-   "phone": "202-797-9004",
+   "phone": "(202) 797-9004",
    "email": "armorrealtyllc@gmail.com"
   },
   "source": {
@@ -27066,7 +27521,7 @@
   "contact": {
    "name": "Mary Mauney, Cpm Vice President",
    "org": "Evergreen Real Estate Services, LLC",
-   "phone": "202-232-3012",
+   "phone": "(202) 232-3012",
    "email": "mmauney@evergreenreg.com"
   },
   "source": {
@@ -27210,7 +27665,7 @@
   "contact": {
    "name": "Zemi Shabiu",
    "org": "Columbus Property Management And Development Inc",
-   "phone": "202-258-7517",
+   "phone": "(202) 258-7517",
    "email": "zshabiu@columbuspm.org"
   },
   "source": {
@@ -27407,57 +27862,12 @@
   }
  },
  {
-  "id": "dc-311496",
-  "name": "Grimke Elementary School Phase 1 - The Fold",
-  "address": "912 U Street NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20001",
-  "area": "DC",
-  "lat": 38.91681425,
-  "lon": -77.0245357,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 30,
-  "affordableUnits": 9,
-  "incomeCeiling": 80,
-  "amiMix": {
-   "50": 5,
-   "80": 4
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2021,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "U Street/African-Amer Civil War Memorial/Cardozo",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2730,
-   "1": 2820,
-   "2": 3140,
-   "3": 3960,
-   "4": 4660
-  }
- },
- {
   "id": "dc-239514",
   "name": "Grimke Elementary School Phase 2",
   "address": "1923 Vermont Avenue NW",
   "city": "Washington",
   "state": "DC",
-  "zip": "",
+  "zip": "20001",
   "area": "DC",
   "lat": 38.91629231,
   "lon": -77.02536643,
@@ -27487,6 +27897,13 @@
    "dataset": "DC DHCD Affordable Housing (Open Data DC)",
    "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2730,
+   "1": 2820,
+   "2": 3140,
+   "3": 3960,
+   "4": 4660
   }
  },
  {
@@ -27994,7 +28411,7 @@
   "contact": {
    "name": "Mary Mauney, Vp Property Management",
    "org": "Evergreen Real Estate Services, LLC",
-   "phone": "202 635-0985",
+   "phone": "(202) 635-0985",
    "email": "mmauney@evergreenreg.com"
   },
   "source": {
@@ -28253,97 +28670,8 @@
   }
  },
  {
-  "id": "dc-314740",
-  "name": "Hill East Phase I - Park Kennedy (Parcel G-1)",
-  "address": "1901 C Street SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20003",
-  "area": "DC",
-  "lat": 38.88512824,
-  "lon": -76.97658974,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 262,
-  "affordableUnits": 31,
-  "incomeCeiling": 60,
-  "amiMix": {
-   "30": 15,
-   "60": 16
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2020,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.1,
-  "metroStation": "Stadium-Armory",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2930,
-   "1": 3020,
-   "2": 3370,
-   "3": 4250,
-   "4": 5000
-  }
- },
- {
-  "id": "dc-314741",
-  "name": "Hill East Phase I - The Ethel (Parcel F-1)",
-  "address": "1900 C Street SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20003",
-  "area": "DC",
-  "lat": 38.88574152,
-  "lon": -76.97649306,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 100,
-  "affordableUnits": 100,
-  "incomeCeiling": 30,
-  "amiMix": {
-   "30": 100
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2023,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.1,
-  "metroStation": "Stadium-Armory",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2930,
-   "1": 3020,
-   "2": 3370,
-   "3": 4250,
-   "4": 5000
-  }
- },
- {
   "id": "dc-151205",
-  "name": "Hilltop Apartments (Acquisition)",
+  "name": "Hilltop Apartments",
   "address": "908 Eastern Avenue NE",
   "city": "Washington",
   "state": "DC",
@@ -28805,7 +29133,7 @@
  },
  {
   "id": "dc-229520",
-  "name": "Howard Manor Renovation",
+  "name": "Howard Manor",
   "address": "654 Girard Street NW",
   "city": "Washington",
   "state": "DC",
@@ -28927,7 +29255,7 @@
   "contact": {
    "name": "Mike Milko",
    "org": "Winn Management Company LLC",
-   "phone": "202-889-0804",
+   "phone": "(202) 889-0804",
    "email": "mmilko@winnco.com"
   },
   "source": {
@@ -29037,7 +29365,7 @@
  },
  {
   "id": "dc-315289",
-  "name": "Incanto (Parcel 4A, The Wharf Phase I)",
+  "name": "Incanto (The Wharf)",
   "address": "770 Maine Avenue SW",
   "city": "Washington",
   "state": "DC",
@@ -29199,7 +29527,7 @@
   "contact": {
    "name": "Kim Brickhouse",
    "org": "Horning Management Company LLC",
-   "phone": "(202)659-9489",
+   "phone": "(202) 659-9489",
    "email": "KBrickhouse@horningbrothers.com"
   },
   "source": {
@@ -29600,7 +29928,7 @@
   "lat": 38.923719999999996,
   "lon": -77.032941,
   "program": "LIHTC",
-  "totalUnits": 28,
+  "totalUnits": 36,
   "affordableUnits": 28,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -29778,51 +30106,6 @@
   }
  },
  {
-  "id": "dc-290477",
-  "name": "Kenilworth 166 - Kenilworth Courts Phase 1",
-  "address": "1516 Kenilworth Avenue NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20019",
-  "area": "DC",
-  "lat": 38.91037803,
-  "lon": -76.93642717,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 166,
-  "affordableUnits": 166,
-  "incomeCeiling": 50,
-  "amiMix": {
-   "30": 40,
-   "50": 126
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2024,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "Deanwood",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1400,
-   "1": 1440,
-   "2": 1610,
-   "3": 2030,
-   "4": 2390
-  }
- },
- {
   "id": "ph-DC001005190",
   "name": "Kenilworth Courts",
   "address": "4508 Quarles St NE",
@@ -29868,6 +30151,51 @@
   }
  },
  {
+  "id": "dc-290477",
+  "name": "Kenilworth Courts Phase 1",
+  "address": "1516 Kenilworth Avenue NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20019",
+  "area": "DC",
+  "lat": 38.91037803,
+  "lon": -76.93642717,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 166,
+  "affordableUnits": 166,
+  "incomeCeiling": 50,
+  "amiMix": {
+   "30": 40,
+   "50": 126
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2024,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.2,
+  "metroStation": "Deanwood",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1400,
+   "1": 1440,
+   "2": 1610,
+   "3": 2030,
+   "4": 2390
+  }
+ },
+ {
   "id": "hud-800054046",
   "name": "Kennedy Institute",
   "address": "4815 Chesapeak Street",
@@ -29895,7 +30223,7 @@
   "contact": {
    "name": "Cathy Thomas",
    "org": "Kennedy Institute Housing Corporation II",
-   "phone": "202-529-7600",
+   "phone": "(202) 529-7600",
    "email": "cathy@lhayesassociates.com"
   },
   "source": {
@@ -30032,7 +30360,7 @@
   "contact": {
    "name": "Scott Burka",
    "org": "Ejf Real Estate Services, Inc.",
-   "phone": "301-445-5000",
+   "phone": "(301) 445-5000",
    "email": "scott.burka@ejfrealestate.com"
   },
   "source": {
@@ -30171,7 +30499,7 @@
   "contact": {
    "name": "Jeffrey P. Goldstein",
    "org": "Arco Multifamily Management LLC",
-   "phone": "(202)289-3897",
+   "phone": "(202) 289-3897",
    "email": "jpg@mmsgroup.com"
   },
   "source": {
@@ -30822,7 +31150,7 @@
   "contact": {
    "name": "Tonya Holt",
    "org": "Charles Tini & Associates, LLC",
-   "phone": "202-483-0250",
+   "phone": "(202) 483-0250",
    "email": "tholt@thectgroupllc.com"
   },
   "source": {
@@ -31167,7 +31495,7 @@
   "lat": 38.901312,
   "lon": -76.945689,
   "program": "LIHTC",
-  "totalUnits": 172,
+  "totalUnits": 173,
   "affordableUnits": 172,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -31651,7 +31979,7 @@
   "contact": {
    "name": "Maritza Falero",
    "org": "Building Futures Inc",
-   "phone": "(202)745-2093",
+   "phone": "(202) 745-2093",
    "email": "mfalero@buildingfutures.org"
   },
   "source": {
@@ -31997,7 +32325,7 @@
  },
  {
   "id": "dc-265944",
-  "name": "Mazza Gallerie Redevelopment",
+  "name": "Mazza Gallerie",
   "address": "5300 Wisconsin Avenue NW",
   "city": "Washington",
   "state": "DC",
@@ -33087,7 +33415,7 @@
   "contact": {
    "name": "Rossnat Roddriguez",
    "org": "Horning Management Company LLC",
-   "phone": "202-678-3888",
+   "phone": "(202) 678-3888",
    "email": "rossnat@horningbrothers.com"
   },
   "source": {
@@ -33178,7 +33506,7 @@
   "contact": {
    "name": "Andrea Lovelace",
    "org": "Elderly Housing Dev And Oper Corp",
-   "phone": "202-882-3936",
+   "phone": "(202) 882-3936",
    "email": "alovelace@ehdoc.org"
   },
   "source": {
@@ -33543,7 +33871,7 @@
   "contact": {
    "name": "Yuri Escandon, Operations Vp",
    "org": "Foundation Property Management, Inc.",
-   "phone": "202-541-1222",
+   "phone": "(202) 541-1222",
    "email": "yuri.escandon@rhf.org"
   },
   "source": {
@@ -33809,7 +34137,7 @@
   "contact": {
    "name": "Sheila Phillips",
    "org": "Cih Properties, Inc",
-   "phone": "202-483-9100",
+   "phone": "(202) 483-9100",
    "email": "sphillips@cihproperties.com"
   },
   "source": {
@@ -34090,7 +34418,7 @@
   "contact": {
    "name": "Taner Bennerson",
    "org": "Deaf Reach Housing, Inc.",
-   "phone": "301-855-7471",
+   "phone": "(301) 855-7471",
    "email": "bennersont@deaf-reach.org"
   },
   "source": {
@@ -34275,7 +34603,7 @@
   "contact": {
    "name": "Gary Woldiger",
    "org": "Radiant Property Management, LLC",
-   "phone": "202 396-9200",
+   "phone": "(202) 396-9200",
    "email": "gwoldiger@radiantprop.com"
   },
   "source": {
@@ -34389,8 +34717,53 @@
   }
  },
  {
+  "id": "dc-314740",
+  "name": "Park Kennedy (Hill East)",
+  "address": "1901 C Street SE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20003",
+  "area": "DC",
+  "lat": 38.88512824,
+  "lon": -76.97658974,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 262,
+  "affordableUnits": 31,
+  "incomeCeiling": 60,
+  "amiMix": {
+   "30": 15,
+   "60": 16
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2020,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.1,
+  "metroStation": "Stadium-Armory",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2930,
+   "1": 3020,
+   "2": 3370,
+   "3": 4250,
+   "4": 5000
+  }
+ },
+ {
   "id": "dc-235840",
-  "name": "Park Meridian - Amazon Acquisition",
+  "name": "Park Meridian",
   "address": "2637 16th Street NW",
   "city": "Washington",
   "state": "DC",
@@ -34435,7 +34808,7 @@
  },
  {
   "id": "dc-233668",
-  "name": "Park Regent - Amazon Acquisition",
+  "name": "Park Regent",
   "address": "1701 Park Road NW",
   "city": "Washington",
   "state": "DC",
@@ -34506,7 +34879,7 @@
   "contact": {
    "name": "Henry Johnson",
    "org": "Winn Managed Properties LLC",
-   "phone": "202-667-6590",
+   "phone": "(202) 667-6590",
    "email": "hejohnson@winnco.com"
   },
   "source": {
@@ -34785,7 +35158,7 @@
   "contact": {
    "name": "Shuanique Clark",
    "org": "Franklin Group Companies LLC",
-   "phone": "(202)889-1200",
+   "phone": "(202) 889-1200",
    "email": "sclark@fgcompanies.com"
   },
   "source": {
@@ -35108,7 +35481,7 @@
   "contact": {
    "name": "Tasha Etienne",
    "org": "Winn Management Company LLC",
-   "phone": "202 483-6694",
+   "phone": "(202) 483-6694",
    "email": "tetienne@winnco.com"
   },
   "source": {
@@ -35371,7 +35744,7 @@
  },
  {
   "id": "dc-148655",
-  "name": "Pleasant Park Cooperative, Inc.",
+  "name": "Pleasant Park Cooperative",
   "address": "323 63rd Street NE",
   "city": "Washington",
   "state": "DC",
@@ -35495,7 +35868,7 @@
   "contact": {
    "name": "Jennifer O'dell",
    "org": "Habitat America, LLC",
-   "phone": "202-387-7079",
+   "phone": "(202) 387-7079",
    "email": "jodell@habitatamerica.com"
   },
   "source": {
@@ -35795,50 +36168,6 @@
   }
  },
  {
-  "id": "dc-53411",
-  "name": "RAP, Inc. Community Based Residential Facility (fka The Summit)",
-  "address": "1959 4th Street NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20002",
-  "area": "DC",
-  "lat": 38.91719079,
-  "lon": -77.0002719,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 38,
-  "affordableUnits": 38,
-  "incomeCeiling": 30,
-  "amiMix": {
-   "30": 38
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2016,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.4,
-  "metroStation": "Rhode Island Ave-Brentwood",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2160,
-   "1": 2220,
-   "2": 2480,
-   "3": 3130,
-   "4": 3680
-  }
- },
- {
   "id": "dc-297993",
   "name": "Randle Hill Apts",
   "address": "3300 6th Street SE",
@@ -35887,7 +36216,7 @@
  },
  {
   "id": "dc-243308",
-  "name": "Ravenel - Amazon Acquisition",
+  "name": "Ravenel",
   "address": "1610 16th Street NW",
   "city": "Washington",
   "state": "DC",
@@ -36020,7 +36349,7 @@
  },
  {
   "id": "dc-150719",
-  "name": "Residence at Minnesota Gardens Cooperative, Inc",
+  "name": "Residence at Minnesota Gardens Cooperative",
   "address": "3501 Minnesota Avenue SE",
   "city": "Washington",
   "state": "DC",
@@ -36503,7 +36832,7 @@
  },
  {
   "id": "dc-295089",
-  "name": "Riggs Crossing Senior Residences - Fort Totten Phase 2 (Multifamily Senior)",
+  "name": "Riggs Crossing Senior Residences",
   "address": "5543 South Dakota Avenue NE",
   "city": "Washington",
   "state": "DC",
@@ -36548,7 +36877,7 @@
  },
  {
   "id": "dc-331212",
-  "name": "Riggs Park Place - Fort Totten Phase 1 (Townhome)",
+  "name": "Riggs Park Place",
   "address": "325 Riggs Road NE",
   "city": "Washington",
   "state": "DC",
@@ -36623,7 +36952,7 @@
   "contact": {
    "name": "Mario Lloyde",
    "org": "Vision Realty Management Company",
-   "phone": "(202)291-5050",
+   "phone": "(202) 291-5050",
    "email": "mario@visionrealtymgt.com"
   },
   "source": {
@@ -36894,7 +37223,7 @@
   "contact": {
    "name": "Melody Stanford",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "(202)678-5699",
+   "phone": "(202) 678-5699",
    "email": "mstanford@qpmgmt.com"
   },
   "source": {
@@ -37372,7 +37701,7 @@
  },
  {
   "id": "dc-317136",
-  "name": "Saint Elizabeths East Campus Redevelopment Phase I",
+  "name": "Saint Elizabeths East Campus Phase I",
   "address": "1201 Oak Drive SE",
   "city": "Washington",
   "state": "DC",
@@ -37443,7 +37772,7 @@
   "contact": {
    "name": "Elias Hussein",
    "org": "Ncba Housing Management Corporation Of The District Of Columbia",
-   "phone": "(202)387-4367",
+   "phone": "(202) 387-4367",
    "email": "ehussein@ncba-aging.org"
   },
   "source": {
@@ -37845,7 +38174,7 @@
  },
  {
   "id": "ph-DC001005300",
-  "name": "Sheridan Station Phase I (Multifamily)",
+  "name": "Sheridan Station Phase I",
   "address": "2516 Sheridan Rd SE Ste 1",
   "city": "Washington",
   "state": "DC",
@@ -38112,7 +38441,7 @@
   "contact": {
    "name": "Susan Thomas",
    "org": "Redwood Communities Inc",
-   "phone": "(202)678-7100",
+   "phone": "(202) 678-7100",
    "email": "susan.thomas@redwood-communities.com"
   },
   "source": {
@@ -38292,7 +38621,7 @@
   "contact": {
    "name": "Jenny Rufino",
    "org": "Winn Managed Properties LLC",
-   "phone": "202-561-8600",
+   "phone": "(202) 561-8600",
    "email": "jrufino@winnco.com"
   },
   "source": {
@@ -38472,7 +38801,7 @@
   "contact": {
    "name": "Jeffrey Turner",
    "org": "Jeffrey Charles And Associates, Inc.",
-   "phone": "703-484-3149",
+   "phone": "(703) 484-3149",
    "email": "jeff@jeffreycharles.com"
   },
   "source": {
@@ -38518,7 +38847,7 @@
   "contact": {
    "name": "Sonya Carter",
    "org": "Spm LLC",
-   "phone": "(202)223-5712",
+   "phone": "(202) 223-5712",
    "email": "sonyac@spm.net"
   },
   "source": {
@@ -38536,7 +38865,7 @@
  },
  {
   "id": "dc-277791",
-  "name": "St. Matthew's Redevelopment",
+  "name": "St. Matthew's",
   "address": "222 M Street SW",
   "city": "Washington",
   "state": "DC",
@@ -38974,7 +39303,7 @@
   "contact": {
    "name": "Rossnat Rodriguez |",
    "org": "Horning Management Company LLC",
-   "phone": "202-659-0700",
+   "phone": "(202) 659-0700",
    "email": "Rossnat@HorningBrothers.com"
   },
   "source": {
@@ -39022,7 +39351,7 @@
   "contact": {
    "name": "Rossnat Rodriguez",
    "org": "Horning Management Company LLC",
-   "phone": "202-659-0700",
+   "phone": "(202) 659-0700",
    "email": "rossnat@horningbrothers.com"
   },
   "source": {
@@ -39120,7 +39449,7 @@
   "contact": {
    "name": "Lawerence Means",
    "org": "Building Futures Inc",
-   "phone": "202-639-0361",
+   "phone": "(202) 639-0361",
    "email": "ldmeanssr@gmail.com"
   },
   "source": {
@@ -39305,7 +39634,7 @@
   "contact": {
    "name": "Mario Lloyd",
    "org": "Vision Realty Management Company",
-   "phone": "202-488-0552",
+   "phone": "(202) 488-0552",
    "email": "mario@visionrealtymgt.com"
   },
   "source": {
@@ -39376,9 +39705,9 @@
   "lat": 38.849354999999996,
   "lon": -76.971227,
   "program": "LIHTC",
-  "totalUnits": 60,
+  "totalUnits": 61,
   "affordableUnits": 60,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2,
@@ -39411,52 +39740,11 @@
    "2": 1630,
    "3": 2060,
    "4": 2420
-  }
- },
- {
-  "id": "dc-319271",
-  "name": "Terrace Manor Apartments 2019 RFP",
-  "address": "3301 23rd Street SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20020",
-  "area": "DC",
-  "lat": 38.84844497,
-  "lon": -76.97157104,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 130,
-  "affordableUnits": 130,
-  "incomeCeiling": 60,
+  },
   "amiMix": {
    "30": 14,
    "50": 42,
    "60": 74
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2024,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.5,
-  "metroStation": "Southern Avenue",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1420,
-   "1": 1460,
-   "2": 1630,
-   "3": 2060,
-   "4": 2420
   }
  },
  {
@@ -39503,6 +39791,51 @@
    "2": 3370,
    "3": 4250,
    "4": 5000
+  }
+ },
+ {
+  "id": "dc-306458",
+  "name": "The 202 (Washington Gateway)",
+  "address": "202 Florida Avenue NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20002",
+  "area": "DC",
+  "lat": 38.90859167,
+  "lon": -77.00286245,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 254,
+  "affordableUnits": 23,
+  "incomeCeiling": 80,
+  "amiMix": {
+   "60": 5,
+   "80": 18
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2024,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.1,
+  "metroStation": "Noma-Gallaudet U",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2160,
+   "1": 2220,
+   "2": 2480,
+   "3": 3130,
+   "4": 3680
   }
  },
  {
@@ -39689,7 +40022,7 @@
  },
  {
   "id": "dc-283920",
-  "name": "The Appleton - Spring Flats Senior 4 % - fka Hebrew Home",
+  "name": "The Appleton - Spring Flats Senior 4 % - formerly Hebrew Home",
   "address": "1125 Spring Road NW",
   "city": "Washington",
   "state": "DC",
@@ -39986,7 +40319,7 @@
  },
  {
   "id": "dc-277151",
-  "name": "The Bobbi (fka The Amelia & Paul Apartments) - Acquisition/Critical Repairs",
+  "name": "The Bobbi (formerly The Amelia & Paul)",
   "address": "2151 California Street NW",
   "city": "Washington",
   "state": "DC",
@@ -40029,8 +40362,53 @@
   }
  },
  {
+  "id": "dc-294857",
+  "name": "The Burton (Washington Gateway)",
+  "address": "200 Florida Avenue NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20002",
+  "area": "DC",
+  "lat": 38.90908137,
+  "lon": -77.00257457,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 387,
+  "affordableUnits": 30,
+  "incomeCeiling": 80,
+  "amiMix": {
+   "60": 7,
+   "80": 23
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2022,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.1,
+  "metroStation": "Noma-Gallaudet U",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2160,
+   "1": 2220,
+   "2": 2480,
+   "3": 3130,
+   "4": 3680
+  }
+ },
+ {
   "id": "dc-315293",
-  "name": "The Channel (Parcel 2, Wharf Phase I)",
+  "name": "The Channel (The Wharf)",
   "address": "950 Maine Avenue SW",
   "city": "Washington",
   "state": "DC",
@@ -40346,7 +40724,7 @@
  },
  {
   "id": "dc-278584",
-  "name": "The Douglass (632 Howard Road SE) - Bridge District Phase I",
+  "name": "The Douglass (Bridge District)",
   "address": "632 Howard Road SE",
   "city": "Washington",
   "state": "DC",
@@ -40434,6 +40812,95 @@
   }
  },
  {
+  "id": "dc-314741",
+  "name": "The Ethel (Hill East)",
+  "address": "1900 C Street SE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20003",
+  "area": "DC",
+  "lat": 38.88574152,
+  "lon": -76.97649306,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 100,
+  "affordableUnits": 100,
+  "incomeCeiling": 30,
+  "amiMix": {
+   "30": 100
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2023,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.1,
+  "metroStation": "Stadium-Armory",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2930,
+   "1": 3020,
+   "2": 3370,
+   "3": 4250,
+   "4": 5000
+  }
+ },
+ {
+  "id": "dc-311496",
+  "name": "The Fold (Grimke School)",
+  "address": "912 U Street NW",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20001",
+  "area": "DC",
+  "lat": 38.91681425,
+  "lon": -77.0245357,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 30,
+  "affordableUnits": 9,
+  "incomeCeiling": 80,
+  "amiMix": {
+   "50": 5,
+   "80": 4
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2021,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.2,
+  "metroStation": "U Street/African-Amer Civil War Memorial/Cardozo",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2730,
+   "1": 2820,
+   "2": 3140,
+   "3": 3960,
+   "4": 4660
+  }
+ },
+ {
   "id": "dc-265176",
   "name": "The Frequency",
   "address": "4000 Brandywine Street NW",
@@ -40481,7 +40948,7 @@
  },
  {
   "id": "dc-307165",
-  "name": "The Gale Eckington - TOPA New Covenant",
+  "name": "The Gale Eckington",
   "address": "151 Q Street NE",
   "city": "Washington",
   "state": "DC",
@@ -40526,7 +40993,7 @@
  },
  {
   "id": "dc-146324",
-  "name": "The Gantry  (Building A1) - Union Market Terminal Stage 1 Consolidated PUD",
+  "name": "The Gantry (Building A1) - Union Market Terminal Stage 1 Consolidated PUD",
   "address": "300 Morse Street NE",
   "city": "Washington",
   "state": "DC",
@@ -40571,7 +41038,7 @@
  },
  {
   "id": "dc-302079",
-  "name": "The Gantry  (Building B) - Union Market Terminal Stage 1 Consolidated PUD",
+  "name": "The Gantry (Building B) - Union Market Terminal Stage 1 Consolidated PUD",
   "address": "325 Morse Street NE",
   "city": "Washington",
   "state": "DC",
@@ -40646,7 +41113,7 @@
   "contact": {
    "name": "Karrie Guare",
    "org": "Wright Management LLC",
-   "phone": "202-291-5050",
+   "phone": "(202) 291-5050",
    "email": "Karrie@wrightmanagement.net"
   },
   "source": {
@@ -40738,7 +41205,7 @@
   "contact": {
    "name": "Larry Looney",
    "org": "Abel Bishop Clarke Realty",
-   "phone": "(202)832-1111",
+   "phone": "(202) 832-1111",
    "email": "larrylooney@abcmgt.com"
   },
   "source": {
@@ -41608,7 +42075,7 @@
  {
   "id": "hud-800003771",
   "name": "The Pentacle",
-  "address": "710-720 16th Street  NE",
+  "address": "710-720 16th Street NE",
   "city": "Washington",
   "state": "DC",
   "zip": "20002",
@@ -41639,7 +42106,7 @@
   "contact": {
    "name": "Kim Brickhouse",
    "org": "Horning Management Company LLC",
-   "phone": "202-659-0700",
+   "phone": "(202) 659-0700",
    "email": "kbrickhouse@horningbrothers.com"
   },
   "source": {
@@ -42152,8 +42619,52 @@
   }
  },
  {
+  "id": "dc-53411",
+  "name": "The Summit (RAP community residence)",
+  "address": "1959 4th Street NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20002",
+  "area": "DC",
+  "lat": 38.91719079,
+  "lon": -77.0002719,
+  "program": "LIHTC",
+  "subsidy": "dc",
+  "totalUnits": 38,
+  "affordableUnits": 38,
+  "incomeCeiling": 30,
+  "amiMix": {
+   "30": 38
+  },
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": 2016,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.4,
+  "metroStation": "Rhode Island Ave-Brentwood",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
+   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2160,
+   "1": 2220,
+   "2": 2480,
+   "3": 3130,
+   "4": 3680
+  }
+ },
+ {
   "id": "dc-331860",
-  "name": "The Tides and Amaris (Parcel 8 and 9) - The Wharf  Phase II",
+  "name": "The Tides and Amaris (The Wharf)",
   "address": "35 Parker Row SW",
   "city": "Washington",
   "state": "DC",
@@ -42269,7 +42780,7 @@
   "contact": {
    "name": "Monica Areford",
    "org": "Enterprise Residential LLC",
-   "phone": "443.451.6819",
+   "phone": "(443) 451-6819",
    "email": "mareford@enterpriseresidential.org"
   },
   "source": {
@@ -42642,7 +43153,7 @@
  },
  {
   "id": "dc-288280",
-  "name": "Tivoli Gardens TOPA",
+  "name": "Tivoli Gardens",
   "address": "4811 North Capitol Street NE",
   "city": "Washington",
   "state": "DC",
@@ -43224,7 +43735,7 @@
   "contact": {
    "name": "Israel Roizman",
    "org": "Shnir Apartment Management, Corp.",
-   "phone": "(202)371-2517",
+   "phone": "(202) 371-2517",
    "email": "israel@roizman.com"
   },
   "source": {
@@ -43794,7 +44305,7 @@
   "lon": -76.952557,
   "program": "HUD",
   "subsidy": "public-housing",
-  "totalUnits": 97,
+  "totalUnits": 98,
   "affordableUnits": 36,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -44301,7 +44812,7 @@
   "contact": {
    "name": "Denise Tessauro",
    "org": "Franklin Group Companies LLC",
-   "phone": "(202)575-2990",
+   "phone": "(202) 575-2990",
    "email": "Dtessauro@tfjgroup.com"
   },
   "source": {
@@ -44821,7 +45332,7 @@
   "contact": {
    "name": "Bernadette Anderson",
    "org": "Arco Management Corporation",
-   "phone": "289-5338",
+   "phone": "(202) 289-5338",
    "email": "beanderson@mmsgroup.com"
   },
   "source": {
@@ -45017,96 +45528,6 @@
   }
  },
  {
-  "id": "dc-294857",
-  "name": "Washington Gateway Phase II - The Burton",
-  "address": "200 Florida Avenue NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20002",
-  "area": "DC",
-  "lat": 38.90908137,
-  "lon": -77.00257457,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 387,
-  "affordableUnits": 30,
-  "incomeCeiling": 80,
-  "amiMix": {
-   "60": 7,
-   "80": 23
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2022,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.1,
-  "metroStation": "Noma-Gallaudet U",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2160,
-   "1": 2220,
-   "2": 2480,
-   "3": 3130,
-   "4": 3680
-  }
- },
- {
-  "id": "dc-306458",
-  "name": "Washington Gateway Phase III - The 202 (South Residential Tower)",
-  "address": "202 Florida Avenue NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20002",
-  "area": "DC",
-  "lat": 38.90859167,
-  "lon": -77.00286245,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 254,
-  "affordableUnits": 23,
-  "incomeCeiling": 80,
-  "amiMix": {
-   "60": 5,
-   "80": 18
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2024,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.1,
-  "metroStation": "Noma-Gallaudet U",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2160,
-   "1": 2220,
-   "2": 2480,
-   "3": 3130,
-   "4": 3680
-  }
- },
- {
   "id": "lihtc-DCB19900010",
   "name": "Washington Overlook",
   "address": "3502 Commodore Joshua Barney Dr NE",
@@ -45117,7 +45538,7 @@
   "lat": 38.928032,
   "lon": -76.9561,
   "program": "LIHTC",
-  "totalUnits": 158,
+  "totalUnits": 160,
   "affordableUnits": 33,
   "incomeCeiling": null,
   "bedrooms": [
@@ -45881,7 +46302,7 @@
   "contact": {
    "name": "Michelle Scheinbaum",
    "org": "Capital Realty Group Inc",
-   "phone": "(202)678-8388",
+   "phone": "(202) 678-8388",
    "email": "michelle@thecapitalrealty.com"
   },
   "source": {
@@ -46018,7 +46439,7 @@
   "contact": {
    "name": "Maria Paipa",
    "org": "Woodley Housing Corporation",
-   "phone": "202-290-1375",
+   "phone": "(202) 290-1375",
    "email": "mpaipa@woodleyhouse.org"
   },
   "source": {
@@ -46265,7 +46686,7 @@
  },
  {
   "id": "dc-287746",
-  "name": "i5 (fka The Highline) at Union Market",
+  "name": "i5 (formerly The Highline) at Union Market",
   "address": "320 Florida Avenue NE",
   "city": "Washington",
   "state": "DC",
@@ -46425,7 +46846,7 @@
   "contact": {
    "name": "Patrick M Appleby",
    "org": "Winn Management Company LLC",
-   "phone": "703-644-0061",
+   "phone": "(703) 644-0061",
    "email": "pappleby@winnco.com"
   },
   "source": {
@@ -46557,7 +46978,7 @@
   "contact": {
    "name": "Andrew Drier",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-471-1929",
+   "phone": "(703) 471-1929",
    "email": "adrier@qpmgmt.com"
   },
   "source": {
@@ -46603,7 +47024,7 @@
   "contact": {
    "name": "Bethann Clayborn",
    "org": "Amurcon Realty Company",
-   "phone": "703-378-4810",
+   "phone": "(703) 378-4810",
    "email": "amurcon@amurcon.com"
   },
   "source": {
@@ -46643,7 +47064,7 @@
   "contact": {
    "name": "Monica Duggal",
    "org": "Community Living Alternatives, Inc.",
-   "phone": "(703) 237-0388 Ext. 218",
+   "phone": "(703) 237-0388 ext. 218",
    "email": "mduggal@cla-va.org"
   },
   "source": {
@@ -46733,7 +47154,7 @@
   "contact": {
    "name": "Shelly Murphy",
    "org": "Wesley Housing Development Corporation",
-   "phone": "703.642.3830",
+   "phone": "(703) 642-3830",
    "email": "smurphy@whcd.org"
   },
   "source": {
@@ -46945,7 +47366,7 @@
   "contact": {
    "name": "Betty Shum",
    "org": "Ra Management LLC",
-   "phone": "703.323.1116",
+   "phone": "(703) 323-1116",
    "email": "bshum@related.com"
   },
   "source": {
@@ -47085,7 +47506,7 @@
   "contact": {
    "name": "Edward Demers",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703.941.8707",
+   "phone": "(703) 941-8707",
    "email": "ed@demers1.com"
   },
   "source": {
@@ -47505,7 +47926,7 @@
   "contact": {
    "name": "Mary Corthell",
    "org": "Ndc Real Estate Management LLC",
-   "phone": "703-569-7240",
+   "phone": "(703) 569-7240",
    "email": "mcorthell@beaconcommunitiesllc.com"
   },
   "source": {
@@ -47570,7 +47991,7 @@
  {
   "id": "hud-800021867",
   "name": "Hartwood Group Homes",
-  "address": "6735  W. Wakefield Drive",
+  "address": "6735 W. Wakefield Drive",
   "city": "Alexandria",
   "state": "VA",
   "zip": "22307",
@@ -47595,7 +48016,7 @@
   "contact": {
    "name": "Patricia Bassette",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-914-3901",
+   "phone": "(703) 914-3901",
    "email": "pbeset@aol.com"
   },
   "source": {
@@ -47639,7 +48060,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-914-3901",
+   "phone": "(703) 914-3901",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -47683,7 +48104,7 @@
   "contact": {
    "name": "Margaret Bessette",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-914-3901",
+   "phone": "(703) 914-3901",
    "email": "pbessette@qpmgmt.com"
   },
   "source": {
@@ -47811,7 +48232,7 @@
   "contact": {
    "name": "Teosha Honeygan",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703-620-4450",
+   "phone": "(703) 620-4450",
    "email": "thoneygan@slnusbaum.com"
   },
   "source": {
@@ -47859,7 +48280,7 @@
   "contact": {
    "name": "Natasha Lasley",
    "org": "Capreit Residential Management, LLC",
-   "phone": "703-360-5200",
+   "phone": "(703) 360-5200",
    "email": "nlasley@capreit.com"
   },
   "source": {
@@ -47907,7 +48328,7 @@
   "contact": {
    "name": "Eugenia Palmer",
    "org": "Enterprise Residential LLC",
-   "phone": "703.471.4422",
+   "phone": "(703) 471-4422",
    "email": "epalmer@enterpriseresidential.org"
   },
   "source": {
@@ -48039,7 +48460,7 @@
   "contact": {
    "name": "Miles B. Leon",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "757-640-2210",
+   "phone": "(757) 640-2210",
    "email": "mleon@slnusbaum.com"
   },
   "source": {
@@ -48107,7 +48528,7 @@
  {
   "id": "lihtc-VAA20180019",
   "name": "Laurel Hill Reformatory",
-  "address": "Multiple- See Bin Worksheet",
+  "address": "",
   "city": "Lorton",
   "state": "VA",
   "zip": "22079",
@@ -48228,7 +48649,7 @@
   "contact": {
    "name": "Timothy Smith",
    "org": "Goodwin House Community Services",
-   "phone": "703-442-8660",
+   "phone": "(703) 442-8660",
    "email": "timothy.smith@goodwinliving.org"
   },
   "source": {
@@ -48412,7 +48833,7 @@
   "contact": {
    "name": "Kristian Hollins",
    "org": "Fairfax County Rha",
-   "phone": "703-641-8811",
+   "phone": "(703) 641-8811",
    "email": "khollins@mycri.org"
   },
   "source": {
@@ -48503,7 +48924,7 @@
   "contact": {
    "name": "David Kimelblatt",
    "org": "Capreit Residential Management, LLC",
-   "phone": "703.780.1300",
+   "phone": "(703) 780-1300",
    "email": "dkimelblatt@tmamgroup.com"
   },
   "source": {
@@ -48553,7 +48974,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "703.780.9574",
+   "phone": "(703) 780-9574",
    "email": "DMcGuill@pratumco.com"
   },
   "source": {
@@ -48599,7 +49020,7 @@
   "contact": {
    "name": "Latia Mondul",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703-471-6474",
+   "phone": "(703) 471-6474",
    "email": "lmondul@slnusbaum.com"
   },
   "source": {
@@ -48645,7 +49066,7 @@
   "contact": {
    "name": "Bethann Clayborn",
    "org": "Amurcon Realty Company",
-   "phone": "703-255-2993",
+   "phone": "(703) 255-2993",
    "email": "baclayborn@amurcon.com"
   },
   "source": {
@@ -48691,7 +49112,7 @@
   "contact": {
    "name": "Debbie Robinson",
    "org": "Allen & Rocks, Inc.",
-   "phone": "703-820-9500",
+   "phone": "(703) 820-9500",
    "email": "drobinson@rocksco.com"
   },
   "source": {
@@ -48821,7 +49242,7 @@
   "contact": {
    "name": "Rachel Matzke",
    "org": "Pathway Homes, Inc.",
-   "phone": "703-876-0390",
+   "phone": "(703) 876-0390",
    "email": "rmatzke@pathwayhomes.org"
   },
   "source": {
@@ -48861,7 +49282,7 @@
   "contact": {
    "name": "Kristina Mccullough",
    "org": "Pathway Homes, Inc.",
-   "phone": "703-876-0390",
+   "phone": "(703) 876-0390",
    "email": "kmccullough@pathwayhomes.org"
   },
   "source": {
@@ -48906,7 +49327,7 @@
   "contact": {
    "name": "Lauren Leventhal",
    "org": "Pathway Homes, Inc.",
-   "phone": "703-876-0390",
+   "phone": "(703) 876-0390",
    "email": "lleventhal@pathwayhomes.org"
   },
   "source": {
@@ -49050,7 +49471,7 @@
   "contact": {
    "name": "C Thomas",
    "org": "Spring Garden Apartments Lllp",
-   "phone": "703.780.6700",
+   "phone": "(703) 780-6700",
    "email": "cthomas@sm-group.com"
   },
   "source": {
@@ -49194,7 +49615,7 @@
   "contact": {
    "name": "Gayle Filo",
    "org": "Enterprise Residential LLC",
-   "phone": "703.360.5200",
+   "phone": "(703) 360-5200",
    "email": "gfilo@rhomecommunities.com"
   },
   "source": {
@@ -49212,7 +49633,7 @@
  },
  {
   "id": "hud-800022084",
-  "name": "Strawbridge Square Associates",
+  "name": "Strawbridge Square",
   "address": "5131 - 6399 Strawbridge",
   "city": "Alexandria",
   "state": "VA",
@@ -49244,7 +49665,7 @@
   "contact": {
    "name": "Nina Hambrick",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703.354.1155",
+   "phone": "(703) 354-1155",
    "email": "nina.hambrick@slnusbaum.net"
   },
   "source": {
@@ -49290,7 +49711,7 @@
   "contact": {
    "name": "Joe Lamantia",
    "org": "Ra Management LLC",
-   "phone": "703-323-1116",
+   "phone": "(703) 323-1116",
    "email": "RAManagementCentral@related.com"
   },
   "source": {
@@ -49358,7 +49779,7 @@
   "address": "12465 Glade Dr",
   "city": "Reston",
   "state": "VA",
-  "zip": "",
+  "zip": "20191",
   "area": "FAIRFAX",
   "lat": 38.946957999999995,
   "lon": -77.37463,
@@ -49391,11 +49812,18 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2010,
+   "1": 2070,
+   "2": 2310,
+   "3": 2920,
+   "4": 3430
   }
  },
  {
   "id": "hud-800021676",
-  "name": "Tysons Landing Ltd",
+  "name": "Tysons Landing",
   "address": "1840A Tysons Landing Ct",
   "city": "Mc Lean",
   "state": "VA",
@@ -49425,7 +49853,7 @@
   "contact": {
    "name": "Beth Ann Clayborn",
    "org": "Amurcon Realty Company",
-   "phone": "703-827-0552",
+   "phone": "(703) 827-0552",
    "email": "baclayborn@amurcon.com"
   },
   "source": {
@@ -49473,7 +49901,7 @@
   "contact": {
    "name": "Nona Diggs, Cos, Tcs, Shcm, Fhc",
    "org": "Polinger Company",
-   "phone": "703.281.2080",
+   "phone": "(703) 281-2080",
    "email": "NDiggs@tysontowers.net"
   },
   "source": {
@@ -49519,7 +49947,7 @@
   "contact": {
    "name": "Nina Hambrick",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703-573-8430",
+   "phone": "(703) 573-8430",
    "email": "nina.hambrick@slnusbaum.com"
   },
   "source": {
@@ -49565,7 +49993,7 @@
   "contact": {
    "name": "Gayle Filo",
    "org": "Enterprise Residential LLC",
-   "phone": "703.273.6609",
+   "phone": "(703) 273-6609",
    "email": "gfilo@rhomecommunities.com"
   },
   "source": {
@@ -49611,7 +50039,7 @@
   "contact": {
    "name": "Terrence Kelley",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "703-323-7438",
+   "phone": "(703) 323-7438",
    "email": "TKelley@emcmgmt.com"
   },
   "source": {
@@ -49659,7 +50087,7 @@
   "contact": {
    "name": null,
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703-573-8430",
+   "phone": "(703) 573-8430",
    "email": null
   },
   "source": {
@@ -49709,7 +50137,7 @@
   "contact": {
    "name": "Rey Sison",
    "org": "Noble Realty Advisors LLC",
-   "phone": "703.273.7777",
+   "phone": "(703) 273-7777",
    "email": "rsison@yorkvillecooperative.org"
   },
   "source": {
@@ -50155,7 +50583,7 @@
   "lat": 38.731418999999995,
   "lon": -77.795895,
   "program": "LIHTC",
-  "totalUnits": 96,
+  "totalUnits": 97,
   "affordableUnits": 96,
   "incomeCeiling": 50,
   "bedrooms": [
@@ -50331,7 +50759,7 @@
   "contact": {
    "name": "Tammy Keaton",
    "org": "Rappahannock-Rapidan Community",
-   "phone": "540-439-2058",
+   "phone": "(540) 439-2058",
    "email": "tkeaton@ecsva.org"
   },
   "source": {
@@ -50411,7 +50839,7 @@
   "contact": {
    "name": "Denise Tessauro",
    "org": "Tm Associates Management Inc",
-   "phone": "540-349-1353",
+   "phone": "(540) 349-1353",
    "email": "dtessauro@tmamgroup.com"
   },
   "source": {
@@ -50466,7 +50894,7 @@
  },
  {
   "id": "usda-33e9c70bfb",
-  "name": "Washington Sq I Apartment Amy Associates VA,",
+  "name": "Washington Square I Apartments",
   "address": "17 E Main St",
   "city": "Berryville",
   "state": "VA",
@@ -50541,7 +50969,7 @@
   "contact": {
    "name": "Kathleen Franco",
    "org": "Trinity Management LLC",
-   "phone": "508-583-7834",
+   "phone": "(508) 583-7834",
    "email": "KFranco@trinitymanagementcompany.com"
   },
   "source": {
@@ -50627,7 +51055,7 @@
   "contact": {
    "name": "Thomas Evans",
    "org": "Community Living, Inc.",
-   "phone": "301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "thomase@clifrederick.org"
   },
   "source": {
@@ -50672,7 +51100,7 @@
   "contact": {
    "name": "Kimberly Harley",
    "org": "Way Station Inc",
-   "phone": "301-662-0099",
+   "phone": "(301) 662-0099",
    "email": "kimberly.harley@sheppardpratt.org"
   },
   "source": {
@@ -50716,7 +51144,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-662-0099 x1234",
+   "phone": "(301) 662-0099 ext. 1234",
    "email": "vtroxell@waystationinc.org"
   },
   "source": {
@@ -50801,7 +51229,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-662-0099 Ext. 1632",
+   "phone": "(301) 662-0099 ext. 1632",
    "email": "vtroxell@waystationinc.org"
   },
   "source": {
@@ -50888,7 +51316,7 @@
   "contact": {
    "name": "Katrina Howard",
    "org": "Brunswick Voa  Affordable Housing LP",
-   "phone": "301-834-7700",
+   "phone": "(301) 834-7700",
    "email": "khoward@voa.org"
   },
   "source": {
@@ -51058,7 +51486,7 @@
   "contact": {
    "name": "Erin Arnold",
    "org": "Community Living, Inc.",
-   "phone": "301 663-8811",
+   "phone": "(301) 663-8811",
    "email": "erins@communitylivimginc.org"
   },
   "source": {
@@ -51106,7 +51534,7 @@
   "contact": {
    "name": "Michael Gogolinishki",
    "org": "The Maryland Management Company",
-   "phone": "301 694-0355",
+   "phone": "(301) 694-0355",
    "email": "mgogolin@marylandmgmt.com"
   },
   "source": {
@@ -51230,7 +51658,7 @@
   "contact": {
    "name": "Mark Lawrence",
    "org": "Way Station Inc",
-   "phone": "301-662-0099",
+   "phone": "(301) 662-0099",
    "email": "mlawrence@waystationinc.org"
   },
   "source": {
@@ -51295,6 +51723,52 @@
   }
  },
  {
+  "id": "hud-800009227",
+  "name": "Frederick",
+  "address": "102-104 S Market St",
+  "city": "Frederick",
+  "state": "MD",
+  "zip": "21701",
+  "area": "FREDERICK",
+  "lat": 39.411645,
+  "lon": -77.411074,
+  "program": "HUD",
+  "totalUnits": 4,
+  "affordableUnits": 4,
+  "incomeCeiling": null,
+  "bedrooms": [
+   1,
+   2
+  ],
+  "unitMix": {
+   "1": 3,
+   "2": 1
+  },
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 24.1,
+  "metroStation": "Shady Grove",
+  "contact": {
+   "name": "Brad Peter",
+   "org": "City Of Frederick",
+   "phone": "(301) 600-1443",
+   "email": "bpeterson@cityoffrederick.com"
+  },
+  "source": {
+   "dataset": "HUD Multifamily Assisted Properties",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1620,
+   "1": 1670,
+   "2": 1860,
+   "3": 2350,
+   "4": 2760
+  }
+ },
+ {
   "id": "lihtc-MDA19880902",
   "name": "Frederick Properties",
   "address": "207 Phebus Ave",
@@ -51334,52 +51808,6 @@
    "4": 2760
   },
   "groupHome": true
- },
- {
-  "id": "hud-800009227",
-  "name": "Frederick Rehab",
-  "address": "102-104 S Market St",
-  "city": "Frederick",
-  "state": "MD",
-  "zip": "21701",
-  "area": "FREDERICK",
-  "lat": 39.411645,
-  "lon": -77.411074,
-  "program": "HUD",
-  "totalUnits": 4,
-  "affordableUnits": 4,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1,
-   2
-  ],
-  "unitMix": {
-   "1": 3,
-   "2": 1
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 24.1,
-  "metroStation": "Shady Grove",
-  "contact": {
-   "name": "Brad Peter",
-   "org": "City Of Frederick",
-   "phone": "301-600-1443",
-   "email": "bpeterson@cityoffrederick.com"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1620,
-   "1": 1670,
-   "2": 1860,
-   "3": 2350,
-   "4": 2760
-  }
  },
  {
   "id": "lihtc-MDA20100035",
@@ -51591,7 +52019,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-694-0070",
+   "phone": "(301) 694-0070",
    "email": "vtroxell@hitmail.com"
   },
   "source": {
@@ -51808,7 +52236,7 @@
   "contact": {
    "name": "Dana Burns",
    "org": "Community Living, Inc.",
-   "phone": "301-694-8810",
+   "phone": "(301) 694-8810",
    "email": "danab@clifrederick.org"
   },
   "source": {
@@ -51905,7 +52333,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Irish Meadows Inc.",
-   "phone": "(301)662-0099",
+   "phone": "(301) 662-0099",
    "email": "vicky.troxell@sheppardpratt.org"
   },
   "source": {
@@ -52075,7 +52503,7 @@
   "contact": {
    "name": "Christoper Pitt",
    "org": "Way Station Inc",
-   "phone": "240-409-1444",
+   "phone": "(240) 409-1444",
    "email": "christopher.pitt@sheppardpratt.org"
   },
   "source": {
@@ -52119,7 +52547,7 @@
   "contact": {
    "name": "Dana Burns",
    "org": "Community Living, Inc.",
-   "phone": "301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "danab@clifrederick.org"
   },
   "source": {
@@ -52187,7 +52615,7 @@
   "lat": 39.620466,
   "lon": -77.41595699999999,
   "program": "LIHTC",
-  "totalUnits": 26,
+  "totalUnits": 27,
   "affordableUnits": 26,
   "incomeCeiling": null,
   "bedrooms": [
@@ -52291,7 +52719,7 @@
   "contact": {
    "name": "Christopher Pratt",
    "org": "Way Station Inc",
-   "phone": "301-662-0099",
+   "phone": "(301) 662-0099",
    "email": "christopher.pratt@sheppardpratt.org"
   },
   "source": {
@@ -52335,7 +52763,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "(301) 662-0099 x 1632",
+   "phone": "(301) 662-0099 ext. 1632",
    "email": "vtroxell@sheppardpratt.org"
   },
   "source": {
@@ -52381,7 +52809,7 @@
   "contact": {
    "name": "Brian Swift",
    "org": "Armiger Management Corporation",
-   "phone": "301-662-8510",
+   "phone": "(301) 662-8510",
    "email": "drian@orcharddevelopment.com"
   },
   "source": {
@@ -52548,7 +52976,7 @@
   "contact": {
    "name": "Erin Smith",
    "org": "Community Living, Inc.",
-   "phone": "1-301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "Erins@communitylivinginc.org"
   },
   "source": {
@@ -52634,7 +53062,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-694-0070",
+   "phone": "(301) 694-0070",
    "email": "vicky.troxell@sheppardpratt.org"
   },
   "source": {
@@ -52652,7 +53080,7 @@
  },
  {
   "id": "ph-MD003000002",
-  "name": "Scattered Sites Fka Lucas Village",
+  "name": "Scattered Sites formerly Lucas Village",
   "address": "563 Cotswold Ct",
   "city": "Frederick",
   "state": "MD",
@@ -52723,7 +53151,7 @@
   "contact": {
    "name": "Thomas Evans",
    "org": "Community Living, Inc.",
-   "phone": "301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "thomase@clifrederick.org"
   },
   "source": {
@@ -52767,7 +53195,7 @@
   "contact": {
    "name": "Clarence Ernde",
    "org": "Hai Management Inc",
-   "phone": "301-447-6250",
+   "phone": "(301) 447-6250",
    "email": "eernde@hrehllc.com"
   },
   "source": {
@@ -52859,7 +53287,7 @@
   "contact": {
    "name": "Thomas Johnson",
    "org": "Conifer Management LLC",
-   "phone": "240-221-1465",
+   "phone": "(240) 221-1465",
    "email": "tjohnson@coniferllc.com"
   },
   "source": {
@@ -53151,7 +53579,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-694-0070",
+   "phone": "(301) 694-0070",
    "email": "Vtroxell@waystationinc.org"
   },
   "source": {
@@ -53241,7 +53669,7 @@
   "contact": {
    "name": "Dana Burns",
    "org": "Summerplace Residences Of Frederick, Inc.",
-   "phone": "301-663-811-",
+   "phone": null,
    "email": "danab@clifrederick.org"
   },
   "source": {
@@ -53286,7 +53714,7 @@
   "contact": {
    "name": "Megan Norwood",
    "org": "Enterprise Residential LLC",
-   "phone": "404-487-5331",
+   "phone": "(404) 487-5331",
    "email": "mnorwood@enterpriseresidential.org"
   },
   "source": {
@@ -53538,7 +53966,7 @@
   "contact": {
    "name": "Dana Burns",
    "org": "Community Living, Inc.",
-   "phone": "301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "danab@clifrederick.org"
   },
   "source": {
@@ -53627,7 +54055,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-694-0070",
+   "phone": "(301) 694-0070",
    "email": "vtroxell@sheppardpratt.org"
   },
   "source": {
@@ -53711,7 +54139,7 @@
   "contact": {
    "name": "Erin Arnold",
    "org": "Community Living, Inc.",
-   "phone": "304-738-9272",
+   "phone": "(304) 738-9272",
    "email": "erins@communitylivinginc.org"
   },
   "source": {
@@ -53781,7 +54209,7 @@
   "address": "Broadway St",
   "city": "Frederick",
   "state": "MD",
-  "zip": "",
+  "zip": "21702",
   "area": "FREDERICK",
   "lat": 39.4345,
   "lon": -77.3918,
@@ -53810,6 +54238,13 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1550,
+   "1": 1600,
+   "2": 1780,
+   "3": 2250,
+   "4": 2640
   }
  },
  {
@@ -53882,7 +54317,7 @@
   "contact": {
    "name": "Laura Wasylak",
    "org": "Humphrey Management LLC Dba Benton Communities",
-   "phone": "240-578-4588",
+   "phone": "(240) 578-4588",
    "email": "lwasylak@hrehllc.com"
   },
   "source": {
@@ -53926,7 +54361,7 @@
   "contact": {
    "name": "Vicky Troxell",
    "org": "Way Station Inc",
-   "phone": "301-694-0070",
+   "phone": "(301) 694-0070",
    "email": "vtroxell@waystationinc.org"
   },
   "source": {
@@ -53970,7 +54405,7 @@
   "contact": {
    "name": "Kimberly Harley",
    "org": "Way Station Inc",
-   "phone": "301-662-0099",
+   "phone": "(301) 662-0099",
    "email": "kimberly.harley@sheppardpratt.org"
   },
   "source": {
@@ -54014,7 +54449,7 @@
   "contact": {
    "name": "Dana Burns",
    "org": "Community Living, Inc.",
-   "phone": "301-663-8811",
+   "phone": "(301) 663-8811",
    "email": "danab@communitylivinginc.org"
   },
   "source": {
@@ -54107,7 +54542,7 @@
   "contact": {
    "name": "Samuel A. Jones",
    "org": "Amurcon Realty Company",
-   "phone": "540-710-1905",
+   "phone": "(540) 710-1905",
    "email": "sajones@amurcon.com"
   },
   "source": {
@@ -54151,7 +54586,7 @@
   "contact": {
    "name": "Todd L. Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-894-4935",
+   "phone": "(540) 894-4935",
    "email": "tlarkin@racsb.state.va.us"
   },
   "source": {
@@ -54546,7 +54981,7 @@
   "contact": {
    "name": "Vickie Aimable",
    "org": "Agpm Georgia, LLC",
-   "phone": "540.371.2200",
+   "phone": "(540) 371-2200",
    "email": "vaimable@agpmanager.com"
   },
   "source": {
@@ -54590,7 +55025,7 @@
   "contact": {
    "name": "Todd Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-656-2373",
+   "phone": "(540) 656-2373",
    "email": "tlarkin@rappahannockareacsb.org"
   },
   "source": {
@@ -54681,7 +55116,7 @@
   "contact": {
    "name": "Interstate - Charles Durnin",
    "org": "Michaels Management-Affordable LLC",
-   "phone": "540-659-6078",
+   "phone": "(540) 659-6078",
    "email": "cdurnin@tmo.com"
   },
   "source": {
@@ -54772,7 +55207,7 @@
   "contact": {
    "name": "Loreto Martinez",
    "org": "Franklin Group Companies LLC",
-   "phone": "540.373.1422",
+   "phone": "(540) 373-1422",
    "email": "lmartinez@fgcompanies.com"
   },
   "source": {
@@ -54864,7 +55299,7 @@
   "contact": {
    "name": "Bethany Hooper",
    "org": "Humphrey Management LLC Dba Benton Communities",
-   "phone": "540-371-9362",
+   "phone": "(540) 371-9362",
    "email": "BHooper@hrehllc.com"
   },
   "source": {
@@ -54987,7 +55422,7 @@
   "contact": {
    "name": "Todd Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-899-4430",
+   "phone": "(540) 899-4430",
    "email": "tlarkin@rappahannockareacsb.org"
   },
   "source": {
@@ -55080,7 +55515,7 @@
   "contact": {
    "name": "Bethann Clayborn",
    "org": "Amurcon Realty Company",
-   "phone": "540-373-1419",
+   "phone": "(540) 373-1419",
    "email": "baclayborn@amurcon.com"
   },
   "source": {
@@ -55196,7 +55631,7 @@
   "contact": {
    "name": "Jim Mitchell",
    "org": "Residential One/Ahd Management LLC",
-   "phone": "540-371-4430",
+   "phone": "(540) 371-4430",
    "email": "jmitchell@ahd1.com"
   },
   "source": {
@@ -55240,7 +55675,7 @@
   "contact": {
    "name": "Todd Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-372-3585",
+   "phone": "(540) 372-3585",
    "email": "tlarkin@rappahannockareacsb.org"
   },
   "source": {
@@ -55451,7 +55886,7 @@
   "contact": {
    "name": "Tina Cleveland",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-940-2306",
+   "phone": "(540) 940-2306",
    "email": "tcleveland@rappahannockareacsb.org"
   },
   "source": {
@@ -55611,7 +56046,7 @@
   "contact": {
    "name": "Todd Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-373-3223",
+   "phone": "(540) 373-3223",
    "email": "tlarkin@rappahannockareacsb.org"
   },
   "source": {
@@ -55796,7 +56231,7 @@
   "contact": {
    "name": "Todd Larkin",
    "org": "Rappahannock Area Community Services Board, Inc.",
-   "phone": "540-785-9626",
+   "phone": "(540) 785-9626",
    "email": "tlarkin@racsb.state.va.us"
   },
   "source": {
@@ -56888,7 +57323,7 @@
   "contact": {
    "name": "Tony Ross",
    "org": "Residential One/Ahd Management LLC",
-   "phone": "703-777-5510",
+   "phone": "(703) 777-5510",
    "email": "tross@res1.net"
   },
   "source": {
@@ -57212,7 +57647,7 @@
   "contact": {
    "name": "Michelle Scheinbaum",
    "org": "Capital Realty Group Inc",
-   "phone": "703-406-0611",
+   "phone": "(703) 406-0611",
    "email": "michelle@thecapitalrealty.com"
   },
   "source": {
@@ -57325,7 +57760,7 @@
   "lat": 38.962849,
   "lon": -77.533279,
   "program": "LIHTC",
-  "totalUnits": 202,
+  "totalUnits": 207,
   "affordableUnits": 202,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -57778,7 +58213,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "301-562-1606",
+   "phone": "(301) 562-1606",
    "email": "DMcGuill@pratumco.com"
   },
   "source": {
@@ -57862,7 +58297,7 @@
   "contact": {
    "name": "Jen Schiller",
    "org": "Montgomery County Coalition For The Homeless, Inc.",
-   "phone": "301-217-0314 Ext. 103",
+   "phone": "(301) 217-0314 ext. 103",
    "email": "jschiller@mcch.net"
   },
   "source": {
@@ -57902,7 +58337,7 @@
   "contact": {
    "name": "Tracy Mack",
    "org": "Montgomery County Coalition For The Homeless, Inc.",
-   "phone": "301-917-6645",
+   "phone": "(301) 917-6645",
    "email": "tmack@mcch.net"
   },
   "source": {
@@ -58330,7 +58765,7 @@
   "contact": {
    "name": "Terrence Kelley",
    "org": "H. O. C. Of Montgomery Co.",
-   "phone": "301-948-0272",
+   "phone": "(301) 948-0272",
    "email": "tkelley@hocmc.org"
   },
   "source": {
@@ -58415,7 +58850,7 @@
   "contact": {
    "name": "Pamela Galliani",
    "org": "The Family Services Agency Inc.",
-   "phone": "301-840-2000",
+   "phone": "(301) 840-2000",
    "email": "gallianip@fs-inc.org"
   },
   "source": {
@@ -58500,7 +58935,7 @@
   "contact": {
    "name": "Sherraine Rawlins",
    "org": "H. O. C. Of Montgomery Co.",
-   "phone": "(301)587-3381",
+   "phone": "(301) 587-3381",
    "email": "Sherraine.Rawlins@hocmc.org"
   },
   "source": {
@@ -58564,7 +58999,7 @@
  },
  {
   "id": "hud-800009389",
-  "name": "Columbia Towers Limited",
+  "name": "Columbia Towers",
   "address": "12005 Old Columbia Pike",
   "city": "Silver Spring",
   "state": "MD",
@@ -58592,7 +59027,7 @@
   "contact": {
    "name": "Tonya Clark",
    "org": "H. O. C. Of Montgomery Co.",
-   "phone": "301-929-6711",
+   "phone": "(301) 929-6711",
    "email": "tonya.clark@hocmc.org"
   },
   "source": {
@@ -59024,7 +59459,7 @@
   "contact": {
    "name": "Ian Guertin",
    "org": "The Family Services Agency Inc.",
-   "phone": "240 403 0890",
+   "phone": "(240) 403-0890",
    "email": "Ian.Guertin@sheppartpratt.org"
   },
   "source": {
@@ -59173,7 +59608,7 @@
  },
  {
   "id": "lihtc-MDA00000032",
-  "name": "Forest Glen Main Master Tenant LLC",
+  "name": "Forest Glen Main",
   "address": "9615 Dewitt Dr",
   "city": "Silver Spring",
   "state": "MD",
@@ -59241,7 +59676,7 @@
   "contact": {
    "name": "Joan Neff",
    "org": "Habitat America, LLC",
-   "phone": "301-258-1040",
+   "phone": "(301) 258-1040",
    "email": "jneff@habitatamerica.com"
   },
   "source": {
@@ -59289,7 +59724,7 @@
   "contact": {
    "name": "Eva Gibson",
    "org": "Humphrey Management LLC Dba Benton Communities",
-   "phone": "301-622-7980",
+   "phone": "(301) 622-7980",
    "email": "egibson@hrehilc.com"
   },
   "source": {
@@ -59307,7 +59742,7 @@
  },
  {
   "id": "lihtc-MDA20120025",
-  "name": "Galaxy Phase I LP",
+  "name": "Galaxy Phase I",
   "address": "8025 13th St",
   "city": "Silver Spring",
   "state": "MD",
@@ -59502,7 +59937,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "301-460-6655",
+   "phone": "(301) 460-6655",
    "email": "DMcGuill@pratumco.com"
   },
   "source": {
@@ -59684,7 +60119,7 @@
   "contact": {
    "name": "Jennie Hawkins",
    "org": "Residential One LLC Fka Rs Property Management LLC",
-   "phone": "301-384-5481",
+   "phone": "(301) 384-5481",
    "email": "jhawkins@res1.net"
   },
   "source": {
@@ -59960,7 +60395,7 @@
   "contact": {
    "name": "Sandy Budock",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-762-8621",
+   "phone": "(301) 762-8621",
    "email": "sbudock@qpmgmt.com"
   },
   "source": {
@@ -60250,7 +60685,7 @@
   "contact": {
    "name": "Tony Ross",
    "org": "Residential One LLC Fka Rs Property Management LLC",
-   "phone": "301-598-4000 61",
+   "phone": "(301) 598-4000",
    "email": "tross@res1.net"
   },
   "source": {
@@ -60314,7 +60749,7 @@
  },
  {
   "id": "hud-800009290",
-  "name": "Hughes Housing Inc",
+  "name": "Hughes Housing",
   "address": "10720 Georgia Ave",
   "city": "Wheaton",
   "state": "MD",
@@ -60340,7 +60775,7 @@
   "contact": {
    "name": "Cathy Voundy-Thomas",
    "org": "L. Hayes & Assoc. Inc.",
-   "phone": "(301)929-8881",
+   "phone": "(301) 929-8881",
    "email": "Cathy@Lhayesassociates.com"
   },
   "source": {
@@ -60386,7 +60821,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-649-6595",
+   "phone": "(301) 649-6595",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -60471,7 +60906,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "301-469-6927",
+   "phone": "(301) 469-6927",
    "email": "dmcguill@pratumco.com"
   },
   "source": {
@@ -60565,7 +61000,7 @@
   "contact": {
    "name": "Luai Abdallah",
    "org": "Fairstead Management LLC",
-   "phone": "301-258-0553",
+   "phone": "(301) 258-0553",
    "email": "mgmtco@fairstead.com"
   },
   "source": {
@@ -60584,7 +61019,7 @@
  {
   "id": "hud-800009336",
   "name": "Magruders Discovery",
-  "address": "10508  Westlake Drive Dr",
+  "address": "10508 Westlake Drive Dr",
   "city": "Bethesda",
   "state": "MD",
   "zip": "20817",
@@ -60611,7 +61046,7 @@
   "contact": {
    "name": "Lisa Castillo",
    "org": "H. O. C. Of Montgomery Co.",
-   "phone": "301-263-4455",
+   "phone": "(301) 263-4455",
    "email": "Lisa.castillo@hocmc.org"
   },
   "source": {
@@ -60793,7 +61228,7 @@
   "contact": {
    "name": "Darline Zuccarelli",
    "org": "The Arc Of Montgomery",
-   "phone": "301-942-2932",
+   "phone": "(301) 942-2932",
    "email": "darlineb@arcmontmd.org"
   },
   "source": {
@@ -60881,7 +61316,7 @@
   "contact": {
    "name": "Rick Trail",
    "org": "The Arc Of Montgomery",
-   "phone": "301-236-4333",
+   "phone": "(301) 236-4333",
    "email": "DarlineB@arcmontmd.org"
   },
   "source": {
@@ -61015,7 +61450,7 @@
   "contact": {
    "name": "Tony Ross",
    "org": "Residential One LLC Fka Rs Property Management LLC",
-   "phone": "301-637-0686",
+   "phone": "(301) 637-0686",
    "email": "tross@res1.net"
   },
   "source": {
@@ -61061,7 +61496,7 @@
   "contact": {
    "name": "Howard Board",
    "org": "Grady Management, Inc.",
-   "phone": "301-921-1010",
+   "phone": "(301) 921-1010",
    "email": "Hborad@Gradymgt.com"
   },
   "source": {
@@ -61264,7 +61699,7 @@
  },
  {
   "id": "hud-800112447",
-  "name": "Montgomery Housing Inc",
+  "name": "Montgomery Housing",
   "address": "678 West Side Drive",
   "city": "Gaithersburg",
   "state": "MD",
@@ -61290,7 +61725,7 @@
   "contact": {
    "name": "Giovanni Bellot",
    "org": "The Family Services Agency Inc.",
-   "phone": "301-840-2000",
+   "phone": "(301) 840-2000",
    "email": "edson.bellot@sheppardpratt.org"
   },
   "source": {
@@ -61671,7 +62106,7 @@
   "contact": {
    "name": "Keisha Jefferson",
    "org": "The Rock Creek Foundation",
-   "phone": "443 277 6052",
+   "phone": "(443) 277-6052",
    "email": "TaKeishaJefferson@rockcreek.org"
   },
   "source": {
@@ -61715,7 +62150,7 @@
   "contact": {
    "name": "Brandi Page",
    "org": "The Family Services Agency Inc.",
-   "phone": "301-840-9621",
+   "phone": "(301) 840-9621",
    "email": "brandi.page@sheppardpratt.org"
   },
   "source": {
@@ -62112,7 +62547,7 @@
   "lat": 39.151176,
   "lon": -77.16386,
   "program": "LIHTC",
-  "totalUnits": 137,
+  "totalUnits": 149,
   "affordableUnits": 128,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -62473,7 +62908,7 @@
   "contact": {
    "name": "David Mcguill",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "240-627-9590",
+   "phone": "(240) 627-9590",
    "email": "DMcGuill@pratnumco.com"
   },
   "source": {
@@ -62821,7 +63256,7 @@
   "contact": {
    "name": "Brenda Rice",
    "org": "Hebrew Home Of Greater Washington, Inc",
-   "phone": "301-770-8400",
+   "phone": "(301) 770-8400",
    "email": "rice@ceslc.org"
   },
   "source": {
@@ -63076,7 +63511,7 @@
   "contact": {
    "name": "Mary Murphy",
    "org": "Whetstone Company",
-   "phone": "301-983-2248",
+   "phone": "(301) 983-2248",
    "email": "maryclairmurphy@verizon.net"
   },
   "source": {
@@ -63164,7 +63599,7 @@
   "contact": {
    "name": "Westley Chew",
    "org": "Cornerstone Montgomery, Inc.",
-   "phone": "301-948-2929",
+   "phone": "(301) 948-2929",
    "email": "WESLEY.CHEW@CORNERSTONEMONTGOMERY.org"
   },
   "source": {
@@ -63253,7 +63688,7 @@
   "contact": {
    "name": "Keisha Warrick",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "301-200-5176",
+   "phone": "(301) 200-5176",
    "email": "kwarrick@vmimgmt.com"
   },
   "source": {
@@ -63299,7 +63734,7 @@
   "contact": {
    "name": "Bella Gareri",
    "org": "Coalition Homes, Inc.",
-   "phone": "301-217-0314 Ext. 109",
+   "phone": "(301) 217-0314 ext. 109",
    "email": "bgareri@mcch.net"
   },
   "source": {
@@ -63453,7 +63888,7 @@
  {
   "id": "md-10923",
   "name": "Sligo Apartments 9%",
-  "address": "715 Sligo Avenue (building 1)",
+  "address": "715 Sligo Avenue",
   "city": "Silver Spring",
   "state": "MD",
   "zip": "21910",
@@ -63516,7 +63951,7 @@
   "contact": {
    "name": "Elisa Frankert",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "301-622-4098",
+   "phone": "(301) 622-4098",
    "email": "efrankert@slnusbaum.com"
   },
   "source": {
@@ -63652,7 +64087,7 @@
   "contact": {
    "name": "Amber Torres",
    "org": "Bridge Property Management Lc",
-   "phone": "866-763-1729",
+   "phone": "(866) 763-1729",
    "email": "mona.mitter@bridgepm.com"
   },
   "source": {
@@ -63711,7 +64146,7 @@
  },
  {
   "id": "hud-800009455",
-  "name": "St. Lukes Homes, Inc.",
+  "name": "St. Lukes Homes",
   "address": "9417 Horizon Run Road",
   "city": "Bethesda",
   "state": "MD",
@@ -63737,7 +64172,7 @@
   "contact": {
    "name": "John A. Thompson III",
    "org": "Whetstone Company",
-   "phone": "301-493-4200",
+   "phone": "(301) 493-4200",
    "email": "John.Thompson@cornerstonemontgomery.org"
   },
   "source": {
@@ -63777,7 +64212,7 @@
   "contact": {
    "name": "Christopher Houlding",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "(301)840-1998",
+   "phone": "(301) 840-1998",
    "email": "choulding@emcmgmt.com"
   },
   "source": {
@@ -64032,7 +64467,7 @@
   "contact": {
    "name": "Lauren Lester",
    "org": "Ff Properties LP",
-   "phone": "301-587-2761",
+   "phone": "(301) 587-2761",
    "email": "llester@ffres.com"
   },
   "source": {
@@ -64382,7 +64817,7 @@
   "contact": {
    "name": "Coleen Cynthia Joseph",
    "org": "The Rock Creek Foundation",
-   "phone": "(301) 572-6585  Ext. 2146",
+   "phone": "(301) 572-6585 ext. 2146",
    "email": "cjoseph@santegroup.org"
   },
   "source": {
@@ -64428,7 +64863,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-445-5540",
+   "phone": "(301) 445-5540",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -64512,7 +64947,7 @@
   "contact": {
    "name": "Mauricio Calderon",
    "org": "Vesta Germantown",
-   "phone": "240-296-6333",
+   "phone": "(240) 296-6333",
    "email": "mauriciC@vesta.org"
   },
   "source": {
@@ -64648,7 +65083,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Residential One LLC Fka Rs Property Management LLC",
-   "phone": "301-368-3322",
+   "phone": "(301) 368-3322",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -64692,7 +65127,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-445-1445",
+   "phone": "(301) 445-1445",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -64784,7 +65219,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-270-1858",
+   "phone": "(301) 270-1858",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -64870,7 +65305,7 @@
   "contact": {
    "name": "Lois Lumpkins",
    "org": "Doris E. Sarumi & Associates",
-   "phone": "301-270-6940",
+   "phone": "(301) 270-6940",
    "email": "dorissarumi@comcast.net"
   },
   "source": {
@@ -64954,7 +65389,7 @@
   "contact": {
    "name": "Stefanie Smyth",
    "org": "Cornerstone Montgomery, Inc.",
-   "phone": "301-493-0047",
+   "phone": "(301) 493-0047",
    "email": "stefaniesmyth@cornerstonemontgomery.org"
   },
   "source": {
@@ -65000,7 +65435,7 @@
   "contact": {
    "name": "Tomeka Gould",
    "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "301-562-1600",
+   "phone": "(301) 562-1600",
    "email": "tomeka.gould@pratumco.com"
   },
   "source": {
@@ -65067,7 +65502,7 @@
  {
   "id": "md-11016",
   "name": "Willow Manor at Cabin Branch",
-  "address": "Little Seneca Pkwy. (east Of Broadway Avenue And North Of W. Old Baltimore Road, With Approximate Latitude And Longitude Coordinates Of 39\u00b012'58.1\"n 77\u00b016'56.1\"w )",
+  "address": "Little Seneca Pkwy.",
   "city": "Clarksburg",
   "state": "MD",
   "zip": "20841",
@@ -65266,7 +65701,7 @@
   "contact": {
    "name": "Robert Lampher",
    "org": "Conifer Management LLC",
-   "phone": "240-221-1465",
+   "phone": "(240) 221-1465",
    "email": "rlampher@coniferllc.com"
   },
   "source": {
@@ -65358,7 +65793,7 @@
   "contact": {
    "name": "Lisa Terry",
    "org": "Romark Corporation\r\nMarion Scotchmer",
-   "phone": "301-657-4017",
+   "phone": "(301) 657-4017",
    "email": "LTerry@ccdc1.org"
   },
   "source": {
@@ -65448,7 +65883,7 @@
   "contact": {
    "name": "Denise Neale",
    "org": "Arbor Management , LLC",
-   "phone": "301-474-3435",
+   "phone": "(301) 474-3435",
    "email": "dneale@arbormanagement.com"
   },
   "source": {
@@ -65532,7 +65967,7 @@
   "contact": {
    "name": "Arlita Taylor",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-630-7717",
+   "phone": "(301) 630-7717",
    "email": "TrinityTerrace@qpmgmt.com"
   },
   "source": {
@@ -65598,7 +66033,7 @@
   "address": "6821 River Rd",
   "city": "Riverdale",
   "state": "MD",
-  "zip": "",
+  "zip": "20737",
   "area": "PRINCE_GEORGES",
   "lat": 38.9667,
   "lon": -76.9113,
@@ -65633,6 +66068,13 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1570,
+   "1": 1620,
+   "2": 1810,
+   "3": 2280,
+   "4": 2690
   }
  },
  {
@@ -65895,7 +66337,7 @@
   "contact": {
    "name": "Denise Neale, Vp/Director Of Property Management",
    "org": "Arbor Management , LLC",
-   "phone": "301-474-2280",
+   "phone": "(301) 474-2280",
    "email": "DNeale@ArborManagement.com"
   },
   "source": {
@@ -65939,7 +66381,7 @@
   "contact": {
    "name": "Felisa Bynum",
    "org": "Enterprise Residential LLC",
-   "phone": "410-246-7461",
+   "phone": "(410) 246-7461",
    "email": "fbynum@enterpriseresidential.org"
   },
   "source": {
@@ -65983,7 +66425,7 @@
   "contact": {
    "name": "Jeffrey Goldstein, Arco Management Corp.",
    "org": "Arco Management Of Maryland LLC",
-   "phone": "301-249-2575",
+   "phone": "(301) 249-2575",
    "email": "jpg@mmsgroup.com"
   },
   "source": {
@@ -66001,7 +66443,7 @@
  },
  {
   "id": "hud-800009099",
-  "name": "Bowie Voa Living Center",
+  "name": "Bowie VOA Living Center",
   "address": "3800 Envision Terr",
   "city": "Bowie",
   "state": "MD",
@@ -66073,7 +66515,7 @@
   "contact": {
    "name": "Mary Corthell",
    "org": "Beacon Residential Management LP",
-   "phone": "301-856-1620",
+   "phone": "(301) 856-1620",
    "email": "mcorthell@beaconcommunitiesllc.com"
   },
   "source": {
@@ -66117,7 +66559,7 @@
   "contact": {
    "name": "Thomas Johnson",
    "org": "Conifer Management LLC",
-   "phone": "667-218-0154",
+   "phone": "(667) 218-0154",
    "email": "tjohnson@coniferllc.com"
   },
   "source": {
@@ -66243,7 +66685,7 @@
   "contact": {
    "name": "Tiffany Harris",
    "org": "Family Service Foundation",
-   "phone": "301-459-2121 x 218",
+   "phone": "(301) 459-2121 ext. 218",
    "email": "tharris@fsfinc.org"
   },
   "source": {
@@ -66287,7 +66729,7 @@
   "contact": {
    "name": "Cathy Voundy-Thomas",
    "org": "L. Hayes & Assoc. Inc.",
-   "phone": "301-860-1880",
+   "phone": "(301) 860-1880",
    "email": "cathy@Lhayesassociates.com"
   },
   "source": {
@@ -66335,7 +66777,7 @@
   "contact": {
    "name": "Teresa Trisch",
    "org": "Envolve Client Services Group LLC",
-   "phone": "301-336-5271",
+   "phone": "(301) 336-5271",
    "email": "teresa.trisch@envolvellc.com"
   },
   "source": {
@@ -66463,7 +66905,7 @@
   "contact": {
    "name": "Delia Robin",
    "org": "Dels Management Services, LLC",
-   "phone": "301-853-2755",
+   "phone": "(301) 853-2755",
    "email": "delsrobin@hotmail.com"
   },
   "source": {
@@ -66643,7 +67085,7 @@
   "contact": {
    "name": "Roland Broussard",
    "org": "Elderly Housing Dev And Oper Corp",
-   "phone": "301-423-0228",
+   "phone": "(301) 423-0228",
    "email": "rbroussard@ehdoc.org"
   },
   "source": {
@@ -66661,7 +67103,7 @@
  },
  {
   "id": "hud-800112448",
-  "name": "Dolly Housing, Inc.",
+  "name": "Dolly Housing",
   "address": "1836 Metzerott Rd Apt 120",
   "city": "Adelphi",
   "state": "MD",
@@ -66683,7 +67125,7 @@
   "contact": {
    "name": "Kelly Marcellus",
    "org": "The Blue Foundation Inc",
-   "phone": "301-599-8000",
+   "phone": "(301) 599-8000",
    "email": "kmarcellus@thebluefoundationinc.org"
   },
   "source": {
@@ -66727,7 +67169,7 @@
   "contact": {
    "name": "Margaret Johnson",
    "org": "Volunteers Of America National Housing Corporation",
-   "phone": "301-925-8822",
+   "phone": "(301) 925-8822",
    "email": "majohnson@voa.org"
   },
   "source": {
@@ -66771,7 +67213,7 @@
   "contact": {
    "name": "Sherraine Rawlins",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-779-6196",
+   "phone": "(301) 779-6196",
    "email": "srawlins@qpmgt.com"
   },
   "source": {
@@ -66943,7 +67385,7 @@
   "contact": {
    "name": "Shp Management Corporation",
    "org": "Shp Management Corp",
-   "phone": "301-779-6566",
+   "phone": "(301) 779-6566",
    "email": "mbrucker@shpmanagement.com"
   },
   "source": {
@@ -67452,7 +67894,7 @@
   "contact": {
    "name": "Lynette Mcgrath",
    "org": "Community Realty Company, Inc.",
-   "phone": "301-474-7595",
+   "phone": "(301) 474-7595",
    "email": "lmcgrath@crc-commercial.com"
   },
   "source": {
@@ -67496,7 +67938,7 @@
   "contact": {
    "name": "Ian Guertin",
    "org": "Guide Marywood House, Inc",
-   "phone": "301-549-3602",
+   "phone": "(301) 549-3602",
    "email": "ian.guertin@sheppardpratt.org"
   },
   "source": {
@@ -67540,7 +67982,7 @@
   "contact": {
    "name": "Scott Birdsong",
    "org": "Guide Programs, Inc.",
-   "phone": "301-549-3602",
+   "phone": "(301) 549-3602",
    "email": "scottb@guideprogram.org"
   },
   "source": {
@@ -67584,7 +68026,7 @@
   "contact": {
    "name": "Erika Epkin",
    "org": "Guide Programs, Inc.",
-   "phone": "301-577-5900",
+   "phone": "(301) 577-5900",
    "email": "erika.epkin@fs-inc.org"
   },
   "source": {
@@ -67602,7 +68044,7 @@
  },
  {
   "id": "hud-800211708",
-  "name": "H.o.p.e. Werner Housing, Inc.",
+  "name": "HOPE Werner Housing",
   "address": "5016 Lexington Avenue",
   "city": "Beltsville",
   "state": "MD",
@@ -67628,7 +68070,7 @@
   "contact": {
    "name": "Donna Hurley",
    "org": "Housing Options & Planning Enterprises Inc. (h.o.p",
-   "phone": "(301) 870-6722 x222",
+   "phone": "(301) 870-6722 ext. 222",
    "email": "dhurley@hopefinancial.org"
   },
   "source": {
@@ -68029,7 +68471,7 @@
   "address": "8200 New Hampshire Ave",
   "city": "Hyattsville",
   "state": "MD",
-  "zip": "",
+  "zip": "20783",
   "area": "PRINCE_GEORGES",
   "lat": 38.9929,
   "lon": -76.97890000000001,
@@ -68060,6 +68502,13 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1790,
+   "1": 1850,
+   "2": 2060,
+   "3": 2600,
+   "4": 3060
   }
  },
  {
@@ -68171,7 +68620,7 @@
   "contact": {
    "name": "Teosha Honeygan",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "301-249-2100",
+   "phone": "(301) 249-2100",
    "email": "thoneygan@slnusbaum.com"
   },
   "source": {
@@ -68558,7 +69007,7 @@
   "contact": {
    "name": null,
    "org": null,
-   "phone": "800-756-0119",
+   "phone": "(800) 756-0119",
    "email": null
   },
   "source": {
@@ -68607,7 +69056,7 @@
   "contact": {
    "name": "Jovan Gould-Coleman",
    "org": "Envolve Client Services Group LLC",
-   "phone": "301-350-6477",
+   "phone": "(301) 350-6477",
    "email": "jovan.gould@envolvellc.com"
   },
   "source": {
@@ -68693,7 +69142,7 @@
   "contact": {
    "name": "Michelle Lingenfelper",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301-942-7170",
+   "phone": "(301) 942-7170",
    "email": "mlingenfeper@qpmgmt.com"
   },
   "source": {
@@ -69005,47 +69454,6 @@
    "2": 1810,
    "3": 2280,
    "4": 2690
-  }
- },
- {
-  "id": "md-5503",
-  "name": "Park View Manor",
-  "address": "5044 38th Ave",
-  "city": "Hyattsville",
-  "state": "MD",
-  "zip": "20781",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.952701,
-  "lon": -76.955296,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 54,
-  "affordableUnits": 54,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 1997,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.8,
-  "metroStation": "West Hyattsville",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1670,
-   "1": 1720,
-   "2": 1920,
-   "3": 2420,
-   "4": 2850
   }
  },
  {
@@ -69553,7 +69961,7 @@
   "contact": {
    "name": "Johniece Gardner",
    "org": "Envolve Client Services Group LLC",
-   "phone": "(301)925-8787",
+   "phone": "(301) 925-8787",
    "email": "pleasanthomesmgr@envolvellc.com"
   },
   "source": {
@@ -69613,50 +70021,6 @@
    "2": 1870,
    "3": 2360,
    "4": 2770
-  }
- },
- {
-  "id": "hud-800009515",
-  "name": "Prince Georges County Voa Living Center 1, Inc.",
-  "address": "6704 Alexis Drive",
-  "city": "Bowie",
-  "state": "MD",
-  "zip": "20720",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.981192,
-  "lon": -76.777793,
-  "program": "HUD",
-  "totalUnits": 15,
-  "affordableUnits": 15,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1
-  ],
-  "unitMix": {
-   "1": 15
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": true,
-  "metroMiles": 5.6,
-  "metroStation": "New Carrollton",
-  "contact": {
-   "name": "Earlene Ford",
-   "org": "Volunteers Of America National Housing Corporation",
-   "phone": "(410) 435-4600",
-   "email": "eford@voa.org"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2840,
-   "1": 2930,
-   "2": 3270,
-   "3": 4130,
-   "4": 4850
   }
  },
  {
@@ -69875,7 +70239,7 @@
   "contact": {
    "name": "Bdmg Inc.",
    "org": "Bdmg Inc.",
-   "phone": "301-350-7754",
+   "phone": "(301) 350-7754",
    "email": "ee@nqgrg.com"
   },
   "source": {
@@ -70124,7 +70488,7 @@
   "contact": {
    "name": "Matt Kaplan",
    "org": "Family Service Foundation",
-   "phone": "301-459-2121",
+   "phone": "(301) 459-2121",
    "email": "mkaplan@fsfinc.org"
   },
   "source": {
@@ -70216,7 +70580,7 @@
   "contact": {
    "name": "Tamyka Yancey",
    "org": "Arbor Management, LLC",
-   "phone": "301-474-3435",
+   "phone": "(301) 474-3435",
    "email": "TYancey@arbormanagement.com"
   },
   "source": {
@@ -70521,7 +70885,7 @@
  {
   "id": "md-11030",
   "name": "The Cassidy",
-  "address": "Karen Blvd Tm73, Grid:d3& E3",
+  "address": "Karen Blvd",
   "city": "Capitol Heights",
   "state": "MD",
   "zip": "20743",
@@ -70591,7 +70955,7 @@
   "contact": {
    "name": "Diane Rampersaud",
    "org": "Arco Management Of Maryland LLC",
-   "phone": "301-420-6630",
+   "phone": "(301) 420-6630",
    "email": "drampersaud@mmsgroup.com"
   },
   "source": {
@@ -70649,63 +71013,22 @@
   }
  },
  {
-  "id": "md-10250",
+  "id": "lihtc-MDA00000055",
   "name": "The Residences at Woodland Springs",
-  "address": "Rochell Avenue & Atwood Street",
+  "address": "Atwood St",
   "city": "District Heights",
   "state": "MD",
   "zip": "20747",
   "area": "PRINCE_GEORGES",
-  "lat": 38.8612383,
-  "lon": -76.89398725,
+  "lat": 38.857600000000005,
+  "lon": -76.8897,
   "program": "LIHTC",
-  "subsidy": "md",
   "totalUnits": 36,
   "affordableUnits": 36,
   "incomeCeiling": null,
   "bedrooms": [],
   "unitMix": {},
   "yearPlacedInService": 2014,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.8,
-  "metroStation": "Addison Road-Seat Pleasant",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1680,
-   "1": 1730,
-   "2": 1930,
-   "3": 2440,
-   "4": 2860
-  }
- },
- {
-  "id": "lihtc-MDA00000055",
-  "name": "The Resiences at Woodland Springs",
-  "address": "Atwood St",
-  "city": "District Heights",
-  "state": "MD",
-  "zip": "",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.857600000000005,
-  "lon": -76.8897,
-  "program": "LIHTC",
-  "totalUnits": 36,
-  "affordableUnits": null,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 2.0,
@@ -70720,6 +71043,13 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1680,
+   "1": 1730,
+   "2": 1930,
+   "3": 2440,
+   "4": 2860
   }
  },
  {
@@ -70752,7 +71082,7 @@
   "contact": {
    "name": "Jeff Baker",
    "org": "Conifer Management LLC",
-   "phone": "410-366-6200",
+   "phone": "(410) 366-6200",
    "email": "jbaker@coniferllc.com"
   },
   "source": {
@@ -70808,6 +71138,94 @@
    "2": 2140,
    "3": 2700,
    "4": 3170
+  }
+ },
+ {
+  "id": "hud-800054056",
+  "name": "VOA Lanham",
+  "address": "6509 Greenfield Ct",
+  "city": "Lanham Seabrook",
+  "state": "MD",
+  "zip": "20706",
+  "area": "PRINCE_GEORGES",
+  "lat": 38.978305,
+  "lon": -76.86734299999999,
+  "program": "HUD",
+  "totalUnits": 10,
+  "affordableUnits": 10,
+  "incomeCeiling": null,
+  "bedrooms": [
+   1
+  ],
+  "unitMix": {
+   "1": 10
+  },
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": true,
+  "metroMiles": 2.1,
+  "metroStation": "New Carrollton",
+  "contact": {
+   "name": "William R. Brett",
+   "org": "Chesapeake Voa Living Center, Inc.",
+   "phone": "(703) 341-5055",
+   "email": "bbrett@voa.org"
+  },
+  "source": {
+   "dataset": "HUD Multifamily Assisted Properties",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1790,
+   "1": 1850,
+   "2": 2060,
+   "3": 2600,
+   "4": 3060
+  }
+ },
+ {
+  "id": "hud-800009515",
+  "name": "VOA Living Center (Prince George's County)",
+  "address": "6704 Alexis Drive",
+  "city": "Bowie",
+  "state": "MD",
+  "zip": "20720",
+  "area": "PRINCE_GEORGES",
+  "lat": 38.981192,
+  "lon": -76.777793,
+  "program": "HUD",
+  "totalUnits": 15,
+  "affordableUnits": 15,
+  "incomeCeiling": null,
+  "bedrooms": [
+   1
+  ],
+  "unitMix": {
+   "1": 15
+  },
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": true,
+  "metroMiles": 5.6,
+  "metroStation": "New Carrollton",
+  "contact": {
+   "name": "Earlene Ford",
+   "org": "Volunteers Of America National Housing Corporation",
+   "phone": "(410) 435-4600",
+   "email": "eford@voa.org"
+  },
+  "source": {
+   "dataset": "HUD Multifamily Assisted Properties",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2840,
+   "1": 2930,
+   "2": 3270,
+   "3": 4130,
+   "4": 4850
   }
  },
  {
@@ -70944,7 +71362,7 @@
  },
  {
   "id": "hud-800009506",
-  "name": "Vesta Housing, Inc.",
+  "name": "Vesta Housing",
   "address": "9006 4th St",
   "city": "Glenarden",
   "state": "MD",
@@ -71014,7 +71432,7 @@
   "contact": {
    "name": "Mauricio Calderon",
    "org": "Vesta, Inc.",
-   "phone": "301-459-9840 x516",
+   "phone": "(301) 459-9840 ext. 516",
    "email": "MauriciC@vesta.org"
   },
   "source": {
@@ -71058,7 +71476,7 @@
   "contact": {
    "name": "Mauricio Calderon",
    "org": "Vesta, Inc.",
-   "phone": "240- 296-6102",
+   "phone": "(240) 296-6102",
    "email": "mauricic@vesta.org"
   },
   "source": {
@@ -71120,7 +71538,7 @@
  },
  {
   "id": "hud-800054048",
-  "name": "Vesta Three, Inc.",
+  "name": "Vesta Three",
   "address": "4795 Town Square Blvd",
   "city": "Suitland",
   "state": "MD",
@@ -71208,7 +71626,7 @@
  },
  {
   "id": "hud-800054043",
-  "name": "Vestas Hearth, Inc.",
+  "name": "Vestas Hearth",
   "address": "3818 Cedar Drive",
   "city": "Suitland",
   "state": "MD",
@@ -71278,7 +71696,7 @@
   "contact": {
    "name": "Jessica Zuniga",
    "org": "Humphrey Management LLC Dba Benton Communities",
-   "phone": "301-559-3891",
+   "phone": "(301) 559-3891",
    "email": "jzuniga@hrehllc.com"
   },
   "source": {
@@ -71322,7 +71740,7 @@
   "contact": {
    "name": "Margaret Callaway",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "443-716-2551",
+   "phone": "(443) 716-2551",
    "email": "mcallaway@qpmgmt.com"
   },
   "source": {
@@ -71336,50 +71754,6 @@
    "2": 2010,
    "3": 2540,
    "4": 2980
-  }
- },
- {
-  "id": "hud-800054056",
-  "name": "Voa Lanham",
-  "address": "6509 Greenfield Ct",
-  "city": "Lanham Seabrook",
-  "state": "MD",
-  "zip": "20706",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.978305,
-  "lon": -76.86734299999999,
-  "program": "HUD",
-  "totalUnits": 10,
-  "affordableUnits": 10,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1
-  ],
-  "unitMix": {
-   "1": 10
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": true,
-  "metroMiles": 2.1,
-  "metroStation": "New Carrollton",
-  "contact": {
-   "name": "William R. Brett",
-   "org": "Chesapeake Voa Living Center, Inc.",
-   "phone": "703 341-5055",
-   "email": "bbrett@voa.org"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1790,
-   "1": 1850,
-   "2": 2060,
-   "3": 2600,
-   "4": 3060
   }
  },
  {
@@ -71428,7 +71802,7 @@
   "address": "4866 Eastern Ln",
   "city": "Suitland",
   "state": "MD",
-  "zip": "",
+  "zip": "20746",
   "area": "PRINCE_GEORGES",
   "lat": 38.847553999999995,
   "lon": -76.918931,
@@ -71453,6 +71827,13 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1800,
+   "1": 1860,
+   "2": 2070,
+   "3": 2610,
+   "4": 3070
   }
  },
  {
@@ -71489,7 +71870,7 @@
   "contact": {
    "name": "Dana Padilla",
    "org": "Paths Management Services LLC",
-   "phone": "410-962-0595",
+   "phone": "(410) 962-0595",
    "email": "dpadilla@pathsco.com"
   },
   "source": {
@@ -71836,7 +72217,7 @@
   "contact": {
    "name": "Bethann Clayborn",
    "org": "Amurcon Realty Company",
-   "phone": "703-221-3333",
+   "phone": "(703) 221-3333",
    "email": "baclayborn@amurcon.com"
   },
   "source": {
@@ -71932,7 +72313,7 @@
   "contact": {
    "name": "Ryan Herb",
    "org": "Gates, Hudson & Associates, Inc.",
-   "phone": "703-369-7474",
+   "phone": "(703) 369-7474",
    "email": "rherb@gatehudson.com"
   },
   "source": {
@@ -72210,7 +72591,7 @@
   "contact": {
    "name": "Joy Herlong",
    "org": "S.l. Nusbaum Realty Co.",
-   "phone": "703-494-5337",
+   "phone": "(703) 494-5337",
    "email": "jherlong@slnusbaum.com"
   },
   "source": {
@@ -72394,7 +72775,7 @@
   "contact": {
    "name": "Shirley Jones",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-369-7950",
+   "phone": "(703) 369-7950",
    "email": "sjones@qpmgmt.com"
   },
   "source": {
@@ -73454,7 +73835,7 @@
   "contact": {
    "name": "Pat Bessette",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "703-257-0935",
+   "phone": "(703) 257-0935",
    "email": "Pbset@aol.com"
   },
   "source": {
@@ -73901,7 +74282,7 @@
   "contact": {
    "name": "Cathy Murphy",
    "org": "Habitat America, LLC",
-   "phone": "410-269-0900",
+   "phone": "(410) 269-0900",
    "email": "cmurphy@habitatamerica.com"
   },
   "source": {
@@ -73972,7 +74353,7 @@
   "contact": {
    "name": "Amy L. Crisp",
    "org": "Calvert Pines I",
-   "phone": "410-535-5010 x 12",
+   "phone": "(410) 535-5010 ext. 12",
    "email": "Acrisp@calverthousing.org"
   },
   "source": {
@@ -74243,7 +74624,7 @@
   "contact": {
    "name": "Chris Mcnerney",
    "org": "Arco Management Corporation",
-   "phone": "301-753-9453",
+   "phone": "(301) 753-9453",
    "email": "cmcnerney@mmsgroup.com"
   },
   "source": {
@@ -74309,7 +74690,7 @@
   "lat": 38.69307,
   "lon": -76.538541,
   "program": "LIHTC",
-  "totalUnits": 30,
+  "totalUnits": 32,
   "affordableUnits": 30,
   "incomeCeiling": null,
   "bedrooms": [
@@ -74451,7 +74832,7 @@
   "contact": {
    "name": "Hartmuth Csanadi-Schwartz",
    "org": "The Arc Of Southern Maryland, Inc.",
-   "phone": "301-535-2413",
+   "phone": "(301) 535-2413",
    "email": "hschwartz@arcsomd.org"
   },
   "source": {
@@ -74503,7 +74884,7 @@
  },
  {
   "id": "hud-800009350",
-  "name": "H.o.p.e. Gagnon Housing, Inc.",
+  "name": "HOPE Gagnon Housing",
   "address": "3614 Mountain Ash Court",
   "city": "Waldorf",
   "state": "MD",
@@ -74529,7 +74910,7 @@
   "contact": {
    "name": "Donna Hurley",
    "org": "Housing Options & Planning Enterprises Inc. (h.o.p",
-   "phone": "301-567-3330",
+   "phone": "(301) 567-3330",
    "email": "dhurley@hopefinancial.org"
   },
   "source": {
@@ -74547,7 +74928,7 @@
  },
  {
   "id": "hud-800215172",
-  "name": "H.o.p.e. Mudd Housing, Inc.",
+  "name": "HOPE Mudd Housing",
   "address": "4008 Brewster Lane",
   "city": "Waldorf",
   "state": "MD",
@@ -74853,7 +75234,7 @@
   "contact": {
    "name": "Pat Bessette",
    "org": "Quantum Real Estate Management, LLC",
-   "phone": "301 932-1700",
+   "phone": "(301) 932-1700",
    "email": "pbessette@qpmgmt.com"
   },
   "source": {
@@ -75024,7 +75405,7 @@
   "contact": {
    "name": "Gayle Filo",
    "org": "Enterprise Residential LLC",
-   "phone": "240-904-9209",
+   "phone": "(240) 904-9209",
    "email": "gfilo@enterpriseresidential.org"
   },
   "source": {
@@ -75042,7 +75423,7 @@
  },
  {
   "id": "md-10818",
-  "name": "Magnolia Gardens (Fka La Plata)",
+  "name": "Magnolia Gardens (formerly La Plata)",
   "address": "6010-6018 Washington Ave",
   "city": "La Plata",
   "state": "MD",
@@ -75157,7 +75538,7 @@
   "contact": {
    "name": "Stephanie Roberts",
    "org": "Capreit Residential Management, LLC",
-   "phone": "301-843-8600",
+   "phone": "(301) 843-8600",
    "email": "sroberts@capreit.com"
   },
   "source": {
@@ -75679,7 +76060,7 @@
   "contact": {
    "name": "Jeffrey Goldstein",
    "org": "Arco Management Of Maryland LLC",
-   "phone": "240-368-4040",
+   "phone": "(240) 368-4040",
    "email": "jpg@mmsgroup.com"
   },
   "source": {
@@ -75808,40 +76189,6 @@
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 26.5,
-  "metroStation": "Branch Ave",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  }
- },
- {
-  "id": "md-5765",
-  "name": "Yardley Hills Town Homes Phase II",
-  "address": "1120 Conner Ct",
-  "city": "Prince Frederick",
-  "state": "MD",
-  "zip": "20678",
-  "area": "SOUTHERN_MD",
-  "lat": 38.532338,
-  "lon": -76.598619,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 76,
-  "affordableUnits": 76,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2004,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 26.4,
   "metroStation": "Branch Ave",
   "contact": {
    "name": null,

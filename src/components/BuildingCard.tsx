@@ -20,6 +20,21 @@ import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingPhoto } from './BuildingPhoto'
 import { BurdenBadge, Note, money } from './ui'
 
+/** "1212 Southern Ave SE, Washington, DC 20032"; a row without a street address shows the city only. */
+export function addressLine(b: Pick<Building, 'address' | 'city' | 'state' | 'zip'>): string {
+  const place = `${b.city}, ${b.state}${b.zip ? ` ${b.zip}` : ''}`
+  return b.address ? `${b.address}, ${place}` : `${place} (street address not listed)`
+}
+
+/** A tel: link dials the number only; an extension goes in the ;ext= part phones understand. */
+export function telHref(phone: string): string {
+  const digits = phone.replace(/\D/g, '')
+  const main = digits.length >= 10 ? digits.slice(0, 10) : digits.slice(0, 7)
+  const ext = /(?:ext\.?|x)\s*(\d+)/i.exec(phone)?.[1]
+  return `tel:${main}${ext ? `;ext=${ext}` : ''}`
+}
+
+
 const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
 const BR_SHORT = (n: number) => (n === 0 ? 'Studio' : `${n}BR`)
 const MIX_COLORS = ['#ffd1a8', '#ff8fb1', '#cf2f6a', '#5b2a7a', '#ff9f43']
@@ -365,7 +380,7 @@ export function BuildingCard({
           <details className="mt-auto text-xs sm:text-sm" onClick={(e) => e.stopPropagation()}>
             <summary className="cursor-pointer rounded-lg py-1 font-semibold text-brand-strong hover:bg-brand-tint">More about this building</summary>
             <div className="mt-2 space-y-3">
-              <p className="text-ink-soft">{b.address}, {b.city}, {b.state} {b.zip} · {areaLabel(b.area)}</p>
+              <p className="text-ink-soft">{addressLine(b)} · {areaLabel(b.area)}</p>
               <PricePanel b={b} a={a} limits={limits} situation={situation} />
               <LimitRow a={a} limits={limits} />
               <UnitMix b={b} />
@@ -387,9 +402,7 @@ export function BuildingCard({
       <div className="flex flex-1 flex-col gap-3.5 p-5">
         <div>
           <h3 className="font-display text-xl font-bold leading-tight">{b.name}</h3>
-          <p className="mt-0.5 text-sm text-ink-soft">
-            {b.address}, {b.city}, {b.state} {b.zip}
-          </p>
+          <p className="mt-0.5 text-sm text-ink-soft">{addressLine(b)}</p>
           <p className="mt-1.5 inline-flex items-center gap-1.5 rounded-full bg-canvas px-2 py-0.5 text-xs font-semibold">
             <span aria-hidden className="size-2.5 rounded-full" style={{ background: info.color }} />
             {areaLabel(b.area)}
@@ -458,7 +471,7 @@ export function BuildingCard({
                 <p className="font-medium">Contact (from {sourceName(b)}, may not be the leasing office)</p>
                 <p className="text-ink-soft">{[b.contact.org, b.contact.name].filter(Boolean).join(' · ')}</p>
                 {b.contact.phone && (
-                  <a className="inline-block py-1 font-semibold text-brand-strong underline-offset-2 hover:underline" href={`tel:${b.contact.phone.replace(/[^\d+]/g, '')}`}>
+                  <a className="inline-block py-1 font-semibold text-brand-strong underline-offset-2 hover:underline" href={telHref(b.contact.phone)}>
                     {b.contact.phone}
                   </a>
                 )}

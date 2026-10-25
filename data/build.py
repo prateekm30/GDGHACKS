@@ -103,14 +103,22 @@ def stable_id(prefix: str, *parts) -> str:
 
 
 def phone(v) -> str | None:
-    """HUD and USDA give bare digits ("2025351500"); show them the way people dial."""
+    """HUD and USDA give bare digits ("2025351500"), others "703.823.5444 x12": show them the way people dial."""
     s = clean(v)
     if not s:
         return None
-    d = re.sub(r"\D", "", s)
-    if len(d) == 11 and d.startswith("1"):
-        d = d[1:]
-    return f"({d[:3]}) {d[3:6]}-{d[6:]}" if len(d) == 10 else s
+    m = re.match(r"\D*(?:1[\s.-]*)?(\d{3})\)?[\s.-]*(\d{3})[\s.-]*(\d{4})(?!\d)(.*)$", s)
+    if not m:
+        seven = re.fullmatch(r"\D*(\d{3})[\s.-]*(\d{4})\D*", s)
+        return f"{seven.group(1)}-{seven.group(2)}" if seven else None  # a local number; the row's city says where
+    out = f"({m.group(1)}) {m.group(2)}-{m.group(3)}"
+    rest = m.group(4)
+    ext = re.search(r"(?:x|ext\.?|extension)\s*(\d+)", rest, re.I)
+    if ext:
+        out += f" ext. {ext.group(1)}"
+    elif re.search(r"\bor\s+\d+", rest, re.I):
+        out += " " + re.search(r"\bor\s+\d+", rest, re.I).group(0)
+    return out
 
 
 def year_of(ms) -> int | None:
@@ -628,10 +636,102 @@ def name_words(name: str) -> set[str]:
     words = re.findall(r"[a-z]{4,}", (name or "").lower())
     return {w.rstrip("s") for w in words if w not in GENERIC_NAME_WORDS and w.rstrip("s") not in GENERIC_NAME_WORDS}
 
+# Project names from financing lists ("1431 E Street NE Renovation", "Park Meridian - Amazon Acquisition",
+# "West Glebe LP") are not what the sign on the building says. Trim the deal words and the legal entity.
+PROJECT_WORDS = r"(?:Renovation|Acquisition|Preservation|Redevelopment|Rehab(?:ilitation)?|Critical Repairs|TOPA|New Covenant|Project|Revised PUD)"
+NAME_FIXES = {
+    "Washington Sq I Apartment Amy Associates VA,": "Washington Square I Apartments",
+    "The Resiences at Woodland Springs": "The Residences at Woodland Springs",
+    "RAP, Inc. Community Based Residential Facility (fka The Summit)": "The Summit (RAP community residence)",
+    "Dock 79 - Florida Rock revised PUD (phase 1)": "Dock 79",
+    "Gallery 64/Museum Place - Randall School redevelopment": "Gallery 64 / Museum Place",
+    "Grimke Elementary School Phase 1 - The Fold": "The Fold (Grimke School)",
+    "Hill East Phase I - Park Kennedy (Parcel G-1)": "Park Kennedy (Hill East)",
+    "Hill East Phase I - The Ethel (Parcel F-1)": "The Ethel (Hill East)",
+    "Incanto (Parcel 4A, The Wharf Phase I)": "Incanto (The Wharf)",
+    "The Channel (Parcel 2, Wharf Phase I)": "The Channel (The Wharf)",
+    "The Tides and Amaris (Parcel 8 and 9) - The Wharf  Phase II": "The Tides and Amaris (The Wharf)",
+    "The Douglass (632 Howard Road SE) - Bridge District Phase I": "The Douglass (Bridge District)",
+    "Banner Lane (Sursum Corda Phase 1, South Parcel)": "Banner Lane (Sursum Corda)",
+    "Kenilworth 166 - Kenilworth Courts Phase 1": "Kenilworth Courts Phase 1",
+    "Washington Gateway Phase II - The Burton": "The Burton (Washington Gateway)",
+    "Washington Gateway Phase III - The 202 (South Residential Tower)": "The 202 (Washington Gateway)",
+    "Riggs Crossing Senior Residences - Fort Totten Phase 2 (Multifamily Senior)": "Riggs Crossing Senior Residences",
+    "Riggs Park Place - Fort Totten Phase 1 (Townhome)": "Riggs Park Place",
+    "Sheridan Station Phase I (Multifamily)": "Sheridan Station Phase I",
+    "The Bobbi (fka The Amelia & Paul Apartments) - Acquisition/Critical Repairs": "The Bobbi (formerly The Amelia & Paul)",
+    "DCHA Headquarters - Phase 1": "DCHA Headquarters Phase 1",
+    "Forest Glen Main Master Tenant LLC": "Forest Glen Main",
+    "22 Atlantic Cooperative Association, Inc. (Acq)": "22 Atlantic Cooperative",
+    "Covington Family Association Cooperative, Inc.": "Covington Family Cooperative",
+    "Prince Georges County Voa Living Center 1, Inc.": "VOA Living Center (Prince George's County)",
+}
+ADDRESS_FIXES = {"Multiple- See Bin Worksheet": ""}
+
+
+def tidy_name(n: str) -> str:
+    n = NAME_FIXES.get(n, n)
+    n = re.sub(r"\s*-\s*Amazon Acquisition$", "", n)
+    n = re.sub(r"\s*-\s*Acquisition/Critical Repairs$", "", n)
+    n = re.sub(r"\s*\((?:Acq|Acquisition)\)$", "", n, flags=re.I)
+    n = re.sub(r"\s+\d{4} RFP$", "", n)
+    n = re.sub(r"\s*-\s*" + PROJECT_WORDS + r"(\s+" + PROJECT_WORDS + r")*$", "", n, flags=re.I)
+    n = re.sub(r"\s+" + PROJECT_WORDS + r"(\s+" + PROJECT_WORDS + r")*(?=\s+Phase\b|$)", "", n, flags=re.I)
+    n = re.sub(r",?\s+(?:LP|LLC|L\.L\.C\.|Ltd\.?|Limited(?: Partnership)?|Inc\.?|Associates|Master Tenant)(?:,\s*(?:LP|LLC|Inc\.?))?\s*$", "", n, flags=re.I)
+    n = re.sub(r"\bH\.o\.p\.e\.", "HOPE", n)
+    n = re.sub(r"\bVoa\b", "VOA", n)
+    n = re.sub(r"\bfka\b", "formerly", n, flags=re.I)
+    n = re.sub(r"\s{2,}", " ", n).strip(" ,-")
+    return n or "Unnamed property"
+
+
+def tidy_address(a: str) -> str:
+    a = ADDRESS_FIXES.get(a, a)
+    a = re.sub(r"\s*\(.*$", "", a)  # "(east of Broadway Avenue ... coordinates of 39°...)"
+    a = re.sub(r"\s+Tm\d+.*$", "", a, flags=re.I)  # "Karen Blvd Tm73, Grid:d3& E3"
+    return re.sub(r"\s{2,}", " ", a).strip(" ,")
+
+
+def same_name_key(name: str) -> str:
+    n = re.sub(r"[^a-z0-9]", "", (name or "").lower())
+    return n.replace("townhomes", "townhome").replace("apartments", "").replace("apartment", "")
+
+
+def tidy(rows: list[dict]) -> list[dict]:
+    """Field-level cleanups that run on every refresh and on the committed JSON (--refine)."""
+    for b in rows:
+        b["name"] = tidy_name(b["name"])
+        b["address"] = tidy_address(b["address"] or "")
+        b["contact"]["phone"] = phone(b["contact"].get("phone"))
+        if b["contact"]["phone"] and re.fullmatch(r"\d{3}-\d{4}", b["contact"]["phone"]) and b["state"] == "DC":
+            b["contact"]["phone"] = "(202) " + b["contact"]["phone"]
+        if b.get("website") and not re.match(r"https?://", b["website"]):
+            b["website"] = "https://" + b["website"]
+        # A unit mix that adds up to more homes than the total: the mix is the finer count, trust it.
+        mix_total = sum(b.get("unitMix", {}).values()) if b.get("unitMix") else 0
+        if mix_total and b["totalUnits"] is not None and mix_total > b["totalUnits"]:
+            b["totalUnits"] = mix_total
+            if b["affordableUnits"] is not None and b["affordableUnits"] > mix_total:
+                b["affordableUnits"] = mix_total
+    # Alexandria's list has no ZIPs. Borrow the ZIP of the nearest building within a mile in the same city,
+    # then the market rent (HUD's Small Area FMR is per ZIP, so another row with that ZIP has the same numbers).
+    with_zip = [b for b in rows if b["zip"]]
+    rent_by_zip = {b["zip"]: b["marketRent"] for b in rows if b["zip"] and b.get("marketRent")}
+    for b in rows:
+        if not b["zip"]:
+            near = [(miles(b["lat"], b["lon"], o["lat"], o["lon"]), o) for o in with_zip if o["city"] == b["city"]]
+            near = [(d, o) for d, o in near if d < 1.0]
+            if near:
+                b["zip"] = min(near, key=lambda x: x[0])[1]["zip"]
+        if b["zip"] and not b.get("marketRent") and rent_by_zip.get(b["zip"]):
+            b["marketRent"] = rent_by_zip[b["zip"]]
+    return rows
+
 
 def refine(rows: list[dict]) -> list[dict]:
     """Fixes that need the whole list: same-spot duplicates, swapped unit counts, group homes, known bad rows.
     Also runs on the committed JSON (--refine) so the fixes land without a full rebuild."""
+    rows = tidy(rows)
     by_id = {b["id"]: b for b in rows}
     out: list[dict] = []
     for b in rows:
@@ -672,6 +772,21 @@ def refine(rows: list[dict]) -> list[dict]:
         words = name_words(b["name"])
         match = next((k for k in kept_rows if k["id"].split("-", 1)[0] != b["id"].split("-", 1)[0]
                       and words & name_words(k["name"]) and miles(b["lat"], b["lon"], k["lat"], k["lon"]) < 0.037), None)
+        if match is not None:
+            fill_gaps(match, b)
+            continue
+        kept_rows.append(b)
+        out.append(b)
+    rows = out
+
+    # The same name on two lists within ~0.4 mi ("Park View Manor" at 5044 38th Ave and "Parkview Manor" at
+    # 5030 38th Ave; "Yardley Hills Town Homes Phase II" and "Yardley Hills Townhomes Phase II") is one complex
+    # whose lists give different doors. Distinct buildings that share a name are counties apart (Andrew Kim House).
+    out, kept_rows = [], []
+    for b in sorted(rows, key=lambda b: (rank(b), -(b["yearPlacedInService"] or 0))):
+        key = same_name_key(b["name"])
+        match = next((k for k in kept_rows if k["id"].split("-", 1)[0] != b["id"].split("-", 1)[0]
+                      and same_name_key(k["name"]) == key and miles(b["lat"], b["lon"], k["lat"], k["lon"]) < 0.4), None)
         if match is not None:
             fill_gaps(match, b)
             continue

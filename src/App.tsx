@@ -9,7 +9,7 @@ import { LogoMark } from './components/Logo'
 import { Button, Card, Note, StepIndicator } from './components/ui'
 import limitsJson from './data/limits.2026.json'
 import { assess, isVisible } from './lib/eligibility'
-import { HUBS, milesBetween } from './lib/areas'
+import { AREAS, HUBS, milesBetween } from './lib/areas'
 import { fit, nextPair, priorFor, rank, shortlistFrom, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
 import { prefersReducedMotion, withTransition } from './lib/motion'
@@ -36,6 +36,33 @@ const stepFromState = (state: unknown): Step => {
 }
 
 
+const PICKS_KEY = 'homepick.picks.v1'
+const AREAS_KEY = 'homepick.areas.v1'
+
+/** The screen to open on load: a refresh mid-flow stays where you were (the URL hash names the step). */
+function initialStep(basics: Basics | null): Step {
+  const h = window.location.hash.slice(1) as Step
+  if (!STEPS.includes(h)) return 'start'
+  if ((h === 'pick' || h === 'results') && !basics) return 'basics'
+  return h
+}
+
+function loadJson<T>(key: string, fallback: T): T {
+  try {
+    const raw = sessionStorage.getItem(key)
+    return raw ? (JSON.parse(raw) as T) : fallback
+  } catch {
+    return fallback
+  }
+}
+function saveJson(key: string, value: unknown) {
+  try {
+    sessionStorage.setItem(key, JSON.stringify(value))
+  } catch {
+    /* storage blocked: keep it in memory only */
+  }
+}
+
 // Session storage only: income is gone when the tab closes, and storage can be blocked.
 function loadBasics(): Basics | null {
   try {
@@ -61,11 +88,16 @@ function fitsBedrooms(b: Building, needed: number | null): boolean {
 export default function App() {
   const [buildings, setBuildings] = useState<Building[] | null>(null)
   const [loadError, setLoadError] = useState('')
-  const [step, setStep] = useState<Step>('start')
-  // Empty means all of the DMV.
-  const [areas, setAreas] = useState<ReadonlySet<Area>>(() => new Set())
   const [basics, setBasics] = useState<Basics | null>(loadBasics)
+  const [step, setStep] = useState<Step>(() => initialStep(basics))
+  // Empty means all of the DMV.
+  const [areas, setAreas] = useState<ReadonlySet<Area>>(() => {
+    const saved = loadJson<unknown>(AREAS_KEY, [])
+    return new Set(Array.isArray(saved) ? (saved.filter((a) => AREAS.some((k) => k.id === a)) as Area[]) : [])
+  })
   const [picks, setPicks] = useState<Pick[]>([])
+  // Picks are kept by id in this tab's session storage so a refresh mid-flow keeps the rounds you did.
+  const savedPicks = useRef<unknown>(loadJson<unknown>(PICKS_KEY, []))
   const [message, setMessage] = useState('')
 
   const announce = useCallback((msg: string) => setMessage(msg), [])
@@ -78,9 +110,25 @@ export default function App() {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json() as Promise<Building[]>
       })
-      .then(setBuildings)
+      .then((rows) => {
+        const byId = new Map(rows.map((b) => [b.id, b]))
+        const saved = Array.isArray(savedPicks.current) ? savedPicks.current : []
+        savedPicks.current = []
+        const restored = saved.flatMap((p) => {
+          const [c, o] = Array.isArray(p) ? p : []
+          const chosen = byId.get(String(c))
+          const other = byId.get(String(o))
+          return chosen && other && chosen !== other ? [{ chosen, other }] : []
+        })
+        // Back on the picker with all rounds done would need a ninth pick: keep one round to go.
+        if (restored.length) setPicks(restored.slice(0, stepRef.current === 'pick' ? ROUNDS - 1 : ROUNDS))
+        setBuildings(rows)
+      })
       .catch(() => setLoadError('We could not load the building list. Check your connection and try again.'))
   }, [loadTry])
+
+  useEffect(() => saveJson(PICKS_KEY, picks.map((p) => [p.chosen.id, p.other.id])), [picks])
+  useEffect(() => saveJson(AREAS_KEY, [...areas]), [areas])
 
   const situation = useMemo(() => (basics ? toSituation(basics) : null), [basics])
   const hub = HUBS.find((h) => h.id === basics?.workHub) ?? null
@@ -131,7 +179,8 @@ export default function App() {
 
   useEffect(() => {
     try {
-      window.history.replaceState({ step: 'start' }, '', window.location.pathname)
+      const first = stepRef.current
+      window.history.replaceState({ step: first }, '', first === 'start' ? window.location.pathname : `#${first}`)
     } catch {
       /* ignore */
     }

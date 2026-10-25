@@ -82,11 +82,15 @@ export function resetRateLimit() {
 export async function readJson<T>(request: Request): Promise<T> {
   const raw = await request.text()
   if (raw.length > MAX_TEXT_BYTES + 1_000) throw new HttpError(413, 'That text is too long. Send one page at a time.')
+  let body: unknown
   try {
-    return JSON.parse(raw) as T
+    body = JSON.parse(raw)
   } catch {
     throw new HttpError(400, 'Bad request.')
   }
+  // "null", "42", or "[]" parse fine but are not a request body.
+  if (typeof body !== 'object' || body === null || Array.isArray(body)) throw new HttpError(400, 'Bad request.')
+  return body as T
 }
 
 // Per-model time limits, so the primary plus the fallback still finish inside the function's 60s.

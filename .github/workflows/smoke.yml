@@ -82,6 +82,25 @@ jobs:
                 console.log("warnings", kinds, "items", (out.items || []).length, "risky", (out.items || []).filter(i => i.risky).length);
               })
           ' "${{ inputs.url }}"
+      - name: API error paths answer with the right status
+        run: |
+          u="${{ inputs.url }}"
+          check() { # expected method path [body]
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -X "$2" -H 'Content-Type: application/json' ${3:+--data-binary "$3"} "$u$4")
+            if [ "$code" = "$1" ]; then echo "ok   $2 $4 -> $code"; else echo "FAIL $2 $4 -> $code (wanted $1)"; exit 1; fi
+          }
+          check 405 GET /api/snap-text
+          check 400 POST /api/snap-text '{bad'
+          check 400 POST /api/snap-text 'null'
+          check 400 POST /api/snap-text '{}'
+          check 400 POST /api/snap-text '{"text":123}'
+          check 400 POST /api/snap-text '{"text":"too short"}'
+          node -e 'process.stdout.write(JSON.stringify({text:"x".repeat(30000)}))' > big.json
+          check 413 POST /api/snap-text @big.json
+          check 405 POST /api/health
+          check 404 GET /nope
+          check 404 GET /api/nothing
+          check 200 GET /data/buildings.json
       - name: Street View key is locked to the site
         # Uses Google's free metadata endpoint. A key restricted to the site must refuse requests with no referrer
         # or someone else's. If either gets "OK", the restriction is not applied in Google Cloud (see README).
