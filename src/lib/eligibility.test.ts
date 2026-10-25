@@ -215,3 +215,27 @@ describe('shortlist mixes programs', () => {
     expect(shortlistFrom(ranked.slice(0, 3)).map((b) => b.id)).toEqual(['h1', 'h2', 'h3'])
   })
 })
+
+describe('income tiers beyond 50 and 60 (DC covenants)', async () => {
+  const { limitTable, lihtcRentCeiling, assess } = await import('./eligibility')
+  const limits = (await import('../data/limits.2026.json')).default as import('./types').IncomeLimits
+  const base = {
+    id: 'dc-1', name: 'x', address: '1 Main St', city: 'Washington', state: 'DC', zip: '20001', area: 'DC', lat: 38.9, lon: -77,
+    program: 'LIHTC', subsidy: 'dc', totalUnits: 50, affordableUnits: 20, bedrooms: [], yearPlacedInService: 2024, seniorOnly: false,
+    disabilityOnly: false, metroMiles: null, contact: { name: null, org: null, phone: null, email: null },
+    source: { dataset: 'DC', url: '', retrieved: '' },
+  } as const
+  it('scales the 80% table from the 50% one and uses Section 8 for 30%', () => {
+    expect(limitTable(limits, 80)[0]).toBe(Math.round((limits.mtsp['50'][0] * 1.6) / 50) * 50)
+    expect(limitTable(limits, 30)[0]).toBe(limits.section8!['30'][0])
+    expect(lihtcRentCeiling(limits, 80, 1)).toBeGreaterThan(lihtcRentCeiling(limits, 60, 1))
+    expect(lihtcRentCeiling(limits, 30, 0)).toBeLessThan(lihtcRentCeiling(limits, 50, 0))
+  })
+  it('checks the limit at the building tier', () => {
+    const b80 = { ...base, incomeCeiling: 80 } as unknown as import('./types').Building
+    const b30 = { ...base, incomeCeiling: 30 } as unknown as import('./types').Building
+    const s = { income: 80000, householdSize: 1, allFullTimeStudents: false, includeSeniorDisability: false, voucher: false }
+    expect(assess(b80, limits, s).limit).toBe('under')
+    expect(assess(b30, limits, s).limit).toBe('over')
+  })
+})

@@ -16,6 +16,18 @@ const TERMS: { term: string; plain: string }[] = [
     plain: 'A building with a HUD contract. You usually pay about 30% of your income for rent, and HUD pays the rest.',
   },
   {
+    term: 'Public housing',
+    plain: 'Apartments owned by a housing authority. Rent is about 30% of your income. You apply to the authority, and waitlists can be long.',
+  },
+  {
+    term: 'USDA rural rental',
+    plain: 'Apartments in outer counties financed by USDA Rural Development. Homes with rental assistance charge about 30% of income.',
+  },
+  {
+    term: 'DC covenant (DHCD list)',
+    plain: 'A DC building that promised affordable homes at set income tiers in exchange for city money or zoning. Ask the building or DHCD how to apply.',
+  },
+  {
     term: 'AMI (area median income)',
     plain:
       'The middle income for the DC area. "60% AMI" means 60% of that number, adjusted for how many people live with you.',

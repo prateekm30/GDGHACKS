@@ -30,6 +30,12 @@ STATIONS = ROOT / "data" / "metro_stations.geojson"
 
 LIHTC_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0"
 MULTIFAMILY_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0"
+# More official sources (all public query APIs, no key). Each one fails soft: a county site being down must not
+# stop the HUD build.
+PUBLIC_HOUSING_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Public_Housing_Developments/FeatureServer/0"
+USDA_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/USDA_Rural_Housing_Assets/FeatureServer/0"
+DC_AFFORDABLE_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62"
+MD_SITES_URL = "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0"
 STATIONS_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Rail_Bus_WebMercator/MapServer/51"
 # Every county and city in HUD's Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area, so one table of
 # income limits applies to all of them. Grouped into the areas people pick from.
@@ -61,6 +67,55 @@ MF_FIELDS = ["PROPERTY_ID", "PROPERTY_NAME_TEXT", "ADDRESS_LINE1_TEXT", "STD_CIT
              "PROPERTY_ON_SITE_PHONE_NUMBER", "MGMT_AGENT_ORG_NAME", "MGMT_CONTACT_FULL_NAME",
              "MGMT_CONTACT_MAIN_PHN_NBR", "MGMT_CONTACT_EMAIL_TEXT", "COUNTY_LEVEL", "LAT", "LON"]
 MF_FIELDS += [f"BD{n}_CNT{c}" for n in range(5) for c in (1, 2)]
+# Public housing: the layer also carries resident demographics (race, age, income shares). Never requested.
+PH_FIELDS = ["DEVELOPMENT_CODE", "PROJECT_NAME", "SCATTERED_SITE_IND", "PD_STATUS_TYPE_CODE", "TOTAL_UNITS",
+             "ACC_UNITS", "PCT_BED1", "PCT_BED2", "PCT_BED3", "MONTHS_WAITING", "STD_ADDR", "STD_CITY", "STD_ST",
+             "STD_ZIP5", "FORMAL_PARTICIPANT_NAME", "HA_PHN_NUM", "HA_EMAIL_ADDR_TEXT", "COUNTY_LEVEL", "LAT", "LON"]
+USDA_FIELDS = ["OBJECTID", "PROJECT_NAME", "STD_ADDR", "STD_CITY", "STD_ST", "STD_ZIP5", "TOTAL_UNITS", "RA_UNITS",
+               "RENTAL_DESIGNATION", "MGMT_AGENT_NAME", "MGMT_AGENT_PH_NBR", "MGMT_AGENT_EMAIL", "STUDIO_COUNT",
+               "BEDROOM1_COUNT", "BEDROOM2_COUNT", "BEDROOM3_COUNT", "BEDROOM4_COUNT", "EFFECTIVE_DATE",
+               "COUNTY_LEVEL", "LAT", "LON"]
+DC_FIELDS = ["OBJECTID", "MAR_ID", "PROJECT_NAME", "ADDRESS", "FULLADDRESS", "STATUS_PUBLIC", "AGENCY_CALCULATED",
+             "TOTAL_AFFORDABLE_UNITS", "AFFORDABLE_UNITS_AT_0_30_AMI", "AFFORDABLE_UNITS_AT_31_50_AMI",
+             "AFFORDABLE_UNITS_AT_51_60_AMI", "AFFORDABLE_UNITS_AT_61_80_AMI", "AFFORDABLE_UNITS_AT_81_AMI",
+             "UNITS_TOTAL", "CONSTRUCTION_END_DATE", "LATITUDE", "LONGITUDE"]
+MD_FIELDS = ["ProjID", "ProjName", "MFPrograms", "PInitClos", "ResUnits", "PrimOcc", "Address", "City", "Zip", "County",
+             "XCoord", "YCoord"]
+MD_COUNTY_AREA = {"Montgomery": "MONTGOMERY", "Prince George's": "PRINCE_GEORGES", "Prince Georges": "PRINCE_GEORGES",
+                  "Frederick": "FREDERICK", "Charles": "SOUTHERN_MD", "Calvert": "SOUTHERN_MD"}
+MD_WHERE = "County IN (" + ",".join("'" + c.replace("'", "''") + "'" for c in MD_COUNTY_AREA) + ")"
+# Which row wins when two sources list the same building: HUD rows carry phones and unit mixes, then public
+# housing, the LIHTC database, USDA, the DC and Maryland agency lists (which carry the fewest fields).
+SOURCE_RANK = {"hud": 0, "ph": 1, "lihtc": 2, "usda": 3, "dc": 4, "md": 5}
+
+
+def rank(b: dict) -> int:
+    return SOURCE_RANK.get(b["id"].split("-", 1)[0], 9)
+
+
+def stable_id(prefix: str, *parts) -> str:
+    """An id that survives a refresh (ArcGIS OBJECTIDs do not)."""
+    import hashlib
+    return prefix + "-" + hashlib.sha1("|".join(str(p or "").strip().lower() for p in parts).encode()).hexdigest()[:10]
+
+
+def phone(v) -> str | None:
+    """HUD and USDA give bare digits ("2025351500"); show them the way people dial."""
+    s = clean(v)
+    if not s:
+        return None
+    d = re.sub(r"\D", "", s)
+    if len(d) == 11 and d.startswith("1"):
+        d = d[1:]
+    return f"({d[:3]}) {d[3:6]}-{d[6:]}" if len(d) == 10 else s
+
+
+def year_of(ms) -> int | None:
+    """A year from an ArcGIS epoch-milliseconds date."""
+    try:
+        return int(date.fromtimestamp(int(ms) / 1000).year) if ms else None
+    except (TypeError, ValueError, OverflowError, OSError):
+        return None
 
 
 
@@ -269,6 +324,161 @@ def mf_building(a: dict, today: str) -> dict | None:
     }
 
 
+def ph_building(a: dict, today: str) -> dict | None:
+    """HUD public housing developments. Rent is about 30% of income; the housing authority runs the waitlist."""
+    area = area_of(a)
+    if not area or a.get("SCATTERED_SITE_IND") == "Y" or a.get("PD_STATUS_TYPE_CODE") != "M":
+        return None  # scattered sites have no one address; only developments under management
+    name = clean_name(title(clean(a.get("PROJECT_NAME")))) or "Unnamed property"
+    bedrooms = [n for n in (1, 2, 3) if (num(a.get(f"PCT_BED{n}")) or 0) > 0]
+    return {
+        "id": f"ph-{a['DEVELOPMENT_CODE']}",
+        "name": name,
+        "address": title(clean(a.get("STD_ADDR"))),
+        "city": title(clean(a.get("STD_CITY"))),
+        "state": (a.get("STD_ST") or "").upper(),
+        "zip": str(a.get("STD_ZIP5") or "")[:5],
+        "area": area,
+        "lat": a["_lat"], "lon": a["_lon"],
+        "program": "HUD",
+        "subsidy": "public-housing",
+        "totalUnits": num(a.get("TOTAL_UNITS")),
+        "affordableUnits": num(a.get("ACC_UNITS")),
+        "incomeCeiling": None,
+        "bedrooms": bedrooms,
+        "unitMix": {},
+        "yearPlacedInService": None,
+        "seniorOnly": bool(re.search(r"\b(senior|elderly)\b", name, re.I)),
+        "disabilityOnly": False,
+        # Average months on the waitlist for recent move-ins; HUD's 0 and negatives both read as unknown.
+        "waitMonths": num(a.get("MONTHS_WAITING")) or None,
+        "metroMiles": None,
+        "metroStation": None,
+        "contact": {"name": None, "org": title(clean(a.get("FORMAL_PARTICIPANT_NAME"))).replace("D.c  ", "DC ") or None,
+                    "phone": phone(a.get("HA_PHN_NUM")), "email": clean(a.get("HA_EMAIL_ADDR_TEXT"))},
+        "source": {"dataset": "HUD Public Housing Developments", "url": PUBLIC_HOUSING_URL, "retrieved": today},
+    }
+
+
+def usda_building(a: dict, today: str) -> dict | None:
+    """USDA Rural Development rentals (Section 515/514). Units with Rental Assistance charge about 30% of income."""
+    area = area_of(a)
+    if not area:
+        return None
+    mix = {str(n): c for n, f in ((0, "STUDIO_COUNT"), (1, "BEDROOM1_COUNT"), (2, "BEDROOM2_COUNT"), (3, "BEDROOM3_COUNT"), (4, "BEDROOM4_COUNT"))
+           if (c := num(a.get(f)) or 0) > 0}
+    assisted = num(a.get("RA_UNITS")) or 0
+    year = str(a.get("EFFECTIVE_DATE") or "")[:4]
+    return {
+        "id": stable_id("usda", a.get("PROJECT_NAME"), a.get("STD_ADDR"), a.get("STD_ZIP5")),
+        "name": clean_name(title(clean(a.get("PROJECT_NAME")))) or "Unnamed property",
+        "address": title(clean(a.get("STD_ADDR"))),
+        "city": title(clean(a.get("STD_CITY"))),
+        "state": (a.get("STD_ST") or "").upper(),
+        "zip": str(a.get("STD_ZIP5") or "")[:5],
+        "area": area,
+        "lat": a["_lat"], "lon": a["_lon"],
+        # With rental assistance the rent follows income; without it USDA sets a basic rent we do not know.
+        "program": "HUD" if assisted > 0 else "LIHTC",
+        "subsidy": "usda",
+        "totalUnits": num(a.get("TOTAL_UNITS")),
+        "affordableUnits": assisted or num(a.get("TOTAL_UNITS")),
+        "incomeCeiling": None,
+        "bedrooms": [int(n) for n in mix],
+        "unitMix": mix,
+        "yearPlacedInService": int(year) if year.isdigit() else None,
+        "seniorOnly": str(a.get("RENTAL_DESIGNATION") or "").startswith("EL"),
+        "disabilityOnly": False,
+        "metroMiles": None,
+        "metroStation": None,
+        "contact": {"name": None, "org": title(clean(a.get("MGMT_AGENT_NAME"))) or None,
+                    "phone": phone(a.get("MGMT_AGENT_PH_NBR")), "email": clean(a.get("MGMT_AGENT_EMAIL"))},
+        "source": {"dataset": "USDA Rural Housing Assets (via HUD)", "url": USDA_URL, "retrieved": today},
+    }
+
+
+DC_TIERS = (("30", "AFFORDABLE_UNITS_AT_0_30_AMI"), ("50", "AFFORDABLE_UNITS_AT_31_50_AMI"),
+            ("60", "AFFORDABLE_UNITS_AT_51_60_AMI"), ("80", "AFFORDABLE_UNITS_AT_61_80_AMI"))
+
+
+def dc_building(a: dict, today: str) -> dict | None:
+    """DC DHCD's Affordable Housing list: projects with covenanted affordable homes, completed 2015 to date."""
+    if not str(a.get("STATUS_PUBLIC") or "").lower().startswith("completed"):
+        return None
+    mix = {t: c for t, f in DC_TIERS if (c := num(a.get(f)) or 0) > 0}
+    if not mix:
+        return None  # only homes above 80% of median income
+    lat, lon = a.get("LATITUDE") or a["_lat"], a.get("LONGITUDE") or a["_lon"]
+    if lat is None or lon is None:
+        return None
+    addr = clean(a.get("ADDRESS")) or ""
+    zip_m = re.search(r"\b(20\d{3})\b", addr)
+    street = title(clean(a.get("FULLADDRESS"))) or title(addr.split(",")[0])
+    name = clean(a.get("PROJECT_NAME")) or street
+    highest = max(int(t) for t in mix)
+    return {
+        "id": f"dc-{int(a['MAR_ID']) if a.get('MAR_ID') else 'o' + str(a['OBJECTID'])}",
+        "name": clean_name(title(name)) if name.isupper() else name,
+        "address": street,
+        "city": "Washington",
+        "state": "DC",
+        "zip": zip_m.group(1) if zip_m else "",
+        "area": "DC",
+        "lat": lat, "lon": lon,
+        "program": "LIHTC",
+        "subsidy": "dc",
+        "totalUnits": num(a.get("UNITS_TOTAL")),
+        "affordableUnits": num(a.get("TOTAL_AFFORDABLE_UNITS")),
+        # The highest income tier with homes: rents and limits shown are the "up to" for the building.
+        "incomeCeiling": highest,
+        "amiMix": mix,
+        "bedrooms": [],
+        "unitMix": {},
+        "yearPlacedInService": year_of(a.get("CONSTRUCTION_END_DATE")),
+        "seniorOnly": bool(re.search(r"\b(senior|elderly)\b", name, re.I)),
+        "disabilityOnly": False,
+        "metroMiles": None,
+        "metroStation": None,
+        "contact": {"name": None, "org": None, "phone": None, "email": None},
+        "source": {"dataset": "DC DHCD Affordable Housing (Open Data DC)", "url": DC_AFFORDABLE_URL, "retrieved": today},
+    }
+
+
+def md_building(a: dict, today: str) -> dict | None:
+    """Maryland DHCD multifamily sites: state-financed rentals (tax credit, rental housing loans, preservation)."""
+    area = MD_COUNTY_AREA.get(str(a.get("County") or "").strip())
+    if not area:
+        return None
+    lat, lon = a.get("YCoord") or a["_lat"], a.get("XCoord") or a["_lon"]
+    if lat is None or lon is None:
+        return None
+    occ = str(a.get("PrimOcc") or "")
+    return {
+        "id": f"md-{int(a['ProjID']) if a.get('ProjID') else 'o' + str(a.get('OBJECTID'))}",
+        "name": clean_name(title(clean(a.get("ProjName")))) or "Unnamed property",
+        "address": title(re.sub(r"\s+", " ", clean(a.get("Address")) or "")),
+        "city": title(clean(a.get("City"))),
+        "state": "MD",
+        "zip": str(a.get("Zip") or "")[:5],
+        "area": area,
+        "lat": lat, "lon": lon,
+        "program": "LIHTC",
+        "subsidy": "md",
+        "totalUnits": num(a.get("ResUnits")),
+        "affordableUnits": num(a.get("ResUnits")),
+        "incomeCeiling": None,
+        "bedrooms": [],
+        "unitMix": {},
+        "yearPlacedInService": year_of(a.get("PInitClos")),
+        "seniorOnly": occ == "Elderly",
+        "disabilityOnly": occ == "Special Needs",
+        "metroMiles": None,
+        "metroStation": None,
+        "contact": {"name": None, "org": None, "phone": None, "email": None},
+        "source": {"dataset": "Maryland DHCD Multifamily Sites (MD iMAP)", "url": MD_SITES_URL, "retrieved": today},
+    }
+
+
 KEEP_UPPER = {"NW", "NE", "SW", "SE", "II", "III", "IV", "VI", "LP", "LLC", "DC", "VA", "MD", "US", "YMCA", "YWCA", "UDC", "GWU", "NIH"}
 
 
@@ -327,20 +537,27 @@ def name_key(b: dict) -> str:
 
 
 def dedupe(buildings: list[dict]) -> list[dict]:
-    """Many buildings are in both datasets. Keep the HUD row (income-based rent), fill gaps from LIHTC."""
+    """Many buildings are in several datasets. Keep the best-ranked row (see SOURCE_RANK), fill its gaps."""
     by_key: dict[str, dict] = {}
     by_name: dict[str, dict] = {}
-    for b in sorted(buildings, key=lambda b: b["program"] != "HUD"):
+    for b in sorted(buildings, key=rank):
         k, nk = addr_key(b), name_key(b)
         kept = by_key.get(k) or by_name.get(nk)
         if kept is None:
             by_key[k] = by_name[nk] = b
             continue
-        for f in ("bedrooms", "yearPlacedInService", "totalUnits"):
-            if not kept[f] and b[f]:
-                kept[f] = b[f]
-        # Keep HUD's senior/disability flags: they say who may live there, LIHTC's only who is targeted.
+        fill_gaps(kept, b)
+        # Keep the kept row's senior/disability flags: they say who may live there, LIHTC's only who is targeted.
     return list({id(b): b for b in by_key.values()}.values())
+
+
+def fill_gaps(kept: dict, other: dict) -> None:
+    for f in ("bedrooms", "yearPlacedInService", "totalUnits", "affordableUnits", "incomeCeiling", "unitMix", "marketRent",
+              "amiMix", "waitMonths"):
+        if not kept.get(f) and other.get(f):
+            kept[f] = other[f]
+    if not kept["contact"]["phone"] and other["contact"]["phone"]:
+        kept["contact"] = other["contact"]
 
 
 # Rows HUD publishes with the developer's office as the address. The building itself is another row.
@@ -370,21 +587,18 @@ def refine(rows: list[dict]) -> list[dict]:
     # Two rows at the same point (within ~10 m) with the same house number are one building listed twice
     # (a re-syndicated tax-credit deal, or a HUD contract plus its LIHTC record; street spellings differ:
     # "S Alfred St" vs "South Alfred Street"). Keep the HUD row, else the newest LIHTC row, and fill its gaps.
+    # Sources geocode the same door a little differently, so the match is within ~100 m plus the house number.
     by_spot: dict[tuple, dict] = {}
     out = []
-    for b in sorted(rows, key=lambda b: (b["program"] != "HUD", -(b["yearPlacedInService"] or 0))):
+    for b in sorted(rows, key=lambda b: (rank(b), -(b["yearPlacedInService"] or 0))):
         house = re.match(r"\d+", b["address"] or "")
-        key = (round(b["lat"], 4), round(b["lon"], 4), house.group(0) if house else b["name"])
+        key = (round(b["lat"], 3), round(b["lon"], 3), house.group(0) if house else name_key(b))
         kept = by_spot.get(key)
         if kept is None:
             by_spot[key] = b
             out.append(b)
             continue
-        for f in ("bedrooms", "yearPlacedInService", "totalUnits", "affordableUnits", "incomeCeiling", "unitMix", "marketRent"):
-            if not kept.get(f) and b.get(f):
-                kept[f] = b[f]
-        if not kept["contact"]["phone"] and b["contact"]["phone"]:
-            kept["contact"] = b["contact"]
+        fill_gaps(kept, b)
     rows = out
 
     for b in rows:
@@ -394,7 +608,9 @@ def refine(rows: list[dict]) -> list[dict]:
         if t is not None and a is not None and a > t:
             b["totalUnits"], b["affordableUnits"] = a, t
         # Group homes and sites with three or fewer homes are not apartment buildings; they fill by referral.
-        if re.search(r"\bgroup home\b", b["name"], re.I) or (b["totalUnits"] is not None and b["totalUnits"] <= SMALL_SITE_UNITS):
+        # Same for a block with three or fewer covenanted homes (one inclusionary unit in a condo building).
+        small = any(b.get(f) is not None and b[f] <= SMALL_SITE_UNITS for f in ("totalUnits", "affordableUnits"))
+        if re.search(r"\bgroup home\b", b["name"], re.I) or small:
             b["groupHome"] = True
             if "group home" in b["name"].lower():
                 b["disabilityOnly"] = True
@@ -429,6 +645,19 @@ def build_buildings(inspect: bool) -> None:
 
     rows = [b for a in lihtc if (b := lihtc_building(a, today))]
     rows += [b for a in mf if (b := mf_building(a, today))]
+    for label, url, where, fields, mapper in (
+        ("Public housing", PUBLIC_HOUSING_URL, WHERE, PH_FIELDS, ph_building),
+        ("USDA rural", USDA_URL, WHERE, USDA_FIELDS, usda_building),
+        ("DC affordable", DC_AFFORDABLE_URL, "1=1", DC_FIELDS, dc_building),
+        ("Maryland sites", MD_SITES_URL, MD_WHERE, MD_FIELDS, md_building),
+    ):
+        try:
+            raw = query_layer(url, where, fields)
+            mapped = [b for a in raw if (b := mapper(a, today))]
+            print(f"{label}: {len(raw)} rows, {len(mapped)} usable")
+            rows += mapped
+        except Exception as e:  # noqa: BLE001 - one source down must not stop the build
+            print(f"WARNING {label} skipped: {e!r}"[:400])
     rows = [b for b in dedupe(rows) if b["lat"] is not None]
     stations = load_stations()
     print(f"Metro stations: {len(stations)}")
@@ -439,7 +668,8 @@ def build_buildings(inspect: bool) -> None:
 
     OUT_BUILDINGS.write_text(json.dumps(rows, indent=1))
     by_area = dict(Counter(b["area"] for b in rows))
-    print(f"Wrote {len(rows)} buildings to {OUT_BUILDINGS.relative_to(ROOT)}: {by_area}")
+    by_source = dict(Counter(b["id"].split("-", 1)[0] for b in rows))
+    print(f"Wrote {len(rows)} buildings to {OUT_BUILDINGS.relative_to(ROOT)}: {by_area}\nby source: {by_source}")
 
 
 def build_limits() -> None:

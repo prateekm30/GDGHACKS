@@ -4,8 +4,18 @@
 
 | Output | What it holds | Source |
 |---|---|---|
-| `public/data/buildings.json` | One row per building (see `Building` in `src/lib/types.ts`) | HUD LIHTC Database and HUD Multifamily Properties (Assisted), both public ArcGIS REST query APIs on HUD's ArcGIS Online, no key. Filtered to DC (FIPS 11001) and Arlington (51013). |
+| `public/data/buildings.json` | One row per building (see `Building` in `src/lib/types.ts`) | Six public query APIs, no key, no scraping: HUD LIHTC Database; HUD Multifamily Properties (Assisted); HUD Public Housing Developments (only the fields about the building, never the resident demographics the layer also carries); USDA Rural Housing Assets (as served by HUD); DC DHCD Affordable Housing (Open Data DC, projects completed 2015 to date with homes at or under 80% of median income); Maryland DHCD Multifamily Sites (MD iMAP). Filtered to the 20 counties and cities of HUD's Washington metro income-limit area. |
 | `src/data/limits.2026.json` | MTSP limits (for tax-credit buildings) and Section 8 limits (for HUD-assisted buildings), by household size 1 to 8 | 2026 table for the Washington-Arlington-Alexandria HUD Metro FMR Area, entered by hand and checked by tests. Optional: HUD USER API (free token) refreshes Section 8 rows. |
+
+## Sources that were looked at and left out
+
+`python3 data/probe.py` (run as the "Probe data sources" Action) is the read-only survey behind these choices.
+
+- Arlington committed affordable units, Fairfax ADU/WDU, Loudoun ADU: no public query layer found (Arlington's CAF list is a PDF; Alexandria's layer is checked below).
+- Montgomery MPDU: the county's open data counts MPDUs by planning area without addresses, and the GIS layer needs a sign-in.
+- HUD Insured Multifamily and Section 202/811 layers: market-rate FHA loans, or already inside the Assisted dataset.
+- DC Housing Finance Agency portfolio and university-made county layers: financed-project lists and student projects, not eligibility lists.
+- National Housing Preservation Database: needs an account.
 
 ## Run it
 

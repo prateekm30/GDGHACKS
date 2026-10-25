@@ -119,7 +119,7 @@ export function PickDemo({ buildings, limits }: { buildings: Building[] | null; 
 
   function line(b: Building) {
     if (b.program === 'HUD') return 'Rent follows income'
-    return `1BR cap ${money(lihtcRentCeiling(limits, b.incomeCeiling === 50 ? 50 : 60, 1))}`
+    return `1BR cap ${money(lihtcRentCeiling(limits, b.incomeCeiling === 'avg' || b.incomeCeiling == null ? 60 : b.incomeCeiling, 1))}`
   }
 
   return (

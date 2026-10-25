@@ -1,4 +1,9 @@
+/** The rent model: LIHTC = capped rent by income tier, HUD = rent follows income (about 30%). */
 export type Program = 'LIHTC' | 'HUD'
+/** Which public list the row comes from when it is not HUD's two main datasets. */
+export type Subsidy = 'public-housing' | 'usda' | 'dc' | 'md'
+/** Income tier as a percent of area median income. */
+export type Ceiling = 30 | 50 | 60 | 80
 export type Area =
   | 'DC'
   | 'MONTGOMERY'
@@ -28,8 +33,14 @@ export interface Building {
   totalUnits: number | null
   /** LIHTC low-income units, or HUD assisted units. */
   affordableUnits: number | null
-  /** LIHTC elected income ceiling: 50 or 60 (% AMI), 'avg' for income averaging, null if unknown. */
-  incomeCeiling: 50 | 60 | 'avg' | null
+  /** Income ceiling: 50 or 60 (% AMI) for tax-credit buildings, 30 or 80 for DC covenants, 'avg' for income averaging, null if unknown. */
+  incomeCeiling: Ceiling | 'avg' | null
+  /** Set for rows from public housing, USDA, DC DHCD, or Maryland DHCD lists. Absent for HUD's two main datasets. */
+  subsidy?: Subsidy
+  /** Public housing: average months on the waitlist for recent move-ins (HUD). Unknown when absent. */
+  waitMonths?: number | null
+  /** DC covenants: affordable homes by income tier ("30", "50", "60", "80" percent of median income). */
+  amiMix?: Record<string, number>
   /** Bedroom sizes that exist in the building (0 = studio). Empty if unknown. */
   bedrooms: number[]
   /** Number of units by bedroom count ("0" = studio). Missing in older data. */

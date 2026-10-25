@@ -1,4 +1,4 @@
-import type { Building, IncomeLimits, Situation } from './types'
+import type { Building, IncomeLimits, Situation, Ceiling } from './types'
 
 /** Share of income spent on rent, as a whole percent. */
 export type BurdenLevel = 'ok' | 'stretch' | 'heavy'
@@ -50,10 +50,21 @@ export function imputedLimit(table: number[], bedrooms: number): number {
   return (limitFor(table, lo) + limitFor(table, lo + 1)) / 2
 }
 
-/** Max monthly gross rent (rent plus utilities) for a LIHTC unit at a ceiling. */
-export function lihtcRentCeiling(limits: IncomeLimits, ceiling: 50 | 60, bedrooms: number): number {
-  const table = ceiling === 50 ? limits.mtsp['50'] : limits.mtsp['60']
-  return Math.round((imputedLimit(table, bedrooms) * 0.3) / 12)
+/**
+ * Income limits by household size for a tier. 50 and 60 are HUD's published MTSP tables. 30 is the Section 8
+ * extremely-low table when we have it; 30 and 80 otherwise scale the 50% table (HUD's own rule of thumb, before
+ * its caps), which is why cards for those tiers say "estimated".
+ */
+export function limitTable(limits: IncomeLimits, ceiling: Ceiling): number[] {
+  if (ceiling === 50) return limits.mtsp['50']
+  if (ceiling === 60) return limits.mtsp['60']
+  if (ceiling === 30 && limits.section8) return limits.section8['30']
+  return limits.mtsp['50'].map((n) => Math.round((n * ceiling) / 50 / 50) * 50)
+}
+
+/** Max monthly gross rent (rent plus utilities) for a capped unit at a ceiling. */
+export function lihtcRentCeiling(limits: IncomeLimits, ceiling: Ceiling, bedrooms: number): number {
+  return Math.round((imputedLimit(limitTable(limits, ceiling), bedrooms) * 0.3) / 12)
 }
 
 /** Percent of AMI, using 100% AMI = 2x the 50% (very low income) limit. Approximate. */
@@ -140,7 +151,7 @@ export function assess(
         limit = 'varies'
       } else {
         const ceiling = building.incomeCeiling ?? 60
-        limitAmount = limitFor(ceiling === 50 ? limits.mtsp['50'] : limits.mtsp['60'], situation.householdSize)
+        limitAmount = limitFor(limitTable(limits, ceiling), situation.householdSize)
         limit = situation.income <= limitAmount ? 'under' : 'over'
       }
     } else if (limits.section8) {

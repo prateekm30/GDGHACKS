@@ -15,6 +15,7 @@ import {
 import type { ReactNode } from 'react'
 import { areaInfo, areaLabel } from '../lib/areas'
 import { rentTable, type Assessment } from '../lib/eligibility'
+import { programLabel, sourceName } from '../lib/labels'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingPhoto } from './BuildingPhoto'
 import { BurdenBadge, Note, money } from './ui'
@@ -45,9 +46,24 @@ export function summary(b: Building, a: Assessment): string {
 }
 
 function programBadge(b: Building) {
-  if (b.program === 'HUD') return { text: 'HUD-assisted', cls: 'bg-mint text-ink' }
-  if (b.incomeCeiling === 'avg') return { text: 'Tax credit · mixed tiers', cls: 'bg-white/95 text-brand-strong' }
-  return { text: `Tax credit · ${b.incomeCeiling ?? 60}% tier`, cls: 'bg-white/95 text-brand-strong' }
+  return { text: programLabel(b), cls: b.program === 'HUD' ? 'bg-mint text-ink' : 'bg-white/95 text-brand-strong' }
+}
+
+/** DC covenants list homes by income tier; show it so "up to 80%" does not hide the 30% homes. */
+function AmiMix({ b }: { b: Building }) {
+  if (!b.amiMix) return null
+  const parts = Object.entries(b.amiMix).sort(([a], [c]) => Number(a) - Number(c))
+  return (
+    <p className="text-xs text-ink-soft">
+      <span className="font-bold uppercase tracking-wide">Homes by income tier</span>{' '}
+      {parts.map(([tier, n], i) => (
+        <span key={tier}>
+          {i > 0 && ' · '}
+          <strong className="text-ink">{n}</strong> at {tier === '30' ? 'up to 30%' : `${tier}%`} of median
+        </span>
+      ))}
+    </p>
+  )
 }
 
 /** How this building compares with HUD's estimate of market rent in its ZIP code. */
@@ -353,6 +369,7 @@ export function BuildingCard({
               <PricePanel b={b} a={a} limits={limits} situation={situation} />
               <LimitRow a={a} limits={limits} />
               <UnitMix b={b} />
+        <AmiMix b={b} />
             </div>
           </details>
         </div>
@@ -387,6 +404,11 @@ export function BuildingCard({
           <Stat icon={BedDouble} label="Sizes" value={bedroomText} />
           <Stat icon={CalendarDays} label="Opened" value={b.yearPlacedInService ?? 'Not listed'} />
           <Stat icon={TrainFront} label="Metro" value={metro} />
+          {b.waitMonths != null && (
+            <div className="col-span-2">
+              <Stat icon={CalendarDays} label="Typical wait (HUD)" value={`about ${b.waitMonths} month${b.waitMonths === 1 ? '' : 's'} for recent move-ins`} />
+            </div>
+          )}
           {b.commuteMiles != null && (
             <div className="col-span-2">
               <Stat icon={BriefcaseBusiness} label="To your work or school" value={`${b.commuteMiles.toFixed(1)} mi, straight line`} />
@@ -394,6 +416,7 @@ export function BuildingCard({
           )}
         </dl>
         <UnitMix b={b} />
+        <AmiMix b={b} />
 
         {(b.seniorOnly || b.disabilityOnly) && (
           <p className="flex flex-wrap gap-1.5">
@@ -429,7 +452,7 @@ export function BuildingCard({
 
         {detailed && (
           <div className="mt-auto space-y-1 border-t border-dashed border-line pt-3 text-sm">
-            <p className="text-xs text-ink-soft">HUD data doesn't list amenities like laundry or parking. Ask when you call.</p>
+            <p className="text-xs text-ink-soft">{sourceName(b)} doesn't list amenities like laundry or parking. Ask when you call.</p>
             {b.contact.phone || b.contact.org || b.contact.name ? (
               <>
                 <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>
@@ -441,7 +464,7 @@ export function BuildingCard({
                 )}
               </>
             ) : (
-              <p className="text-ink-soft">HUD data has no phone for this building.</p>
+              <p className="text-ink-soft">{sourceName(b)} has no phone for this building.</p>
             )}
             <p>
               <a

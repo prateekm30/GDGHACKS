@@ -2,6 +2,7 @@ import { ArrowRight, MapPin, Pause, Play } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import { areaInfo } from '../lib/areas'
 import { lihtcRentCeiling } from '../lib/eligibility'
+import { programLabel } from '../lib/labels'
 import { prefersReducedMotion, tiltHandlers } from '../lib/motion'
 import { streetViewUrl, useStreetViewIndex, useStreetViewKey, type StreetViewSource } from '../lib/streetview'
 import type { Area, Building, IncomeLimits } from '../lib/types'
@@ -42,7 +43,7 @@ export function pickReel(buildings: Building[], index: Record<string, StreetView
 function rentLine(b: Building, limits: IncomeLimits): string {
   if (b.program === 'HUD') return 'Rent set by your income'
   const br = b.bedrooms.includes(1) ? 1 : Math.min(...b.bedrooms)
-  const ceiling = b.incomeCeiling === 50 ? 50 : 60
+  const ceiling = b.incomeCeiling === 'avg' || b.incomeCeiling == null ? 60 : b.incomeCeiling
   const cap = lihtcRentCeiling(limits, ceiling, br)
   return `${br === 0 ? 'Studio' : `${br}BR`} capped at $${cap.toLocaleString('en-US')}/mo`
 }
@@ -201,7 +202,7 @@ export function HeroReel({
               </span>
               <p className="mt-2 truncate font-display text-xl font-extrabold leading-tight sm:text-2xl">{b.name}</p>
               <p className="truncate text-sm text-white/80">
-                {b.program === 'HUD' ? 'HUD-assisted' : 'Tax-credit'} · {rentLine(b, limits)}
+                {programLabel(b)} · {rentLine(b, limits)}
                 {b.metroStation ? ` · ${b.metroStation} Metro` : ''}
               </p>
             </div>
