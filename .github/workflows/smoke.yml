@@ -86,8 +86,8 @@ jobs:
         run: |
           u="${{ inputs.url }}"
           check() { # expected method path [body]
-            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -X "$2" -H 'Content-Type: application/json' ${3:+--data-binary "$3"} "$u$4")
-            if [ "$code" = "$1" ]; then echo "ok   $2 $4 -> $code"; else echo "FAIL $2 $4 -> $code (wanted $1)"; exit 1; fi
+            code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 30 -X "$2" -H 'Content-Type: application/json' ${4:+--data-binary "$4"} "$u$3")
+            if [ "$code" = "$1" ]; then echo "ok   $2 $3 -> $code"; else echo "FAIL $2 $3 -> $code (wanted $1)"; exit 1; fi
           }
           check 405 GET /api/snap-text
           check 400 POST /api/snap-text '{bad'
