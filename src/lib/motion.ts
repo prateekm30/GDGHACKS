@@ -4,11 +4,23 @@ import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from 'react
 export const prefersReducedMotion = () =>
   typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-/** Run a state change inside a View Transition when the browser supports it. */
+type VT = { ready?: Promise<void>; finished?: Promise<void>; updateCallbackDone?: Promise<void> }
+
+/**
+ * Run a state change inside a View Transition when the browser supports it. A transition that gets skipped
+ * (another one started, or the tab is hidden) rejects its promises; those rejections are expected, so they
+ * are caught here instead of landing in the console as unhandled errors.
+ */
 export function withTransition(update: () => void) {
-  const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown }
-  if (!doc.startViewTransition || prefersReducedMotion()) return update()
-  doc.startViewTransition(() => flushSync(update))
+  const doc = document as Document & { startViewTransition?: (cb: () => void) => VT }
+  if (!doc.startViewTransition || prefersReducedMotion() || document.visibilityState === 'hidden') return update()
+  let vt: VT | undefined
+  try {
+    vt = doc.startViewTransition(() => flushSync(update))
+  } catch {
+    return update()
+  }
+  for (const p of [vt?.ready, vt?.finished, vt?.updateCallbackDone]) p?.catch(() => {})
 }
 
 /** Adds .is-visible to every .reveal element inside the ref once it scrolls into view. */

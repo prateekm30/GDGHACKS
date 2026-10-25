@@ -2,7 +2,7 @@ import { Award } from 'lucide-react'
 import { useReveal } from '../lib/motion'
 import { Confetti } from './Confetti'
 import { assess } from '../lib/eligibility'
-import { learnedPriorities, whyReasons, type Weights } from '../lib/ranking'
+import { learnedPriorities, whyReasons, type Feature, type Weights } from '../lib/ranking'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingCard } from './BuildingCard'
 import { Glossary } from './Glossary'
@@ -27,6 +27,8 @@ const DOCUMENTS = [
 export function ResultsStep({
   shortlist,
   weights,
+  prior,
+  chosen,
   limits,
   situation,
   onEditSituation,
@@ -35,14 +37,17 @@ export function ResultsStep({
 }: {
   shortlist: Building[]
   weights: Weights
+  prior: Weights
+  chosen: readonly Feature[]
   limits: IncomeLimits
   situation: Situation | null
   onEditSituation: () => void
   onRestart: () => void
   announce: (msg: string) => void
 }) {
-  const priorities = learnedPriorities(weights)
+  const priorities = learnedPriorities(weights, prior, chosen)
   const max = Math.max(...priorities.map((p) => p.weight), 1)
+  const fromPicks = priorities.filter((p) => p.source === 'picks').length
   const revealRef = useReveal<HTMLDivElement>()
 
   return (
@@ -66,11 +71,19 @@ export function ResultsStep({
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div>
               <h2 id="learned-heading" className="text-sm font-semibold uppercase tracking-wider text-ink-soft" style={{ fontFamily: 'var(--font-sans)' }}>What we learned about you</h2>
-              {priorities[0] && (
+              {priorities[0] ? (
                 <p className="font-display mt-1 text-3xl font-extrabold leading-tight text-ink sm:text-4xl">You care most about{' '}
                   <span className="text-brand">{priorities[0].label.charAt(0).toLowerCase() + priorities[0].label.slice(1)}</span>.</p>
+              ) : (
+                <p className="font-display mt-1 text-3xl font-extrabold leading-tight text-ink sm:text-4xl">Your picks were mixed.</p>
               )}
-              <p className="mt-1 text-sm text-ink-soft">From your basics and picks. Wrong? Edit your answers or start over.</p>
+              <p className="mt-1 text-sm text-ink-soft">
+                {priorities.length === 0
+                  ? 'No single thing stood out, so the ranking uses our starting point: lower cost first, then Metro. Edit your answers to steer it.'
+                  : fromPicks > 0
+                    ? 'From what you chose and what your picks taught us. Wrong? Edit your answers or start over.'
+                    : 'From what you chose on the basics step. Your picks did not change it much. Wrong? Edit your answers or start over.'}
+              </p>
             </div>
             <div className="no-print flex gap-2">
               <Button variant="secondary" onClick={onEditSituation}>
@@ -84,7 +97,10 @@ export function ResultsStep({
           <ul className="mt-4 space-y-2.5">
             {priorities.map((p, i) => (
               <li key={p.feature} className="grid grid-cols-[9rem_1fr_3rem] items-center gap-3 text-sm sm:grid-cols-[12rem_1fr_3rem]">
-                <span className={i === 0 ? 'font-semibold' : ''}>{p.label}</span>
+                <span className={i === 0 ? 'font-semibold' : ''}>
+                  {p.label}
+                  <span className="block text-[11px] font-medium text-ink-soft">{p.source === 'picks' ? 'from your picks' : 'you chose this'}</span>
+                </span>
                 <span className="h-3 overflow-hidden rounded-full bg-line" aria-hidden>
                   <span
                     className={`grow-x block h-full rounded-full ${i === 0 ? 'bg-brand' : i === 1 ? 'bg-coral' : 'bg-accent'}`}

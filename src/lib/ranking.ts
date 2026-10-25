@@ -20,8 +20,12 @@ export const FEATURE_LABELS: Record<Feature, string> = {
   cozy: 'Smaller, quieter building',
 }
 
-/** Starting belief: cost matters most. Picks move the weights away from this. */
-export const PRIOR: Weights = { cost: 1.5, incomeBased: 0.3, bedrooms: 0.3, metro: 0.6, newer: 0.2, size: 0, commute: 0, cozy: 0 }
+/**
+ * Starting belief: cost matters most. Picks move the weights away from this. Income-based rent starts at 0 so
+ * HUD-assisted buildings (which always look cheapest at 30% of income, and often have long waitlists) get no
+ * head start; choosing "Rent based on my income" on the basics step raises it.
+ */
+export const PRIOR: Weights = { cost: 1.5, incomeBased: 0, bedrooms: 0.3, metro: 0.6, newer: 0.2, size: 0, commute: 0, cozy: 0 }
 
 /** How much a "matters most" choice on the basics step raises a feature's starting weight. */
 const PRIORITY_BOOST = 1.2
@@ -139,11 +143,44 @@ export function nextPair(
   return best
 }
 
-/** Features sorted by learned weight, for the "What we learned about you" panel. */
-export function learnedPriorities(w: Weights): { feature: Feature; label: string; weight: number }[] {
-  return FEATURES.map((f) => ({ feature: f, label: FEATURE_LABELS[f], weight: w[f] }))
-    .filter((p) => p.weight > 0.15)
-    .sort((a, b) => b.weight - a.weight)
+/** A weight has to move this far from its starting point before we call it something the picks taught us.
+ * Eight random picks move the biggest weight about 0.36 at the median and 0.9 at the 95th percentile; a consistent
+ * chooser moves it about 1.3. So 0.9 is where a pattern is likely real. */
+const LEARNED_MIN = 0.9
+
+export interface LearnedPriority {
+  feature: Feature
+  label: string
+  weight: number
+  /** Where the signal came from: the person chose it on the basics step, or their picks raised it. */
+  source: 'chosen' | 'picks'
+}
+
+/**
+ * What the person told us, for the "What we learned about you" panel: features they chose on the basics step,
+ * and features their picks pushed clearly above the starting point. The starting point itself is not a finding,
+ * so a random chooser gets an empty list, not "you care most about lower cost".
+ */
+export function learnedPriorities(w: Weights, prior: Weights = PRIOR, chosen: readonly Feature[] = []): LearnedPriority[] {
+  return FEATURES.flatMap((f): LearnedPriority[] => {
+    const source = chosen.includes(f) ? 'chosen' : w[f] - prior[f] > LEARNED_MIN ? 'picks' : null
+    return source && w[f] > 0.15 ? [{ feature: f, label: FEATURE_LABELS[f], weight: w[f], source }] : []
+  }).sort((a, b) => b.weight - a.weight)
+}
+
+/**
+ * The top three, mixing programs: at most two of one kind when the other kind has a candidate. Income-based
+ * buildings all show the same rent (30% of income), so three of them in a row tells the person little.
+ */
+export function shortlistFrom(ranked: Building[], n = 3): Building[] {
+  const out: Building[] = []
+  for (const b of ranked) {
+    if (out.length >= n) break
+    const same = out.filter((o) => o.program === b.program).length
+    if (same >= n - 1 && ranked.some((o) => !out.includes(o) && o.program !== b.program)) continue
+    out.push(b)
+  }
+  return out
 }
 
 /** Plain-language "why this matches" reasons, written by code from the top features. */

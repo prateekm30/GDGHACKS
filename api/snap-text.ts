@@ -1,10 +1,11 @@
 // POST /api/snap-text  { text } -> { items: [{ type, label, quote }], cached? }
 // Receives only text the user reviewed and edited. The photo or PDF never leaves the device.
 import { DEMO_CHECKLIST, DEMO_FORM_TEXT } from '../shared/demoForm.js'
+import { itemLooksRisky, labelFitsText, normText, quoteInText, scamSignals } from '../shared/snapCheck.js'
 import { askJson, errorResponse, HttpError, isClean, json, MAX_TEXT_BYTES, rateLimit, readJson } from './_gemma.js'
 
 const TYPES = new Set(['document', 'deadline', 'fee', 'contact'])
-const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim()
+const norm = normText
 
 interface Item {
   type: string
@@ -25,6 +26,19 @@ TEXT:
 ${text}
 """`
 
+/**
+ * Keep only items the person can verify: a quote that is really in the text, a label whose numbers, addresses,
+ * and words come from the text too (a planted label cannot ride on an honest quote), and no banned wording.
+ */
+export function checkItems(items: Item[], text: string) {
+  return items
+    .filter((it) => TYPES.has(it.type) && typeof it.label === 'string' && typeof it.quote === 'string')
+    .filter((it) => quoteInText(it.quote, text))
+    .filter((it) => isClean(it.label) && labelFitsText(it.label, text))
+    .slice(0, 25)
+    .map(({ type, label, quote }) => ({ type, label: label.slice(0, 80), quote, risky: itemLooksRisky(label, quote) || undefined }))
+}
+
 export async function POST(request: Request): Promise<Response> {
   try {
     const { text } = await readJson<{ text?: unknown }>(request)
@@ -35,14 +49,9 @@ export async function POST(request: Request): Promise<Response> {
 
     rateLimit(request)
     const out = await askJson<{ items?: Item[] }>(PROMPT(text))
-    const hay = norm(text)
-    const items = (out.items ?? [])
-      .filter((it) => TYPES.has(it.type) && typeof it.label === 'string' && typeof it.quote === 'string')
-      .filter((it) => it.quote.trim().length >= 4 && hay.includes(norm(it.quote)))
-      .filter((it) => isClean(it.label))
-      .slice(0, 20)
-      .map(({ type, label, quote }) => ({ type, label: label.slice(0, 80), quote }))
-    return json({ items })
+    const items = checkItems(out.items ?? [], text)
+    // Scam signals come from the person's own text, by code, so they show even when the model misses them.
+    return json({ items, warnings: scamSignals(text) })
   } catch (e) {
     return errorResponse(e)
   }

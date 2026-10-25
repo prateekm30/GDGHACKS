@@ -49,6 +49,8 @@ export interface Building {
   source: { dataset: string; url: string; retrieved: string }
   /** True for the made-up rows in the dev sample. Never shown as real. */
   sample?: boolean
+  /** A group home or a site with three or fewer homes: usually by referral, so it stays out of the picker. */
+  groupHome?: boolean
 }
 
 /** Income limits for one HUD area, by household size 1..8 (index 0 = 1 person). */
@@ -69,4 +71,6 @@ export interface Situation {
   includeSeniorDisability: boolean
   /** Has a Housing Choice Voucher (Section 8). Changes what they'd pay at tax-credit buildings. */
   voucher?: boolean
+  /** Bedrooms the person asked for (0 = studio, 3 = three or more). null means "whatever fits the household". */
+  bedroomsNeeded?: number | null
 }

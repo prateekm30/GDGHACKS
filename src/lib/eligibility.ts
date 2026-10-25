@@ -15,7 +15,11 @@ export interface CostEstimate {
   assumedCeiling: boolean
 }
 
-export type LimitStatus = 'under' | 'over' | 'varies' | 'unknown'
+/** 'maybe': over the usual limit for HUD-assisted buildings (50% of median) but some admit up to 80%. */
+export type LimitStatus = 'under' | 'maybe' | 'over' | 'varies' | 'unknown'
+
+/** HUD's low-income (80%) limit is about 1.5x the very-low (50%) limit in this metro, where the 80% limit is capped. */
+const HUD_UPPER_MULTIPLE = 1.5
 
 export interface Assessment {
   limit: LimitStatus
@@ -64,9 +68,12 @@ export function burdenLevel(pct: number): BurdenLevel {
   return 'heavy'
 }
 
-/** Smallest bedroom count in the building that fits the household (about 2 people per bedroom). */
-export function bedroomsFor(building: Building, householdSize: number): number | null {
-  const needed = householdSize <= 1 ? 0 : Math.ceil(householdSize / 2)
+/**
+ * Smallest bedroom count in the building that fits: what the person asked for, or else about 2 people per
+ * bedroom. A one-person household that wants a 2BR is priced on the 2BR.
+ */
+export function bedroomsFor(building: Building, householdSize: number, bedroomsNeeded: number | null = null): number | null {
+  const needed = bedroomsNeeded ?? (householdSize <= 1 ? 0 : Math.ceil(householdSize / 2))
   const sizes = [...building.bedrooms].sort((a, b) => a - b)
   if (sizes.length === 0) return Math.max(needed, 1)
   return sizes.find((b) => b >= needed) ?? null
@@ -86,7 +93,7 @@ export function estimateCost(
   situation: Situation | null,
 ): CostEstimate {
   const householdSize = situation?.householdSize ?? 1
-  const bedrooms = bedroomsFor(building, householdSize)
+  const bedrooms = bedroomsFor(building, householdSize, situation?.bedroomsNeeded ?? null)
 
   if (building.program === 'HUD') {
     if (!situation) return { kind: 'income-based', monthly: null, bedrooms, burdenPct: 30, level: 'ok', assumedCeiling: false }
@@ -137,10 +144,10 @@ export function assess(
         limit = situation.income <= limitAmount ? 'under' : 'over'
       }
     } else if (limits.section8) {
-      // HUD programs vary. We use the very-low-income (50%) limit most HUD-assisted buildings admit under.
-      // Some can go up to 80%, so "over" here still means "ask the property".
+      // HUD programs vary. Most HUD-assisted buildings admit under the very-low-income (50%) limit, and some
+      // go up to the low-income (80%) limit. Between the two is "maybe": ask the property.
       limitAmount = limitFor(limits.section8['50'], situation.householdSize)
-      limit = situation.income <= limitAmount ? 'under' : 'over'
+      limit = situation.income <= limitAmount ? 'under' : situation.income <= limitAmount * HUD_UPPER_MULTIPLE ? 'maybe' : 'over'
     }
   }
 
@@ -158,8 +165,9 @@ export function assess(
   }
 }
 
-/** Buildings the user should see at all, given the senior/disability toggle. */
+/** Buildings the user should see at all, given the senior/disability toggle. Group homes and tiny sites never show. */
 export function isVisible(building: Building, situation: Pick<Situation, 'includeSeniorDisability'> | null): boolean {
+  if (building.groupHome || (building.totalUnits !== null && building.totalUnits <= 3)) return false
   if (building.seniorOnly || building.disabilityOnly) return !!situation?.includeSeniorDisability
   return true
 }

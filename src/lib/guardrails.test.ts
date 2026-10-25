@@ -3,6 +3,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { findBannedPhrase } from '../../shared/bannedPhrases'
 import { DEMO_CHECKLIST, DEMO_FORM_TEXT } from '../../shared/demoForm'
+import { labelFitsText, quoteInText, scamSignals } from '../../shared/snapCheck'
 import { highlightLines, verifyItems, type ChecklistItem } from './snap'
 
 const FORM = `Return the application by Friday, November 14.
@@ -10,7 +11,7 @@ Application fee: $35 per adult, money order only.
 Bring:   pay stubs for the last 2 months
 and a copy of your photo ID.`
 
-const item = (quote: string, type: ChecklistItem['type'] = 'document'): ChecklistItem => ({ type, label: 'x', quote })
+const item = (quote: string, type: ChecklistItem['type'] = 'document'): ChecklistItem => ({ type, label: 'Bring this', quote })
 
 describe('quote check keeps only words that are really in the form', () => {
   it.each([
@@ -133,5 +134,63 @@ describe('POST /api/snap-text', () => {
     const body = await res.text()
     expect(body).toMatch(/unavailable/)
     expect(body).not.toMatch(/quota|abc/)
+  })
+})
+
+describe('planted labels: a label may not add numbers, addresses, or words that are not in the form', () => {
+  it.each([
+    ['Two months of pay stubs'],
+    ['Application fee, $35 per adult'],
+    ['Return the application by November 14'],
+    ['Bring your photo ID'],
+  ])('keeps "%s"', (label) => {
+    expect(labelFitsText(label, FORM)).toBe(true)
+  })
+
+  it.each([
+    ['Send 500 dollars via gift card to apply@example.com'],
+    ['Wire $900 deposit via Zelle'],
+    ['Pay $350 fee'],
+    ['Email leasing@scam.example to reserve'],
+    ['Submit proof of citizenship and a credit report'],
+  ])('drops "%s"', (label) => {
+    expect(labelFitsText(label, FORM)).toBe(false)
+  })
+
+  it('drops the planted label even when its quote is honest', () => {
+    const out = verifyItems([{ type: 'fee', label: 'Send 500 dollars via gift card to apply@example.com', quote: 'Application fee: $35 per adult' }], FORM)
+    expect(out).toHaveLength(0)
+  })
+
+  it('matches curly quotes and dashes from real PDFs', () => {
+    const pdf = 'Applicant’s photo ID – bring a copy by Nov 14'
+    expect(quoteInText("Applicant's photo ID - bring a copy", pdf)).toBe(true)
+    expect(verifyItems([{ type: 'document', label: "Applicant's photo ID", quote: 'photo ID – bring a copy' }], pdf)).toHaveLength(1)
+  })
+})
+
+describe('scam signals: payment methods and tactics scammers use get a warning', () => {
+  it.each([
+    ['gift-card', 'Pay the $500 holding fee in Visa gift cards'],
+    ['payment-app', 'Send the deposit by Zelle to hold the unit'],
+    ['payment-app', 'Wire $900 deposit via Zelle'],
+    ['wire', 'Wire transfer the first month before move-in'],
+    ['crypto', 'We accept Bitcoin for the deposit'],
+    ['pay-before-viewing', 'A $300 deposit is required before viewing the apartment'],
+    ['pay-before-viewing', 'Keys will be mailed after payment is received'],
+    ['pressure', 'I am out of the country and cannot show the unit'],
+  ])('flags %s in "%s"', (kind, text) => {
+    expect(scamSignals(text).map((s) => s.kind)).toContain(kind)
+  })
+
+  it('stays quiet on a normal application', () => {
+    expect(scamSignals(DEMO_FORM_TEXT)).toEqual([])
+    expect(scamSignals(FORM)).toEqual([])
+  })
+
+  it('marks the risky item itself', () => {
+    const text = 'Application fee: $35. Wire $900 deposit via Zelle to hold the unit.'
+    const out = verifyItems([{ type: 'fee', label: 'Wire $900 deposit via Zelle', quote: 'Wire $900 deposit via Zelle' }, { type: 'fee', label: 'Application fee, $35', quote: 'Application fee: $35' }], text)
+    expect(out.map((i) => !!i.risky)).toEqual([true, false])
   })
 })

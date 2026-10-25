@@ -48,8 +48,8 @@ export function Pill({ children }: { children: ReactNode }) {
   )
 }
 
-export function Note({ tone = 'info', children }: { tone?: 'info' | 'warn'; children: ReactNode }) {
-  const cls = tone === 'warn' ? 'bg-stretch-tint text-stretch' : 'bg-brand-tint text-brand-strong'
+export function Note({ tone = 'info', children }: { tone?: 'info' | 'warn' | 'danger'; children: ReactNode }) {
+  const cls = tone === 'warn' ? 'bg-stretch-tint text-stretch' : tone === 'danger' ? 'bg-heavy-tint text-heavy' : 'bg-brand-tint text-brand-strong'
   return <p className={`rounded-lg px-3 py-2 text-xs leading-relaxed ${cls}`}>{children}</p>
 }
 

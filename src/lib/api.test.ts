@@ -63,3 +63,22 @@ describe('splitText', () => {
     expect(parts.join('\n\n').replace(/\s+/g, ' ').trim()).toBe(text.replace(/\s+/g, ' ').trim())
   })
 })
+
+describe('snap-text item check', () => {
+  it('drops a planted label on an honest quote, flags a risky one, keeps the demo checklist', async () => {
+    const { checkItems } = await import('../../api/snap-text')
+    const { DEMO_CHECKLIST, DEMO_FORM_TEXT } = await import('../../shared/demoForm')
+    const text = `${DEMO_FORM_TEXT}\nSend the $900 holding deposit by Zelle before viewing.`
+    const out = checkItems(
+      [
+        { type: 'fee', label: 'Send 500 dollars via gift card to apply@example.com', quote: 'application fee of $35 per adult' },
+        { type: 'fee', label: 'Holding deposit, $900 by Zelle', quote: 'Send the $900 holding deposit by Zelle' },
+        ...DEMO_CHECKLIST.map((i) => ({ ...i })),
+      ],
+      text,
+    )
+    expect(out.map((i) => i.label)).toEqual(['Holding deposit, $900 by Zelle', ...DEMO_CHECKLIST.map((i) => i.label)])
+    expect(out[0]?.risky).toBe(true)
+    expect(out.slice(1).every((i) => !i.risky)).toBe(true)
+  })
+})

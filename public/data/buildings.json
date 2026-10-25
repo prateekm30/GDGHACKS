@@ -1124,56 +1124,6 @@
   }
  },
  {
-  "id": "hud-800022126",
-  "name": "Olde Towne West III",
-  "address": "500 South Alfred Street",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "22314",
-  "area": "ALEXANDRIA",
-  "lat": 38.800787,
-  "lon": -77.04996299999999,
-  "program": "HUD",
-  "totalUnits": 128,
-  "affordableUnits": 75,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1,
-   2,
-   3,
-   4
-  ],
-  "unitMix": {
-   "1": 28,
-   "2": 12,
-   "3": 29,
-   "4": 6
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.7,
-  "metroStation": "King St-Old Town",
-  "contact": {
-   "name": "Temika Brown",
-   "org": "Edgewood Management Corporation Dba Pratum Companies",
-   "phone": "(703) 549.4343",
-   "email": "oldtownmgr@emcmgmt.com"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2810,
-   "1": 2900,
-   "2": 3230,
-   "3": 4080,
-   "4": 4790
-  }
- },
- {
   "id": "lihtc-VAA20080185",
   "name": "Parcview",
   "address": "5380 Holmes Run Pkwy",
@@ -3569,7 +3519,8 @@
    "2": 2130,
    "3": 2690,
    "4": 3160
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20140053",
@@ -3703,7 +3654,8 @@
    "2": 2210,
    "3": 2790,
    "4": 3280
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20170033",
@@ -3981,7 +3933,8 @@
    "2": 2650,
    "3": 3340,
    "4": 3930
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA19970150",
@@ -4283,7 +4236,7 @@
    "2": 88,
    "3": 13
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2004,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.1,
@@ -4297,46 +4250,6 @@
   "source": {
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2730,
-   "1": 2820,
-   "2": 3140,
-   "3": 3960,
-   "4": 4660
-  }
- },
- {
-  "id": "lihtc-DCB20040010",
-  "name": "1330 7th Street, NW",
-  "address": "1330 Seventh St NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20001",
-  "area": "DC",
-  "lat": 38.908196,
-  "lon": -77.022122,
-  "program": "LIHTC",
-  "totalUnits": 136,
-  "affordableUnits": 136,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2004,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.1,
-  "metroStation": "Mt Vernon Sq 7th St-Convention Center",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -9433,54 +9346,6 @@
   "program": "HUD",
   "totalUnits": 202,
   "affordableUnits": 202,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 41,
-   "2": 121,
-   "3": 40
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.3,
-  "metroStation": "Southern Avenue",
-  "contact": {
-   "name": "Mike Milko",
-   "org": "Winn Management Company LLC",
-   "phone": "202-889-0804",
-   "email": "mmilko@winnco.com"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1420,
-   "1": 1460,
-   "2": 1630,
-   "3": 2060,
-   "4": 2420
-  }
- },
- {
-  "id": "lihtc-DCB20060020",
-  "name": "Huntington Village (Pines)",
-  "address": "1781 Trenton Pl SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20020",
-  "area": "DC",
-  "lat": 38.844659,
-  "lon": -76.97813699999999,
-  "program": "LIHTC",
-  "totalUnits": 202,
-  "affordableUnits": 202,
   "incomeCeiling": 60,
   "bedrooms": [
    1,
@@ -9498,14 +9363,14 @@
   "metroMiles": 0.3,
   "metroStation": "Southern Avenue",
   "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
+   "name": "Mike Milko",
+   "org": "Winn Management Company LLC",
+   "phone": "202-889-0804",
+   "email": "mmilko@winnco.com"
   },
   "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
+   "dataset": "HUD Multifamily Assisted Properties",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -11529,50 +11394,6 @@
   }
  },
  {
-  "id": "hud-800213311",
-  "name": "North Capitol at Plymouth",
-  "address": "5233 N Capitol St NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20011",
-  "area": "DC",
-  "lat": 38.953962,
-  "lon": -77.009266,
-  "program": "HUD",
-  "totalUnits": 69,
-  "affordableUnits": 68,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1
-  ],
-  "unitMix": {
-   "1": 68
-  },
-  "yearPlacedInService": null,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 0.4,
-  "metroStation": "Fort Totten",
-  "contact": {
-   "name": "Yuri Escandon, Operations Vp",
-   "org": "Foundation Property Management, Inc.",
-   "phone": "202-541-1222",
-   "email": "yuri.escandon@rhf.org"
-  },
-  "source": {
-   "dataset": "HUD Multifamily Assisted Properties",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1770,
-   "1": 1820,
-   "2": 2030,
-   "3": 2560,
-   "4": 3010
-  }
- },
- {
   "id": "lihtc-DCB20161005",
   "name": "North Capitol Commons",
   "address": "1005 North Capitol Street",
@@ -11614,6 +11435,50 @@
    "2": 3140,
    "3": 3960,
    "4": 4660
+  }
+ },
+ {
+  "id": "hud-800213311",
+  "name": "North Capitol at Plymouth",
+  "address": "5233 N Capitol St NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20011",
+  "area": "DC",
+  "lat": 38.953962,
+  "lon": -77.009266,
+  "program": "HUD",
+  "totalUnits": 69,
+  "affordableUnits": 68,
+  "incomeCeiling": null,
+  "bedrooms": [
+   1
+  ],
+  "unitMix": {
+   "1": 68
+  },
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "metroMiles": 0.4,
+  "metroStation": "Fort Totten",
+  "contact": {
+   "name": "Yuri Escandon, Operations Vp",
+   "org": "Foundation Property Management, Inc.",
+   "phone": "202-541-1222",
+   "email": "yuri.escandon@rhf.org"
+  },
+  "source": {
+   "dataset": "HUD Multifamily Assisted Properties",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1770,
+   "1": 1820,
+   "2": 2030,
+   "3": 2560,
+   "4": 3010
   }
  },
  {
@@ -13011,6 +12876,106 @@
   }
  },
  {
+  "id": "lihtc-DCB20142002",
+  "name": "SOME Scattered Sites II",
+  "address": "1151 New Jersey Avenue, NW",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20001",
+  "area": "DC",
+  "lat": 38.904948999999995,
+  "lon": -77.014394,
+  "program": "LIHTC",
+  "totalUnits": 27,
+  "affordableUnits": 27,
+  "incomeCeiling": 60,
+  "bedrooms": [
+   1,
+   2,
+   3
+  ],
+  "unitMix": {
+   "1": 2,
+   "2": 14,
+   "3": 11
+  },
+  "yearPlacedInService": 2014,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.4,
+  "metroStation": "Mt Vernon Sq 7th St-Convention Center",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "HUD LIHTC Database",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 2730,
+   "1": 2820,
+   "2": 3140,
+   "3": 3960,
+   "4": 4660
+  }
+ },
+ {
+  "id": "lihtc-DCB20181003",
+  "name": "SOME: The Conway Center",
+  "address": "120 45th Street, NE",
+  "city": "Washington",
+  "state": "DC",
+  "zip": "20019",
+  "area": "DC",
+  "lat": 38.891458,
+  "lon": -76.93796499999999,
+  "program": "LIHTC",
+  "totalUnits": 182,
+  "affordableUnits": 182,
+  "incomeCeiling": 60,
+  "bedrooms": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "unitMix": {
+   "0": 151,
+   "1": 1,
+   "2": 10,
+   "3": 15,
+   "4": 5
+  },
+  "yearPlacedInService": 2018,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 0.0,
+  "metroStation": "Benning Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "HUD LIHTC Database",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1400,
+   "1": 1440,
+   "2": 1610,
+   "3": 2030,
+   "4": 2390
+  }
+ },
+ {
   "id": "hud-800003757",
   "name": "Samuel J. Simmons Ncba Estates",
   "address": "2801 14th Street, NW",
@@ -13431,106 +13396,6 @@
   }
  },
  {
-  "id": "lihtc-DCB20142002",
-  "name": "SOME Scattered Sites II",
-  "address": "1151 New Jersey Avenue, NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20001",
-  "area": "DC",
-  "lat": 38.904948999999995,
-  "lon": -77.014394,
-  "program": "LIHTC",
-  "totalUnits": 27,
-  "affordableUnits": 27,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 2,
-   "2": 14,
-   "3": 11
-  },
-  "yearPlacedInService": 2014,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.4,
-  "metroStation": "Mt Vernon Sq 7th St-Convention Center",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2730,
-   "1": 2820,
-   "2": 3140,
-   "3": 3960,
-   "4": 4660
-  }
- },
- {
-  "id": "lihtc-DCB20181003",
-  "name": "SOME: The Conway Center",
-  "address": "120 45th Street, NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20019",
-  "area": "DC",
-  "lat": 38.891458,
-  "lon": -76.93796499999999,
-  "program": "LIHTC",
-  "totalUnits": 182,
-  "affordableUnits": 182,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   0,
-   1,
-   2,
-   3,
-   4
-  ],
-  "unitMix": {
-   "0": 151,
-   "1": 1,
-   "2": 10,
-   "3": 15,
-   "4": 5
-  },
-  "yearPlacedInService": 2018,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.0,
-  "metroStation": "Benning Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1400,
-   "1": 1440,
-   "2": 1610,
-   "3": 2030,
-   "4": 2390
-  }
- },
- {
   "id": "lihtc-DCB00000019",
   "name": "Sorrento",
   "address": "2233 18th St NW",
@@ -13671,8 +13536,8 @@
   "lat": 38.929579,
   "lon": -77.03854799999999,
   "program": "LIHTC",
-  "totalUnits": 32,
-  "affordableUnits": 98,
+  "totalUnits": 98,
+  "affordableUnits": 32,
   "incomeCeiling": 60,
   "bedrooms": [
    0,
@@ -16730,7 +16595,8 @@
    "2": 2470,
    "3": 3120,
    "4": 3660
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA19980263",
@@ -17759,98 +17625,6 @@
   }
  },
  {
-  "id": "lihtc-VAA19960065",
-  "name": "Forest Glen at Sully Station I",
-  "address": "14401 Woodmere Ct",
-  "city": "Centreville",
-  "state": "VA",
-  "zip": "20120",
-  "area": "FAIRFAX",
-  "lat": 38.866336,
-  "lon": -77.445511,
-  "program": "LIHTC",
-  "totalUnits": 119,
-  "affordableUnits": 118,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2
-  ],
-  "unitMix": {
-   "1": 101,
-   "2": 18
-  },
-  "yearPlacedInService": 1996,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 6.2,
-  "metroStation": "Washington Dulles International Airport",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2120,
-   "1": 2190,
-   "2": 2440,
-   "3": 3080,
-   "4": 3620
-  }
- },
- {
-  "id": "lihtc-VAA19980085",
-  "name": "Forest Glen at Sully Station II",
-  "address": "14400 Woodmere Ct",
-  "city": "Centreville",
-  "state": "VA",
-  "zip": "20120",
-  "area": "FAIRFAX",
-  "lat": 38.866517,
-  "lon": -77.44516,
-  "program": "LIHTC",
-  "totalUnits": 118,
-  "affordableUnits": 118,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2
-  ],
-  "unitMix": {
-   "1": 101,
-   "2": 17
-  },
-  "yearPlacedInService": 1998,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 6.2,
-  "metroStation": "Washington Dulles International Airport",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2120,
-   "1": 2190,
-   "2": 2440,
-   "3": 3080,
-   "4": 3620
-  }
- },
- {
   "id": "lihtc-VAA20170018",
   "name": "Forest Glen I",
   "address": "14401 Woodmere Court",
@@ -18773,8 +18547,8 @@
   "lat": 38.930206,
   "lon": -77.19810199999999,
   "program": "HUD",
-  "totalUnits": 144,
-  "affordableUnits": 190,
+  "totalUnits": 190,
+  "affordableUnits": 144,
   "incomeCeiling": null,
   "bedrooms": [
    0,
@@ -18992,57 +18766,8 @@
    "2": 3040,
    "3": 3840,
    "4": 4510
-  }
- },
- {
-  "id": "lihtc-MDA20190007",
-  "name": "Momentum at Shady Grove Metro",
-  "address": "8245 Boone Blvd, Ste. 640",
-  "city": "Vienna",
-  "state": "MD",
-  "zip": "22182",
-  "area": "FAIRFAX",
-  "lat": 38.915469,
-  "lon": -77.230293,
-  "program": "LIHTC",
-  "totalUnits": 110,
-  "affordableUnits": 110,
-  "incomeCeiling": "avg",
-  "bedrooms": [
-   0,
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "0": 2,
-   "1": 66,
-   "2": 41,
-   "3": 1
   },
-  "yearPlacedInService": 2019,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.4,
-  "metroStation": "Greensboro",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2640,
-   "1": 2730,
-   "2": 3040,
-   "3": 3840,
-   "4": 4510
-  }
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA19980294",
@@ -19536,7 +19261,8 @@
    "2": 2720,
    "3": 3430,
    "4": 4040
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800022010",
@@ -21045,7 +20771,8 @@
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA00000028",
@@ -21258,7 +20985,8 @@
    "2": 1780,
    "3": 2250,
    "4": 2640
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800009092",
@@ -21523,50 +21251,6 @@
   }
  },
  {
-  "id": "lihtc-MDA20170006",
-  "name": "The Commons of Avalon",
-  "address": "Hampshire Drive",
-  "city": "Frederick",
-  "state": "MD",
-  "zip": "21702",
-  "area": "FREDERICK",
-  "lat": 39.450700000000005,
-  "lon": -77.4452,
-  "program": "LIHTC",
-  "totalUnits": 114,
-  "affordableUnits": 114,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   3
-  ],
-  "unitMix": {
-   "3": 103
-  },
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 27.3,
-  "metroStation": "Shady Grove",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1550,
-   "1": 1600,
-   "2": 1780,
-   "3": 2250,
-   "4": 2640
-  }
- },
- {
   "id": "hud-800009140",
   "name": "Country Hill Apartments",
   "address": "1000 A Heather Ridge Dr",
@@ -21790,7 +21474,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800009227",
@@ -21962,7 +21647,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-MDA19870900",
@@ -22002,7 +21688,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-MDA20070055",
@@ -22094,7 +21781,8 @@
    "2": 2100,
    "3": 2650,
    "4": 3120
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800218004",
@@ -22270,7 +21958,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800224096",
@@ -22358,7 +22047,8 @@
    "2": 1780,
    "3": 2250,
    "4": 2640
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-MDA19910035",
@@ -22616,7 +22306,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800009410",
@@ -23050,7 +22741,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800009483",
@@ -23086,6 +22778,50 @@
   "source": {
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  },
+  "marketRent": {
+   "0": 1550,
+   "1": 1600,
+   "2": 1780,
+   "3": 2250,
+   "4": 2640
+  }
+ },
+ {
+  "id": "lihtc-MDA20170006",
+  "name": "The Commons of Avalon",
+  "address": "Hampshire Drive",
+  "city": "Frederick",
+  "state": "MD",
+  "zip": "21702",
+  "area": "FREDERICK",
+  "lat": 39.450700000000005,
+  "lon": -77.4452,
+  "program": "LIHTC",
+  "totalUnits": 114,
+  "affordableUnits": 114,
+  "incomeCeiling": 60,
+  "bedrooms": [
+   3
+  ],
+  "unitMix": {
+   "3": 103
+  },
+  "yearPlacedInService": 2017,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 27.3,
+  "metroStation": "Shady Grove",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "HUD LIHTC Database",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -23569,7 +23305,8 @@
    "2": 1860,
    "3": 2350,
    "4": 2760
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20170002",
@@ -23698,7 +23435,8 @@
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20100025",
@@ -24062,7 +23800,7 @@
   "program": "LIHTC",
   "totalUnits": 150,
   "affordableUnits": 150,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -24185,7 +23923,8 @@
    "2": 2010,
    "3": 2540,
    "4": 2980
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20080090",
@@ -24581,7 +24320,8 @@
    "2": 2010,
    "3": 2540,
    "4": 2980
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA19990145",
@@ -25037,7 +24777,8 @@
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20050190",
@@ -25197,7 +24938,8 @@
    "2": 2010,
    "3": 2540,
    "4": 2980
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20020230",
@@ -25374,7 +25116,8 @@
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20010501",
@@ -25722,54 +25465,6 @@
    "3": 30
   },
   "yearPlacedInService": 2004,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 35.8,
-  "metroStation": "Franconia-Springfield",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1520,
-   "1": 1570,
-   "2": 1750,
-   "3": 2210,
-   "4": 2600
-  }
- },
- {
-  "id": "lihtc-VAA20020569",
-  "name": "Wicklow Square",
-  "address": "100 Weston Lane",
-  "city": "Fredericksburg",
-  "state": "VA",
-  "zip": "22401",
-  "area": "FREDERICKSBURG",
-  "lat": 38.316288,
-  "lon": -77.49616,
-  "program": "LIHTC",
-  "totalUnits": 96,
-  "affordableUnits": 96,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 12,
-   "2": 72,
-   "3": 12
-  },
-  "yearPlacedInService": 2002,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 35.8,
@@ -26991,7 +26686,7 @@
   "program": "HUD",
   "totalUnits": 124,
   "affordableUnits": 84,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -27000,7 +26695,7 @@
    "1": 42,
    "2": 42
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2018,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.4,
@@ -27756,7 +27451,8 @@
    "2": 2390,
    "3": 3020,
    "4": 3550
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800226251",
@@ -28288,52 +27984,6 @@
    "2": 1900,
    "3": 2400,
    "4": 2820
-  }
- },
- {
-  "id": "lihtc-MDA20182004",
-  "name": "Fenton Silver Spring [aka] 900 Thayer Apartments",
-  "address": "8240 Fentom Street",
-  "city": "Silver Spring",
-  "state": "MD",
-  "zip": "20910",
-  "area": "MONTGOMERY",
-  "lat": 38.992533,
-  "lon": -77.024273,
-  "program": "LIHTC",
-  "totalUnits": 124,
-  "affordableUnits": 124,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2
-  ],
-  "unitMix": {
-   "1": 73,
-   "2": 51
-  },
-  "yearPlacedInService": 2018,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.4,
-  "metroStation": "Silver Spring",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2240,
-   "1": 2310,
-   "2": 2580,
-   "3": 3260,
-   "4": 3830
   }
  },
  {
@@ -29876,7 +29526,7 @@
   "program": "HUD",
   "totalUnits": 102,
   "affordableUnits": 8,
-  "incomeCeiling": null,
+  "incomeCeiling": "avg",
   "bedrooms": [
    1,
    2
@@ -29885,7 +29535,7 @@
    "1": 7,
    "2": 1
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2019,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 1.2,
@@ -30785,7 +30435,8 @@
    "2": 2220,
    "3": 2800,
    "4": 3290
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-MDA19890125",
@@ -32994,52 +32645,6 @@
   }
  },
  {
-  "id": "lihtc-MDA20170025",
-  "name": "Waverly House Apartments",
-  "address": "4521 East West Highway",
-  "city": "Bethesda",
-  "state": "MD",
-  "zip": "20814",
-  "area": "MONTGOMERY",
-  "lat": 38.98517,
-  "lon": -77.09140699999999,
-  "program": "LIHTC",
-  "totalUnits": 156,
-  "affordableUnits": 156,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2
-  ],
-  "unitMix": {
-   "1": 146,
-   "2": 10
-  },
-  "yearPlacedInService": 2017,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "Bethesda",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2370,
-   "1": 2440,
-   "2": 2720,
-   "3": 3430,
-   "4": 4040
-  }
- },
- {
   "id": "hud-800242599",
   "name": "Waverly Towers",
   "address": "4521 East-West Hgwy",
@@ -33052,7 +32657,7 @@
   "program": "HUD",
   "totalUnits": 145,
   "affordableUnits": 145,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -33061,7 +32666,7 @@
    "1": 144,
    "2": 1
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2017,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.2,
@@ -35753,7 +35358,8 @@
    "2": 2060,
    "3": 2600,
    "4": 3060
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800009353",
@@ -36744,8 +36350,8 @@
   "lat": 38.869437,
   "lon": -76.890609,
   "program": "HUD",
-  "totalUnits": 172,
-  "affordableUnits": 344,
+  "totalUnits": 344,
+  "affordableUnits": 172,
   "incomeCeiling": null,
   "bedrooms": [
    1,
@@ -36819,39 +36425,6 @@
    "2": 1920,
    "3": 2420,
    "4": 2850
-  }
- },
- {
-  "id": "lihtc-MDA00000055",
-  "name": "The Resiences at Woodland Springs",
-  "address": "Atwood St",
-  "city": "District Heights",
-  "state": "MD",
-  "zip": "",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.857600000000005,
-  "lon": -76.8897,
-  "program": "LIHTC",
-  "totalUnits": 36,
-  "affordableUnits": null,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 2.0,
-  "metroStation": "Addison Road-Seat Pleasant",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
   }
  },
  {
@@ -37159,6 +36732,39 @@
   }
  },
  {
+  "id": "lihtc-MDA00000055",
+  "name": "The Resiences at Woodland Springs",
+  "address": "Atwood St",
+  "city": "District Heights",
+  "state": "MD",
+  "zip": "",
+  "area": "PRINCE_GEORGES",
+  "lat": 38.857600000000005,
+  "lon": -76.8897,
+  "program": "LIHTC",
+  "totalUnits": 36,
+  "affordableUnits": null,
+  "incomeCeiling": null,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "metroMiles": 2.0,
+  "metroStation": "Addison Road-Seat Pleasant",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "HUD LIHTC Database",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "hud-800255855",
   "name": "The Townes at Peerless",
   "address": "15510 Peerless Ave",
@@ -37202,7 +36808,8 @@
    "2": 2300,
    "3": 2900,
    "4": 3410
-  }
+  },
+  "groupHome": true
  },
  {
   "id": "hud-800225093",
@@ -38230,8 +37837,8 @@
   "lat": 38.656053,
   "lon": -77.271012,
   "program": "LIHTC",
-  "totalUnits": 126,
-  "affordableUnits": 128,
+  "totalUnits": 128,
+  "affordableUnits": 126,
   "incomeCeiling": 60,
   "bedrooms": [
    1,

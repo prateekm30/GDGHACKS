@@ -27,6 +27,16 @@ falls back to highlighted lines.
 - **License:** Apache 2.0 ([Gemma 4 announcement](https://opensource.googleblog.com/2026/03/gemma-4-expanding-the-gemmaverse-with-apache-20.html)).
 - **What it does:** turns the text of a rental application into a checklist of documents, fees, deadlines, and contacts. Every item must quote the form word for word, or it is dropped.
 - **What it never does:** decide eligibility or cost. That math is plain code with tests.
+- **Where the text goes:** the text you review in the box is sent to Google's Gemini API. This deployment uses
+  a Gemini API key on the **free (unpaid) tier**. Under Google's terms for unpaid services, Google may use
+  prompts and responses to improve its products, and human reviewers may read them. That is why the app asks
+  you to delete names, Social Security numbers, and account numbers before you continue, and why the file
+  itself never leaves your device. On the paid tier Google states it does not use the data to improve its
+  products; if this deployment moves to a billing-enabled project, this note will say so.
+- **Scam warnings** are code, not AI: the text is scanned for gift cards, payment apps, wire transfers,
+  crypto, "pay before you see it", and pressure tactics, and the checklist carries a warning at the top and on
+  each affected item. The AI's own labels are checked too: every number, address, and most words in a label
+  must come from your form, so a planted label cannot ride on an honest quote.
 
 ## Architecture
 
@@ -47,7 +57,7 @@ flowchart LR
 | Problem and impact | Persona: young workers across the DMV under the 60% limit ($69,780 for one person, 2026) |
 | AI integration | Multimodal Snap a form: on-device OCR, Gemma 4 extraction, quote verification |
 | Architecture | `src/lib` tested logic, `api/` small functions, static data |
-| Safety and grounding | Quote check (server and browser), banned-phrase filter, no AI in eligibility math |
+| Safety and grounding | Quote check and label check (server and browser), banned-phrase filter, scam-pattern warnings, no AI in eligibility math |
 | Privacy | Income and files stay on the device; only reviewed text is sent; no logging |
 | Inclusive design | Keyboard picker, screen reader labels and live region, focus styles, reduced motion, plain language |
 | Deployment and cost | One free Vercel deploy, static data, small model, cached demo result, rate limit. A checklist is one Gemma call of roughly 1,500 input and 300 output tokens: free on the Gemini API free tier, and well under a cent at Flash-class paid rates |
@@ -60,7 +70,7 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 914 buildings across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 
@@ -90,7 +100,7 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 
 ## Known limitations
 
-- **Phone numbers:** 572 of 923 buildings (62%) have no phone in HUD's data. Those cards say so and link a
+- **Phone numbers:** 564 of 914 buildings (62%) have no phone in HUD's data. Those cards say so and link a
   web search for the leasing office instead.
 - **Waitlists and vacancies:** HUD data has neither. Every card says to call and ask.
 - **Rent figures are caps, not asking rents.** Tax-credit caps come from HUD's MTSP tables for the whole
@@ -102,7 +112,25 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
   instance; the sample form is served from cache and never counts). The hard ceiling is the Gemini API quota and budget alert in Google AI Studio.
 - **OCR is English only** and reads up to 10 pages of a PDF (3 pages when the PDF is a scan). Photos are
   downscaled to 2200px before reading. HEIC photos open on Safari; other browsers ask for JPG or PNG.
-- **Long forms** are sent in pieces of about 16 KB each, so a 40-page packet means several AI calls.
+- **Long forms** are sent in pieces of about 16 KB each, so a 40-page packet means several AI calls. If one
+  piece fails, the checklist from the other pieces still shows, with a note saying which part is missing.
+- **Scam detection is pattern matching.** It catches the common asks (gift cards, Zelle, wire, pay-before-viewing)
+  and will miss a scam written around them. Real applications never take payment that way, so when in doubt call
+  the building's number listed here, not the one on the form.
+- **HUD-assisted buildings and income limits:** most admit under the very-low-income (50%) limit, some up to
+  80%. Between the two the card says "may be over, ask" and the "hide buildings I'm over the limit for" toggle
+  keeps them.
+- **Ranking and programs:** income-based rent gets no head start in the ranking (choose "Rent based on my income"
+  to favor it), and the top three never show three of one program when the other is available. HUD-assisted
+  buildings often have long waitlists, and HUD publishes no waitlist data.
+- **"What we learned about you"** lists only what you chose on the basics step and what your picks moved clearly
+  (a weight rise of 0.9 or more; eight random picks move the biggest weight about 0.36 at the median and 0.9 at
+  the 95th percentile). Mixed picks say so instead of inventing a preference.
+- **Data cleanup:** rows at the same spot with the same street address are merged (one listing per building),
+  unit counts that come swapped from HUD ("98 of 32") are put the right way round, a row whose address was the
+  developer's office is merged into the building's own row, and group homes and sites with three or fewer homes
+  are flagged and kept out of the picker (they fill by referral). The latest placed-in-service year in HUD's
+  LIHTC database release is 2019; HUD-assisted rows carry no year.
 - **Building names and contacts** are as HUD publishes them, tidied (capitalization, "Apts", SOME's
   properties). Some names are the legal project name, not the sign on the door.
 - **No interior photos.** HUD has none and listing photos are copyrighted, so cards show aerial, neighborhood,

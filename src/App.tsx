@@ -1,3 +1,4 @@
+import { ShieldCheck } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
@@ -9,7 +10,7 @@ import { Button, Card, Note, StepIndicator } from './components/ui'
 import limitsJson from './data/limits.2026.json'
 import { assess, isVisible } from './lib/eligibility'
 import { HUBS, milesBetween } from './lib/areas'
-import { fit, nextPair, priorFor, rank, type Pick } from './lib/ranking'
+import { fit, nextPair, priorFor, rank, shortlistFrom, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
 import { withTransition } from './lib/motion'
 import { Skyline } from './components/Skyline'
@@ -20,6 +21,18 @@ const ROUNDS = 8
 const BASICS_KEY = 'homepick.basics'
 
 type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap'
+const STEPS: readonly Step[] = ['start', 'basics', 'pick', 'results', 'snap']
+const TITLES: Record<Step, string> = {
+  start: 'HomePick DMV: find a home you can afford',
+  basics: 'Your basics · HomePick DMV',
+  pick: 'Which would you rather live in? · HomePick DMV',
+  results: 'Your top matches · HomePick DMV',
+  snap: 'Snap a form · HomePick DMV',
+}
+const stepFromState = (state: unknown): Step => {
+  const s = (state as { step?: unknown } | null)?.step
+  return STEPS.includes(s as Step) ? (s as Step) : 'start'
+}
 
 
 // Session storage only: income is gone when the tab closes, and storage can be blocked.
@@ -85,23 +98,41 @@ export default function App() {
   const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
   const pair = useMemo(() => nextPair(pool, seen, weights, limits, situation), [pool, seen, weights, situation])
-  // Top three, but if the top two are the same kind of building, the third is the best of the other kind.
-  // Income-based buildings all show the same rent, so three of them in a row tells you little.
-  const shortlist = useMemo(() => {
-    const ranked = rank(pool, weights, limits, situation)
-    const top = ranked.slice(0, 2)
-    const other = top.length === 2 && top[0]?.program === top[1]?.program ? ranked.find((b) => b.program !== top[0]?.program) : undefined
-    return [...top, other ?? ranked[2]].filter((b): b is Building => !!b)
-  }, [pool, weights, situation])
+  const shortlist = useMemo(() => shortlistFrom(rank(pool, weights, limits, situation)), [pool, weights, situation])
   const isSample = !!buildings?.some((b) => b.sample)
 
-  // Every screen change goes through here, so it gets the same transition.
-  function go(next: Step) {
+  // Every screen change goes through here, so it gets the same transition and a history entry: the browser's
+  // Back button goes to the previous screen instead of leaving the site.
+  function go(next: Step, fromHistory = false) {
+    if (!fromHistory) {
+      try {
+        window.history.pushState({ step: next }, '', next === 'start' ? window.location.pathname : `#${next}`)
+      } catch {
+        /* history blocked (sandboxed frame): the app still works */
+      }
+    }
     withTransition(() => {
       setStep(next)
       window.scrollTo({ top: 0 })
     })
   }
+
+  useEffect(() => {
+    try {
+      window.history.replaceState({ step: 'start' }, '', window.location.pathname)
+    } catch {
+      /* ignore */
+    }
+    const onPop = (e: PopStateEvent) => go(stepFromState(e.state), true)
+    window.addEventListener('popstate', onPop)
+    return () => window.removeEventListener('popstate', onPop)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // The tab title says where you are.
+  useEffect(() => {
+    document.title = TITLES[step]
+  }, [step])
 
   function begin() {
     setPicks([])
@@ -181,9 +212,12 @@ export default function App() {
               HomePick <span className="text-brand-strong">DMV</span>
             </span>
           </button>
-          <span className="whitespace-nowrap rounded-full bg-ok-tint px-3 py-1 text-xs font-medium text-ok">
-            <span className="hidden sm:inline">Your answers </span>
-            <span className="sm:hidden">Answers </span>stay on this device
+          <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-ok-tint px-2.5 py-1 text-xs font-medium text-ok sm:px-3">
+            <ShieldCheck aria-hidden className="size-3.5" />
+            <span className="hidden sm:inline">Your answers stay on this device</span>
+            <span className="hidden min-[400px]:inline sm:hidden">Stays on this device</span>
+            <span className="min-[400px]:hidden">On-device</span>
+            <span className="sr-only">: your answers stay on this device</span>
           </span>
         </div>
       </header>
@@ -284,6 +318,8 @@ export default function App() {
           <ResultsStep
             shortlist={shortlist}
             weights={weights}
+            prior={prior}
+            chosen={basics?.priorities ?? []}
             limits={limits}
             situation={situation}
             onEditSituation={() => go('basics')}

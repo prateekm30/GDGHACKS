@@ -1,12 +1,25 @@
 // Snap a form, client side: get text out of a PDF or photo ON THE DEVICE, then check AI items
 // against that text. Only text the user has reviewed is ever sent to the server.
 
+import { itemLooksRisky, labelFitsText, normText, quoteInText, scamSignals, type ScamSignal } from '../../shared/snapCheck'
+
 export type ItemType = 'document' | 'deadline' | 'fee' | 'contact'
 export interface ChecklistItem {
   type: ItemType
   label: string
   /** Exact words copied from the form. Items whose quote is not in the text are dropped. */
   quote: string
+  /** The item mentions a payment method or tactic common in rental scams. */
+  risky?: boolean
+}
+
+export interface Checklist {
+  items: ChecklistItem[]
+  /** Rental-scam signals found in the text itself, by code. Shown before the checklist. */
+  warnings: ScamSignal[]
+  /** How many pieces of a long form could not be read. The rest of the checklist still shows. */
+  failedParts: number
+  totalParts: number
 }
 
 export async function extractText(file: File, onProgress?: (pct: number) => void): Promise<string> {
@@ -100,12 +113,17 @@ async function ocrImage(file: Blob, onProgress?: (pct: number) => void): Promise
   return data.text
 }
 
-const norm = (s: string) => s.toLowerCase().replace(/\s+/g, ' ').trim()
+const norm = normText
 
-/** Keep only items whose quote really appears in the extracted text. */
+/**
+ * Keep only items whose quote really appears in the extracted text and whose label is made of words, numbers,
+ * and addresses from that text. The server does the same; this guards against a bad server answer too.
+ */
 export function verifyItems(items: ChecklistItem[], text: string): ChecklistItem[] {
-  const hay = norm(text)
-  return items.filter((it) => it.quote.trim().length >= 4 && hay.includes(norm(it.quote)))
+  return items
+    .filter((it) => typeof it.quote === 'string' && typeof it.label === 'string')
+    .filter((it) => quoteInText(it.quote, text) && labelFitsText(it.label, text))
+    .map((it) => ({ ...it, risky: it.risky || itemLooksRisky(it.label, it.quote) || undefined }))
 }
 
 /** Non-AI fallback: lines that mention documents, dates, or money. */
@@ -154,14 +172,34 @@ async function requestOne(text: string): Promise<ChecklistItem[]> {
   return verifyItems(body.items, text)
 }
 
-export async function requestChecklist(text: string, onProgress?: (done: number, total: number) => void): Promise<ChecklistItem[]> {
+/**
+ * The whole checklist. Long forms go in pieces; a piece that fails is counted, not fatal, so the items from
+ * the pieces that worked still show. Two items are the same only when type, label, and quote all match: a
+ * fee and a deadline can share one sentence of the form.
+ */
+export async function requestChecklist(text: string, onProgress?: (done: number, total: number) => void): Promise<Checklist> {
   const parts = splitText(text)
   const items: ChecklistItem[] = []
   const seen = new Set<string>()
+  let failedParts = 0
+  let lastError: Error | null = null
   for (const [i, part] of parts.entries()) {
     onProgress?.(i, parts.length)
-    for (const it of await requestOne(part)) {
-      const key = norm(it.quote)
+    let found: ChecklistItem[] = []
+    try {
+      found = await requestOne(part)
+    } catch (e) {
+      failedParts++
+      lastError = e as Error
+      // A rate limit will hit the next piece too; stop asking.
+      if (/Too many|limit reached|busy/i.test(lastError.message)) {
+        failedParts += parts.length - i - 1
+        break
+      }
+      continue
+    }
+    for (const it of found) {
+      const key = `${it.type}|${norm(it.label)}|${norm(it.quote)}`
       if (!seen.has(key)) {
         seen.add(key)
         items.push(it)
@@ -169,5 +207,6 @@ export async function requestChecklist(text: string, onProgress?: (done: number,
     }
   }
   onProgress?.(parts.length, parts.length)
-  return items
+  if (failedParts === parts.length && lastError) throw lastError
+  return { items, warnings: scamSignals(text), failedParts, totalParts: parts.length }
 }

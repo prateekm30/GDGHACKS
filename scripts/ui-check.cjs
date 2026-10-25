@@ -41,7 +41,7 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
 
   await p.getByRole('button', { name: /^Search all/ }).first().click()
   await p.getByText('First, the basics').waitFor()
-  await p.locator('input[inputmode=numeric]').fill('52000')
+  await p.locator('input[inputmode=decimal]').fill('52000')
   await p.waitForTimeout(900) // let entrance animations finish, or axe reads mid-fade colors
   await axe(p, `${tag} basics`)
 

@@ -17,6 +17,7 @@ import {
 } from 'lucide-react'
 import { useId, useState, type ReactNode } from 'react'
 import { HUBS } from '../lib/areas'
+import { parseIncome } from '../lib/income'
 import type { Feature } from '../lib/ranking'
 import type { IncomeLimits, Situation } from '../lib/types'
 import { money } from './ui'
@@ -43,6 +44,7 @@ export const toSituation = (b: Basics): Situation | null =>
         allFullTimeStudents: b.allFullTimeStudents,
         includeSeniorDisability: b.includeSeniorDisability,
         voucher: !!b.voucher,
+        bedroomsNeeded: b.bedroomsNeeded,
       }
     : null
 
@@ -118,7 +120,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
   const [hub, setHub] = useState<string>(initial?.workHub ?? '')
   const [voucher, setVoucher] = useState(initial?.voucher ?? false)
   const [hideOver, setHideOver] = useState(initial?.hideOverLimit ?? false)
-  const incomeNum = Number(income.replace(/[^\d]/g, '')) || null
+  const incomeNum = parseIncome(income)
   const limit60 = limits.mtsp['60'][Math.min(size, 8) - 1] ?? 0
   const limit50 = limits.mtsp['50'][Math.min(size, 8) - 1] ?? 0
 
@@ -198,7 +200,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               <input
                 id={`${id}-income`}
                 aria-label="Yearly household income in dollars"
-                inputMode="numeric"
+                inputMode="decimal"
                 autoComplete="off"
                 className="font-display w-full bg-transparent text-4xl font-extrabold outline-none placeholder:text-ink/25"
                 placeholder="52,000"

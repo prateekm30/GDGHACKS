@@ -343,6 +343,74 @@ def dedupe(buildings: list[dict]) -> list[dict]:
     return list({id(b): b for b in by_key.values()}.values())
 
 
+# Rows HUD publishes with the developer's office as the address. The building itself is another row.
+MERGE_INTO = {
+    "lihtc-MDA20190007": "hud-800249298",  # Momentum at Shady Grove Metro: office in Vienna VA, building in Derwood MD
+}
+SMALL_SITE_UNITS = 3
+
+
+def refine(rows: list[dict]) -> list[dict]:
+    """Fixes that need the whole list: same-spot duplicates, swapped unit counts, group homes, known bad rows.
+    Also runs on the committed JSON (--refine) so the fixes land without a full rebuild."""
+    by_id = {b["id"]: b for b in rows}
+    out: list[dict] = []
+    for b in rows:
+        target = by_id.get(MERGE_INTO.get(b["id"], ""))
+        if target is not None:
+            for f in ("yearPlacedInService", "incomeCeiling", "unitMix"):
+                if not target.get(f) and b.get(f):
+                    target[f] = b[f]
+            if not target["bedrooms"] and b["bedrooms"]:
+                target["bedrooms"] = b["bedrooms"]
+            continue
+        out.append(b)
+    rows = out
+
+    # Two rows at the same point (within ~10 m) with the same house number are one building listed twice
+    # (a re-syndicated tax-credit deal, or a HUD contract plus its LIHTC record; street spellings differ:
+    # "S Alfred St" vs "South Alfred Street"). Keep the HUD row, else the newest LIHTC row, and fill its gaps.
+    by_spot: dict[tuple, dict] = {}
+    out = []
+    for b in sorted(rows, key=lambda b: (b["program"] != "HUD", -(b["yearPlacedInService"] or 0))):
+        house = re.match(r"\d+", b["address"] or "")
+        key = (round(b["lat"], 4), round(b["lon"], 4), house.group(0) if house else b["name"])
+        kept = by_spot.get(key)
+        if kept is None:
+            by_spot[key] = b
+            out.append(b)
+            continue
+        for f in ("bedrooms", "yearPlacedInService", "totalUnits", "affordableUnits", "incomeCeiling", "unitMix", "marketRent"):
+            if not kept.get(f) and b.get(f):
+                kept[f] = b[f]
+        if not kept["contact"]["phone"] and b["contact"]["phone"]:
+            kept["contact"] = b["contact"]
+    rows = out
+
+    for b in rows:
+        # A building has at least as many homes as assisted homes. When HUD's two counts are the wrong way
+        # round ("98 of 32"), swap them.
+        t, a = b["totalUnits"], b["affordableUnits"]
+        if t is not None and a is not None and a > t:
+            b["totalUnits"], b["affordableUnits"] = a, t
+        # Group homes and sites with three or fewer homes are not apartment buildings; they fill by referral.
+        if re.search(r"\bgroup home\b", b["name"], re.I) or (b["totalUnits"] is not None and b["totalUnits"] <= SMALL_SITE_UNITS):
+            b["groupHome"] = True
+            if "group home" in b["name"].lower():
+                b["disabilityOnly"] = True
+    rows.sort(key=lambda b: (b["area"], b["name"]))
+    return rows
+
+
+def refine_file() -> None:
+    rows = json.loads(OUT_BUILDINGS.read_text())
+    before = len(rows)
+    rows = refine(rows)
+    OUT_BUILDINGS.write_text(json.dumps(rows, indent=1))
+    small = sum(1 for b in rows if b.get("groupHome"))
+    print(f"Refined {before} -> {len(rows)} buildings ({small} group homes or small sites flagged).")
+
+
 def build_buildings(inspect: bool) -> None:
     today = date.today().isoformat()
     lihtc = query_layer(LIHTC_URL, WHERE, LIHTC_FIELDS)
@@ -367,7 +435,7 @@ def build_buildings(inspect: bool) -> None:
     for b in rows:
         b["metroMiles"], b["metroStation"] = nearest_metro(b["lat"], b["lon"], stations)
     add_market_rents(rows)
-    rows.sort(key=lambda b: (b["area"], b["name"]))
+    rows = refine(rows)
 
     OUT_BUILDINGS.write_text(json.dumps(rows, indent=1))
     by_area = dict(Counter(b["area"] for b in rows))
@@ -401,7 +469,11 @@ def build_limits() -> None:
 if __name__ == "__main__":
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--inspect", action="store_true", help="print source fields and one row, then stop")
+    ap.add_argument("--refine", action="store_true", help="re-apply the fixes in refine() to the committed JSON, no network")
     args = ap.parse_args()
+    if args.refine:
+        refine_file()
+        sys.exit()
     build_buildings(args.inspect)
     if not args.inspect:
         build_map()
