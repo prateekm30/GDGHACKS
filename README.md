@@ -76,8 +76,8 @@ flowchart LR
 
 Income, picks, and photos stay in your browser (session storage, cleared when the tab closes).
 `GEMINI_API_KEY` is server-side only. The API does not log request content.
-Building photos are aerial tiles from Esri World Imagery; Esri sees which public building locations are
-viewed, never anything you type. The OCR engine and English language data are served from this site
+Building photos are Google Street View images (when a key is set) and aerial tiles from Esri World Imagery;
+Google and Esri see which public building locations are viewed, never anything you type. The OCR engine and English language data are served from this site
 (copied from `node_modules` at build time), so reading a form makes no request to any CDN. Fonts load from
 Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) are set in `vercel.json`.
 
@@ -133,8 +133,9 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
   LIHTC database release is 2019; HUD-assisted rows carry no year.
 - **Building names and contacts** are as HUD publishes them, tidied (capitalization, "Apts", SOME's
   properties). Some names are the legal project name, not the sign on the door.
-- **No interior photos.** HUD has none and listing photos are copyrighted, so cards show aerial, neighborhood,
-  and street-map views of the real location with a Street View link.
+- **No interior photos.** HUD has none and listing photos are copyrighted, so cards show a Google Street View
+  photo of the block (when Google has one within 80 m and a key is set), then aerial, neighborhood, and
+  street-map views of the real location, with a link to look around in Google Maps.
 - **No ranking on neighborhood, school, or demographic data**, on purpose (fair housing).
 
 ## Credits and data
@@ -143,6 +144,7 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 - 2026 income limits for the Washington-Arlington-Alexandria HUD Metro FMR Area (MTSP and Section 8)
 - WMATA Metro station locations (Open Data DC)
 - Aerial imagery: Esri World Imagery (Esri, Maxar, Earthstar Geographics)
+- Street-level photos: Google Street View Static API (when a `VITE_GOOGLE_MAPS_KEY` is set), shown with Google's own attribution
 - Gemma 4 via the Gemini API
 - React, Vite, Tailwind CSS, pdf.js (Apache-2.0), Tesseract.js (Apache-2.0)
 

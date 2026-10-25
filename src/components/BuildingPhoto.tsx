@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react'
 import { useRef, useState, type UIEvent } from 'react'
+import { hasStreetView, streetViewUrl } from '../lib/streetview'
 import type { Building } from '../lib/types'
 import { RowhouseArt, hashString } from './Skyline'
 
@@ -13,7 +14,9 @@ const LAYERS = {
   streets: (z: number, x: number, y: number) => `${ESRI}/World_Street_Map/MapServer/tile/${z}/${y}/${x}`,
 }
 
-const VIEWS: { layer: keyof typeof LAYERS; zoom: number; label: string; credit: string }[] = [
+type View = { layer: keyof typeof LAYERS | 'street'; zoom: number; label: string; credit: string }
+const STREET_VIEW: View = { layer: 'street', zoom: 0, label: 'Street View', credit: 'Google' }
+const VIEWS: View[] = [
   { layer: 'imagery', zoom: 18, label: 'Aerial', credit: 'Esri, Maxar' },
   { layer: 'imagery', zoom: 16, label: 'Neighborhood', credit: 'Esri, Maxar' },
   { layer: 'streets', zoom: 16, label: 'Street map', credit: 'Esri, OSM' },
@@ -68,15 +71,35 @@ export function TileView({ b, layer, zoom, onFail, eager = false, className = 'k
   )
 }
 
+/** The street-level photo from Google. Hidden (and dropped from the views) when Google has none for this spot. */
+function StreetPhoto({ b, onFail, onLoad }: { b: Building; onFail: () => void; onLoad: () => void }) {
+  return (
+    <img
+      src={streetViewUrl(b.lat, b.lon)}
+      alt=""
+      loading="lazy"
+      decoding="async"
+      draggable={false}
+      onError={onFail}
+      onLoad={onLoad}
+      className="ken-burns absolute inset-0 h-full w-full select-none object-cover"
+    />
+  )
+}
+
 /**
- * Swipeable views of where the building is: aerial close-up, the neighborhood, and a street map,
- * plus a link to Google Street View. Falls back to a rowhouse drawing if the tiles can't load.
+ * Swipeable views of where the building is: a Google Street View photo when one exists, then the aerial
+ * close-up, the neighborhood, and a street map, plus a link to open Street View in Google Maps.
+ * Falls back to a rowhouse drawing if the tiles can't load.
  */
 export function BuildingPhoto({ b, className = '', single = false }: { b: Building; className?: string; single?: boolean }) {
   const [failed, setFailed] = useState(false)
+  // 'unknown' while the photo loads; 'none' drops the slide and the aerial view leads instead.
+  const [street, setStreet] = useState<'unknown' | 'ok' | 'none'>(hasStreetView() ? 'unknown' : 'none')
   const [index, setIndex] = useState(0)
   const track = useRef<HTMLDivElement>(null)
-  const views = single || failed ? VIEWS.slice(0, 1) : VIEWS
+  const lead = street === 'none' ? [] : [STREET_VIEW]
+  const views = failed ? VIEWS.slice(0, 1) : single ? [...lead, ...VIEWS.slice(0, 1)].slice(0, 1) : [...lead, ...VIEWS]
 
   function go(i: number, e?: { stopPropagation: () => void }) {
     e?.stopPropagation()
@@ -105,8 +128,18 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
           className="no-scrollbar absolute inset-0 flex snap-x snap-mandatory overflow-x-auto overscroll-x-contain">
           {views.map((v) => (
             <div key={v.label} className="relative h-full w-full shrink-0 snap-center overflow-hidden">
-              <TileView b={b} layer={v.layer} zoom={v.zoom} onFail={() => setFailed(true)} />
-              <Pin />
+              {v.layer === 'street' ? (
+                <>
+                  {/* The aerial tiles sit under the photo while it loads, so the frame is never blank. */}
+                  {street !== 'ok' && <TileView b={b} layer="imagery" zoom={18} onFail={() => setFailed(true)} />}
+                  <StreetPhoto b={b} onFail={() => setStreet('none')} onLoad={() => setStreet('ok')} />
+                </>
+              ) : (
+                <>
+                  <TileView b={b} layer={v.layer} zoom={v.zoom} onFail={() => setFailed(true)} />
+                  <Pin />
+                </>
+              )}
             </div>
           ))}
         </div>
@@ -150,9 +183,9 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
           onClick={(e) => e.stopPropagation()}
           className="absolute bottom-1.5 left-1.5 z-10 inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[11px] font-bold text-ink shadow transition hover:bg-accent"
         >
-          Street View
+          {street === 'ok' ? 'Look around' : 'Street View'}
           <ExternalLink aria-hidden className="size-3" />
-          <span className="sr-only">for {b.name} (opens Google Maps)</span>
+          <span className="sr-only">for {b.name} (opens Google Maps Street View)</span>
         </a>
       )}
     </div>

@@ -81,6 +81,15 @@ jobs:
                 console.log("warnings", kinds, "items", (out.items || []).length, "risky", (out.items || []).filter(i => i.risky).length);
               })
           ' "${{ inputs.url }}"
+      - name: Street View key present and answering (informational)
+        run: |
+          asset=$(curl -sS "${{ inputs.url }}/" | grep -o '/assets/index-[^"]*\.js' | head -1)
+          key=$(curl -sS "${{ inputs.url }}$asset" | grep -oE 'VITE_GOOGLE_MAPS_KEY[^"]*"[^"]*"' | head -1; curl -sS "${{ inputs.url }}$asset" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
+          key=$(echo "$key" | grep -oE 'AIza[0-9A-Za-z_-]{20,}' | head -1)
+          if [ -z "$key" ]; then echo "No Street View key in the bundle: cards show aerial views."; exit 0; fi
+          # The key is referrer-restricted, so send the site as the referrer. 1330 7th St NW has a photo.
+          code=$(curl -sS -o /dev/null -w '%{http_code}' -e "${{ inputs.url }}/" "https://maps.googleapis.com/maps/api/streetview?size=640x360&location=38.9076,-77.0220&radius=80&source=outdoor&return_error_code=true&key=$key")
+          echo "Street View Static API answered $code (200 = working, 403 = key restriction or API not enabled, 404 = no photo there)"
       - name: Rate limit under a burst from one address (informational)
         # The limiter is per serverless instance. This prints the status and instance id of nine quick calls;
         # a 429 proves the limiter, while nine different instance ids explain a run without one.
