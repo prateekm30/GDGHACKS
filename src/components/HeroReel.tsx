@@ -3,17 +3,26 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import { areaInfo } from '../lib/areas'
 import { lihtcRentCeiling } from '../lib/eligibility'
 import { prefersReducedMotion, tiltHandlers } from '../lib/motion'
+import { streetViewUrl, useStreetViewIndex, useStreetViewKey, type StreetViewSource } from '../lib/streetview'
 import type { Area, Building, IncomeLimits } from '../lib/types'
 import { TileView } from './BuildingPhoto'
 import { RowhouseArt, hashString } from './Skyline'
 
 const HOLD_MS = 4600
 
-/** One building per area first, then a second lap, so the reel tours the whole region. */
-function pickReel(buildings: Building[]): Building[] {
+/**
+ * One building per area first, then a second lap, so the reel tours the whole region. With the Street View
+ * index loaded, only buildings whose street photo is trusted (found by address, agreeing with HUD's point)
+ * are used, so every frame is a real street photo; areas without any fall back to the aerial view.
+ */
+export function pickReel(buildings: Building[], index: Record<string, StreetViewSource> | null = null): Building[] {
   const byArea = new Map<Area, Building[]>()
+  const ok = (b: Building) => !b.sample && !b.seniorOnly && !b.disabilityOnly && b.bedrooms.length > 0
+  const trusted = index ? buildings.filter((b) => ok(b) && index[b.id] === 'a') : []
+  const areasWithPhoto = new Set(trusted.map((b) => b.area))
   for (const b of buildings) {
-    if (b.sample || b.seniorOnly || b.disabilityOnly || !b.bedrooms.length) continue
+    if (!ok(b)) continue
+    if (index && areasWithPhoto.has(b.area) && index[b.id] !== 'a') continue
     const list = byArea.get(b.area) ?? []
     list.push(b)
     byArea.set(b.area, list)
@@ -39,8 +48,8 @@ function rentLine(b: Building, limits: IncomeLimits): string {
 }
 
 /**
- * A slow tour over real buildings, from the air. Each frame is the actual roof and block of a building in HUD's
- * data. Tap or press an arrow for the next one; "Search here" starts the picker in that area.
+ * A slow tour of real buildings: Google's street photo when the index trusts it, the roof and block from the
+ * air otherwise. Each frame is a building in HUD's data. Tap or press an arrow for the next one; "Search here" starts the picker in that area.
  */
 export function HeroReel({
   buildings,
@@ -53,12 +62,23 @@ export function HeroReel({
   onStartIn: (area: Area) => void
   className?: string
 }) {
-  const reel = useMemo(() => (buildings ? pickReel(buildings) : []), [buildings])
+  const apiKey = useStreetViewKey()
+  const index = useStreetViewIndex()
+  const reel = useMemo(() => (buildings ? pickReel(buildings, index) : []), [buildings, index])
   const [i, setI] = useState(0)
   const [prev, setPrev] = useState<number | null>(null)
   const [paused, setPaused] = useState(false)
   const [stopped, setStopped] = useState(false)
   const [failed, setFailed] = useState<Set<string>>(() => new Set())
+  // Buildings whose street photo did not load (Google has none after all): the aerial view takes over.
+  const [noStreet, setNoStreet] = useState<Set<string>>(() => new Set())
+  const streetFor = (f: Building) => !!apiKey && index?.[f.id] === 'a' && !noStreet.has(f.id)
+
+  // The reel changes once the index arrives; start it over so the frame and the label agree.
+  useEffect(() => {
+    setI(0)
+    setPrev(null)
+  }, [reel])
   const timer = useRef<number | null>(null)
   const still = useMemo(prefersReducedMotion, [])
 
@@ -98,6 +118,7 @@ export function HeroReel({
 
   const b = reel[i]
   const area = b ? areaInfo(b.area) : null
+  const streetOn = !!b && streetFor(b)
 
   return (
     <div
@@ -116,7 +137,7 @@ export function HeroReel({
         role="group"
         tabIndex={0}
         aria-roledescription="slideshow"
-        aria-label={b ? `Aerial view of ${b.name} in ${b.city}, ${b.state}. Building ${i + 1} of ${n}. Press the right arrow for the next one.` : 'Loading buildings'}
+        aria-label={b ? `${streetOn ? 'Street photo' : 'Aerial view'} of ${b.name} in ${b.city}, ${b.state}. Building ${i + 1} of ${n}. Press the right arrow for the next one.` : 'Loading buildings'}
         onKeyDown={onKey}
         onClick={() => go(i + 1)}
         className="absolute inset-0 cursor-pointer outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-accent"
@@ -135,6 +156,16 @@ export function HeroReel({
             >
               {failed.has(f.id) ? (
                 <RowhouseArt seed={hashString(f.id)} className="absolute inset-x-0 bottom-0 h-[48%] w-full" />
+              ) : streetFor(f) ? (
+                <img
+                  src={streetViewUrl(f, apiKey, 'a', 640, 400)}
+                  alt=""
+                  loading="eager"
+                  decoding="async"
+                  draggable={false}
+                  onError={() => setNoStreet((s) => new Set(s).add(f.id))}
+                  className={`reel-frame absolute inset-0 h-full w-full select-none object-cover ${active && !still ? 'is-on' : ''}`}
+                />
               ) : (
                 <TileView
                   b={f}
@@ -151,9 +182,11 @@ export function HeroReel({
             </div>
           )
         })}
-        <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
-          <span className="ping block size-4 rounded-full bg-accent ring-4 ring-accent/30" />
-        </span>
+        {!streetOn && (
+          <span aria-hidden className="pointer-events-none absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2">
+            <span className="ping block size-4 rounded-full bg-accent ring-4 ring-accent/30" />
+          </span>
+        )}
         <span aria-hidden className="glare pointer-events-none absolute inset-0 z-20" />
       </div>
 
@@ -200,7 +233,7 @@ export function HeroReel({
           </div>
         </div>
       )}
-      <span className="absolute right-2 top-2 z-20 rounded bg-black/50 px-1.5 py-0.5 text-[10px] text-white/90">Aerial · Esri, Maxar</span>
+      <span className="absolute right-2 top-2 z-20 rounded bg-black/50 px-1.5 py-0.5 text-[10px] text-white/90">{streetOn ? 'Street View · Google' : 'Aerial · Esri, Maxar'}</span>
       {n > 1 && !still && (
         <button
           type="button"

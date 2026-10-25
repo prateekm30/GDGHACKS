@@ -39,3 +39,42 @@ describe('street view asks by address, not by HUD coordinates', () => {
     expect(streetViewLocation({ ...b, address: 'Lot 3 On Noble Way' })).toBe('38.907600,-77.022000')
   })
 })
+
+describe('income period and floor', async () => {
+  const { incomeFloor, sliderRange, toYearly, fromYearly } = await import('./income')
+  const limits = (await import('../data/limits.2026.json')).default as import('./types').IncomeLimits
+  it('floors at a year of the cheapest capped rent, rounded to $1,000', () => {
+    const floor = incomeFloor(limits)
+    expect(floor % 1000).toBe(0)
+    expect(floor).toBeGreaterThan(10000)
+    expect(floor).toBeLessThan(30000)
+    expect(floor).toBe(17000) // 2026: 50% studio cap $1,454 x 12 = $17,448
+  })
+  it('monthly slider is the yearly one divided by 12', () => {
+    expect(sliderRange(limits, 'year')).toEqual({ min: 17000, max: 150000, step: 1000 })
+    expect(sliderRange(limits, 'month')).toEqual({ min: 1400, max: 12500, step: 100 })
+  })
+  it('converts between monthly and yearly', () => {
+    expect(toYearly(4300, 'month')).toBe(51600)
+    expect(toYearly(51600, 'year')).toBe(51600)
+    expect(fromYearly(51600, 'month')).toBe(4300)
+  })
+})
+
+describe('hero reel picks', async () => {
+  const { pickReel } = await import('../components/HeroReel')
+  const mk = (id: string, area: string) =>
+    ({ id, area, bedrooms: [1], sample: false, seniorOnly: false, disabilityOnly: false }) as unknown as import('./types').Building
+  const buildings = [mk('a1', 'DC'), mk('a2', 'DC'), mk('a3', 'DC'), mk('b1', 'ARLINGTON'), mk('b2', 'ARLINGTON')]
+  it('uses only trusted street photos in areas that have them, once the index is loaded', () => {
+    const reel = pickReel(buildings, { a1: 'a', a2: 'n', a3: 'c', b1: 'n', b2: 'n' })
+    const dc = reel.filter((b) => b.area === 'DC').map((b) => b.id)
+    expect(dc).toEqual(['a1'])
+    // Arlington has no trusted photo, so it stays in the tour with the aerial view.
+    expect(reel.some((b) => b.area === 'ARLINGTON')).toBe(true)
+  })
+  it('tours every area from the air before the index arrives', () => {
+    const reel = pickReel(buildings)
+    expect(new Set(reel.map((b) => b.area)).size).toBe(2)
+  })
+})

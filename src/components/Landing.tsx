@@ -177,7 +177,7 @@ export function Landing({
 
           <div className="px-map relative min-w-0">
             <HeroReel buildings={buildings} limits={limits} onStartIn={onStartIn} className="h-[340px] sm:h-[440px]" />
-            <p className="font-hand mt-2 text-center text-xl text-ink">real roofs, real blocks: every one is a building in HUD's data</p>
+            <p className="font-hand mt-2 text-center text-xl text-ink">real streets, real doors: every one is a building in HUD's data</p>
           </div>
         </div>
         <Skyline className="px-skyline relative block h-28 w-full sm:h-36" />

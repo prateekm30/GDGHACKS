@@ -61,6 +61,11 @@ export function useStreetViewSource(id: string): StreetViewSource | undefined {
   return useSyncExternalStore(subscribe, () => index?.[id], () => index?.[id])
 }
 
+/** The whole index (null while it loads), for places that choose buildings by it, like the landing reel. */
+export function useStreetViewIndex(): Record<string, StreetViewSource> | null {
+  return useSyncExternalStore(subscribe, () => index, () => index)
+}
+
 /** For tests. */
 export function setStreetViewIndex(byId: Record<string, StreetViewSource> | null) {
   index = byId

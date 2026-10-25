@@ -17,7 +17,7 @@ import {
 } from 'lucide-react'
 import { useId, useState, type ReactNode } from 'react'
 import { HUBS } from '../lib/areas'
-import { parseIncome } from '../lib/income'
+import { fromYearly, incomeFloor, parseIncome, sliderRange, toYearly, type IncomePeriod } from '../lib/income'
 import type { Feature } from '../lib/ranking'
 import type { IncomeLimits, Situation } from '../lib/types'
 import { money } from './ui'
@@ -26,6 +26,8 @@ export interface Basics {
   householdSize: number
   /** null when the person skipped income: no cost estimates, picks still work. */
   income: number | null
+  /** How the person typed it; income above is always yearly. */
+  incomePeriod?: IncomePeriod
   bedroomsNeeded: number | null
   priorities: Feature[]
   allFullTimeStudents: boolean
@@ -112,7 +114,8 @@ function Toggle({ checked, onChange, children, hint }: { checked: boolean; onCha
 export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null; onDone: (b: Basics) => void; limits: IncomeLimits }) {
   const id = useId()
   const [size, setSize] = useState(initial?.householdSize ?? 1)
-  const [income, setIncome] = useState(initial?.income ? String(initial.income) : '')
+  const [period, setPeriod] = useState<IncomePeriod>(initial?.incomePeriod ?? 'year')
+  const [income, setIncome] = useState(initial?.income ? fromYearly(initial.income, initial.incomePeriod ?? 'year').toLocaleString('en-US') : '')
   const [bedrooms, setBedrooms] = useState<number | null>(initial?.bedroomsNeeded ?? null)
   const [priorities, setPriorities] = useState<Feature[]>(initial?.priorities ?? ['cost'])
   const [students, setStudents] = useState(initial?.allFullTimeStudents ?? false)
@@ -120,7 +123,21 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
   const [hub, setHub] = useState<string>(initial?.workHub ?? '')
   const [voucher, setVoucher] = useState(initial?.voucher ?? false)
   const [hideOver, setHideOver] = useState(initial?.hideOverLimit ?? false)
-  const incomeNum = parseIncome(income)
+  const typed = parseIncome(income)
+  /** Yearly, whatever the box says. All eligibility math stays yearly. */
+  const incomeNum = typed ? toYearly(typed, period) : null
+  const floor = incomeFloor(limits)
+  const range = sliderRange(limits, period)
+  // A "yearly" number under a year of the cheapest capped rent is almost always a monthly one; a "monthly" number
+  // over the top of the slider is almost always yearly. Offer the switch instead of refusing.
+  const looksMonthly = period === 'year' && !!typed && typed < floor
+  const looksYearly = period === 'month' && !!typed && typed > range.max
+  /** The toggle converts the number; the nudge keeps it ("yes, that 1,000 was per month"). */
+  function switchPeriod(next: IncomePeriod, keepNumber = false) {
+    if (next === period) return
+    setPeriod(next)
+    if (typed && !keepNumber) setIncome((next === 'month' ? Math.round(typed / 12) : typed * 12).toLocaleString('en-US'))
+  }
   const limit60 = limits.mtsp['60'][Math.min(size, 8) - 1] ?? 0
   const limit50 = limits.mtsp['50'][Math.min(size, 8) - 1] ?? 0
 
@@ -136,6 +153,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
         onDone({
           householdSize: size,
           income: incomeNum,
+          incomePeriod: period,
           bedroomsNeeded: bedrooms,
           priorities,
           allFullTimeStudents: students,
@@ -191,38 +209,71 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
           </div>
         </Question>
 
-        <Question n={2} title="Yearly household income, before taxes" hint="Optional. With it, we estimate rent and check each building's income limit.">
+        <Question n={2} title="Household income, before taxes" hint="Optional. With it, we estimate rent and check each building's income limit.">
           <div className="max-w-md space-y-3">
+            <div role="radiogroup" aria-label="Is that a monthly or a yearly amount?" className="inline-flex rounded-full bg-white/70 p-1 text-sm font-bold">
+              {(['month', 'year'] as const).map((p) => (
+                <label
+                  key={p}
+                  className={`cursor-pointer rounded-full px-3.5 py-1.5 transition has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-brand ${
+                    period === p ? 'bg-dusk text-white shadow' : 'text-ink-soft hover:text-ink'
+                  }`}
+                >
+                  <input type="radio" name={`${id}-period`} className="sr-only" checked={period === p} onChange={() => switchPeriod(p)} />
+                  {p === 'month' ? 'Per month' : 'Per year'}
+                </label>
+              ))}
+            </div>
             <div className="flex items-baseline gap-1 border-b-4 border-dashed border-ink/25 pb-1 transition-colors focus-within:border-brand">
               <span aria-hidden className="font-display text-3xl font-extrabold text-ink-soft">
                 $
               </span>
               <input
                 id={`${id}-income`}
-                aria-label="Yearly household income in dollars"
+                aria-label={`${period === 'month' ? 'Monthly' : 'Yearly'} household income in dollars`}
                 inputMode="decimal"
                 autoComplete="off"
                 className="font-display w-full bg-transparent text-4xl font-extrabold outline-none placeholder:text-ink/25"
-                placeholder="52,000"
+                placeholder={period === 'month' ? '4,300' : '52,000'}
                 value={income}
                 onChange={(e) => setIncome(e.target.value)}
-                onBlur={() => incomeNum && setIncome(incomeNum.toLocaleString('en-US'))}
+                onBlur={() => typed && setIncome(typed.toLocaleString('en-US'))}
               />
+              <span aria-hidden className="shrink-0 font-display text-xl font-bold text-ink-soft">
+                /{period === 'month' ? 'mo' : 'yr'}
+              </span>
             </div>
             <input
               type="range"
-              aria-label="Yearly household income slider"
-              min={0}
-              max={150000}
-              step={1000}
-              value={incomeNum ?? 0}
-              aria-valuetext={incomeNum ? `${money(incomeNum)} a year` : 'No income entered'}
-              onChange={(e) => setIncome(Number(e.target.value) ? Number(e.target.value).toLocaleString('en-US') : '')}
+              aria-label={`${period === 'month' ? 'Monthly' : 'Yearly'} household income slider`}
+              min={range.min}
+              max={range.max}
+              step={range.step}
+              value={Math.min(range.max, Math.max(range.min, typed ?? range.min))}
+              aria-valuetext={typed ? `${money(typed)} a ${period}` : 'No income entered'}
+              onChange={(e) => setIncome(Number(e.target.value).toLocaleString('en-US'))}
               className="w-full accent-brand"
             />
+            {(looksMonthly || looksYearly) && (
+              <p role="status" className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-xl bg-accent/25 px-3 py-2 text-sm text-ink">
+                <span>
+                  {looksMonthly
+                    ? `${money(typed ?? 0)} a year is less than a year of the cheapest capped rent here (${money(floor)}). Is that a monthly amount?`
+                    : `${money(typed ?? 0)} a month is more than most yearly incomes here. Is that a yearly amount?`}
+                </span>
+                <button type="button" onClick={() => switchPeriod(looksMonthly ? 'month' : 'year', true)} className="rounded-full bg-dusk px-3 py-1 font-bold text-white">
+                  {looksMonthly ? 'Yes, per month' : 'Yes, per year'}
+                </button>
+              </p>
+            )}
             <p className="text-sm text-ink-soft">
+              {incomeNum && period === 'month' && (
+                <>
+                  That is about <strong className="text-ink">{money(incomeNum)}</strong> a year.{' '}
+                </>
+              )}
               Most tax-credit homes here take households up to{' '}
-              <strong className="text-ink">{money(limit60)}</strong> for {size === 1 ? 'one person' : `${size} people`} (60% of area median), and HUD-assisted
+              <strong className="text-ink">{money(limit60)}</strong> a year for {size === 1 ? 'one person' : `${size} people`} (60% of area median), and HUD-assisted
               homes up to <strong className="text-ink">{money(limit50)}</strong>.
             </p>
           </div>
@@ -354,6 +405,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
             <p key={incomeNum ?? 0} className="bump font-display text-3xl font-extrabold">
               {incomeNum ? money(incomeNum) : 'Skipped'}
             </p>
+            {incomeNum && <p className="text-sm text-white/70">a year · {money(Math.round(incomeNum / 12))} a month</p>}
             {incomeNum && (
               <p className="mt-1 text-sm text-white/85">
                 {incomeNum <= limit60 ? 'Under' : 'Over'} the 60% tax-credit limit · income-based rent would be about{' '}
