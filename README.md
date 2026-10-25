@@ -21,6 +21,11 @@ The AI routes (`/api/*`) run on Vercel. Locally, use `npx vercel dev` with `GEMI
 (copy `.env.example`). Without a key, Snap a form still works with the sample form (cached result) and
 falls back to highlighted lines.
 
+Street View photos need `VITE_GOOGLE_MAPS_KEY` (a browser key restricted to the site's address and to the
+Street View Static API). `VITE_` variables are baked into the page at build time, so after adding or changing
+one in Vercel, redeploy **without** "Use existing Build Cache" (or push a commit); a cached redeploy keeps the
+old bundle. `/api/health` lists the names of the Google variables the deployment can see, never the values.
+
 ## AI model
 
 - **Model:** Gemma 4, `gemma-4-26b-a4b-it` (fallback `gemma-4-31b-it`), called through the Gemini API from `api/snap-text.ts`.
