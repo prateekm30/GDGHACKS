@@ -65,8 +65,9 @@ export function SnapForm({ announce }: { announce: (msg: string) => void }) {
           </p>
         </div>
         <Note>
-          Your file never leaves this device. Only the text you review below is sent to Google's Gemini API (the Gemma model) to make
-          the checklist, so delete names, Social Security numbers, and account numbers first.
+          Your file never leaves this device. Only the text you review below is sent to Google's Gemini API (the Gemma model, free
+          tier) to make the checklist. Under Google's free-tier terms that text may be used to improve its products, so delete names,
+          Social Security numbers, and account numbers first.
         </Note>
 
         <label className="flex cursor-pointer flex-col items-center gap-2 rounded-xl border-2 border-dashed border-line p-6 text-center text-sm transition hover:border-brand has-[:focus-visible]:border-brand has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand">
