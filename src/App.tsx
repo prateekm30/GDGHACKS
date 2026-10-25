@@ -172,10 +172,11 @@ export default function App() {
   }, [buildings, areas, basics, situation, hub])
   const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
-  const pair = useMemo(() => nextPair(pool, seen, weights, limits, situation), [pool, seen, weights, situation])
+  // Ranking work only on the screens that show it: the landing page must not pay for 1,700 buildings' scores.
+  const pair = useMemo(() => (step === 'pick' ? nextPair(pool, seen, weights, limits, situation) : null), [step, pool, seen, weights, situation])
   const shortlist = useMemo(
-    () => shortlistFrom(rank(pool, weights, limits, situation), 3, (b) => !situation || assess(b, limits, situation).limit !== 'over'),
-    [pool, weights, situation],
+    () => (step === 'results' ? shortlistFrom(rank(pool, weights, limits, situation), 3, (b) => !situation || assess(b, limits, situation).limit !== 'over') : []),
+    [step, pool, weights, situation],
   )
   const isSample = !!buildings?.some((b) => b.sample)
 
@@ -346,7 +347,7 @@ export default function App() {
   return (
     <>
       {intro && <div aria-hidden className="intro-backdrop" />}
-      <div data-step={step} className={`app-shell relative min-h-dvh text-ink ${intro ? 'intro-run' : ''}`}>
+      <div data-step={step} className="app-shell relative min-h-dvh text-ink">
       <div aria-hidden className="sky" />
       <Lamp />
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-40 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">

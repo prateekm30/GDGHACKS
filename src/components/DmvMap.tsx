@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { memo, useEffect, useMemo, useState } from 'react'
 import { AREAS, areaInfo } from '../lib/areas'
 import type { Area, Building } from '../lib/types'
 
@@ -25,7 +25,7 @@ const PAD = 8
  * County outlines (Census TIGERweb) drawn as SVG. Clicking a county toggles its area.
  * Decorative for screen readers: the checkbox list next to it is the accessible control.
  */
-export function DmvMap({
+export const DmvMap = memo(function DmvMap({
   selected,
   onToggle,
   buildings,
@@ -102,20 +102,7 @@ export function DmvMap({
             onPointerLeave={() => setHover((h) => (h === p.area ? null : h))}
           />
         ))}
-        {/* One dot per building, so you can see where the homes actually are. */}
-        {buildings?.map((b) => (
-          <circle
-            key={b.id}
-            cx={geo.px(b.lon)}
-            cy={geo.py(b.lat)}
-            r={on(b.area) ? 2.4 : 1.4}
-            fill="#2a1a3a"
-            stroke="#fffaf6"
-            strokeWidth={on(b.area) ? 0.6 : 0}
-            fillOpacity={on(b.area) ? 0.8 : 0.25}
-            pointerEvents="none"
-          />
-        ))}
+        <BuildingDots buildings={buildings} selected={selected} px={geo.px} py={geo.py} />
       </svg>
       <div
         aria-hidden
@@ -132,7 +119,45 @@ export function DmvMap({
       </div>
     </div>
   )
-}
+})
+
+/**
+ * One dot per building, so you can see where the homes actually are. 1,700 dots as two <path>s (on and off areas),
+ * not 1,700 <circle>s: the browser lays out and paints two elements instead of hundreds.
+ */
+const BuildingDots = memo(function BuildingDots({
+  buildings,
+  selected,
+  px,
+  py,
+}: {
+  buildings: Building[] | null
+  selected: ReadonlySet<Area>
+  px: (lon: number) => number
+  py: (lat: number) => number
+}) {
+  const { on, off } = useMemo(() => {
+    const all = selected.size === 0
+    const dot = (b: Building, r: number) => {
+      const x = px(b.lon).toFixed(1)
+      const y = py(b.lat).toFixed(1)
+      return `M${x} ${y}m${-r} 0a${r} ${r} 0 1 0 ${r * 2} 0a${r} ${r} 0 1 0 ${-r * 2} 0`
+    }
+    let on = ''
+    let off = ''
+    for (const b of buildings ?? []) {
+      if (all || selected.has(b.area)) on += dot(b, 2.4)
+      else off += dot(b, 1.4)
+    }
+    return { on, off }
+  }, [buildings, selected, px, py])
+  return (
+    <>
+      {off && <path d={off} fill="#2a1a3a" fillOpacity={0.25} pointerEvents="none" />}
+      {on && <path d={on} fill="#2a1a3a" fillOpacity={0.8} stroke="#fffaf6" strokeWidth={0.6} pointerEvents="none" />}
+    </>
+  )
+})
 
 /** The accessible picker: one checkbox per area, with building counts. */
 export function AreaChecklist({

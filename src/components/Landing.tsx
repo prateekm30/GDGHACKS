@@ -71,7 +71,8 @@ export function Landing({
 
   return (
     <div ref={revealRef} className="day" style={{ '--wb': firstVisit ? '900ms' : '0ms' } as CSSProperties}>
-      {/* ---------- Morning: the hero ---------- */}
+      {/* ---------- Morning: the hero. On a first visit it grows out of the sunrise (the wrapper zooms, not the whole page). ---------- */}
+      <div className={firstVisit ? 'intro-run' : undefined}>
       <section aria-labelledby="start-heading" {...spotlightHandlers()} className="hero relative overflow-hidden">
         {/* Sky layers. The sun sinks and the night veil rises as you scroll (CSS scroll timelines). */}
         <div aria-hidden className="pointer-events-none absolute inset-0">
@@ -181,6 +182,7 @@ export function Landing({
       </section>
 
       {/* ---------- Afternoon: where ---------- */}
+      </div>
       <section id="areas" aria-labelledby="areas-heading" className="afternoon relative scroll-mt-20 overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <span className="glow-orb absolute -left-24 top-10 size-72 rounded-full" style={{ background: 'radial-gradient(circle, rgb(255 197 61 / 0.45), transparent 70%)' }} />

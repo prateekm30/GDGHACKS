@@ -100,7 +100,8 @@ body::before {
 @keyframes drift { from { transform: translateX(-12%); } to { transform: translateX(112%); } }
 .drift { animation: drift 60s linear infinite; }
 .drift-slow { animation: drift 95s linear -40s infinite; }
-@keyframes window-on { 0%, 40% { fill: #2d1b4a; } 50%, 100% { fill: #fff1c4; } }
+/* Flicker windows: one animated group per house (opacity), not one animation per window. */
+@keyframes window-on { 0%, 40% { opacity: 0; } 50%, 100% { opacity: 1; } }
 .win { animation: window-on 6s steps(1) infinite; }
 @keyframes houses-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
 .houses-up { animation: houses-up 900ms cubic-bezier(.2,.8,.2,1) both; }
@@ -259,7 +260,7 @@ html { scroll-behavior: smooth; }
 }
 @keyframes twinkle { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
 .stars-on { opacity: 1; animation: twinkle 5s ease-in-out infinite; }
-.star { animation: twinkle 4s ease-in-out infinite; }
+.star { animation: twinkle 4s ease-in-out infinite; } /* a group of stars, four groups in all */
 /* Windows come on with the night, or when the pointer is near the house. */
 .win-night { opacity: var(--night, 0); transition: opacity 400ms ease-out; }
 .is-night { --night: 1; }
@@ -286,11 +287,12 @@ html { scroll-behavior: smooth; }
 /* Aerial reel in the hero. */
 @keyframes reel-zoom { from { transform: scale(1); } to { transform: scale(1.16); } }
 .reel-frame.is-on { animation: reel-zoom 5.4s linear both; }
-@keyframes fill-x { from { width: 0; } to { width: 100%; } }
-.reel-bar { animation: fill-x 4.6s linear both; }
+@keyframes fill-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.reel-bar { width: 100%; transform-origin: left; animation: fill-x 4.6s linear both; }
 .reel-label { animation: rise-in 520ms cubic-bezier(.2,.8,.2,1) both; }
-@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(255 197 61 / 0.7); } 100% { box-shadow: 0 0 0 22px rgb(255 197 61 / 0); } }
-.ping { animation: ping 1.8s cubic-bezier(.2,.8,.2,1) infinite; }
+@keyframes ping { 0% { transform: scale(1); opacity: 0.7; } 100% { transform: scale(3.6); opacity: 0; } }
+.ping { position: relative; }
+.ping::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: rgb(255 197 61 / 0.6); animation: ping 1.8s cubic-bezier(.2,.8,.2,1) infinite; }
 
 /* A soft lamp that follows the pointer over the whole page. Mouse and pen only. */
 .lamp {
@@ -318,7 +320,7 @@ html { scroll-behavior: smooth; }
 .dusk-top { background: linear-gradient(180deg, #2a1f4d 0%, #4a2a6e 100%); }
 
 @media (prefers-reduced-motion: reduce) {
-  .lamp, .stars-on, .star, .ping, .glow-orb { animation: none; }
+  .lamp, .stars-on, .star, .ping::after, .glow-orb { animation: none; }
   .lamp { display: none; }
   .reel-frame.is-on { animation: none; }
   .hero { animation: none; }
@@ -328,11 +330,12 @@ html { scroll-behavior: smooth; }
 .pill-nav { background: rgb(255 250 246 / 0.88); box-shadow: 0 0 0 1px rgb(42 26 58 / 0.06), 0 8px 24px -8px rgb(42 26 58 / 0.25); backdrop-filter: blur(10px) saturate(1.2); -webkit-backdrop-filter: blur(10px) saturate(1.2); max-width: calc(100vw - 1.5rem); }
 
 /* ---------- Intro: the page grows out of a blurred sunrise. ---------- */
-.intro-backdrop { position: fixed; inset: -40px; z-index: 0; background: linear-gradient(170deg, #ffe3b0 0%, #ffc1a8 40%, #ffa3c4 75%, #d7b8ff 100%); filter: blur(18px) saturate(1.15); transform: scale(1.3); animation: intro-bg 1.7s ease-out both; }
+/* First visit: the page grows out of the sunrise. Only transform, opacity and clip-path move, so the whole page
+   is not repainted on every frame (an animated border-radius or a blur filter here costs seconds of main thread). */
+.intro-backdrop { position: fixed; inset: 0; z-index: 0; background: linear-gradient(170deg, #ffe3b0 0%, #ffc1a8 40%, #ffa3c4 75%, #d7b8ff 100%); animation: intro-bg 1.7s ease-out both; }
 @keyframes intro-bg { 0%, 75% { opacity: 1; } 100% { opacity: 0; } }
-.app-shell { z-index: 1; transform-origin: 50% 50vh; }
-.app-shell.intro-run { overflow: clip; animation: intro-zoom 1.5s cubic-bezier(.87,0,.13,1) 0.15s both; box-shadow: 0 40px 100px -30px rgb(42 26 58 / 0.5); }
-@keyframes intro-zoom { from { transform: scale(0.9); border-radius: 28px; opacity: 0.85; } to { transform: scale(1); border-radius: 0; opacity: 1; } }
+.intro-run { animation: intro-zoom 1.5s cubic-bezier(.87,0,.13,1) 0.15s both; } /* on the hero only: a screen-sized layer, not the whole page */
+@keyframes intro-zoom { from { transform: scale(0.9); opacity: 0.85; clip-path: inset(0 round 28px); } to { transform: scale(1); opacity: 1; clip-path: inset(0 round 0); } }
 
 /* ---------- Petals (cherry blossoms; DC's spring). ---------- */
 .petal { position: absolute; top: -20px; width: 11px; height: 9px; border-radius: 80% 0 80% 0; opacity: 0.85; transform: scale(var(--s, 1)); animation: fall var(--dur, 12s) linear var(--delay, 0s) infinite; will-change: transform; }
@@ -358,7 +361,7 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .nudge, .stage-word, .stage-hand, .stage-sub, .stage-card, .stage-skip, .stat-strip > div { opacity: 1; transform: none; filter: none; }
   .intro-backdrop { display: none; }
-  .app-shell.intro-run { transform: none; }
+  .intro-run { animation: none; }
 }
 
 /* ---------- Editorial pass: masked line rises, hairline glass, light numerals, flat chips. ---------- */

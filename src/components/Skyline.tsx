@@ -1,5 +1,5 @@
 // Hand-drawn DC rowhouses, the Capitol, the Monument, and a Metro train. All decorative SVG, no images.
-import { useRef, type PointerEvent } from 'react'
+import { memo, useRef, type PointerEvent } from 'react'
 
 const HOUSE_COLORS = ['#ff6b4a', '#ff8fb1', '#d6264a', '#ffb27a', '#ff5fa2', '#b88cff', '#ffc53d', '#ff9f43', '#e2548f', '#9d6bff']
 const TRIM = '#fff7ec'
@@ -56,6 +56,7 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
   const floorH = (h - 46) / floors
   const doorCol = Math.floor(r() * cols)
   const windows = []
+  const flickers = []
   for (let f = 0; f < floors; f++) {
     for (let c = 0; c < cols; c++) {
       if (f === floors - 1 && c === doorCol) continue
@@ -63,27 +64,23 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
       const wy = top + 22 + f * floorH
       const lit = r() < 0.55
       const flicker = animated && r() < 0.35
+      // Reads the same random numbers as before, so the skyline looks the same.
+      if (flicker) { r(); r() }
       windows.push(
         <g key={`${f}-${c}`}>
           <rect x={wx - 2} y={wy - 2} width={winW + 4} height={floorH * 0.62 + 4} rx={2} fill={TRIM} opacity={0.9} />
-          <rect
-            x={wx}
-            y={wy}
-            width={winW}
-            height={floorH * 0.62}
-            rx={1.5}
-            fill={lit ? '#fff1c4' : '#2d1b4a'}
-            className={flicker ? 'win' : undefined}
-            style={flicker ? { animationDelay: `${(r() * -12).toFixed(1)}s`, animationDuration: `${(7 + r() * 8).toFixed(1)}s` } : undefined}
-          />
+          <rect x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill={lit && !flicker ? '#fff1c4' : '#2d1b4a'} />
           {/* Comes on as night falls (--night is driven by scroll) or when the pointer is near the house. */}
           {!lit && (
             <rect x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill="#fff1c4" className="win-night" style={{ animationDelay: `${(r() * 1.2).toFixed(2)}s` }} />
           )}
         </g>,
       )
+      if (flicker) flickers.push(<rect key={`f${f}-${c}`} x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill="#fff1c4" />)
     }
   }
+  // All of this house's flickering windows switch together: one animated element per house instead of one per window.
+  if (flickers.length) windows.push(<g key="flicker" className="win" style={{ animationDelay: `${(r() * -12).toFixed(1)}s`, animationDuration: `${(7 + r() * 8).toFixed(1)}s` }}>{flickers}</g>)
   const doorX = x + gapX + doorCol * (winW + gapX) - 2
   const doorW = winW + 4
   return (
@@ -104,7 +101,7 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
 }
 
 /** The hero skyline: monuments behind, rowhouses in front, a Metro train on the line. */
-export function Skyline({ className = '', animated = true, night = false }: { className?: string; animated?: boolean; night?: boolean }) {
+export const Skyline = memo(function Skyline({ className = '', animated = true, night = false }: { className?: string; animated?: boolean; night?: boolean }) {
   const W = 1440
   const ground = 250
   const houses = makeHouses(7, W, 70, 120, 120, 190)
@@ -139,10 +136,16 @@ export function Skyline({ className = '', animated = true, night = false }: { cl
     >
       {night && (
         <g>
-          {Array.from({ length: 40 }, (_, i) => {
-            const r = rng(i * 7 + 3)
-            return <circle key={i} cx={r() * W} cy={r() * 150} r={0.8 + r() * 1.4} fill="#fff6e8" className="star" style={{ animationDelay: `${(r() * -6).toFixed(1)}s` }} />
-          })}
+          {/* Four twinkle groups, so four animations run instead of forty. */}
+          {Array.from({ length: 4 }, (_, g) => (
+            <g key={g} className="star" style={{ animationDelay: `${g * -1.1}s` }}>
+              {Array.from({ length: 10 }, (_, j) => {
+                const i = g * 10 + j
+                const r = rng(i * 7 + 3)
+                return <circle key={i} cx={r() * W} cy={r() * 150} r={0.8 + r() * 1.4} fill="#fff6e8" />
+              })}
+            </g>
+          ))}
           <circle cx="1180" cy="70" r="26" fill="#fff6e8" />
           <circle cx="1192" cy="62" r="22" fill="#2a1f4d" />
         </g>
@@ -179,7 +182,7 @@ export function Skyline({ className = '', animated = true, night = false }: { cl
       </g>
     </svg>
   )
-}
+})
 
 /** A few rowhouses for a card photo when the aerial photo can't load. */
 export function RowhouseArt({ seed, className = '' }: { seed: number; className?: string }) {
