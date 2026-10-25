@@ -190,3 +190,41 @@ body::before {
 .bump { animation: bump 320ms cubic-bezier(.2,.9,.3,1.4); }
 @keyframes grow-y { from { transform: scaleY(0); } to { transform: scaleY(1); } }
 .grow-y { transform-origin: bottom; animation: grow-y 700ms cubic-bezier(.2,.8,.2,1) 150ms both; }
+
+/* Scroll-driven motion (no library). Browsers without scroll timelines just see the static layout. */
+@keyframes progress-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.scroll-progress { transform-origin: left; transform: scaleX(0); }
+@keyframes px-sun { to { transform: translateY(90px); } }
+@keyframes px-cloud { to { transform: translate(60px, -50px); } }
+@keyframes px-copy { to { transform: translateY(36px); opacity: 0.55; } }
+@keyframes px-map { to { transform: translateY(-26px) scale(0.985); } }
+@keyframes px-skyline { to { transform: translateY(44px); } }
+@keyframes stack-shrink { to { transform: scale(0.92) translateY(-10px); filter: brightness(0.86); } }
+@supports (animation-timeline: scroll()) {
+  .scroll-progress { animation: progress-x linear both; animation-timeline: scroll(root); }
+  .px-sun, .px-cloud, .px-copy, .px-map, .px-skyline { animation-timing-function: linear; animation-fill-mode: both; animation-timeline: scroll(root); animation-range: 0 110vh; }
+  .px-sun { animation-name: px-sun; }
+  .px-cloud { animation-name: px-cloud; }
+  .px-copy { animation-name: px-copy; }
+  .px-map { animation-name: px-map; }
+  .px-skyline { animation-name: px-skyline; }
+  .stack-slot { view-timeline-name: --slot; view-timeline-axis: block; }
+  .stack-card { animation: stack-shrink linear both; animation-timeline: --slot; animation-range: cover 58% cover 100%; transform-origin: top center; }
+}
+
+/* Pointer spotlight on the hero and the magnetic search button. */
+.spotlight { background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 40%), rgb(255 255 255 / 0.55), transparent 62%); opacity: var(--spot, 0); transition: opacity 400ms; }
+.magnetic { transform: translate(var(--magx, 0px), var(--magy, 0px)); transition: transform 260ms cubic-bezier(.2,.8,.2,1), background-color 200ms; }
+.magnetic:hover { transform: translate(var(--magx, 0px), calc(var(--magy, 0px) - 2px)); }
+
+/* Area names drift by, like a station board. */
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee { mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-track { animation: marquee 48s linear infinite; }
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight { display: none; }
+  .magnetic, .magnetic:hover { transform: none; }
+  .stack-card { transform: none; filter: none; }
+}

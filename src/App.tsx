@@ -156,7 +156,8 @@ export default function App() {
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
       </a>
-      <header className="no-print sticky top-0 z-30 border-b border-line/70 bg-canvas/80 backdrop-blur-md">
+      <header className="no-print relative sticky top-0 z-30 border-b border-line/70 bg-canvas/80 backdrop-blur-md">
+        <span aria-hidden className="scroll-progress absolute inset-x-0 bottom-0 h-0.5 bg-brand" />
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3">
           <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
             <LogoMark className="size-8 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />

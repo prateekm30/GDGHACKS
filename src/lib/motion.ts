@@ -61,3 +61,39 @@ export function tiltHandlers(max = 6) {
     },
   }
 }
+
+/** Soft light that follows the pointer across a hero. Sets --mx/--my/--spot on the element. Mouse and pen only. */
+export function spotlightHandlers() {
+  return {
+    onPointerMove(e: ReactPointerEvent<HTMLElement>) {
+      if (e.pointerType === 'touch' || prefersReducedMotion()) return
+      const el = e.currentTarget
+      const r = el.getBoundingClientRect()
+      el.style.setProperty('--mx', `${e.clientX - r.left}px`)
+      el.style.setProperty('--my', `${e.clientY - r.top}px`)
+      el.style.setProperty('--spot', '1')
+    },
+    onPointerLeave(e: ReactPointerEvent<HTMLElement>) {
+      e.currentTarget.style.setProperty('--spot', '0')
+    },
+  }
+}
+
+/** A button that leans toward the pointer while it is nearby, then settles back. Mouse and pen only. */
+export function magneticHandlers(strength = 0.22, max = 10) {
+  return {
+    onPointerMove(e: ReactPointerEvent<HTMLElement>) {
+      if (e.pointerType === 'touch' || prefersReducedMotion()) return
+      const el = e.currentTarget
+      const r = el.getBoundingClientRect()
+      const dx = Math.max(-max, Math.min(max, (e.clientX - (r.left + r.width / 2)) * strength))
+      const dy = Math.max(-max, Math.min(max, (e.clientY - (r.top + r.height / 2)) * strength))
+      el.style.setProperty('--magx', `${dx.toFixed(1)}px`)
+      el.style.setProperty('--magy', `${dy.toFixed(1)}px`)
+    },
+    onPointerLeave(e: ReactPointerEvent<HTMLElement>) {
+      e.currentTarget.style.setProperty('--magx', '0px')
+      e.currentTarget.style.setProperty('--magy', '0px')
+    },
+  }
+}
