@@ -310,6 +310,11 @@ export default function App() {
     announce('Your matches are ready')
   }
 
+  // The spotlight plays once per finish: Back then Forward to the results must not replay it.
+  useEffect(() => {
+    if (step === 'results') celebrateRef.current = false
+  }, [step])
+
   // Mid-flow with nothing left to compare (a small pool, or answers edited to a smaller one): show the matches
   // from the picks so far instead of an empty picker.
   useEffect(() => {

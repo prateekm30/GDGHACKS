@@ -39,7 +39,7 @@ export function ResultsStep({
   onEditSituation,
   onRestart,
   announce,
-  celebrate = false,
+  celebrate: celebrateProp = false,
   note,
 }: {
   shortlist: Building[]
@@ -56,6 +56,8 @@ export function ResultsStep({
   /** Why the search is wider than the areas chosen, when it is. */
   note?: string
 }) {
+  // Latched on mount: the parent clears its flag right after, so a re-render never cancels the confetti.
+  const [celebrate] = useState(celebrateProp)
   const priorities = learnedPriorities(weights, prior, chosen)
   const max = Math.max(...priorities.map((p) => p.weight), 1)
   const fromPicks = priorities.filter((p) => p.source === 'picks').length
