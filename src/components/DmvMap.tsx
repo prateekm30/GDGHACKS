@@ -92,7 +92,7 @@ export function DmvMap({
             fillRule="evenodd"
             fill={areaInfo(p.area).color}
             fillOpacity={on(p.area) ? (hover === p.area ? 1 : 0.88) : 0.18}
-            stroke="#fff7ec"
+            stroke="#f8fbfe"
             strokeWidth={hover === p.area ? 3 : 1.5}
             strokeLinejoin="round"
             className="map-county cursor-pointer transition-[fill-opacity,stroke-width] duration-200"
@@ -109,8 +109,10 @@ export function DmvMap({
             cx={geo.px(b.lon)}
             cy={geo.py(b.lat)}
             r={on(b.area) ? 2.4 : 1.4}
-            fill="#2a1f4d"
-            fillOpacity={on(b.area) ? 0.75 : 0.25}
+            fill="#0e1a33"
+            stroke="#f8fbfe"
+            strokeWidth={on(b.area) ? 0.6 : 0}
+            fillOpacity={on(b.area) ? 0.8 : 0.25}
             pointerEvents="none"
           />
         ))}
@@ -163,7 +165,8 @@ export function AreaChecklist({
               >
                 {checked && (
                   <svg viewBox="0 0 16 16" className="pop size-3.5">
-                    <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#1d1433" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#0e1a33" strokeWidth="4.5" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M3 8.5 6.5 12 13 4.5" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 )}
               </span>

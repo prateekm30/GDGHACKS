@@ -50,12 +50,12 @@ export function Landing({
       <section
         aria-labelledby="start-heading"
         className="relative overflow-hidden"
-        style={{ background: 'linear-gradient(170deg, #ffe3b0 0%, #ffc1a8 40%, #ffa3c4 75%, #d7b8ff 100%)' }}
+        style={{ background: 'linear-gradient(170deg, #e2eeff 0%, #cfe0fe 45%, #c9d3fa 100%)' }}
       >
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <svg viewBox="0 0 200 200" className="sun-rise absolute -right-20 -top-16 size-64 opacity-70 lg:right-[38%] lg:top-auto lg:bottom-6 lg:size-40">
-            <circle cx="100" cy="100" r="96" fill="#fff3b0" className="sun-glow" />
-            <circle cx="100" cy="100" r="62" fill="#ffc53d" />
+            <circle cx="100" cy="100" r="96" fill="#e6f6ff" className="sun-glow" />
+            <circle cx="100" cy="100" r="62" fill="#a9e4f0" />
           </svg>
           <svg viewBox="0 0 120 40" className="drift absolute top-[12%] w-36 opacity-80">
             <path d="M10 32a12 12 0 0 1 8-21 16 16 0 0 1 30-4 13 13 0 0 1 22 6 10 10 0 0 1 4 19z" fill="#fff" />
@@ -77,7 +77,7 @@ export function Landing({
                   {word}
                   {word === 'afford,' && (
                     <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
-                      <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#d6264a" strokeWidth="6" strokeLinecap="round" className="draw" />
+                      <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#22b8cf" strokeWidth="6" strokeLinecap="round" className="draw" />
                     </svg>
                   )}
                 </span>
@@ -148,10 +148,10 @@ export function Landing({
       <section className="bg-dusk text-white">
         <ul className="mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-10 sm:grid-cols-4">
           {[
-            { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#ffc53d' },
-            { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#ff8fb1' },
-            { big: 2026, small: 'income limits, checked against the source', color: '#3fd0a4', plain: true },
-            { big: 0, small: 'sign-ups. Your answers stay on your device', color: '#7fd1ff' },
+            { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#7dd3fc' },
+            { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#a5b4fc' },
+            { big: 2026, small: 'income limits, checked against the source', color: '#6fd8e3', plain: true },
+            { big: 0, small: 'sign-ups. Your answers stay on your device', color: '#bae6fd' },
           ].map((s, i) => (
             <li key={s.small} className="reveal" style={{ '--d': `${i * 110}ms` } as CSSProperties}>
               <span className="font-display block text-5xl font-extrabold" style={{ color: s.color }}>
@@ -177,7 +177,7 @@ export function Landing({
               <span className="font-display absolute left-0 top-0 grid size-11 place-items-center rounded-full border-[5px] border-brand bg-accent text-base font-extrabold text-ink">
                 {i + 1}
               </span>
-              <div className="rounded-card bg-gradient-to-br from-accent-tint to-brand-tint p-5 shadow-card ring-1 ring-white transition duration-300 hover:-translate-y-1 hover:shadow-lift">
+              <div className="rounded-card bg-gradient-to-br from-brand-tint to-accent-tint p-5 shadow-card ring-1 ring-white transition duration-300 hover:-translate-y-1 hover:shadow-lift">
                 <s.icon aria-hidden className="size-6 text-brand-strong" />
                 <h3 className="mt-3 font-display text-lg font-bold">{s.title}</h3>
                 <p className="mt-1 text-sm text-ink-soft">{s.body}</p>

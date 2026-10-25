@@ -47,17 +47,17 @@ export const toSituation = (b: Basics): Situation | null =>
     : null
 
 const PRIORITY_OPTIONS: { value: Feature; label: string; icon: LucideIcon; color: string }[] = [
-  { value: 'cost', label: 'Lowest rent', icon: Wallet, color: '#ffc53d' },
-  { value: 'incomeBased', label: 'Rent based on my income', icon: Scale, color: '#3fd0a4' },
-  { value: 'metro', label: 'Close to Metro', icon: TrainFront, color: '#ff8fb1' },
-  { value: 'commute', label: 'Close to work or school', icon: Briefcase, color: '#7fd1ff' },
-  { value: 'bedrooms', label: 'More bedrooms', icon: BedDouble, color: '#ffb38a' },
-  { value: 'newer', label: 'Newer building', icon: Sparkles, color: '#c9b3ff' },
-  { value: 'cozy', label: 'Smaller, quieter building', icon: TreePine, color: '#b6e388' },
-  { value: 'size', label: 'Big community, more openings', icon: Building2, color: '#ffd9a0' },
+  { value: 'cost', label: 'Lowest rent', icon: Wallet, color: '#bfdbfe' },
+  { value: 'incomeBased', label: 'Rent based on my income', icon: Scale, color: '#a5f0e6' },
+  { value: 'metro', label: 'Close to Metro', icon: TrainFront, color: '#c7d2fe' },
+  { value: 'commute', label: 'Close to work or school', icon: Briefcase, color: '#bae6fd' },
+  { value: 'bedrooms', label: 'More bedrooms', icon: BedDouble, color: '#a5c8fd' },
+  { value: 'newer', label: 'Newer building', icon: Sparkles, color: '#b9c4fb' },
+  { value: 'cozy', label: 'Smaller, quieter building', icon: TreePine, color: '#a8ecf0' },
+  { value: 'size', label: 'Big community, more openings', icon: Building2, color: '#cfe0fb' },
 ]
 const MAX_PRIORITIES = 3
-const PEOPLE_COLORS = ['#d6264a', '#1f5fd6', '#ff9f43', '#6d3ee8', '#0b7a5c', '#ff5fa2', '#2a1f4d', '#ffc53d']
+const PEOPLE_COLORS = ['#2453c9', '#0e7490', '#4338ca', '#0891b2', '#1e3a8a', '#3b82f6', '#0f766e', '#4f46e5']
 
 const BEDROOM_OPTIONS: { value: number | null; label: string; beds: number }[] = [
   { value: null, label: 'Any', beds: 0 },
@@ -89,14 +89,14 @@ function Toggle({ checked, onChange, children, hint }: { checked: boolean; onCha
       <input type="checkbox" role="switch" className="peer sr-only" checked={checked} onChange={(e) => onChange(e.target.checked)} />
       <span
         aria-hidden
-        className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${checked ? 'bg-ok' : 'bg-ink-soft/40'}`}
+        className={`relative mt-0.5 h-6 w-11 shrink-0 rounded-full transition-colors duration-200 ${checked ? 'bg-brand' : 'bg-ink-soft/40'}`}
       >
         <span
           className={`absolute top-0.5 grid size-5 place-items-center rounded-full bg-white shadow transition-transform duration-300 ease-[cubic-bezier(.2,.9,.3,1.4)] ${
             checked ? 'translate-x-5.5' : 'translate-x-0.5'
           }`}
         >
-          {checked && <Check className="size-3 text-ok" strokeWidth={3.5} />}
+          {checked && <Check className="size-3 text-brand" strokeWidth={3.5} />}
         </span>
       </span>
       <span>

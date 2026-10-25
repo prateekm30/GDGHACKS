@@ -21,7 +21,7 @@ import { BurdenBadge, Note, money } from './ui'
 
 const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
 const BR_SHORT = (n: number) => (n === 0 ? 'Studio' : `${n}BR`)
-const MIX_COLORS = ['#ffc53d', '#ff6b4a', '#d6264a', '#6d3ee8', '#1f5fd6']
+const MIX_COLORS = ['#93c5fd', '#3b82f6', '#2453c9', '#1e3a8a', '#22b8cf']
 
 /** One sentence a screen reader can hear on the pick button: where, what it costs, and the income limit. */
 export function summary(b: Building, a: Assessment): string {
@@ -40,8 +40,8 @@ export function summary(b: Building, a: Assessment): string {
 
 function programBadge(b: Building) {
   if (b.program === 'HUD') return { text: 'HUD-assisted', cls: 'bg-mint text-ink' }
-  if (b.incomeCeiling === 'avg') return { text: 'Tax credit · mixed tiers', cls: 'bg-accent text-ink' }
-  return { text: `Tax credit · ${b.incomeCeiling ?? 60}% tier`, cls: 'bg-accent text-ink' }
+  if (b.incomeCeiling === 'avg') return { text: 'Tax credit · mixed tiers', cls: 'bg-white/95 text-brand-strong' }
+  return { text: `Tax credit · ${b.incomeCeiling ?? 60}% tier`, cls: 'bg-white/95 text-brand-strong' }
 }
 
 /** The price block. Same shape on every card, so cards compare at a glance. */
@@ -71,8 +71,8 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
   const table = rentTable(b, limits)
   if (c.kind === 'unknown' || c.monthly === null || table.length === 0) {
     return (
-      <div className="rounded-2xl bg-accent-tint p-4">
-        <p className="text-xs font-bold uppercase tracking-wide text-stretch">Highest rent allowed here</p>
+      <div className="rounded-2xl bg-brand-tint/70 p-4">
+        <p className="text-xs font-bold uppercase tracking-wide text-brand-strong">Highest rent allowed here</p>
         <p className="font-display mt-0.5 text-2xl font-extrabold">Varies by unit</p>
         <p className="mt-1 text-sm text-ink-soft">This building mixes income tiers, so each unit has its own cap. Ask the property.</p>
       </div>
@@ -81,10 +81,10 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
   const max = Math.max(...table.map((t) => t.monthly))
   const voucherPays = situation?.voucher ? Math.round((situation.income * 0.3) / 12) : null
   return (
-    <div className="rounded-2xl bg-accent-tint p-4">
+    <div className="rounded-2xl bg-brand-tint/70 p-4">
       <div className="flex flex-wrap items-start justify-between gap-2">
         <div>
-          <p className="text-xs font-bold uppercase tracking-wide text-stretch">Highest rent allowed{c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}</p>
+          <p className="text-xs font-bold uppercase tracking-wide text-brand-strong">Highest rent allowed{c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}</p>
           <p className="font-display mt-0.5 text-3xl font-extrabold text-ink">
             {money(c.monthly)}
             <span className="text-base font-bold text-ink-soft">/mo</span>
@@ -101,7 +101,7 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
               <span className={`text-[11px] font-bold ${mine ? 'text-ink' : 'text-ink-soft'}`}>{money(t.monthly)}</span>
               <span aria-hidden className="flex h-12 w-full items-end">
                 <span
-                  className={`grow-y block w-full rounded-t-lg ${mine ? 'bg-brand' : 'bg-stretch/25'}`}
+                  className={`grow-y block w-full rounded-t-lg ${mine ? 'bg-brand' : 'bg-brand/20'}`}
                   style={{ height: `${Math.max((t.monthly / max) * 100, 18)}%` }}
                 />
               </span>

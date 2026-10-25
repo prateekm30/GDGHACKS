@@ -92,7 +92,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
   }
 
   return (
-    <div className={`group/photo relative overflow-hidden ${className}`} style={{ background: 'linear-gradient(180deg, #ffe3b0, #ffc1d6)' }}>
+    <div className={`group/photo relative overflow-hidden ${className}`} style={{ background: 'linear-gradient(180deg, #dbeafe, #c7d2fe)' }}>
       {failed ? (
         <RowhouseArt seed={hashString(b.id)} className="absolute inset-x-0 bottom-0 h-[85%] w-full" />
       ) : (

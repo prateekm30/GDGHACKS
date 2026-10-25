@@ -5,18 +5,18 @@ import type { Area } from './types'
  * One table of income limits covers all of them. Colors are for the map only, never for text.
  */
 export const AREAS: { id: Area; name: string; short: string; state: 'DC' | 'MD' | 'VA'; color: string; includes?: string }[] = [
-  { id: 'DC', name: 'Washington, DC', short: 'DC', state: 'DC', color: '#d6264a' },
-  { id: 'MONTGOMERY', name: 'Montgomery County', short: 'Montgomery', state: 'MD', color: '#1f5fd6' },
-  { id: 'PRINCE_GEORGES', name: "Prince George's County", short: "Prince George's", state: 'MD', color: '#6d3ee8' },
-  { id: 'FREDERICK', name: 'Frederick County', short: 'Frederick', state: 'MD', color: '#0b7a5c' },
-  { id: 'SOUTHERN_MD', name: 'Charles and Calvert', short: 'Charles & Calvert', state: 'MD', color: '#3fd0a4' },
-  { id: 'ARLINGTON', name: 'Arlington', short: 'Arlington', state: 'VA', color: '#ff6b4a' },
-  { id: 'ALEXANDRIA', name: 'Alexandria', short: 'Alexandria', state: 'VA', color: '#ff5fa2' },
-  { id: 'FAIRFAX', name: 'Fairfax', short: 'Fairfax', state: 'VA', color: '#ffc53d', includes: 'Fairfax County, Fairfax City, Falls Church' },
-  { id: 'LOUDOUN', name: 'Loudoun County', short: 'Loudoun', state: 'VA', color: '#55b8f0' },
-  { id: 'PRINCE_WILLIAM', name: 'Prince William', short: 'Prince William', state: 'VA', color: '#ff9f43', includes: 'Prince William County, Manassas, Manassas Park' },
-  { id: 'FREDERICKSBURG', name: 'Stafford and Fredericksburg', short: 'Stafford & Fredericksburg', state: 'VA', color: '#b88cff', includes: 'Stafford, Spotsylvania, Fredericksburg' },
-  { id: 'FAUQUIER_CLARKE', name: 'Fauquier and Clarke', short: 'Fauquier & Clarke', state: 'VA', color: '#8bc34a' },
+  { id: 'DC', name: 'Washington, DC', short: 'DC', state: 'DC', color: '#312e81' },
+  { id: 'MONTGOMERY', name: 'Montgomery County', short: 'Montgomery', state: 'MD', color: '#2563eb' },
+  { id: 'PRINCE_GEORGES', name: "Prince George's County", short: "Prince George's", state: 'MD', color: '#4f5fe0' },
+  { id: 'FREDERICK', name: 'Frederick County', short: 'Frederick', state: 'MD', color: '#60a5fa' },
+  { id: 'SOUTHERN_MD', name: 'Charles and Calvert', short: 'Charles & Calvert', state: 'MD', color: '#93c5fd' },
+  { id: 'ARLINGTON', name: 'Arlington', short: 'Arlington', state: 'VA', color: '#0e7490' },
+  { id: 'ALEXANDRIA', name: 'Alexandria', short: 'Alexandria', state: 'VA', color: '#22a6c3' },
+  { id: 'FAIRFAX', name: 'Fairfax', short: 'Fairfax', state: 'VA', color: '#14b8a6', includes: 'Fairfax County, Fairfax City, Falls Church' },
+  { id: 'LOUDOUN', name: 'Loudoun County', short: 'Loudoun', state: 'VA', color: '#67d3e6' },
+  { id: 'PRINCE_WILLIAM', name: 'Prince William', short: 'Prince William', state: 'VA', color: '#2dd4bf', includes: 'Prince William County, Manassas, Manassas Park' },
+  { id: 'FREDERICKSBURG', name: 'Stafford and Fredericksburg', short: 'Stafford & Fredericksburg', state: 'VA', color: '#7dd3fc', includes: 'Stafford, Spotsylvania, Fredericksburg' },
+  { id: 'FAUQUIER_CLARKE', name: 'Fauquier and Clarke', short: 'Fauquier & Clarke', state: 'VA', color: '#a5f3fc' },
 ]
 
 const BY_ID = new Map(AREAS.map((a) => [a.id, a]))

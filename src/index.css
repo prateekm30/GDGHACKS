@@ -6,33 +6,33 @@
   --font-display: "Bricolage Grotesque", "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-hand: "Caveat", "Bricolage Grotesque", cursive;
 
-  /* Palette from DC rowhouses and Metro line colors. Contrast checked: text pairs are 4.5:1 or better. */
-  --color-ink: #1d1433;
-  --color-ink-soft: #5a4f6e;
-  --color-line: #f0e2d0;
-  --color-canvas: #fdf0e1;
-  --color-surface: #fffaf4;
+  /* One cool family: navy, blue, indigo, teal. Text pairs are 4.5:1 or better. */
+  --color-ink: #0e1a33;
+  --color-ink-soft: #46546e;
+  --color-line: #d6e1ee;
+  --color-canvas: #edf3fa;
+  --color-surface: #f8fbfe;
 
-  /* Sunshine yellow for highlights. Text on it uses ink. */
-  --color-accent: #ffc53d;
-  --color-accent-tint: #fff3cf;
+  /* Aqua for highlights. Text on it uses ink. */
+  --color-accent: #6fd8e3;
+  --color-accent-tint: #dff5f8;
 
-  /* Rowhouse red: buttons, links, the brand. White text on it is 4.96:1. */
-  --color-brand: #d6264a;
-  --color-brand-strong: #a3123a;
-  --color-brand-tint: #ffe5ea;
+  /* Blue: buttons, links, the brand. White text on it passes AA. */
+  --color-brand: #2453c9;
+  --color-brand-strong: #1a3c96;
+  --color-brand-tint: #e2eafc;
 
-  /* Illustration only (never body text). */
-  --color-coral: #ff6b4a;
-  --color-pink: #ff5fa2;
-  --color-sky: #1f5fd6;
-  --color-violet: #6d3ee8;
-  --color-mint: #3fd0a4;
-  --color-dusk: #2a1f4d;
+  /* Illustration only (never body text). Neighboring hues so gradients stay calm. */
+  --color-coral: #4f7df0;
+  --color-pink: #7c8cf8;
+  --color-sky: #2f7fd8;
+  --color-violet: #4338ca;
+  --color-mint: #7fe0d3;
+  --color-dusk: #141a3f;
 
   /* Affordability badges. Always paired with a text label, never color alone. */
-  --color-ok: #0b7a5c;
-  --color-ok-tint: #e2f7ee;
+  --color-ok: #0b6f62;
+  --color-ok-tint: #dcf3ef;
   --color-stretch: #8a5a00;
   --color-stretch-tint: #fff1cc;
   --color-heavy: #b42318;
@@ -63,15 +63,15 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/* Metro-line stripe: red, orange, yellow, green, blue, silver. */
-.metro-stripe { background: linear-gradient(90deg, #bf0d3e 0 16.6%, #ed8b00 0 33.3%, #ffd100 0 50%, #00b140 0 66.6%, #009cde 0 83.3%, #a2aaad 0); }
+/* Accent stripe: navy to aqua. */
+.metro-stripe { background: linear-gradient(90deg, #1e3a8a, #2453c9 30%, #3b82f6 55%, #22b8cf 80%, #6fd8e3); }
 
 @keyframes pop { 0% { transform: scale(0.4) rotate(-20deg); opacity: 0; } 60% { transform: scale(1.18) rotate(6deg); opacity: 1; } 100% { transform: scale(1) rotate(0); } }
 .pop { animation: pop 380ms cubic-bezier(.2,.9,.3,1.4) both; }
 
 @keyframes shimmer { from { background-position: -400px 0; } to { background-position: 400px 0; } }
 .skeleton {
-  background: linear-gradient(90deg, var(--color-line) 0px, #fffaf3 120px, var(--color-line) 240px);
+  background: linear-gradient(90deg, var(--color-line) 0px, #f5f9ff 120px, var(--color-line) 240px);
   background-size: 800px 100%;
   animation: shimmer 1.2s linear infinite;
 }
@@ -99,7 +99,7 @@ body::before {
 @keyframes drift { from { transform: translateX(-12%); } to { transform: translateX(112%); } }
 .drift { animation: drift 60s linear infinite; }
 .drift-slow { animation: drift 95s linear -40s infinite; }
-@keyframes window-on { 0%, 40% { fill: #3a2d63; } 50%, 100% { fill: #ffd76a; } }
+@keyframes window-on { 0%, 40% { fill: #1b2350; } 50%, 100% { fill: #dff3ff; } }
 .win { animation: window-on 6s steps(1) infinite; }
 @keyframes houses-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
 .houses-up { animation: houses-up 900ms cubic-bezier(.2,.8,.2,1) both; }
@@ -135,12 +135,12 @@ body::before {
 .glow-border { position: relative; isolation: isolate; border-radius: var(--radius-card); }
 .glow-border::before {
   content: ""; position: absolute; inset: -3px; z-index: -1; border-radius: calc(var(--radius-card) + 3px);
-  background: conic-gradient(from var(--angle), #d6264a, #ff6b4a, #ffc53d, #3fd0a4, #1f5fd6, #6d3ee8, #ff5fa2, #d6264a);
+  background: conic-gradient(from var(--angle), #1e3a8a, #2453c9, #3b82f6, #22b8cf, #6fd8e3, #22b8cf, #3b82f6, #1e3a8a);
   animation: spin-angle 5s linear infinite;
 }
 .glow-border::after {
   content: ""; position: absolute; inset: -3px; z-index: -2; border-radius: inherit; filter: blur(18px); opacity: 0.45;
-  background: conic-gradient(from var(--angle), #d6264a, #ffc53d, #3fd0a4, #1f5fd6, #ff5fa2, #d6264a);
+  background: conic-gradient(from var(--angle), #2453c9, #22b8cf, #6fd8e3, #3b82f6, #2453c9);
   animation: spin-angle 5s linear infinite;
 }
 
