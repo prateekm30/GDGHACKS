@@ -44,6 +44,26 @@ function programBadge(b: Building) {
   return { text: `Tax credit · ${b.incomeCeiling ?? 60}% tier`, cls: 'bg-white/95 text-brand-strong' }
 }
 
+/** How this building compares with HUD's estimate of market rent in its ZIP code. */
+function MarketCompare({ b, monthly, bedrooms }: { b: Building; monthly: number | null; bedrooms: number | null }) {
+  const size = bedrooms ?? 1
+  const market = b.marketRent?.[String(Math.min(size, 4))]
+  if (!market) return null
+  const saves = monthly !== null ? market - monthly : null
+  return (
+    <div className="mt-3 flex flex-wrap items-center justify-between gap-2 rounded-xl bg-white/70 px-3 py-2">
+      <p className="text-xs text-ink-soft">
+        <span className="block font-bold uppercase tracking-wide">Typical rent nearby, {BR(size)}</span>
+        <span className="font-display text-lg font-extrabold text-ink">{money(market)}/mo</span>{' '}
+        <span>HUD estimate for ZIP {b.zip}</span>
+      </p>
+      {saves !== null && saves > 0 && (
+        <span className="rounded-full bg-ok-tint px-2.5 py-1 text-xs font-bold text-ok">About {money(saves)}/mo less</span>
+      )}
+    </div>
+  )
+}
+
 /** The price block. Same shape on every card, so cards compare at a glance. */
 function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; limits: IncomeLimits; situation: Situation | null }) {
   const c = a.cost
@@ -65,6 +85,7 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
           Rent follows your income, not the apartment. That is why every income-based building shows the same number
           {c.monthly !== null ? ' (30% of the income you entered)' : ''}.
         </p>
+        <MarketCompare b={b} monthly={c.monthly} bedrooms={c.bedrooms} />
       </div>
     )
   }
@@ -120,6 +141,7 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
           its limit.
         </p>
       )}
+      <MarketCompare b={b} monthly={voucherPays ?? c.monthly} bedrooms={c.bedrooms} />
     </div>
   )
 }

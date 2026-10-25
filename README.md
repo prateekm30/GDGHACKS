@@ -60,7 +60,7 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings in all 20 counties and cities of HUD's Washington metro income-limit area, plus Census county outlines for the map. A GitHub Action rebuilds and commits it. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 923 buildings in all 20 counties and cities of HUD's Washington metro income-limit area, plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 

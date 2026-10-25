@@ -39,6 +39,8 @@ export interface Building {
   disabilityOnly: boolean
   /** Straight-line miles to the nearest Metro station. */
   metroMiles: number | null
+  /** HUD Small Area Fair Market Rent for the building's ZIP, by bedroom count ("0" = studio). Utilities included. */
+  marketRent?: Record<string, number>
   /** Name of the nearest Metro station. */
   metroStation?: string | null
   /** Straight-line miles to the work or school spot the person chose. Added in the browser, never stored. */
