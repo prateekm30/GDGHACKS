@@ -87,6 +87,8 @@ flowchart LR
 | Picker and ranking | `src/lib/ranking.ts` | Pairwise model in the browser. Features: cost, income-based rent, bedrooms, Metro distance, size. No place features. |
 | Cost and income limits | `src/lib/eligibility.ts` | Computed in code, never by AI. MTSP limits for tax-credit buildings, Section 8 for HUD-assisted. |
 | Income box | `src/lib/income.ts` | Required: the picker and results only show buildings the income appears to fit (under the estimated limit, or the "maybe" band for HUD-assisted buildings). If the chosen areas hold fewer than 16 fitting buildings, neighboring areas join the search (`widenAreas` in `src/lib/areas.ts`) and the picker says which. Typed per month or per year; the math is always yearly. The slider starts at a year of the cheapest capped rent in the data ($17,000 in 2026, a 50%-tier studio), and a "yearly" number under that, or a "monthly" one over $12,500, gets an offer to switch instead of a refusal, since income-based HUD homes take any income. |
+| Screens | `src/App.tsx`, `src/components/` | Landing, basics, picker, results, Snap a form, How it works (`#how`), Our goal (`#about`). The step lives in the URL hash, so Back, Forward, refresh, and a pasted `/#about` all land on the right screen; picks and areas persist by id in this tab's session storage. |
+| Motion | `src/index.css` | CSS only (the CSP allows no third-party scripts): masked line rises on headlines, a staggered hero entrance, scroll-driven dusk on the landing, view transitions between screens, a drifting tile mosaic of real doors on the goal page, and the results spotlight. `prefers-reduced-motion` turns all of it off; print turns it off too. |
 | Landing reel | `src/components/HeroReel.tsx` | Two buildings per area, chosen from those whose Street View photo is trusted by the index below, so every frame is a real street photo; areas without one show the aerial view. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
 | Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD, USDA, DC, Maryland, and Alexandria APIs to JSON: 1,704 buildings holding about 122,000 income-restricted homes (1,444 buildings shown in the picker) across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
@@ -102,16 +104,26 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 
 ## Testing and accessibility
 
-- `npm test`: unit tests for eligibility math, ranking, guardrails, the API rate limiter, and text chunking.
+- `npm test`: 156 unit tests across 9 files: eligibility math, ranking, guardrails and banned phrases, the
+  API rate limiter and request validation, text chunking, income parsing and saved-answer sanitizing, the
+  price headline, area neighbors and search widening, and the plain-language errors the Snap request gives
+  when the service is offline, rate limited, broken, or answers nonsense.
 - `npm run check:ui` (also run in CI, `.github/workflows/ci.yml`): builds the site, then walks the start,
   basics, pick, and results screens in headless Chromium at 1280px and 390px, with and without reduced
   motion. It fails on any axe-core violation (WCAG 2.0/2.1/2.2 A and AA rules), a headline that does not
   read as separate words, a missing `h1`, focus that does not move to the new screen, two pick cards that are
-  not side by side on a phone, or sideways scroll.
+  not side by side on a phone, or sideways scroll. It also prints the results to PDF under print media and
+  fails if anything is still animating or faded, or the PDF is near empty.
 - The smoke workflow runs the same walk against the live site (`UI_CHECK_URL=... node scripts/ui-check.cjs`).
   The site's Content-Security-Policy blocks injected scripts, and axe is one, so that run's test browser alone
   bypasses CSP (Playwright `bypassCSP`). The policy the site sends is unchanged.
 - Last run before submission: **0 axe violations on all 4 screens**, both motion modes, both widths.
+- Scripted edge-case passes before submission (Playwright, not in CI): every income entry form ("$52,000.00",
+  "52k", "1.5K", "52,000/yr", "1,000,001", ".5", 83,334 a month), the monthly/yearly toggle and the
+  "is that monthly?" nudge, household 8+, every toggle on at once, double taps on a pick, undo, arrow keys,
+  finishing early, refresh and Back/Forward mid-flow, Start over, share to clipboard, editing answers to an
+  income nothing fits, the spotlight's Escape/auto-close/Back-Forward, and the Snap flow with the API offline,
+  rate limited, failing, or answering garbage. Five widths from 320px to 1440px plus reduced motion.
 - Checked by hand: keyboard-only flow (tab, arrow keys in the picker, pause button on the hero slideshow),
   VoiceOver labels on the pick buttons, 200% zoom on a 1024px window.
 - Not tested: real screen readers other than VoiceOver, Windows High Contrast mode, Safari on iOS before 16,
