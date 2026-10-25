@@ -75,7 +75,7 @@ export function TileView({ b, layer, zoom, onFail, eager = false, className = 'k
 function StreetPhoto({ b, apiKey, onFail, onLoad }: { b: Building; apiKey: string; onFail: () => void; onLoad: () => void }) {
   return (
     <img
-      src={streetViewUrl(b.lat, b.lon, apiKey)}
+      src={streetViewUrl(b, apiKey)}
       alt=""
       loading="lazy"
       decoding="async"

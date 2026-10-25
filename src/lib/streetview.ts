@@ -38,15 +38,34 @@ export function useStreetViewKey(): string {
   return useSyncExternalStore(subscribe, () => key, () => key)
 }
 
+/** Something Google can geocode: a street number and a street. "Lot 3 On Noble Way" or "Scattered Sites" is not. */
+export function usableAddress(address: string | null | undefined): boolean {
+  if (!address) return false
+  return /^\d+[a-z]?\s+\S/i.test(address.trim()) && !/\b(lot|scattered|various|multiple|p\.?o\.? box)\b/i.test(address)
+}
+
+/** Where to point Street View: the street address when it is usable, else the HUD coordinates. */
+export function streetViewLocation(b: { address: string; city: string; state: string; zip: string; lat: number; lon: number }): string {
+  if (usableAddress(b.address)) return `${b.address.replace(/\s+(apt|unit|ste|suite|#)\s*\S+$/i, '')}, ${b.city}, ${b.state} ${b.zip}`.trim()
+  return `${b.lat.toFixed(6)},${b.lon.toFixed(6)}`
+}
+
 /**
- * Image URL for a spot. `return_error_code=true` makes Google answer 404 when there is no photo within the
- * radius, so the <img> error handler can fall back to the aerial view instead of showing a grey "no imagery" tile.
+ * Image URL for a building. Google geocodes the street address itself (HUD's coordinates can sit on the wrong
+ * side of a block or on a parcel centroid, which put a fire station or a field in the frame), picks the nearest
+ * outdoor photo within 50 m, and aims the camera at the address. `return_error_code=true` makes Google answer
+ * 404 when there is no photo, so the <img> error handler falls back to the aerial view instead of a grey tile.
  */
-export function streetViewUrl(lat: number, lon: number, k = key, width = 640, height = 360): string {
+export function streetViewUrl(
+  b: { address: string; city: string; state: string; zip: string; lat: number; lon: number },
+  k = key,
+  width = 640,
+  height = 360,
+): string {
   const q = new URLSearchParams({
     size: `${width}x${height}`,
-    location: `${lat.toFixed(6)},${lon.toFixed(6)}`,
-    radius: '80',
+    location: streetViewLocation(b),
+    radius: '50',
     source: 'outdoor',
     fov: '80',
     pitch: '5',

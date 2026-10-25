@@ -139,8 +139,12 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 - **Building names and contacts** are as HUD publishes them, tidied (capitalization, "Apts", SOME's
   properties). Some names are the legal project name, not the sign on the door.
 - **No interior photos.** HUD has none and listing photos are copyrighted, so cards show a Google Street View
-  photo of the block (when Google has one within 80 m and a key is set), then aerial, neighborhood, and
-  street-map views of the real location, with a link to look around in Google Maps.
+  photo (when a key is set), then aerial, neighborhood, and street-map views, with a link to look around in
+  Google Maps. Street View is asked for by **street address**, not HUD's coordinates: HUD points can sit on the
+  wrong side of a block or on a parcel centroid, which put the neighbor in the frame. Google geocodes the
+  address, takes the nearest outdoor photo within 50 m and aims at the address; with no photo, or an address
+  Google cannot place ("Lot 3 On Noble Way"), the aerial view leads. A photo can still show the street rather
+  than the building for large complexes set back from the road.
 - **No ranking on neighborhood, school, or demographic data**, on purpose (fair housing).
 
 ## Credits and data

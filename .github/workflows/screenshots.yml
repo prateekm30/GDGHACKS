@@ -23,6 +23,8 @@ jobs:
           npx playwright install --with-deps chromium >/dev/null
       - name: Take screenshots
         run: mkdir -p shots && node .github/scripts/screenshot.cjs "${{ inputs.url }}" shots
+      - name: Street View audit (sample of buildings, by address)
+        run: node .github/scripts/streetview-audit.cjs "${{ inputs.url }}" shots/streetview
       - name: Save to the screenshots branch
         run: |
           cd shots

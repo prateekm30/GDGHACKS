@@ -20,3 +20,18 @@ describe('income parsing reads what people type', () => {
     expect(parseIncome(text)).toBe(want)
   })
 })
+
+import { streetViewLocation, usableAddress } from './streetview'
+
+describe('street view asks by address, not by HUD coordinates', () => {
+  const b = { address: '1330 7th St NW', city: 'Washington', state: 'DC', zip: '20001', lat: 38.9076, lon: -77.022 }
+  it('uses the street address when it has a number and a street', () => {
+    expect(streetViewLocation(b)).toBe('1330 7th St NW, Washington, DC 20001')
+    expect(streetViewLocation({ ...b, address: '2549 Elvans Rd SE Apt 204' })).toBe('2549 Elvans Rd SE, Washington, DC 20001')
+  })
+  it('falls back to coordinates for addresses Google cannot place', () => {
+    expect(usableAddress('Lot 3 On Noble Way')).toBe(false)
+    expect(usableAddress('Scattered Sites')).toBe(false)
+    expect(streetViewLocation({ ...b, address: 'Lot 3 On Noble Way' })).toBe('38.907600,-77.022000')
+  })
+})
