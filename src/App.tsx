@@ -211,8 +211,14 @@ export default function App() {
       /* ignore */
     }
     const onPop = (e: PopStateEvent) => {
-      // An in-page link (#main, #matches) makes a history entry with no step. Stay on this screen.
+      // An in-page link (#main, #matches) makes a history entry with no step. Stay on this screen. A typed or
+      // pasted hash that names a screen (#about, #how) is a real navigation, so open that screen.
       if (!STEPS.includes((e.state as { step?: Step } | null)?.step as Step)) {
+        const named = window.location.hash.slice(1) as Step
+        if (STEPS.includes(named) && named !== stepRef.current && !((named === 'pick' || named === 'results') && !basicsRef.current)) {
+          go(named, true)
+          return
+        }
         try {
           window.history.replaceState({ step: stepRef.current }, '', window.location.href)
         } catch {

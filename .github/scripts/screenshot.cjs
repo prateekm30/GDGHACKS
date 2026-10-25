@@ -31,9 +31,11 @@ async function settle(p, ms = 900) {
     await p.screenshot({ path: `${out}/${name}-1-start.png`, fullPage: true })
     // "How it works" is its own page now.
     await p.goto(url.replace(/\/$/, '') + '/#how')
+    await p.reload()
     await settle(p, 1500)
     await p.screenshot({ path: `${out}/${name}-1b-how.png`, fullPage: true })
     await p.goto(url.replace(/\/$/, '') + '/#about')
+    await p.reload()
     await settle(p, 1500)
     const team = await p.locator('#who-heading').textContent().catch(() => null)
     console.log(`${name} about: team heading "${team}"`)
