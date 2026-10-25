@@ -25,15 +25,6 @@ jobs:
           curl -sSI "${{ inputs.url }}/data/buildings.json" | grep -i 'cache-control'
           curl -sS -o /dev/null -w '%{http_code}\n' "${{ inputs.url }}/tesseract/eng.traineddata.gz" | grep -q 200
           curl -sS -o /dev/null -w '%{http_code}\n' "${{ inputs.url }}/no-such-page" | grep -q 404
-      - name: Rate limit under a burst from one address (informational)
-        # The limiter is per serverless instance. This prints the status and instance id of nine quick calls;
-        # a 429 proves the limiter, while nine different instance ids explain a run without one.
-        run: |
-          for i in $(seq 1 9); do
-            curl -sS -o /dev/null -D - -X POST -H 'Content-Type: application/json' \
-              --data '{"text":"Please bring two pay stubs and a photo ID to the leasing office by next Friday."}' \
-              "${{ inputs.url }}/api/snap-text" | grep -iE '^(HTTP|x-instance|retry-after)' | tr '\n' ' '; echo
-          done
       - name: Health
         run: |
           curl -fsS "${{ inputs.url }}/api/health" | tee health.json
@@ -63,3 +54,12 @@ jobs:
                 if (!r.ok || !JSON.parse(raw).items?.length) process.exit(1);
               })
           ' "${{ inputs.url }}"
+      - name: Rate limit under a burst from one address (informational)
+        # The limiter is per serverless instance. This prints the status and instance id of nine quick calls;
+        # a 429 proves the limiter, while nine different instance ids explain a run without one.
+        run: |
+          for i in $(seq 1 13); do
+            curl -sS -o /dev/null -D - -X POST -H 'Content-Type: application/json' \
+              --data '{"text":"Please bring two pay stubs and a photo ID to the leasing office by next Friday."}' \
+              "${{ inputs.url }}/api/snap-text" | grep -iE '^(HTTP|x-instance|retry-after)' | tr '\n' ' '; echo
+          done

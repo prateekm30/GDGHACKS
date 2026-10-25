@@ -8,9 +8,9 @@ const req = (ip: string) => new Request('http://x/api/snap-text', { headers: { '
 describe('rateLimit', () => {
   afterEach(resetRateLimit)
 
-  it('allows six calls a minute per address, then returns 429 with Retry-After', () => {
+  it('allows ten calls a minute per address, then returns 429 with Retry-After', () => {
     const now = 1_700_000_000_000
-    for (let i = 0; i < 6; i++) rateLimit(req('1.1.1.1'), now + i)
+    for (let i = 0; i < 10; i++) rateLimit(req('1.1.1.1'), now + i)
     let err: unknown
     try {
       rateLimit(req('1.1.1.1'), now + 10)
@@ -25,20 +25,20 @@ describe('rateLimit', () => {
 
   it('keeps addresses separate and frees the minute window', () => {
     const now = 1_700_000_000_000
-    for (let i = 0; i < 6; i++) rateLimit(req('1.1.1.1'), now + i)
+    for (let i = 0; i < 10; i++) rateLimit(req('1.1.1.1'), now + i)
     expect(() => rateLimit(req('2.2.2.2'), now)).not.toThrow()
     expect(() => rateLimit(req('1.1.1.1'), now + 61_000)).not.toThrow()
   })
 
   it('caps one address per day', () => {
     const now = 1_700_000_000_000
-    for (let i = 0; i < 40; i++) rateLimit(req('3.3.3.3'), now + i * 70_000)
-    expect(() => rateLimit(req('3.3.3.3'), now + 41 * 70_000)).toThrow(/Daily limit/)
+    for (let i = 0; i < 100; i++) rateLimit(req('3.3.3.3'), now + i * 70_000)
+    expect(() => rateLimit(req('3.3.3.3'), now + 101 * 70_000)).toThrow(/Daily limit/)
   })
 
   it('caps everyone per hour on this instance', () => {
     const now = 1_700_000_000_000
-    for (let i = 0; i < 120; i++) rateLimit(req(`10.0.${Math.floor(i / 5)}.${i % 5}`), now + i)
+    for (let i = 0; i < 200; i++) rateLimit(req(`10.0.${Math.floor(i / 5)}.${i % 5}`), now + i)
     expect(() => rateLimit(req('9.9.9.9'), now + 200)).toThrow(/busy/)
   })
 })

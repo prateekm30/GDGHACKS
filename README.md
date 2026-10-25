@@ -98,8 +98,8 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
   the income you enter.
 - **Eligibility is estimated**, never decided. The app says "you appear to be under the limit" and the
   property decides. Student rules, minimum incomes, and credit checks vary by building.
-- **Rate limiting is per serverless instance** (6 calls a minute and 40 a day per address, 120 an hour per
-  instance). The hard ceiling is the Gemini API quota and budget alert in Google AI Studio.
+- **Rate limiting is per serverless instance** (10 calls a minute and 100 a day per address, 200 an hour per
+  instance; the sample form is served from cache and never counts). The hard ceiling is the Gemini API quota and budget alert in Google AI Studio.
 - **OCR is English only** and reads up to 10 pages of a PDF (3 pages when the PDF is a scan). Photos are
   downscaled to 2200px before reading. HEIC photos open on Safari; other browsers ask for JPG or PNG.
 - **Long forms** are sent in pieces of about 16 KB each, so a 40-page packet means several AI calls.
