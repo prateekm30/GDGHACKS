@@ -1,5 +1,250 @@
 [
  {
+  "id": "alx-588645251b",
+  "name": "28th Street",
+  "address": "3102 S 28th St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.838015071154594,
+  "lon": -77.10660982915672,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 15,
+  "affordableUnits": 15,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 2.9,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-28a61c9ca2",
+  "name": "607/612 Notabene Drive",
+  "address": "607 Notabene Dr",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.84162178670777,
+  "lon": -77.06718128838139,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 17,
+  "affordableUnits": 17,
+  "incomeCeiling": 50,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://communitylodgings.org/",
+  "metroMiles": 1.2,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-a723301da9",
+  "name": "Acclaim at Alexandria",
+  "address": "318 S Whiting St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81055953699052,
+  "lon": -77.1350735052014,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 290,
+  "affordableUnits": 290,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://acclaimatalexandria.com/",
+  "metroMiles": 0.8,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-973cb1d7ca",
+  "name": "Alexan Florence",
+  "address": "600 North Royal Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.79879495464343,
+  "lon": -77.04465276869023,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 286,
+  "affordableUnits": 12,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://alexanflorenceapartments.com/",
+  "metroMiles": 1.0,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-d2036bfd5b",
+  "name": "Alexandria Crossing at Old Dominion",
+  "address": "3902 Old Dominion Blvd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.84206010572599,
+  "lon": -77.06644032369418,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 54,
+  "affordableUnits": 36,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 1.2,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-f7ee107e64",
+  "name": "Alexandria Crossing at West Glebe",
+  "address": "891 W Glebe Rd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.843612346813835,
+  "lon": -77.07110482468931,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 48,
+  "affordableUnits": 48,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "www.arha.us",
+  "metroMiles": 1.4,
+  "metroStation": "Pentagon City",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-6c87c0fd35",
+  "name": "Andrew Adkins",
+  "address": "1200 Madison St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81364693706215,
+  "lon": -77.05088027078905,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 90,
+  "affordableUnits": 90,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.2,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "hud-800021681",
   "name": "Annie B. Rose House",
   "address": "399 Pendleton Street",
@@ -12,7 +257,7 @@
   "program": "HUD",
   "totalUnits": 90,
   "affordableUnits": 90,
-  "incomeCeiling": null,
+  "incomeCeiling": 30,
   "bedrooms": [
    1
   ],
@@ -35,12 +280,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.anniebrosehouse.com/",
   "marketRent": {
    "0": 2810,
    "1": 2900,
    "2": 3230,
    "3": 4080,
    "4": 4790
+  }
+ },
+ {
+  "id": "alx-34b9e952cb",
+  "name": "Arbelo Apartments",
+  "address": "831 Bashford La",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81880072033262,
+  "lon": -77.04625403478053,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 34,
+  "affordableUnits": 34,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arbelo-apartments.com/",
+  "metroMiles": 0.5,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -92,6 +373,146 @@
   }
  },
  {
+  "id": "alx-7250b9346b",
+  "name": "Arell Court",
+  "address": "3481 Duke St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.809195479630134,
+  "lon": -77.090169086126,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 10,
+  "affordableUnits": 10,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.2,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-ca4a9a41cd",
+  "name": "Beasley Square",
+  "address": "238 S West St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.803962970264216,
+  "lon": -77.05488940375167,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 8,
+  "affordableUnits": 8,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "http://www.beasleyllc.com/",
+  "metroMiles": 0.4,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-825fbcdee6",
+  "name": "Beauregard & Armistead",
+  "address": "1131 N Beauregard St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.823186624891335,
+  "lon": -77.13383534965415,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 5,
+  "affordableUnits": 5,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.7,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-d7f607ef10",
+  "name": "Bell Old Town",
+  "address": "750 Thornton Way",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.79236321980907,
+  "lon": -77.05062881084763,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 443,
+  "affordableUnits": 24,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thethorntonapts.com/",
+  "metroMiles": 1.1,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "hud-800022119",
   "name": "Bellefonte Apartments",
   "address": "417 E. Bellefonte Ave",
@@ -136,6 +557,42 @@
   }
  },
  {
+  "id": "alx-e572150fda",
+  "name": "Benchmark Senior Living",
+  "address": "3425 North Beauregard Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.84086753194517,
+  "lon": -77.10872303774984,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 117,
+  "affordableUnits": 3,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://www.benchmarkseniorliving.com/senior-living/va/alexandria/benchmark-at-alexandria/?utm_device=c&creative=&utm_medium=cpc&utm_source=google&utm_campaign=&utm_content=158205338332&utm_term=benchmark%20alexandria%20va&hsa_tgt=kwd-2189474794258&hsa_grp",
+  "metroMiles": 2.9,
+  "metroStation": "Ballston-Mu",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
+ },
+ {
   "id": "lihtc-VAA20100010",
   "name": "Beverly Park",
   "address": "613 Notabene Dr",
@@ -167,12 +624,83 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://wesleypropertymanagement.com/property/beverly-park/",
   "marketRent": {
    "0": 1890,
    "1": 1950,
    "2": 2170,
    "3": 2740,
    "4": 3220
+  }
+ },
+ {
+  "id": "alx-0d4eecf12c",
+  "name": "Braddock & Radford",
+  "address": "1700 W Braddock Road",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82654654854807,
+  "lon": -77.08513655091072,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 10,
+  "affordableUnits": 10,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.9,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-bce6c72785",
+  "name": "Braddock & Van Dorn",
+  "address": "4505 W Braddock Rd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83104893850719,
+  "lon": -77.1063028623911,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 8,
+  "affordableUnits": 8,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 2.5,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -261,12 +789,118 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.livebrentplace.com/",
   "marketRent": {
    "0": 2230,
    "1": 2300,
    "2": 2560,
    "3": 3230,
    "4": 3800
+  }
+ },
+ {
+  "id": "alx-a352c3d757",
+  "name": "Bwr/Braddock",
+  "address": "2701 N Radford St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82660714154234,
+  "lon": -77.08588719171107,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 6,
+  "affordableUnits": 6,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.9,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-9f59f3e1b7",
+  "name": "Bwr/Reynolds",
+  "address": "401 S Reynolds St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80841381695226,
+  "lon": -77.12975797878941,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 18,
+  "affordableUnits": 18,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.6,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-8047332d32",
+  "name": "Bwr/Whiting",
+  "address": "267 S Whiting St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.810264882732156,
+  "lon": -77.13708252049017,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 24,
+  "affordableUnits": 24,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.9,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -282,7 +916,7 @@
   "program": "LIHTC",
   "totalUnits": 60,
   "affordableUnits": 60,
-  "incomeCeiling": null,
+  "incomeCeiling": 30,
   "bedrooms": [],
   "unitMix": {},
   "yearPlacedInService": 1989,
@@ -301,12 +935,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.arha.us/",
   "marketRent": {
    "0": 2810,
    "1": 2900,
    "2": 3230,
    "3": 4080,
    "4": 4790
+  }
+ },
+ {
+  "id": "alx-68a75972d0",
+  "name": "Carlyle Place",
+  "address": "2251 Eisenhower Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.801161172542315,
+  "lon": -77.067984861712,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 326,
+  "affordableUnits": 13,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.carlyleplaceapt.com/",
+  "metroMiles": 0.2,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -349,6 +1019,7 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/Public_Housing_Developments/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.arha.us/",
   "marketRent": {
    "0": 2810,
    "1": 2900,
@@ -370,7 +1041,7 @@
   "program": "HUD",
   "totalUnits": 304,
   "affordableUnits": 300,
-  "incomeCeiling": null,
+  "incomeCeiling": 80,
   "bedrooms": [
    1
   ],
@@ -400,6 +1071,42 @@
    "3": 3230,
    "4": 3800
   }
+ },
+ {
+  "id": "alx-43f1640ebb",
+  "name": "Cogir at Old Town Alexandria",
+  "address": "400 N Washington Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.808897730724894,
+  "lon": -77.04637855777214,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 91,
+  "affordableUnits": 2,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://www.sunriseseniorliving.com/communities/va/sunrise-of-old-town",
+  "metroMiles": 0.5,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA19980065",
@@ -449,6 +1156,41 @@
    "2": 2560,
    "3": 3230,
    "4": 3800
+  }
+ },
+ {
+  "id": "alx-be3fac58d8",
+  "name": "Del Ray Central",
+  "address": "3051 Mount Vernon Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.832897678167804,
+  "lon": -77.05957611412072,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 141,
+  "affordableUnits": 9,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://delraycentral.com/",
+  "metroMiles": 0.7,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -539,12 +1281,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://communitylodgings.org/programs/affordable-housing/elbert-redevelopment/",
   "marketRent": {
    "0": 1890,
    "1": 1950,
    "2": 2170,
    "3": 2740,
    "4": 3220
+  }
+ },
+ {
+  "id": "alx-d9d5fa9f42",
+  "name": "Ellsworth Apartments",
+  "address": "2801 Seay Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80803809674136,
+  "lon": -77.07835405395882,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 20,
+  "affordableUnits": 20,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.ellsworth-apartments.com/",
+  "metroMiles": 0.7,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -579,6 +1357,7 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.thefieldsalexandria.com/",
   "marketRent": {
    "0": 2230,
    "1": 2300,
@@ -619,6 +1398,7 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.thefieldsalexandria.com/",
   "marketRent": {
    "0": 2010,
    "1": 2070,
@@ -640,7 +1420,7 @@
   "program": "HUD",
   "totalUnits": 2113,
   "affordableUnits": 423,
-  "incomeCeiling": null,
+  "incomeCeiling": 80,
   "bedrooms": [
    1,
    2
@@ -665,12 +1445,153 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.foxchaseofalexandriaapts.com/",
   "marketRent": {
    "0": 2230,
    "1": 2300,
    "2": 2560,
    "3": 3230,
    "4": 3800
+  }
+ },
+ {
+  "id": "alx-10fb208452",
+  "name": "Friends of Guest House-South Payne",
+  "address": "120 S Payne Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.8052067622799,
+  "lon": -77.05354834592949,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 10,
+  "affordableUnits": 10,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://friendsofguesthouse.org/",
+  "metroMiles": 0.4,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-de28131127",
+  "name": "Gables Old Town North",
+  "address": "525 Montgomery Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81410998925996,
+  "lon": -77.04324499879782,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 232,
+  "affordableUnits": 9,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://gablesoldtownnorth.com/",
+  "metroMiles": 0.6,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-d0a21071f2",
+  "name": "Halstead Tower",
+  "address": "4380 King St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83742295617176,
+  "lon": -77.10442790492333,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 174,
+  "affordableUnits": 9,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.halsteadtowerbywindsor.com/",
+  "metroMiles": 2.9,
+  "metroStation": "Pentagon City",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-1fbe566780",
+  "name": "Heritage at Old Town",
+  "address": "909 Gibbon St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.79977960719212,
+  "lon": -77.05085911084335,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 72,
+  "affordableUnits": 72,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.7,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -686,7 +1607,7 @@
   "program": "HUD",
   "totalUnits": 244,
   "affordableUnits": 89,
-  "incomeCeiling": null,
+  "incomeCeiling": 80,
   "bedrooms": [
    1,
    2
@@ -717,6 +1638,112 @@
    "2": 3230,
    "3": 4080,
    "4": 4790
+  },
+  "website": "https://www.edgewoodmgmt.com/apartments/va/alexandria/old-town-west/"
+ },
+ {
+  "id": "alx-6d4b31ae80",
+  "name": "Hermitage",
+  "address": "4680 W Braddock Rd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83533380942259,
+  "lon": -77.10955600344579,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 8,
+  "affordableUnits": 8,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 2.7,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-6072a9ea4f",
+  "name": "Hopkins-Tancil Courts",
+  "address": "518 N Fairfax St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.809710689108236,
+  "lon": -77.04120251087659,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 109,
+  "affordableUnits": 109,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.7,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-516e281420",
+  "name": "Ives",
+  "address": "450 Swann Avenue",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82940174356746,
+  "lon": -77.05188623122935,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 247,
+  "affordableUnits": 11,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.4,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -759,6 +1786,7 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.hgliving.com/apartments/va/alexandria/jackson-crossing/",
   "marketRent": {
    "0": 1890,
    "1": 1950,
@@ -1026,6 +2054,7 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.lacycourt-apartments.com/Floor-plans.aspx",
   "marketRent": {
    "0": 2330,
    "1": 2400,
@@ -1077,6 +2106,76 @@
   }
  },
  {
+  "id": "alx-177ae45ceb",
+  "name": "Ladrey Senior Highrise",
+  "address": "300 Wythe St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.811259234822,
+  "lon": -77.04167054376224,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 170,
+  "affordableUnits": 170,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.7,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-9547e500b8",
+  "name": "Longview Terrace",
+  "address": "2900 Seay St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.808016979221065,
+  "lon": -77.07925814024784,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 41,
+  "affordableUnits": 41,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.longviewterrace-apartments.com/",
+  "metroMiles": 0.7,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "lihtc-VAA20160015",
   "name": "Lynhaven (Willam Watters)",
   "address": "3513-3525 Commonwealth Avenue",
@@ -1120,7 +2219,149 @@
    "2": 2170,
    "3": 2740,
    "4": 3220
+  },
+  "website": "https://wesleypropertymanagement.com/property/lynhaven-apartments/"
+ },
+ {
+  "id": "alx-8a52cfc036",
+  "name": "Meridian 2250 at Eisenhower Station",
+  "address": "2200 Mill Road",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.799348275695195,
+  "lon": -77.06787945983874,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 433,
+  "affordableUnits": 15,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.2,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
+ },
+ {
+  "id": "alx-08331cbd10",
+  "name": "Meridian at Eisenhower Station",
+  "address": "2351 Eisenhower Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.801254842082855,
+  "lon": -77.06921296050889,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 369,
+  "affordableUnits": 15,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.meridianeisenhower.com/",
+  "metroMiles": 0.1,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-19e6497358",
+  "name": "New Brookside",
+  "address": "601 Four Mile Rd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.843085734700104,
+  "lon": -77.06657474346493,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 165,
+  "affordableUnits": 34,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.newbrooksideapts.com/",
+  "metroMiles": 1.3,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-933a07520c",
+  "name": "New Hope Veterans Home (Aspen Street)",
+  "address": "211 Aspen St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83473907182761,
+  "lon": -77.06358455531692,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 3,
+  "affordableUnits": 3,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.9,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
  },
  {
   "id": "lihtc-VAA20191019",
@@ -1164,12 +2405,83 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.nexusalexandria.com/",
   "marketRent": {
    "0": 2010,
    "1": 2070,
    "2": 2310,
    "3": 2920,
    "4": 3430
+  }
+ },
+ {
+  "id": "alx-aabb0abdbd",
+  "name": "Notch 8",
+  "address": "2900 Main Line Blvd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.8316909603466,
+  "lon": -77.04986713275522,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 252,
+  "affordableUnits": 12,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.liveatnotch8.com/",
+  "metroMiles": 0.2,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-77360b64ce",
+  "name": "Oasis & Bragg",
+  "address": "27 S Bragg St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81626743048935,
+  "lon": -77.14159543565148,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 15,
+  "affordableUnits": 15,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.4,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1213,6 +2525,111 @@
   }
  },
  {
+  "id": "alx-bfeb66fe4d",
+  "name": "Old Town Commons",
+  "address": "701 N Alfred St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81227082955698,
+  "lon": -77.04730383008184,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 379,
+  "affordableUnits": 134,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.4,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-5cc10fee2a",
+  "name": "Parc Meridian at Eisenhower Station",
+  "address": "750 Port St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80025322559151,
+  "lon": -77.06858195247567,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 505,
+  "affordableUnits": 33,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.parcmeridian.com/",
+  "metroMiles": 0.1,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-c30590ebd7",
+  "name": "Parc Square",
+  "address": "3812 Old Dominion Boulevard",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.841389589071035,
+  "lon": -77.06690686980538,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 66,
+  "affordableUnits": 66,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://wesleyhousing.org/property/parc-square/",
+  "metroMiles": 1.2,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "lihtc-VAA20080185",
   "name": "Parcview",
   "address": "5380 Holmes Run Pkwy",
@@ -1244,12 +2661,118 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://wesleypropertymanagement.com/property/parcview-apartments/",
   "marketRent": {
    "0": 2230,
    "1": 2300,
    "2": 2560,
    "3": 3230,
    "4": 3800
+  }
+ },
+ {
+  "id": "alx-687f4eb852",
+  "name": "Park + Ford",
+  "address": "4401 Ford Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.836576657923366,
+  "lon": -77.10392129577681,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 435,
+  "affordableUnits": 10,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.parkandford.com/?utm_source=SocialMedia&utm_medium=social-media&utm_campaign=Park%20Ford_Facebook",
+  "metroMiles": 2.9,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-4216d4110d",
+  "name": "Park Place Condominiums",
+  "address": "2500 N Van Dorn St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83263518912106,
+  "lon": -77.09975149900094,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 403,
+  "affordableUnits": 38,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 2.7,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-72824f88da",
+  "name": "Parkstone",
+  "address": "3001 Park Center Dr",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.835550816974454,
+  "lon": -77.10409181617558,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 326,
+  "affordableUnits": 244,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.housingalexandria.org/parkstone",
+  "metroMiles": 2.8,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1265,7 +2788,7 @@
   "program": "HUD",
   "totalUnits": 24,
   "affordableUnits": 4,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -1290,12 +2813,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.arha.us/",
   "marketRent": {
    "0": 2810,
    "1": 2900,
    "2": 3230,
    "3": 4080,
    "4": 4790
+  }
+ },
+ {
+  "id": "alx-cf901079dc",
+  "name": "Post Carlyle Square II",
+  "address": "501 Holland La",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.801909139427856,
+  "lon": -77.06032747040047,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 344,
+  "affordableUnits": 6,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.maac.com/virginia/dc-metro/post-carlyle-square/?utm_source=google&utm_medium=cpc&gclid=EAIaIQobChMIiaTc5JOCgQMVl8nICh1n4wITEAAYASAAEgIsXPD_BwE&gclsrc=aw.ds",
+  "metroMiles": 0.3,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1336,12 +2895,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.vestacorp.com/places/potomac-west-apartments/",
   "marketRent": {
    "0": 1890,
    "1": 1950,
    "2": 2170,
    "3": 2740,
    "4": 3220
+  }
+ },
+ {
+  "id": "alx-767746708b",
+  "name": "Princess Square",
+  "address": "330 N West St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80923712996508,
+  "lon": -77.05407131889683,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 69,
+  "affordableUnits": 52,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.3,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1391,6 +2986,41 @@
   }
  },
  {
+  "id": "alx-e9ec5e6841",
+  "name": "Raeburn",
+  "address": "451 Swann Avenue",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82909357545378,
+  "lon": -77.0518596312053,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 325,
+  "affordableUnits": 38,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.4,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "ph-VA004000013",
   "name": "Ramsey Homes",
   "address": "625 N Patrick St",
@@ -1430,6 +3060,41 @@
    "2": 3230,
    "3": 4080,
    "4": 4790
+  }
+ },
+ {
+  "id": "alx-8c52508669",
+  "name": "Ramsey School",
+  "address": "5802 Sanger Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82874792901572,
+  "lon": -77.13099957778664,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 10,
+  "affordableUnits": 10,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 2.0,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1479,6 +3144,182 @@
   }
  },
  {
+  "id": "alx-0bc3a44bff",
+  "name": "Samuel Madden Uptown",
+  "address": "1000 Montgomery St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81447277066769,
+  "lon": -77.04825781713593,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 66,
+  "affordableUnits": 66,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 0.3,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-543478d569",
+  "name": "Saxony Square Condominiums",
+  "address": "483 N Armistead St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82059392959094,
+  "lon": -77.13049898669031,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 264,
+  "affordableUnits": 5,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.arha.us/",
+  "metroMiles": 1.5,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-6f59be5a0f",
+  "name": "Silverado Alexandria Memory Care",
+  "address": "2811 King Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81640645608176,
+  "lon": -77.0736532669032,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 66,
+  "affordableUnits": 3,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.silverado.com/locations/alexandria/",
+  "metroMiles": 1.0,
+  "metroStation": "King St-Old Town",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
+ },
+ {
+  "id": "alx-772a527f83",
+  "name": "Silverstone Senior Living",
+  "address": "2602 Main Line Boulevard",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82968409981504,
+  "lon": -77.0503257417625,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 313,
+  "affordableUnits": 7,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://silverstoneseniorliving.com/properties/the-landing/",
+  "metroMiles": 0.4,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-fa8deee147",
+  "name": "Southern Towers",
+  "address": "4901 Seminary Rd",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83166811872645,
+  "lon": -77.11262905244728,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 2184,
+  "affordableUnits": 105,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.southerntowers.com/",
+  "metroMiles": 2.4,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
   "id": "lihtc-VAA20180027",
   "name": "St. James Plaza",
   "address": "5140 Fillmore Avenue",
@@ -1520,12 +3361,48 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://www.hgliving.com/apartments/va/alexandria/st-james-plaza/",
   "marketRent": {
    "0": 1890,
    "1": 1920,
    "2": 2160,
    "3": 2700,
    "4": 3190
+  }
+ },
+ {
+  "id": "alx-4c94d3f26a",
+  "name": "Station 650 at Potomac Yard",
+  "address": "650 Potomac Av",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.82285908304115,
+  "lon": -77.0490842321075,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 183,
+  "affordableUnits": 8,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.station650apts.com/",
+  "metroMiles": 0.7,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
@@ -1560,12 +3437,576 @@
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
+  "website": "https://thestationatpotomacyardapts.com/",
   "marketRent": {
    "0": 2330,
    "1": 2400,
    "2": 2680,
    "3": 3380,
    "4": 3980
+  }
+ },
+ {
+  "id": "alx-4af565a71c",
+  "name": "Sunrise of Alexandria",
+  "address": "3518 Duke St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80892518453504,
+  "lon": -77.09164142778688,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 76,
+  "affordableUnits": 2,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://www.sunriseseniorliving.com/communities/va/sunrise-of-alexandria",
+  "metroMiles": 1.3,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
+ },
+ {
+  "id": "alx-9b37242d32",
+  "name": "The Alate",
+  "address": "1112 First Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.8157571444,
+  "lon": -77.04984913478977,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 133,
+  "affordableUnits": 133,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": null,
+  "metroMiles": 0.2,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-7337793a89",
+  "name": "The Blake",
+  "address": "2000 N Beauregard Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83437120386004,
+  "lon": -77.1191180712697,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 300,
+  "affordableUnits": 5,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.theblakealexandria.com/",
+  "metroMiles": 2.5,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-f41f5e8175",
+  "name": "The Bloom",
+  "address": "900 N Henry St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.815138382285994,
+  "lon": -77.04950016713471,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 97,
+  "affordableUnits": 97,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://thebloomatbraddock.com/",
+  "metroMiles": 0.2,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-a8a09c16c6",
+  "name": "The Bradley",
+  "address": "1260 Braddock Pl",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81486460933843,
+  "lon": -77.05175379995129,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 165,
+  "affordableUnits": 10,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thebradleybraddockroadstationapartments.com/the-bradley-braddock-road-station-alexandria-va/",
+  "metroMiles": 0.1,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-907bd14336",
+  "name": "The Foundry",
+  "address": "2470 Mandeville Lane",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80270005495618,
+  "lon": -77.07195821756198,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 520,
+  "affordableUnits": 5,
+  "incomeCeiling": 80,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thefoundryalexandria.com/",
+  "metroMiles": 0.2,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-7f0ece36c0",
+  "name": "The Grayson",
+  "address": "1200 North Henry Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.8180120378491,
+  "lon": -77.04938033758845,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 119,
+  "affordableUnits": 11,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.graysonapts.com/",
+  "metroMiles": 0.4,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-f14740f3dc",
+  "name": "The Lineage",
+  "address": "625 N Patrick",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.811637895544244,
+  "lon": -77.0487427628365,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 52,
+  "affordableUnits": 52,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.lineageapts.com/?rcstdid=MzI%3d-GJOvflXLv8M%3d&_yTrackUser=MzQyNjAzODE2NyMxNzc3Mjk3OTYz-fSxC%2bbIRBFc%3d&_yTrackVisit=NTc3Mzk3ODQ4MiMzODQyNjE1NjA%3d-Nw3pGUf3XC8%3d",
+  "metroMiles": 0.3,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-a68e187a34",
+  "name": "The Platform I",
+  "address": "1100 North Fayette Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.81730970842678,
+  "lon": -77.05053185399652,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 258,
+  "affordableUnits": 4,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://platformalexandria.com/",
+  "metroMiles": 0.3,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-238a0c393a",
+  "name": "The Platform II",
+  "address": "1200 North Fayette Street",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.817865623895024,
+  "lon": -77.0504129594535,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 370,
+  "affordableUnits": 4,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://platformalexandria.com/",
+  "metroMiles": 0.3,
+  "metroStation": "Braddock Road",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-c2b5f81032",
+  "name": "The Point at Eisenhower Square",
+  "address": "2827 Telek Place",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.80418338694789,
+  "lon": -77.08198080169299,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 336,
+  "affordableUnits": 13,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thepointateisenhowersq.com/",
+  "metroMiles": 0.7,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-a617083890",
+  "name": "The Spire",
+  "address": "2875 N Beauregard St",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.836669392145005,
+  "lon": -77.11411162597105,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 113,
+  "affordableUnits": 113,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.forrent.com/va/alexandria/the-spire/gg6h31w",
+  "metroMiles": 2.7,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-a17bb1e48b",
+  "name": "The Square at 511",
+  "address": "511 Four Mile Road",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.84358862969418,
+  "lon": -77.06528473366912,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 196,
+  "affordableUnits": 196,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thesquareat511.com/",
+  "metroMiles": 1.2,
+  "metroStation": "Potomac Yard",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  }
+ },
+ {
+  "id": "alx-d2dae38be5",
+  "name": "The Tuscany Apartments",
+  "address": "260 Yoakum Pky",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.811270272859254,
+  "lon": -77.13864541498279,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 104,
+  "affordableUnits": 2,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://www.thetuscanyapts.com/",
+  "metroMiles": 1.0,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
+ },
+ {
+  "id": "alx-1ec37e2044",
+  "name": "The View - Building 1",
+  "address": "5000 Fairbanks Ave",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83698169306295,
+  "lon": -77.11549567694796,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 125,
+  "affordableUnits": 2,
+  "incomeCeiling": 30,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": true,
+  "disabilityOnly": false,
+  "website": "https://goodwinliving.org/the-view-alexandria/",
+  "metroMiles": 2.7,
+  "metroStation": "Van Dorn Street",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
+  },
+  "groupHome": true
+ },
+ {
+  "id": "alx-77dcd8299e",
+  "name": "The Waypoint at Fairlington",
+  "address": "2451 Menokin Dr",
+  "city": "Alexandria",
+  "state": "VA",
+  "zip": "",
+  "area": "ALEXANDRIA",
+  "lat": 38.83147606614194,
+  "lon": -77.09530744078896,
+  "program": "LIHTC",
+  "subsidy": "alexandria",
+  "totalUnits": 81,
+  "affordableUnits": 81,
+  "incomeCeiling": 60,
+  "bedrooms": [],
+  "unitMix": {},
+  "yearPlacedInService": null,
+  "seniorOnly": false,
+  "disabilityOnly": false,
+  "website": "https://wesleypropertymanagement.com/property/the-waypoint/",
+  "metroMiles": 2.5,
+  "metroStation": "Eisenhower Ave",
+  "contact": {
+   "name": null,
+   "org": null,
+   "phone": null,
+   "email": null
+  },
+  "source": {
+   "dataset": "City of Alexandria Committed Affordable Rentals",
+   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
+   "retrieved": "2026-10-25"
   }
  },
  {
