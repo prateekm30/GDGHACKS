@@ -614,6 +614,21 @@ MERGE_INTO = {
 SMALL_SITE_UNITS = 3
 
 
+GENERIC_NAME_WORDS = {
+    "apartments", "apartment", "apts", "apt", "the", "and", "senior", "seniors", "house", "houses", "homes", "home",
+    "court", "courts", "gardens", "garden", "park", "place", "plaza", "village", "square", "terrace", "towers",
+    "tower", "manor", "street", "avenue", "road", "phase", "north", "south", "east", "west", "residences",
+    "renovation", "acquisition", "preservation", "tenant", "association", "cooperative", "condominium", "llc",
+    "highrise", "building", "housing", "community", "communities", "station", "lp", "topa", "new", "old",
+}
+
+
+def name_words(name: str) -> set[str]:
+    """Distinctive words of a building name, for matching the same complex across lists."""
+    words = re.findall(r"[a-z]{4,}", (name or "").lower())
+    return {w.rstrip("s") for w in words if w not in GENERIC_NAME_WORDS and w.rstrip("s") not in GENERIC_NAME_WORDS}
+
+
 def refine(rows: list[dict]) -> list[dict]:
     """Fixes that need the whole list: same-spot duplicates, swapped unit counts, group homes, known bad rows.
     Also runs on the committed JSON (--refine) so the fixes land without a full rebuild."""
@@ -646,6 +661,22 @@ def refine(rows: list[dict]) -> list[dict]:
             out.append(b)
             continue
         fill_gaps(kept, b)
+    rows = out
+
+    # Different lists name the same complex differently and geocode it a little apart ("Arbelo Apartments" and
+    # "Arbelo and Longview", "Hanover Court TOPA" and "Hanover Courts"). Two rows from different sources within
+    # ~60 m that share a distinctive name word are one building. Rows from the same list stay separate (DC lists
+    # phases of one site as separate projects).
+    out, kept_rows = [], []
+    for b in sorted(rows, key=lambda b: (rank(b), -(b["yearPlacedInService"] or 0))):
+        words = name_words(b["name"])
+        match = next((k for k in kept_rows if k["id"].split("-", 1)[0] != b["id"].split("-", 1)[0]
+                      and words & name_words(k["name"]) and miles(b["lat"], b["lon"], k["lat"], k["lon"]) < 0.037), None)
+        if match is not None:
+            fill_gaps(match, b)
+            continue
+        kept_rows.append(b)
+        out.append(b)
     rows = out
 
     for b in rows:

@@ -89,7 +89,7 @@ flowchart LR
 | Income box | `src/lib/income.ts` | Typed per month or per year; the math is always yearly. The slider starts at a year of the cheapest capped rent in the data ($17,000 in 2026, a 50%-tier studio), and a "yearly" number under that, or a "monthly" one over $12,500, gets an offer to switch instead of a refusal, since income-based HUD homes take any income. |
 | Landing reel | `src/components/HeroReel.tsx` | Two buildings per area, chosen from those whose Street View photo is trusted by the index below, so every frame is a real street photo; areas without one show the aerial view. |
 | Snap a form | `src/lib/snap.ts`, `api/snap-text.ts` | Text is read on the device (pdf.js, Tesseract). Only text you review is sent. Items whose quote is not in your text are dropped, on the server and again in the browser. |
-| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD APIs to JSON: 914 buildings across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
+| Data | `data/build.py`, `.github/workflows/data.yml` | Official HUD, USDA, DC, Maryland, and Alexandria APIs to JSON: 1,708 buildings (1,448 shown in the picker) across the 20 counties and cities of HUD's Washington metro income-limit area, grouped into the 12 areas you can pick in the app. Plus Census county outlines for the map and HUD Small Area Fair Market Rents by ZIP for the "typical rent nearby" comparison. A GitHub Action rebuilds and commits it. See `data/README.md`. |
 
 ## Privacy
 
@@ -122,9 +122,16 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 
 ## Known limitations
 
-- **Phone numbers:** 564 of 914 buildings (62%) have no phone in HUD's data. Those cards say so and link a
-  web search for the leasing office instead.
-- **Waitlists and vacancies:** HUD data has neither. Every card says to call and ask.
+- **Phone numbers:** 1,274 of 1,708 buildings (75%) have no phone in their source list (DC's and Maryland's
+  lists carry none). Those cards say so and link a web search for the leasing office instead.
+- **Waitlists and vacancies:** no source has vacancies. Public housing cards show HUD's average months on the
+  waitlist for recent move-ins when HUD reports it; every card says to call and ask.
+- **Newer lists, fewer details:** rows from DC's, Maryland's, and Alexandria's lists have no bedroom sizes,
+  and DC rows are labeled by their highest income tier ("up to 80% MFI") with the full tier mix on the card.
+  Tiers of 30% and 80% use estimated limits (the 50% table scaled, as HUD does before its caps).
+- **Same building on two lists:** rows are merged when they sit at the same spot with the same house number,
+  or within about 60 m with a distinctive name word in common. Two phases of one site on the same list stay
+  separate.
 - **Rent figures are caps, not asking rents.** Tax-credit caps come from HUD's MTSP tables for the whole
   metro area at the building's tier; real rents are often lower. Income-based rent is estimated at 30% of
   the income you enter.

@@ -290,41 +290,6 @@
   }
  },
  {
-  "id": "alx-34b9e952cb",
-  "name": "Arbelo Apartments",
-  "address": "831 Bashford La",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "",
-  "area": "ALEXANDRIA",
-  "lat": 38.81880072033262,
-  "lon": -77.04625403478053,
-  "program": "LIHTC",
-  "subsidy": "alexandria",
-  "totalUnits": 34,
-  "affordableUnits": 34,
-  "incomeCeiling": 60,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "website": "https://www.arbelo-apartments.com/",
-  "metroMiles": 0.5,
-  "metroStation": "Braddock Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "City of Alexandria Committed Affordable Rentals",
-   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
-   "retrieved": "2026-10-25"
-  }
- },
- {
   "id": "lihtc-VAA20150004",
   "name": "Arbelo and Longview",
   "address": "831 Bashford Lane",
@@ -370,7 +335,8 @@
    "2": 3230,
    "3": 4080,
    "4": 4790
-  }
+  },
+  "website": "https://www.arbelo-apartments.com/"
  },
  {
   "id": "alx-7250b9346b",
@@ -747,7 +713,8 @@
    "2": 2310,
    "3": 2920,
    "4": 3430
-  }
+  },
+  "website": "https://www.arha.us/"
  },
  {
   "id": "lihtc-VAA20000385",
@@ -796,41 +763,6 @@
    "2": 2560,
    "3": 3230,
    "4": 3800
-  }
- },
- {
-  "id": "alx-a352c3d757",
-  "name": "Bwr/Braddock",
-  "address": "2701 N Radford St",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "",
-  "area": "ALEXANDRIA",
-  "lat": 38.82660714154234,
-  "lon": -77.08588719171107,
-  "program": "LIHTC",
-  "subsidy": "alexandria",
-  "totalUnits": 6,
-  "affordableUnits": 6,
-  "incomeCeiling": 30,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "website": "https://www.arha.us/",
-  "metroMiles": 1.9,
-  "metroStation": "King St-Old Town",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "City of Alexandria Committed Affordable Rentals",
-   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
-   "retrieved": "2026-10-25"
   }
  },
  {
@@ -2077,7 +2009,7 @@
   "subsidy": "public-housing",
   "totalUnits": 170,
   "affordableUnits": 170,
-  "incomeCeiling": null,
+  "incomeCeiling": 30,
   "bedrooms": [],
   "unitMix": {},
   "yearPlacedInService": null,
@@ -2103,42 +2035,8 @@
    "2": 3230,
    "3": 4080,
    "4": 4790
-  }
- },
- {
-  "id": "alx-177ae45ceb",
-  "name": "Ladrey Senior Highrise",
-  "address": "300 Wythe St",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "",
-  "area": "ALEXANDRIA",
-  "lat": 38.811259234822,
-  "lon": -77.04167054376224,
-  "program": "LIHTC",
-  "subsidy": "alexandria",
-  "totalUnits": 170,
-  "affordableUnits": 170,
-  "incomeCeiling": 30,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "website": "https://www.arha.us/",
-  "metroMiles": 0.7,
-  "metroStation": "Braddock Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
   },
-  "source": {
-   "dataset": "City of Alexandria Committed Affordable Rentals",
-   "url": "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20",
-   "retrieved": "2026-10-25"
-  }
+  "website": "https://www.arha.us/"
  },
  {
   "id": "alx-9547e500b8",
@@ -4010,46 +3908,6 @@
   }
  },
  {
-  "id": "lihtc-VAA20110806",
-  "name": "West Glebe Housing",
-  "address": "865 W Glebe Rd",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "22305",
-  "area": "ALEXANDRIA",
-  "lat": 38.841837,
-  "lon": -77.071636,
-  "program": "LIHTC",
-  "totalUnits": 48,
-  "affordableUnits": 48,
-  "incomeCeiling": 50,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2011,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.5,
-  "metroStation": "Potomac Yard",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1890,
-   "1": 1950,
-   "2": 2170,
-   "3": 2740,
-   "4": 3220
-  }
- },
- {
   "id": "ph-VA004000009",
   "name": "West Glebe LP",
   "address": "859 W Glebe Rd",
@@ -4063,14 +3921,14 @@
   "subsidy": "public-housing",
   "totalUnits": 48,
   "affordableUnits": 48,
-  "incomeCeiling": null,
+  "incomeCeiling": 50,
   "bedrooms": [
    1,
    2,
    3
   ],
   "unitMix": {},
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2011,
   "seniorOnly": false,
   "disabilityOnly": false,
   "waitMonths": 29,
@@ -13542,51 +13400,6 @@
   "groupHome": true
  },
  {
-  "id": "dc-335522",
-  "name": "2838 Langston Place SE",
-  "address": "2838 Langston Place SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20020",
-  "area": "DC",
-  "lat": 38.8557062,
-  "lon": -76.97261783,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 8,
-  "affordableUnits": 1,
-  "incomeCeiling": 60,
-  "amiMix": {
-   "60": 1
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2024,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.9,
-  "metroStation": "Naylor Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1420,
-   "1": 1460,
-   "2": 1630,
-   "3": 2060,
-   "4": 2420
-  },
-  "groupHome": true
- },
- {
   "id": "dc-150119",
   "name": "28th Place, SE",
   "address": "1715 28th Place SE",
@@ -14228,12 +14041,12 @@
   "lat": 38.929296,
   "lon": -77.037356,
   "program": "LIHTC",
-  "totalUnits": 12,
-  "affordableUnits": null,
-  "incomeCeiling": null,
+  "totalUnits": 165,
+  "affordableUnits": 12,
+  "incomeCeiling": 80,
   "bedrooms": [],
   "unitMix": {},
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2022,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.3,
@@ -14255,6 +14068,10 @@
    "2": 2370,
    "3": 2990,
    "4": 3520
+  },
+  "amiMix": {
+   "50": 70,
+   "80": 95
   }
  },
  {
@@ -15393,96 +15210,6 @@
    "3": 3130,
    "4": 3680
   }
- },
- {
-  "id": "dc-224858",
-  "name": "4012 Georgia Ave. NW",
-  "address": "4012 Georgia Avenue NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20011",
-  "area": "DC",
-  "lat": 38.94025829,
-  "lon": -77.0253775,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 10,
-  "affordableUnits": 1,
-  "incomeCeiling": 50,
-  "amiMix": {
-   "50": 1
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2023,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "Georgia Ave-Petworth",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1770,
-   "1": 1820,
-   "2": 2030,
-   "3": 2560,
-   "4": 3010
-  },
-  "groupHome": true
- },
- {
-  "id": "dc-224857",
-  "name": "4014 Georgia Ave NW",
-  "address": "4014 Georgia Avenue NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20011",
-  "area": "DC",
-  "lat": 38.94030092,
-  "lon": -77.02541304,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 10,
-  "affordableUnits": 1,
-  "incomeCeiling": 50,
-  "amiMix": {
-   "50": 1
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2022,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "Georgia Ave-Petworth",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1770,
-   "1": 1820,
-   "2": 2030,
-   "3": 2560,
-   "4": 3010
-  },
-  "groupHome": true
  },
  {
   "id": "dc-289376",
@@ -19604,54 +19331,6 @@
    "2": 1770,
    "3": 2230,
    "4": 2630
-  }
- },
- {
-  "id": "lihtc-DCB20172001",
-  "name": "Atlantic Garden Apartments",
-  "address": "4214 Fourth Street, SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20032",
-  "area": "DC",
-  "lat": 38.828052,
-  "lon": -77.000357,
-  "program": "LIHTC",
-  "totalUnits": 108,
-  "affordableUnits": 108,
-  "incomeCeiling": 60,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 5,
-   "2": 81,
-   "3": 22
-  },
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.4,
-  "metroStation": "Congress Heights",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1410,
-   "1": 1450,
-   "2": 1620,
-   "3": 2040,
-   "4": 2400
   }
  },
  {
@@ -28000,52 +27679,6 @@
   "groupHome": true
  },
  {
-  "id": "dc-148200",
-  "name": "Hanover Court TOPA",
-  "address": "2412 Hartford Street SE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20020",
-  "area": "DC",
-  "lat": 38.85425668,
-  "lon": -76.97132518,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 82,
-  "affordableUnits": 82,
-  "incomeCeiling": 60,
-  "amiMix": {
-   "30": 9,
-   "50": 41,
-   "60": 32
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.8,
-  "metroStation": "Naylor Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1420,
-   "1": 1460,
-   "2": 1630,
-   "3": 2060,
-   "4": 2420
-  }
- },
- {
   "id": "lihtc-DCB20000010",
   "name": "Hanover Courts",
   "address": "2400 Hartford St SE",
@@ -28058,7 +27691,7 @@
   "program": "LIHTC",
   "totalUnits": 74,
   "affordableUnits": 74,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -28089,6 +27722,11 @@
    "2": 1630,
    "3": 2060,
    "4": 2420
+  },
+  "amiMix": {
+   "30": 9,
+   "50": 41,
+   "60": 32
   }
  },
  {
@@ -30377,7 +30015,7 @@
   "program": "HUD",
   "totalUnits": 18,
   "affordableUnits": 18,
-  "incomeCeiling": null,
+  "incomeCeiling": 80,
   "bedrooms": [
    2,
    3
@@ -30386,7 +30024,7 @@
    "2": 10,
    "3": 8
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2023,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.1,
@@ -30408,51 +30046,10 @@
    "2": 2370,
    "3": 2990,
    "4": 3520
-  }
- },
- {
-  "id": "dc-231109",
-  "name": "Kenyon House",
-  "address": "1349 Kenyon Street NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20010",
-  "area": "DC",
-  "lat": 38.92997103,
-  "lon": -77.03151311,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 49,
-  "affordableUnits": 25,
-  "incomeCeiling": 80,
+  },
   "amiMix": {
    "50": 10,
    "80": 15
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2023,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.2,
-  "metroStation": "Columbia Heights",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2060,
-   "1": 2130,
-   "2": 2370,
-   "3": 2990,
-   "4": 3520
   }
  },
  {
@@ -30959,6 +30556,9 @@
    "2": 1630,
    "3": 2060,
    "4": 2420
+  },
+  "amiMix": {
+   "60": 1
   }
  },
  {
@@ -33641,51 +33241,6 @@
   "groupHome": true
  },
  {
-  "id": "dc-236415",
-  "name": "Mount Pleasant Preservation Project - Sarbin Towers, Park Marconi, Richman Towers",
-  "address": "3132 16th Street NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20010",
-  "area": "DC",
-  "lat": 38.92968407,
-  "lon": -77.03690719,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 165,
-  "affordableUnits": 165,
-  "incomeCeiling": 80,
-  "amiMix": {
-   "50": 70,
-   "80": 95
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2022,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.3,
-  "metroStation": "Columbia Heights",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2060,
-   "1": 2130,
-   "2": 2370,
-   "3": 2990,
-   "4": 3520
-  }
- },
- {
   "id": "lihtc-DCB00000013",
   "name": "Mozart",
   "address": "1630 Fuller St NW",
@@ -34879,53 +34434,6 @@
   }
  },
  {
-  "id": "dc-228839",
-  "name": "Park Morton - Onsite Phase 1",
-  "address": "610 Park Road NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20010",
-  "area": "DC",
-  "lat": 38.93276032,
-  "lon": -77.0219841,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 142,
-  "affordableUnits": 142,
-  "incomeCeiling": 80,
-  "amiMix": {
-   "30": 31,
-   "50": 24,
-   "60": 48,
-   "80": 39
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2025,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.3,
-  "metroStation": "Georgia Ave-Petworth",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2060,
-   "1": 2130,
-   "2": 2370,
-   "3": 2990,
-   "4": 3520
-  }
- },
- {
   "id": "dc-233668",
   "name": "Park Regent - Amazon Acquisition",
   "address": "1701 Park Road NW",
@@ -35165,10 +34673,10 @@
   "subsidy": "public-housing",
   "totalUnits": 130,
   "affordableUnits": 130,
-  "incomeCeiling": null,
+  "incomeCeiling": 80,
   "bedrooms": [],
   "unitMix": {},
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2025,
   "seniorOnly": false,
   "disabilityOnly": false,
   "waitMonths": null,
@@ -35191,6 +34699,12 @@
    "2": 2370,
    "3": 2990,
    "4": 3520
+  },
+  "amiMix": {
+   "30": 31,
+   "50": 24,
+   "60": 48,
+   "80": 39
   }
  },
  {
@@ -36691,6 +36205,9 @@
    "2": 2030,
    "3": 2560,
    "4": 3010
+  },
+  "amiMix": {
+   "50": 1
   }
  },
  {
@@ -37847,6 +37364,10 @@
    "2": 1610,
    "3": 2030,
    "4": 2390
+  },
+  "amiMix": {
+   "30": 162,
+   "50": 16
   }
  },
  {
@@ -39718,7 +39239,7 @@
   "program": "LIHTC",
   "totalUnits": 105,
   "affordableUnits": 105,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2
@@ -39749,50 +39270,9 @@
    "2": 1770,
    "3": 2230,
    "4": 2630
-  }
- },
- {
-  "id": "dc-253380",
-  "name": "Takoma Place TOPA",
-  "address": "6650 Georgia Avenue NW",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20012",
-  "area": "DC",
-  "lat": 38.97139886,
-  "lon": -77.02743539,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 105,
-  "affordableUnits": 105,
-  "incomeCeiling": 60,
+  },
   "amiMix": {
    "60": 105
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.6,
-  "metroStation": "Takoma",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1540,
-   "1": 1590,
-   "2": 1770,
-   "3": 2230,
-   "4": 2630
   }
  },
  {
@@ -40772,51 +40252,6 @@
    "2": 3140,
    "3": 3960,
    "4": 4660
-  }
- },
- {
-  "id": "dc-288214",
-  "name": "The Conway Center",
-  "address": "4430 Benning Road NE",
-  "city": "Washington",
-  "state": "DC",
-  "zip": "20019",
-  "area": "DC",
-  "lat": 38.89095544,
-  "lon": -76.93801085,
-  "program": "LIHTC",
-  "subsidy": "dc",
-  "totalUnits": 182,
-  "affordableUnits": 178,
-  "incomeCeiling": 50,
-  "amiMix": {
-   "30": 162,
-   "50": 16
-  },
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.0,
-  "metroStation": "Benning Road",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "DC DHCD Affordable Housing (Open Data DC)",
-   "url": "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1400,
-   "1": 1440,
-   "2": 1610,
-   "3": 2030,
-   "4": 2390
   }
  },
  {
@@ -47281,7 +46716,7 @@
   "program": "HUD",
   "totalUnits": 22,
   "affordableUnits": 21,
-  "incomeCeiling": null,
+  "incomeCeiling": 50,
   "bedrooms": [
    1,
    2
@@ -47290,7 +46725,7 @@
    "1": 15,
    "2": 6
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2006,
   "seniorOnly": false,
   "disabilityOnly": true,
   "metroMiles": 1.1,
@@ -47304,50 +46739,6 @@
   "source": {
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2310,
-   "1": 2390,
-   "2": 2660,
-   "3": 3360,
-   "4": 3950
-  }
- },
- {
-  "id": "lihtc-VAA20060758",
-  "name": "Coppermine Place II",
-  "address": "13395 Coppermine Rd",
-  "city": "Herndon",
-  "state": "VA",
-  "zip": "20171",
-  "area": "FAIRFAX",
-  "lat": 38.946405,
-  "lon": -77.409621,
-  "program": "LIHTC",
-  "totalUnits": 66,
-  "affordableUnits": 66,
-  "incomeCeiling": 50,
-  "bedrooms": [
-   1
-  ],
-  "unitMix": {
-   "1": 66
-  },
-  "yearPlacedInService": 2006,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 1.0,
-  "metroStation": "Innovation Center",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -48437,17 +47828,17 @@
   }
  },
  {
-  "id": "lihtc-VAA20060050",
-  "name": "Hunting Creek Townhomes",
-  "address": "3138 Jackies Ln",
+  "id": "hud-800021893",
+  "name": "Hunting Creek Townhouses",
+  "address": "3202-3206 Jackies Lane",
   "city": "Alexandria",
   "state": "VA",
   "zip": "22306",
   "area": "FAIRFAX",
-  "lat": 38.737297999999996,
-  "lon": -77.085753,
-  "program": "LIHTC",
-  "totalUnits": 35,
+  "lat": 38.737151,
+  "lon": -77.085312,
+  "program": "HUD",
+  "totalUnits": 57,
   "affordableUnits": 35,
   "incomeCeiling": 60,
   "bedrooms": [
@@ -48461,54 +47852,6 @@
    "4": 8
   },
   "yearPlacedInService": 2006,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 4.0,
-  "metroStation": "Huntington",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1770,
-   "1": 1820,
-   "2": 2030,
-   "3": 2560,
-   "4": 3010
-  }
- },
- {
-  "id": "hud-800021893",
-  "name": "Hunting Creek Townhouses",
-  "address": "3202-3206 Jackies Lane",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "22306",
-  "area": "FAIRFAX",
-  "lat": 38.737151,
-  "lon": -77.085312,
-  "program": "HUD",
-  "totalUnits": 57,
-  "affordableUnits": 35,
-  "incomeCeiling": null,
-  "bedrooms": [
-   2,
-   3,
-   4
-  ],
-  "unitMix": {
-   "2": 15,
-   "3": 12,
-   "4": 8
-  },
-  "yearPlacedInService": null,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 4.0,
@@ -49832,7 +49175,7 @@
   "program": "HUD",
   "totalUnits": 204,
   "affordableUnits": 40,
-  "incomeCeiling": null,
+  "incomeCeiling": 50,
   "bedrooms": [
    1,
    2,
@@ -49843,7 +49186,7 @@
    "2": 7,
    "3": 8
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2012,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 3.9,
@@ -49868,94 +49211,6 @@
   }
  },
  {
-  "id": "lihtc-VAA20120210",
-  "name": "Stony Brook",
-  "address": "3608 Buckman Rd",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "22309",
-  "area": "FAIRFAX",
-  "lat": 38.739143,
-  "lon": -77.094557,
-  "program": "LIHTC",
-  "totalUnits": 204,
-  "affordableUnits": 145,
-  "incomeCeiling": 50,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 40,
-   "2": 68,
-   "3": 37
-  },
-  "yearPlacedInService": 2012,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 3.9,
-  "metroStation": "Huntington",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1730,
-   "1": 1790,
-   "2": 1990,
-   "3": 2510,
-   "4": 2950
-  }
- },
- {
-  "id": "lihtc-VAA20100065",
-  "name": "Strawbridge Square",
-  "address": "5144 Lincoln Ave",
-  "city": "Alexandria",
-  "state": "VA",
-  "zip": "22312",
-  "area": "FAIRFAX",
-  "lat": 38.812973,
-  "lon": -77.150468,
-  "program": "LIHTC",
-  "totalUnits": 128,
-  "affordableUnits": 127,
-  "incomeCeiling": 60,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2010,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.5,
-  "metroStation": "Van Dorn Street",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1990,
-   "1": 2050,
-   "2": 2290,
-   "3": 2890,
-   "4": 3400
-  }
- },
- {
   "id": "hud-800022084",
   "name": "Strawbridge Square Associates",
   "address": "5131 - 6399 Strawbridge",
@@ -49968,7 +49223,7 @@
   "program": "HUD",
   "totalUnits": 128,
   "affordableUnits": 128,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    1,
    2,
@@ -49981,7 +49236,7 @@
    "3": 36,
    "4": 20
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2010,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 1.5,
@@ -50139,16 +49394,16 @@
   }
  },
  {
-  "id": "lihtc-VAA20060808",
-  "name": "Tysons Landing Apartments",
-  "address": "1916 Tysons Landing Ct",
+  "id": "hud-800021676",
+  "name": "Tysons Landing Ltd",
+  "address": "1840A Tysons Landing Ct",
   "city": "Mc Lean",
   "state": "VA",
   "zip": "22102",
   "area": "FAIRFAX",
-  "lat": 38.916134,
-  "lon": -77.20979899999999,
-  "program": "LIHTC",
+  "lat": 38.916374,
+  "lon": -77.20993,
+  "program": "HUD",
   "totalUnits": 40,
   "affordableUnits": 40,
   "incomeCeiling": 60,
@@ -50163,54 +49418,6 @@
    "3": 15
   },
   "yearPlacedInService": 2006,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.6,
-  "metroStation": "Mclean",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2640,
-   "1": 2730,
-   "2": 3040,
-   "3": 3840,
-   "4": 4510
-  }
- },
- {
-  "id": "hud-800021676",
-  "name": "Tysons Landing Ltd",
-  "address": "1840A Tysons Landing Ct",
-  "city": "Mc Lean",
-  "state": "VA",
-  "zip": "22102",
-  "area": "FAIRFAX",
-  "lat": 38.916374,
-  "lon": -77.20993,
-  "program": "HUD",
-  "totalUnits": 40,
-  "affordableUnits": 40,
-  "incomeCeiling": null,
-  "bedrooms": [
-   1,
-   2,
-   3
-  ],
-  "unitMix": {
-   "1": 8,
-   "2": 17,
-   "3": 15
-  },
-  "yearPlacedInService": null,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 0.6,
@@ -58813,7 +58020,7 @@
    "0": 26,
    "1": 30
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2020,
   "seniorOnly": true,
   "disabilityOnly": false,
   "metroMiles": 2.1,
@@ -58827,47 +58034,6 @@
   "source": {
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1970,
-   "1": 2040,
-   "2": 2270,
-   "3": 2870,
-   "4": 3370
-  }
- },
- {
-  "id": "md-10840",
-  "name": "Bauer Park Apartments",
-  "address": "14635 Bauer Drive",
-  "city": "Rockville",
-  "state": "MD",
-  "zip": "20853",
-  "area": "MONTGOMERY",
-  "lat": 39.095469,
-  "lon": -77.108692,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 142,
-  "affordableUnits": 142,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2020,
-  "seniorOnly": true,
-  "disabilityOnly": false,
-  "metroMiles": 2.2,
-  "metroStation": "Rockville",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -62890,47 +62056,6 @@
   }
  },
  {
-  "id": "md-10937",
-  "name": "Park Montgomery West 9%",
-  "address": "8856 Piney Branch Road",
-  "city": "Silver Spring",
-  "state": "MD",
-  "zip": "20903",
-  "area": "MONTGOMERY",
-  "lat": 39.000153,
-  "lon": -76.992247,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 76,
-  "affordableUnits": 76,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2023,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 2.1,
-  "metroStation": "Silver Spring",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1860,
-   "1": 1920,
-   "2": 2140,
-   "3": 2700,
-   "4": 3170
-  }
- },
- {
   "id": "lihtc-MDA20190010",
   "name": "Park View at Aspen Hill",
   "address": "3136 Bel Pre Road",
@@ -63936,14 +63061,14 @@
   "program": "HUD",
   "totalUnits": 70,
   "affordableUnits": 5,
-  "incomeCeiling": null,
+  "incomeCeiling": 60,
   "bedrooms": [
    2
   ],
   "unitMix": {
    "2": 5
   },
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2019,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 2.8,
@@ -63957,46 +63082,6 @@
   "source": {
    "dataset": "HUD Multifamily Assisted Properties",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2930,
-   "1": 3020,
-   "2": 3370,
-   "3": 4250,
-   "4": 5000
-  }
- },
- {
-  "id": "lihtc-MDA20190017",
-  "name": "Scotland Townhomes",
-  "address": "7800 Scotland Drive",
-  "city": "Potomac",
-  "state": "MD",
-  "zip": "20854",
-  "area": "MONTGOMERY",
-  "lat": 39.031805999999996,
-  "lon": -77.15979399999999,
-  "program": "LIHTC",
-  "totalUnits": 75,
-  "affordableUnits": 49,
-  "incomeCeiling": 60,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2019,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 2.8,
-  "metroStation": "North Bethesda",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -64669,46 +63754,6 @@
   }
  },
  {
-  "id": "lihtc-MDA20010082",
-  "name": "Stewartown Apartments",
-  "address": "9310 Merust Ln",
-  "city": "Gaithersburg",
-  "state": "MD",
-  "zip": "20879",
-  "area": "MONTGOMERY",
-  "lat": 39.178202999999996,
-  "lon": -77.192638,
-  "program": "LIHTC",
-  "totalUnits": 94,
-  "affordableUnits": 94,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2001,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 4.3,
-  "metroStation": "Shady Grove",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1880,
-   "1": 1940,
-   "2": 2160,
-   "3": 2730,
-   "4": 3200
-  }
- },
- {
   "id": "hud-800009437",
   "name": "Stewartown Homes",
   "address": "9310 Merust Lane",
@@ -64720,11 +63765,11 @@
   "lon": -77.19242,
   "program": "HUD",
   "totalUnits": 94,
-  "affordableUnits": 0,
+  "affordableUnits": 94,
   "incomeCeiling": null,
   "bedrooms": [],
   "unitMix": {},
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2001,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 4.3,
@@ -64927,47 +63972,6 @@
   "lon": -77.010775,
   "program": "LIHTC",
   "totalUnits": 132,
-  "affordableUnits": null,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": null,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.2,
-  "metroStation": "Silver Spring",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "HUD LIHTC Database",
-   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1760,
-   "1": 1810,
-   "2": 2020,
-   "3": 2550,
-   "4": 3000
-  }
- },
- {
-  "id": "md-10145",
-  "name": "Tanglewood Sligo Hills Apartments",
-  "address": "8900 Manchester Road 8902 8904 9000 Manchester Rd",
-  "city": "Silver Spring",
-  "state": "MD",
-  "zip": "20901",
-  "area": "MONTGOMERY",
-  "lat": 39.001239,
-  "lon": -77.010619,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 132,
   "affordableUnits": 132,
   "incomeCeiling": null,
   "bedrooms": [],
@@ -64984,8 +63988,8 @@
    "email": null
   },
   "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
+   "dataset": "HUD LIHTC Database",
+   "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -66050,47 +65054,6 @@
   "source": {
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 2080,
-   "1": 2140,
-   "2": 2390,
-   "3": 3020,
-   "4": 3550
-  }
- },
- {
-  "id": "md-5809",
-  "name": "Wheaton Metro Kiss & Ride Development Aka Metropoi",
-  "address": "11171 Georgia Ave",
-  "city": "Wheaton",
-  "state": "MD",
-  "zip": "20902",
-  "area": "MONTGOMERY",
-  "lat": 39.037728,
-  "lon": -77.050493,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 53,
-  "affordableUnits": 53,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2009,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 0.0,
-  "metroStation": "Wheaton",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -68181,11 +67144,11 @@
   "lon": -76.86146,
   "program": "HUD",
   "totalUnits": 238,
-  "affordableUnits": 0,
+  "affordableUnits": 114,
   "incomeCeiling": null,
   "bedrooms": [],
   "unitMix": {},
-  "yearPlacedInService": null,
+  "yearPlacedInService": 2017,
   "seniorOnly": false,
   "disabilityOnly": false,
   "metroMiles": 1.6,
@@ -68279,47 +67242,6 @@
   "seniorOnly": true,
   "disabilityOnly": false,
   "metroMiles": 1.7,
-  "metroStation": "New Carrollton",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1790,
-   "1": 1850,
-   "2": 2060,
-   "3": 2600,
-   "4": 3060
-  }
- },
- {
-  "id": "md-10512",
-  "name": "Glenarden Phase I",
-  "address": "8405 Hamlin Street",
-  "city": "Lanham",
-  "state": "MD",
-  "zip": "20706",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.926199,
-  "lon": -76.86158,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 114,
-  "affordableUnits": 114,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2017,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.6,
   "metroStation": "New Carrollton",
   "contact": {
    "name": null,
@@ -69817,47 +68739,6 @@
   "source": {
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1430,
-   "1": 1470,
-   "2": 1640,
-   "3": 2070,
-   "4": 2430
-  }
- },
- {
-  "id": "md-5436",
-  "name": "Mt. Rainer Artist Apartments",
-  "address": "3801 33rd St",
-  "city": "Mount Rainier",
-  "state": "MD",
-  "zip": "20712",
-  "area": "PRINCE_GEORGES",
-  "lat": 38.936732,
-  "lon": -76.961799,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 12,
-  "affordableUnits": 12,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2002,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 1.3,
-  "metroStation": "West Hyattsville",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
    "retrieved": "2026-10-25"
   },
   "marketRent": {
@@ -75330,47 +74211,6 @@
    "dataset": "HUD LIHTC Database",
    "url": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/LIHTC/FeatureServer/0",
    "retrieved": "2026-10-25"
-  }
- },
- {
-  "id": "md-10986",
-  "name": "Charles Landing",
-  "address": "41 Jameson Court",
-  "city": "Indian Head",
-  "state": "MD",
-  "zip": "20640",
-  "area": "SOUTHERN_MD",
-  "lat": 38.595826,
-  "lon": -77.157285,
-  "program": "LIHTC",
-  "subsidy": "md",
-  "totalUnits": 60,
-  "affordableUnits": 60,
-  "incomeCeiling": null,
-  "bedrooms": [],
-  "unitMix": {},
-  "yearPlacedInService": 2023,
-  "seniorOnly": false,
-  "disabilityOnly": false,
-  "metroMiles": 11.8,
-  "metroStation": "Franconia-Springfield",
-  "contact": {
-   "name": null,
-   "org": null,
-   "phone": null,
-   "email": null
-  },
-  "source": {
-   "dataset": "Maryland DHCD Multifamily Sites (MD iMAP)",
-   "url": "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0",
-   "retrieved": "2026-10-25"
-  },
-  "marketRent": {
-   "0": 1800,
-   "1": 1860,
-   "2": 2070,
-   "3": 2610,
-   "4": 3070
   }
  },
  {
