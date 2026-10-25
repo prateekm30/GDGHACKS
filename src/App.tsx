@@ -5,6 +5,7 @@ import { ResultsStep } from './components/ResultsStep'
 import { BasicsForm, sanitizeBasics, toSituation, type Basics } from './components/BasicsForm'
 import { Landing } from './components/Landing'
 import { HowItWorks } from './components/HowItWorks'
+import { About } from './components/About'
 import { SnapForm } from './components/SnapForm'
 import { LogoMark } from './components/Logo'
 import { Button, Card, money, Note, StepIndicator } from './components/ui'
@@ -24,15 +25,16 @@ const ROUNDS = 8
 const MIN_POOL = ROUNDS * 2
 const BASICS_KEY = 'homepick.basics'
 
-type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap' | 'how'
-const STEPS: readonly Step[] = ['start', 'basics', 'pick', 'results', 'snap', 'how']
+type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap' | 'how' | 'about'
+const STEPS: readonly Step[] = ['start', 'basics', 'pick', 'results', 'snap', 'how', 'about']
 const TITLES: Record<Step, string> = {
   start: 'HomePick DMV: find a home you can afford',
-  basics: 'Your basics · HomePick DMV',
+  basics: 'Check what fits your income · HomePick DMV',
   pick: 'Which would you rather live in? · HomePick DMV',
   results: 'Your top matches · HomePick DMV',
   snap: 'Snap a form · HomePick DMV',
   how: 'How it works · HomePick DMV',
+  about: 'Our goal: income-restricted housing, made findable · HomePick DMV',
 }
 const stepFromState = (state: unknown): Step => {
   const s = (state as { step?: unknown } | null)?.step
@@ -343,7 +345,10 @@ export default function App() {
         <button type="button" onClick={() => go('how')} aria-current={step === 'how' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[480px]:inline-flex sm:text-sm">
           How it works
         </button>
-        {step === 'start' || step === 'how' ? (
+        <button type="button" onClick={() => go('about')} aria-current={step === 'about' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[560px]:inline-flex sm:text-sm">
+          Our goal
+        </button>
+        {step === 'start' || step === 'how' || step === 'about' ? (
           <button type="button" onClick={begin} className="inline-flex min-h-9 items-center rounded-full bg-dusk px-3.5 text-xs font-bold text-white transition hover:bg-ink sm:text-sm">
             Start
           </button>
@@ -354,11 +359,12 @@ export default function App() {
         )}
       </nav>
 
-      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' || step === 'how' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 pb-5 pt-20 sm:pb-8 sm:pt-24'}`}>
+      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' || step === 'how' || step === 'about' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 pb-5 pt-20 sm:pb-8 sm:pt-24'}`}>
+        {step === 'about' && <About buildings={buildings} limits={limits} onBegin={begin} onHow={() => go('how')} />}
         {step === 'how' && (
           <HowItWorks buildings={buildings} limits={limits} searchLabel={areas.size === 0 ? 'Search all of the DMV' : `Search ${areas.size} ${areas.size === 1 ? 'area' : 'areas'}`} onBegin={begin} onSnap={() => go('snap')} />
         )}
-        {step !== 'start' && step !== 'snap' && step !== 'how' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
+        {step !== 'start' && step !== 'snap' && step !== 'how' && step !== 'about' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
             Sample data. These buildings are made up for testing. Real HUD data loads once the data pipeline runs.
@@ -401,6 +407,7 @@ export default function App() {
             onSnap={() => go('snap')}
             firstVisit={introRan.current}
             onHow={() => go('how')}
+            onAbout={() => go('about')}
           />
         )}
 
@@ -473,7 +480,7 @@ export default function App() {
         )}
       </main>
 
-      {step !== 'how' && (
+      {step !== 'how' && step !== 'about' && (
         <div aria-hidden className="dusk-fade no-print pt-10">
           <Skyline night className="block h-24 w-full sm:h-32" />
         </div>
@@ -481,6 +488,11 @@ export default function App() {
       <footer className="no-print bg-dusk text-white/85">
         <div aria-hidden className="metro-stripe h-1.5" />
         <div className="mx-auto max-w-6xl space-y-1 px-4 py-8 text-xs">
+          <p className="mb-2 flex flex-wrap gap-x-4 gap-y-1 text-sm font-semibold text-white">
+            <button type="button" onClick={() => go('about')} className="underline-offset-4 hover:underline">Our goal</button>
+            <button type="button" onClick={() => go('how')} className="underline-offset-4 hover:underline">How it works</button>
+            <a href="https://github.com/prateekm30/GDGHACKS" target="_blank" rel="noreferrer" className="underline-offset-4 hover:underline">Open source (MIT)</a>
+          </p>
           <p>
             Data: HUD LIHTC, Multifamily, and Public Housing datasets; USDA Rural Development rentals; DC DHCD, Maryland DHCD, and City of Alexandria affordable housing lists. County outlines: U.S. Census TIGERweb. Income limits {limits.effective}{' '}
             for the Washington-Arlington-Alexandria HUD metro area. Not affiliated with HUD or any local government.

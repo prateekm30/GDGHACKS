@@ -199,11 +199,14 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
     >
       <div className="space-y-9">
         <div>
-          <p className="font-hand text-2xl text-brand-strong">let's get to know you</p>
+          <p className="font-hand text-2xl text-brand-strong">let's see what fits</p>
           <h1 id="basics-heading" className="text-3xl font-extrabold sm:text-4xl">
-            First, the basics
+            Check what you may qualify for
           </h1>
-          <p className="mt-1 text-sm text-ink-soft">About a minute. Everything stays on this device.</p>
+          <p className="mt-1 text-sm text-ink-soft">
+            Income-restricted buildings each have an income limit. Tell us your household and income once, and we only show the ones you appear to fit.
+            About a minute. Everything stays on this device.
+          </p>
         </div>
 
         <Question n={1} title="Who's moving in, including you?">

@@ -36,7 +36,7 @@ async function settle(p, ms = 900) {
     await p.goto(url)
     await settle(p, 1500)
     await p.getByRole('button', { name: /^Search all/ }).first().click()
-    await p.getByText('First, the basics').waitFor()
+    await p.getByRole('heading', { level: 1, name: /Check what you may qualify/ }).waitFor()
     await p.locator('input[inputmode=decimal]').fill('52000')
     await p.waitForTimeout(700)
     await p.screenshot({ path: `${out}/${name}-2-basics.png`, fullPage: true })

@@ -6,8 +6,9 @@ import { AreaChecklist, DmvMap } from './DmvMap'
 import { HeroReel } from './HeroReel'
 import { Petals } from './Petals'
 import { Skyline } from './Skyline'
+import { money } from './ui'
 
-const HEADLINE = ['Find', 'a', 'home', 'you', 'can', 'afford,']
+const HEADLINE = ['Income-restricted', 'homes', 'you', 'can', 'actually', 'afford,']
 const HEADLINE_2 = ['one', 'pick', 'at', 'a', 'time.']
 
 function Cloud({ className }: { className: string }) {
@@ -33,6 +34,7 @@ export function Landing({
   onSnap,
   firstVisit = false,
   onHow,
+  onAbout,
 }: {
   buildings: Building[] | null
   limits: IncomeLimits
@@ -45,6 +47,7 @@ export function Landing({
   /** The intro zoom is playing: hold the headline words back until the page has settled. */
   firstVisit?: boolean
   onHow: () => void
+  onAbout: () => void
 }) {
   const revealRef = useReveal<HTMLDivElement>()
   const counts = useMemo(() => {
@@ -92,7 +95,7 @@ export function Landing({
           <div className="px-copy min-w-0 space-y-4">
             <p className="eyebrow flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.22em] text-ink/70">
               <span aria-hidden className="metro-stripe h-px w-10" />
-              First-time renters · DC, Maryland, Virginia
+              Income-restricted apartments · DC, Maryland, Virginia
             </p>
             <h1 id="start-heading" className="text-[2.6rem] font-extrabold leading-[0.98] text-ink sm:text-6xl lg:text-[3.25rem] xl:text-6xl">
               {HEADLINE.map((word) => (
@@ -119,8 +122,16 @@ export function Landing({
               </span>
             </h1>
             <p className="max-w-xl text-base text-ink sm:text-lg lg:text-base xl:text-lg">
-              Compare real income-restricted buildings two at a time. HomePick learns what you like, estimates what you'd pay,
-              and hands you a shortlist.
+              Income-restricted means the rent is capped, or set by your income, because the building took public money. Earn under the
+              limit and you can apply: in 2026 that is up to <strong>{money(limits.mtsp['60'][0] ?? 0)}</strong> a year for one person at most tax-credit buildings.{' '}
+              <button type="button" onClick={onAbout} className="font-semibold text-brand-strong underline decoration-2 underline-offset-4 hover:text-brand">
+                What is income-restricted housing?
+              </button>
+            </p>
+            <p className="flex flex-wrap gap-x-4 gap-y-1 text-xs font-bold uppercase tracking-[0.14em] text-ink/70">
+              <span>{chosenCount === null ? '…' : chosenCount.toLocaleString('en-US')} income-restricted buildings</span>
+              <span>{chosenHomes ? `about ${Math.round(chosenHomes / 1000).toLocaleString('en-US')},000 homes` : '…'}</span>
+              <span>Public records only</span>
             </p>
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">

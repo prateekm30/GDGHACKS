@@ -21,7 +21,7 @@ async function waitFor(url, ms = 30000) { const t0 = Date.now(); while (Date.now
     await p.waitForTimeout(2200)
     await p.screenshot({ path: `${OUT}${tag}-2-landing.png` })
     const sw = await p.evaluate(() => document.documentElement.scrollWidth); if (sw > w) errors.push(`${tag} landing sideways ${sw}`)
-    await p.getByRole('button', { name: /^Search all/ }).first().click(); await p.getByText('First, the basics').waitFor()
+    await p.getByRole('button', { name: /^Search all/ }).first().click(); await p.getByRole('heading', { level: 1, name: /Check what you may qualify/ }).waitFor()
     await p.locator('input[inputmode=decimal]').fill('52000'); await p.waitForTimeout(600)
     await p.screenshot({ path: `${OUT}${tag}-3-basics.png` })
     await p.getByRole('button', { name: 'Start picking' }).click()

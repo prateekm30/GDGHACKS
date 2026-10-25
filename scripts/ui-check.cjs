@@ -38,13 +38,13 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
   await p.goto(URL)
   await p.waitForTimeout(800)
   const h1 = await p.locator('h1').first().innerText()
-  if (!/Find a home you can afford, one pick at a time\./.test(h1.replace(/\s+/g, ' '))) fail(`${tag} start: headline text is "${h1}"`)
+  if (!/Income-restricted homes you can actually afford, one pick at a time\./.test(h1.replace(/\s+/g, ' '))) fail(`${tag} start: headline text is "${h1}"`)
   const sw = await p.evaluate(() => document.documentElement.scrollWidth)
   if (sw > viewport.width) fail(`${tag} start: sideways scroll (${sw}px)`)
   await axe(p, `${tag} start`)
 
   await p.getByRole('button', { name: /^Search all/ }).first().click()
-  await p.getByText('First, the basics').waitFor()
+  await p.getByRole('heading', { level: 1, name: /Check what you may qualify/ }).waitFor()
   await p.locator('input[inputmode=decimal]').fill('52000')
   await p.waitForTimeout(900) // let entrance animations finish, or axe reads mid-fade colors
   await axe(p, `${tag} basics`)

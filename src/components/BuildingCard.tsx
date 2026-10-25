@@ -61,8 +61,18 @@ export function summary(b: Building, a: Assessment): string {
   return [`${b.name}, ${areaLabel(b.area)}`, cost, limit].filter(Boolean).join('. ')
 }
 
+/** Every card says the main thing first: this is income-restricted housing. The program is the detail. */
 function programBadge(b: Building) {
   return { text: programLabel(b), cls: b.program === 'HUD' ? 'bg-mint text-ink' : 'bg-white/95 text-brand-strong' }
+}
+function ProgramBadge({ b, compact = false }: { b: Building; compact?: boolean }) {
+  const pb = programBadge(b)
+  return (
+    <span className={`absolute left-2 top-2 z-10 flex max-w-[calc(100%-1rem)] flex-col rounded-xl px-2 py-1 shadow-sm sm:left-3 sm:top-3 sm:px-2.5 ${pb.cls}`}>
+      <span className="text-[9px] font-extrabold uppercase leading-tight tracking-[0.14em] sm:text-[10px]">Income-restricted</span>
+      <span className={`truncate font-bold leading-tight ${compact ? 'text-[10px] sm:text-xs' : 'text-xs'}`}>{pb.text}</span>
+    </span>
+  )
 }
 
 /** DC covenants list homes by income tier; show it so "up to 80%" does not hide the 30% homes. */
@@ -268,7 +278,6 @@ export function BuildingCard({
   badge?: ReactNode
   /** Results page: lets the card send the person back to the basics to add an income. */
 }) {
-  const pb = programBadge(b)
   const info = areaInfo(b.area)
   const bedroomText = b.bedrooms.length
     ? Math.min(...b.bedrooms) === Math.max(...b.bedrooms)
@@ -305,7 +314,7 @@ export function BuildingCard({
       <article className="flex h-full flex-col text-left">
         <div className="relative">
           <BuildingPhoto b={b} className="h-20 sm:h-40" single />
-          <span className={`absolute left-2 top-2 z-10 rounded-full px-2 py-0.5 text-[10px] font-bold shadow-sm sm:text-xs ${pb.cls}`}>{pb.text}</span>
+          <ProgramBadge b={b} compact />
           {badge}
         </div>
         <div className="flex flex-1 flex-col gap-2 p-2.5 sm:gap-3 sm:p-4">
@@ -391,7 +400,7 @@ export function BuildingCard({
     <article className="flex h-full flex-col text-left">
       <div className="relative">
         <BuildingPhoto b={b} className="h-44 sm:h-48" />
-        <span className={`absolute left-3 top-3 z-10 rounded-full px-2.5 py-1 text-xs font-bold shadow-sm ${pb.cls}`}>{pb.text}</span>
+        <ProgramBadge b={b} />
         {badge}
       </div>
       <div className="flex flex-1 flex-col gap-3.5 p-5">
