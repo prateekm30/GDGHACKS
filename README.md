@@ -21,10 +21,10 @@ The AI routes (`/api/*`) run on Vercel. Locally, use `npx vercel dev` with `GEMI
 (copy `.env.example`). Without a key, Snap a form still works with the sample form (cached result) and
 falls back to highlighted lines.
 
-Street View photos need `VITE_GOOGLE_MAPS_KEY` (a browser key restricted to the site's address and to the
-Street View Static API). `VITE_` variables are baked into the page at build time, so after adding or changing
-one in Vercel, redeploy **without** "Use existing Build Cache" (or push a commit); a cached redeploy keeps the
-old bundle. `/api/health` lists the names of the Google variables the deployment can see, never the values.
+Street View photos need `GOOGLE_MAPS_BROWSER_KEY` (or `VITE_GOOGLE_MAPS_KEY`): a browser key restricted in
+Google Cloud to the site's address and to the Street View Static API. The page reads it from `/api/config` at
+runtime, so adding it in Vercel needs no rebuild. It is public by design; the restrictions are what protect it.
+`/api/health` lists the names of the Google variables the deployment can see, never the values.
 
 ## AI model
 
@@ -149,7 +149,7 @@ Google Fonts. Security headers (CSP, frame-ancestors, nosniff, referrer policy) 
 - 2026 income limits for the Washington-Arlington-Alexandria HUD Metro FMR Area (MTSP and Section 8)
 - WMATA Metro station locations (Open Data DC)
 - Aerial imagery: Esri World Imagery (Esri, Maxar, Earthstar Geographics)
-- Street-level photos: Google Street View Static API (when a `VITE_GOOGLE_MAPS_KEY` is set), shown with Google's own attribution
+- Street-level photos: Google Street View Static API (when a browser key is set), shown with Google's own attribution
 - Gemma 4 via the Gemini API
 - React, Vite, Tailwind CSS, pdf.js (Apache-2.0), Tesseract.js (Apache-2.0)
 

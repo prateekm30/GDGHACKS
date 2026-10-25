@@ -13,6 +13,7 @@ import { HUBS, milesBetween } from './lib/areas'
 import { fit, nextPair, priorFor, rank, shortlistFrom, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
 import { withTransition } from './lib/motion'
+import { loadStreetViewKey } from './lib/streetview'
 import { Skyline } from './components/Skyline'
 import { Lamp } from './components/Lamp'
 
@@ -133,6 +134,9 @@ export default function App() {
   useEffect(() => {
     document.title = TITLES[step]
   }, [step])
+
+  // Street View photos switch on when a (public, site-restricted) key is configured.
+  useEffect(loadStreetViewKey, [])
 
   function begin() {
     setPicks([])
