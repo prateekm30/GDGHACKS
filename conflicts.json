@@ -1,0 +1,1437 @@
+[
+ {
+  "id": "alx-a723301da9",
+  "name": "Acclaim at Alexandria",
+  "address": "318 S Whiting St, Alexandria, VA ",
+  "feetApart": 645,
+  "addressPanoToHud": 363
+ },
+ {
+  "id": "alx-973cb1d7ca",
+  "name": "Alexan Florence",
+  "address": "600 North Royal Street, Alexandria, VA ",
+  "feetApart": 4411,
+  "addressPanoToHud": 4461
+ },
+ {
+  "id": "hud-800022119",
+  "name": "Bellefonte Apartments",
+  "address": "417 E. Bellefonte Ave, Alexandria, VA 22301",
+  "feetApart": 427,
+  "addressPanoToHud": 416
+ },
+ {
+  "id": "hud-800021802",
+  "name": "Edsall Station Apartments",
+  "address": "6272 Edsall Rd, Alexandria, VA 22312",
+  "feetApart": 647,
+  "addressPanoToHud": 683
+ },
+ {
+  "id": "alx-be3fac58d8",
+  "name": "Del Ray Central",
+  "address": "3051 Mount Vernon Av, Alexandria, VA ",
+  "feetApart": 343,
+  "addressPanoToHud": 342
+ },
+ {
+  "id": "alx-772a527f83",
+  "name": "Silverstone Senior Living",
+  "address": "2602 Main Line Boulevard, Alexandria, VA ",
+  "feetApart": 337,
+  "addressPanoToHud": 241
+ },
+ {
+  "id": "lihtc-VAA20100937",
+  "name": "Station at Potomac Yard",
+  "address": "2501 Jefferson Davis Hwy, Alexandria, VA 22301",
+  "feetApart": 4497,
+  "addressPanoToHud": 4493
+ },
+ {
+  "id": "lihtc-VAA20140002",
+  "name": "Arlington Mill",
+  "address": "901 S Dinwiddie St, Arlington, VA 22204",
+  "feetApart": 1005,
+  "addressPanoToHud": 1013
+ },
+ {
+  "id": "lihtc-VAA20010483",
+  "name": "Historic Ballston Park",
+  "address": "351 N Glebe Rd, Arlington, VA 22203",
+  "feetApart": 477,
+  "addressPanoToHud": 424
+ },
+ {
+  "id": "hud-800021912",
+  "name": "Knightsbridge",
+  "address": "204 N Thomas St, Arlington, VA 22203",
+  "feetApart": 425,
+  "addressPanoToHud": 428
+ },
+ {
+  "id": "hud-800021937",
+  "name": "Lockwood House",
+  "address": "600 N Madison St, Arlington, VA 22203",
+  "feetApart": 439,
+  "addressPanoToHud": 477
+ },
+ {
+  "id": "lihtc-VAA20010145",
+  "name": "Patrick Henry",
+  "address": "6158 Wilson Blvd, Arlington, VA 22205",
+  "feetApart": 414,
+  "addressPanoToHud": 356
+ },
+ {
+  "id": "dc-60543",
+  "name": "1600 Good Hope Rd SE",
+  "address": "1600 Good Hope Road SE, Washington, DC 20020",
+  "feetApart": 4611,
+  "addressPanoToHud": 4625
+ },
+ {
+  "id": "dc-150176",
+  "name": "1847-9 Good Hope Rd SE Renovation TOPA",
+  "address": "1847 Good Hope Road SE, Washington, DC 20020",
+  "feetApart": 3587,
+  "addressPanoToHud": 3573
+ },
+ {
+  "id": "dc-284377",
+  "name": "2384 Champlain Street NW",
+  "address": "2384 Champlain Street NW, Washington, DC 20009",
+  "feetApart": 846,
+  "addressPanoToHud": 780
+ },
+ {
+  "id": "dc-330286",
+  "name": "8th and T Street, NW",
+  "address": "812 A T Street NW, Washington, DC 20001",
+  "feetApart": 1746,
+  "addressPanoToHud": 1704
+ },
+ {
+  "id": "dc-296061",
+  "name": "Archer Park (Wing I)",
+  "address": "1200 Mississippi Avenue SE, Washington, DC 20032",
+  "feetApart": 416,
+  "addressPanoToHud": 331
+ },
+ {
+  "id": "hud-800025410",
+  "name": "Atlantic Terrace",
+  "address": "4301 Third St S.e., Washington, DC 20032",
+  "feetApart": 529,
+  "addressPanoToHud": 540
+ },
+ {
+  "id": "hud-800003681",
+  "name": "Benning Park Apartments",
+  "address": "5113 Fitch St SE, Washington, DC 20019",
+  "feetApart": 5673,
+  "addressPanoToHud": 5803
+ },
+ {
+  "id": "hud-800025216",
+  "name": "Benning Road Apartments",
+  "address": "4461 Benning Road SE, Washington, DC 20019",
+  "feetApart": 3026,
+  "addressPanoToHud": 3010
+ },
+ {
+  "id": "ph-DC001002220",
+  "name": "Benning Terrace",
+  "address": "645 46th St SE, Washington, DC 20019",
+  "feetApart": 418,
+  "addressPanoToHud": 393
+ },
+ {
+  "id": "lihtc-DCB20060050",
+  "name": "Capital Gateway Single Family Rental",
+  "address": "250 58th St NE, Washington, DC 20019",
+  "feetApart": 785,
+  "addressPanoToHud": 796
+ },
+ {
+  "id": "lihtc-DCB20070035",
+  "name": "Carver Senior Apartments",
+  "address": "4800 E Capitol St NE, Washington, DC 20019",
+  "feetApart": 1474,
+  "addressPanoToHud": 1472
+ },
+ {
+  "id": "hud-800000023",
+  "name": "Casa Iris",
+  "address": "2201 Twelveth St NW, Washington, DC 20009",
+  "feetApart": 2994,
+  "addressPanoToHud": 3061
+ },
+ {
+  "id": "hud-800003694",
+  "name": "Claypoole Courts",
+  "address": "1445 Fairmont St. NW, Washington, DC 20009",
+  "feetApart": 354,
+  "addressPanoToHud": 346
+ },
+ {
+  "id": "lihtc-DCB20020015",
+  "name": "Douglas Knoll Cooperative",
+  "address": "1900 Savannah Ter SE, Washington, DC 20020",
+  "feetApart": 396,
+  "addressPanoToHud": 395
+ },
+ {
+  "id": "hud-800053918",
+  "name": "Dupont Park Adventist Apartments",
+  "address": "896 Southern Ave SE, Washington, DC 20032",
+  "feetApart": 443,
+  "addressPanoToHud": 390
+ },
+ {
+  "id": "dc-242974",
+  "name": "Eden (2360 Champlain Street NW)",
+  "address": "2360 Champlain Street NW, Washington, DC 20009",
+  "feetApart": 766,
+  "addressPanoToHud": 731
+ },
+ {
+  "id": "hud-800003706",
+  "name": "Edgewood Terrace IV",
+  "address": "611 Edgewood St NE, Washington, DC 20017",
+  "feetApart": 525,
+  "addressPanoToHud": 483
+ },
+ {
+  "id": "hud-800253468",
+  "name": "Edgewood V",
+  "address": "435 Edgewood St NE, Washington, DC 20017",
+  "feetApart": 362,
+  "addressPanoToHud": 387
+ },
+ {
+  "id": "lihtc-DCB20110070",
+  "name": "Fairway Park Apartments",
+  "address": "2100 Maryland Ave NE, Washington, DC 20002",
+  "feetApart": 786,
+  "addressPanoToHud": 768
+ },
+ {
+  "id": "hud-800243935",
+  "name": "Fort Chaplin Apartments",
+  "address": "4212 E Capitol St NE, Washington, DC 20019",
+  "feetApart": 375,
+  "addressPanoToHud": 372
+ },
+ {
+  "id": "ph-DC001001640",
+  "name": "Fort Lincoln",
+  "address": "2855 Bladensburg Rd NE, Washington, DC 20018",
+  "feetApart": 565,
+  "addressPanoToHud": 561
+ },
+ {
+  "id": "hud-800003716",
+  "name": "Fort Lincoln Senior Village III (Petersburg)",
+  "address": "3298 Ft. Lincoln Dr NE, Washington, DC 20018",
+  "feetApart": 1626,
+  "addressPanoToHud": 1607
+ },
+ {
+  "id": "hud-800003720",
+  "name": "Franklin Commons",
+  "address": "101 Franklin St NE, Washington, DC 20002",
+  "feetApart": 335,
+  "addressPanoToHud": 325
+ },
+ {
+  "id": "dc-306510",
+  "name": "Gainesville Court",
+  "address": "1808 Gainesville Street SE, Washington, DC 20020",
+  "feetApart": 1095,
+  "addressPanoToHud": 1014
+ },
+ {
+  "id": "ph-DC001001370",
+  "name": "Garifield Terrace",
+  "address": "2371 11th St NW, Washington, DC 20001",
+  "feetApart": 347,
+  "addressPanoToHud": 328
+ },
+ {
+  "id": "ph-DC001005290",
+  "name": "Glenncrest",
+  "address": "5077 Kimi Gray Ct SE, Washington, DC 20019",
+  "feetApart": 455,
+  "addressPanoToHud": 506
+ },
+ {
+  "id": "dc-286132",
+  "name": "Hecht's Warehouse District",
+  "address": "1401 New York Avenue NE, Washington, DC 20002",
+  "feetApart": 7582,
+  "addressPanoToHud": 137
+ },
+ {
+  "id": "ph-DC001003300",
+  "name": "Hopkins Apartments",
+  "address": "1000 K St SE, Washington, DC 20003",
+  "feetApart": 1455,
+  "addressPanoToHud": 1472
+ },
+ {
+  "id": "lihtc-DCB20020025",
+  "name": "Huntwood Courts",
+  "address": "5000 Hunt St NE, Washington, DC 20019",
+  "feetApart": 555,
+  "addressPanoToHud": 552
+ },
+ {
+  "id": "hud-800003742",
+  "name": "Ivy City",
+  "address": "1050 Mount Olivet Rd NE, Washington, DC 20002",
+  "feetApart": 501,
+  "addressPanoToHud": 489
+ },
+ {
+  "id": "lihtc-DCB20110801",
+  "name": "Kuehner House",
+  "address": "1667 Good Hope Rd SE, Washington, DC 20020",
+  "feetApart": 4220,
+  "addressPanoToHud": 4208
+ },
+ {
+  "id": "dc-337368",
+  "name": "Lisner Home Senior Residential",
+  "address": "5455 Western Avenue NW, Washington, DC 20015",
+  "feetApart": 345,
+  "addressPanoToHud": 237
+ },
+ {
+  "id": "lihtc-DCB20110035",
+  "name": "Matthews Memorial Terrace",
+  "address": "2632 M L K Jr Ave SE, Washington, DC 20020",
+  "feetApart": 375,
+  "addressPanoToHud": 380
+ },
+ {
+  "id": "lihtc-DCB20120802",
+  "name": "Mayfair Mansion III",
+  "address": "3743 Jay St NE, Washington, DC 20019",
+  "feetApart": 367,
+  "addressPanoToHud": 376
+ },
+ {
+  "id": "dc-239763",
+  "name": "NCCLT Scattered Sites",
+  "address": "927 M Street NW, Washington, DC 20001",
+  "feetApart": 2486,
+  "addressPanoToHud": 2554
+ },
+ {
+  "id": "hud-800003780",
+  "name": "Orchard Park",
+  "address": "3627 Twenty Second Street, SE, Washington, DC 20020",
+  "feetApart": 7550,
+  "addressPanoToHud": 7591
+ },
+ {
+  "id": "lihtc-DCB20182001",
+  "name": "Pomeroy Gardens",
+  "address": "2408 Pomeroy Road, SE, Washington, DC 20020",
+  "feetApart": 344,
+  "addressPanoToHud": 381
+ },
+ {
+  "id": "dc-311956",
+  "name": "Reed Row",
+  "address": "2101 Champlain Street NW, Washington, DC 20009",
+  "feetApart": 1388,
+  "addressPanoToHud": 1394
+ },
+ {
+  "id": "dc-319997",
+  "name": "RiverPoint",
+  "address": "2121 1st Street SW, Washington, DC 20024",
+  "feetApart": 406,
+  "addressPanoToHud": 406
+ },
+ {
+  "id": "lihtc-DCB20000045",
+  "name": "Rockburne Estates",
+  "address": "2600 Jasper St SE, Washington, DC 20020",
+  "feetApart": 620,
+  "addressPanoToHud": 623
+ },
+ {
+  "id": "dc-259014",
+  "name": "SOME- Spring Road",
+  "address": "1435 Spring Road NW, Washington, DC 20010",
+  "feetApart": 406,
+  "addressPanoToHud": 386
+ },
+ {
+  "id": "lihtc-DCB20141006",
+  "name": "Severna on K",
+  "address": "43 K St NW, Washington, DC 20001",
+  "feetApart": 415,
+  "addressPanoToHud": 389
+ },
+ {
+  "id": "lihtc-DCB20171003",
+  "name": "St. Stephens Apartments",
+  "address": "4000 Benning Road, NE, Washington, DC 20019",
+  "feetApart": 402,
+  "addressPanoToHud": 399
+ },
+ {
+  "id": "ph-DC001002230",
+  "name": "Stoddert Terrace",
+  "address": "3600 B St SE, Washington, DC 20019",
+  "feetApart": 668,
+  "addressPanoToHud": 675
+ },
+ {
+  "id": "hud-800003786",
+  "name": "Stoneridge Apartments Sec II",
+  "address": "325 Anacostia Rd SE, Washington, DC 20019",
+  "feetApart": 389,
+  "addressPanoToHud": 384
+ },
+ {
+  "id": "lihtc-DCB20162003",
+  "name": "The Arris Workforce",
+  "address": "1331 4th Street, SE, Washington, DC 20003",
+  "feetApart": 4220,
+  "addressPanoToHud": 4099
+ },
+ {
+  "id": "dc-318962",
+  "name": "The Kiley",
+  "address": "600 4th Street SW, Washington, DC 20024",
+  "feetApart": 599,
+  "addressPanoToHud": 503
+ },
+ {
+  "id": "dc-313999",
+  "name": "The Morgan",
+  "address": "2337 Champlain Street NW, Washington, DC 20009",
+  "feetApart": 758,
+  "addressPanoToHud": 839
+ },
+ {
+  "id": "hud-800112248",
+  "name": "The View",
+  "address": "635 Edgewood St NE, Washington, DC 20017",
+  "feetApart": 494,
+  "addressPanoToHud": 442
+ },
+ {
+  "id": "lihtc-DCB20100015",
+  "name": "Voc-Avalon Courts",
+  "address": "820 Southern Ave SE, Washington, DC 20032",
+  "feetApart": 545,
+  "addressPanoToHud": 518
+ },
+ {
+  "id": "dc-334712",
+  "name": "WRAMC - The Hartley (Building IJ)",
+  "address": "7150 12th Street NW, Washington, DC 20012",
+  "feetApart": 1218,
+  "addressPanoToHud": 1196
+ },
+ {
+  "id": "lihtc-DCB20080025",
+  "name": "Wesley House Senior Apartments",
+  "address": "3400 Commodore Joshua Barney Dr NE, Washington, DC 20018",
+  "feetApart": 1197,
+  "addressPanoToHud": 1243
+ },
+ {
+  "id": "lihtc-VAA19960045",
+  "name": "Dulles Center I",
+  "address": "2410 Little Current Dr, Herndon, VA 20171",
+  "feetApart": 424,
+  "addressPanoToHud": 344
+ },
+ {
+  "id": "hud-800021673",
+  "name": "Crevenna Oaks Cluster",
+  "address": "11550 Oak Bluff Court, Burke, VA 22015",
+  "feetApart": 6854,
+  "addressPanoToHud": 6982
+ },
+ {
+  "id": "lihtc-VAA19960025",
+  "name": "East Falls",
+  "address": "2913A Peyton Randolph Dr, Falls Church, VA 22044",
+  "feetApart": 507,
+  "addressPanoToHud": 494
+ },
+ {
+  "id": "hud-800021813",
+  "name": "Evergreen House",
+  "address": "6925 Columbia Pike, Annandale, VA 22003",
+  "feetApart": 554,
+  "addressPanoToHud": 500
+ },
+ {
+  "id": "lihtc-VAA20010060",
+  "name": "Fields of Chantilly",
+  "address": "13950 Rockland Village Dr, Chantilly, VA 20151",
+  "feetApart": 575,
+  "addressPanoToHud": 573
+ },
+ {
+  "id": "lihtc-VAA19970219",
+  "name": "Fields of Falls Church",
+  "address": "912 Ellison St, Falls Church, VA 22046",
+  "feetApart": 358,
+  "addressPanoToHud": 288
+ },
+ {
+  "id": "lihtc-VAA20170018",
+  "name": "Forest Glen I",
+  "address": "14401 Woodmere Court, Centreville, VA 20120",
+  "feetApart": 611,
+  "addressPanoToHud": 604
+ },
+ {
+  "id": "lihtc-VAA20170019",
+  "name": "Forest Glen II",
+  "address": "14400 Woodmere Court, Centreville, VA 20120",
+  "feetApart": 486,
+  "addressPanoToHud": 489
+ },
+ {
+  "id": "lihtc-VAA20080110",
+  "name": "Hollybrooke II",
+  "address": "3012 Patrick Henry Dr, Falls Church, VA 22044",
+  "feetApart": 406,
+  "addressPanoToHud": 374
+ },
+ {
+  "id": "hud-800025530",
+  "name": "Hunters Woods Fellowship House",
+  "address": "2231 Colts Neck Rd, Reston, VA 20191",
+  "feetApart": 543,
+  "addressPanoToHud": 494
+ },
+ {
+  "id": "lihtc-VAA20000120",
+  "name": "Kendrick Court",
+  "address": "13430 Coppermine Rd, Herndon, VA 20171",
+  "feetApart": 501,
+  "addressPanoToHud": 524
+ },
+ {
+  "id": "hud-800021794",
+  "name": "Lewinsville Retirement Home",
+  "address": "1515 Great Falls St, Mc Lean, VA 22101",
+  "feetApart": 479,
+  "addressPanoToHud": 457
+ },
+ {
+  "id": "lihtc-VAA20010130",
+  "name": "Manchester I",
+  "address": "7131 Silver Lake Blvd, Alexandria, VA 22315",
+  "feetApart": 365,
+  "addressPanoToHud": 369
+ },
+ {
+  "id": "lihtc-VAA19950080",
+  "name": "Lee Overlook",
+  "address": "6406 Paddington Ct, Centreville, VA 20121",
+  "feetApart": 416,
+  "addressPanoToHud": 389
+ },
+ {
+  "id": "hud-800021820",
+  "name": "New Lake Anne House",
+  "address": "11444 N Shore Dr, Reston, VA 20190",
+  "feetApart": 355,
+  "addressPanoToHud": 332
+ },
+ {
+  "id": "lihtc-VAA20110813",
+  "name": "Olley Glen",
+  "address": "4021 Olley Ln, Fairfax, VA 22032",
+  "feetApart": 606,
+  "addressPanoToHud": 561
+ },
+ {
+  "id": "lihtc-VAA19990265",
+  "name": "The Green",
+  "address": "12465 Glade Dr, Reston, VA ",
+  "feetApart": 526,
+  "addressPanoToHud": 530
+ },
+ {
+  "id": "usda-bcabb8a13b",
+  "name": "Academy Hill",
+  "address": "49A Academy Hill Rd, Warrenton, VA 20186",
+  "feetApart": 570,
+  "addressPanoToHud": 572
+ },
+ {
+  "id": "lihtc-VAA20010468",
+  "name": "Countryside (Bealeton)",
+  "address": "11208 Remington Rd, Bealeton, VA 22712",
+  "feetApart": 341,
+  "addressPanoToHud": 290
+ },
+ {
+  "id": "lihtc-VAA19990160",
+  "name": "Mary Hardesty House",
+  "address": "218 Mosby Blvd, Berryville, VA 22611",
+  "feetApart": 340,
+  "addressPanoToHud": 368
+ },
+ {
+  "id": "lihtc-VAA00000028",
+  "name": "Stuart Street Homes",
+  "address": "512 Stuart St, The Plains, VA 20198",
+  "feetApart": 552,
+  "addressPanoToHud": 538
+ },
+ {
+  "id": "usda-927318110b",
+  "name": "Orchard Court Apartments",
+  "address": "417 Page St, Berryville, VA 22611",
+  "feetApart": 515,
+  "addressPanoToHud": 484
+ },
+ {
+  "id": "md-5053",
+  "name": "Bell Court",
+  "address": "600 S Adams St, Woodsboro, MD 21798",
+  "feetApart": 442,
+  "addressPanoToHud": 429
+ },
+ {
+  "id": "lihtc-MDA19870900",
+  "name": "Hartley Hall Senior Housing",
+  "address": "179 W All Saints St, Frederick, MD 21701",
+  "feetApart": 334,
+  "addressPanoToHud": 339
+ },
+ {
+  "id": "lihtc-MDA19900080",
+  "name": "Moser Manor",
+  "address": "1 W Moser Rd, Thurmont, MD 21788",
+  "feetApart": 421,
+  "addressPanoToHud": 374
+ },
+ {
+  "id": "hud-800009451",
+  "name": "Spring Place Homes",
+  "address": "114 E Fifth St, Frederick, MD 21701",
+  "feetApart": 1085,
+  "addressPanoToHud": 1093
+ },
+ {
+  "id": "lihtc-MDA20020100",
+  "name": "Spring Ridge Senior",
+  "address": "6351 Spring Ridge Pkwy, Frederick, MD 21701",
+  "feetApart": 1070,
+  "addressPanoToHud": 1072
+ },
+ {
+  "id": "md-10996",
+  "name": "The Junction",
+  "address": "511 And 524 West South Street, Frederick, MD 21701",
+  "feetApart": 434,
+  "addressPanoToHud": 454
+ },
+ {
+  "id": "lihtc-MDA20080130",
+  "name": "Walkersville Senior",
+  "address": "105 Sandstone Dr, Walkersville, MD 21793",
+  "feetApart": 536,
+  "addressPanoToHud": 494
+ },
+ {
+  "id": "hud-800009538",
+  "name": "Washington-Allegany Residence I",
+  "address": "620B Research Dr, Frederick, MD 21703",
+  "feetApart": 1079,
+  "addressPanoToHud": 961
+ },
+ {
+  "id": "hud-800021690",
+  "name": "Asbury Manor",
+  "address": "10235 Brittany Commons Blvd, Spotsylvania, VA 22553",
+  "feetApart": 857,
+  "addressPanoToHud": 819
+ },
+ {
+  "id": "lihtc-VAA20170002",
+  "name": "Aquia Fifteen at Towne Center",
+  "address": "475 Aquia Towne Center Drive, Stafford, VA 22554",
+  "feetApart": 479,
+  "addressPanoToHud": 453
+ },
+ {
+  "id": "lihtc-VAA20080065",
+  "name": "Courthouse Green",
+  "address": "8132 Pool Dr, Spotsylvania, VA 22551",
+  "feetApart": 408,
+  "addressPanoToHud": 315
+ },
+ {
+  "id": "lihtc-VAA20050744",
+  "name": "England Run North I",
+  "address": "18 Newcastle Pl, Fredericksburg, VA 22406",
+  "feetApart": 628,
+  "addressPanoToHud": 684
+ },
+ {
+  "id": "lihtc-VAA20030065",
+  "name": "Fall Hill Apartments II",
+  "address": "100 Weston Ln, Fredericksbrg, VA 22401",
+  "feetApart": 430,
+  "addressPanoToHud": 418
+ },
+ {
+  "id": "lihtc-VAA20060765",
+  "name": "Enoch George Manor",
+  "address": "10231 Brittany Commons Blvd, Spotsylvania, VA 22553",
+  "feetApart": 675,
+  "addressPanoToHud": 631
+ },
+ {
+  "id": "hud-800021825",
+  "name": "Forest Village Apartments",
+  "address": "1400 - 1600 Forest Village, Fredericksburg, VA 22401",
+  "feetApart": 946,
+  "addressPanoToHud": 989
+ },
+ {
+  "id": "lihtc-VAA19990145",
+  "name": "Madonna House",
+  "address": "2600 Cowan Blvd, Fredericksburg, VA 22401",
+  "feetApart": 470,
+  "addressPanoToHud": 414
+ },
+ {
+  "id": "lihtc-VAA20010486",
+  "name": "Meadows at Salem Run II",
+  "address": "5711 Castlebridge Rd, Fredericksburg, VA 22407",
+  "feetApart": 438,
+  "addressPanoToHud": 459
+ },
+ {
+  "id": "hud-800021957",
+  "name": "Mill Park Terrace",
+  "address": "2216 Caroline St, Fredericksburg, VA 22401",
+  "feetApart": 420,
+  "addressPanoToHud": 364
+ },
+ {
+  "id": "lihtc-VAA20181014",
+  "name": "New Post",
+  "address": "1801 Nottingham Drive, Fredericksburg, VA 22408",
+  "feetApart": 718,
+  "addressPanoToHud": 735
+ },
+ {
+  "id": "lihtc-VAA20160018",
+  "name": "Overlook Terrace",
+  "address": "4710 Overview Drive, Fredericksburg, VA 22408",
+  "feetApart": 402,
+  "addressPanoToHud": 407
+ },
+ {
+  "id": "lihtc-VAA19950170",
+  "name": "Townsend Square",
+  "address": "1101 Townsend Blvd, Fredericksburg, VA 22401",
+  "feetApart": 438,
+  "addressPanoToHud": 446
+ },
+ {
+  "id": "lihtc-VAA20020155",
+  "name": "Cascades Village",
+  "address": "46565 Harry Byrd Hwy, Sterling, VA 20164",
+  "feetApart": 684,
+  "addressPanoToHud": 647
+ },
+ {
+  "id": "lihtc-VAA20040620",
+  "name": "Fields of Sterling",
+  "address": "46910 Shady Point Sq, Sterling, VA 20164",
+  "feetApart": 929,
+  "addressPanoToHud": 943
+ },
+ {
+  "id": "lihtc-VAA20020140",
+  "name": "Maple Avenue",
+  "address": "650 Dominion Ter, Purcellville, VA 20132",
+  "feetApart": 483,
+  "addressPanoToHud": 348
+ },
+ {
+  "id": "lihtc-VAA20160098",
+  "name": "Woods at Brambleton",
+  "address": "23601 Willshaw Square, Brambleton, VA 20148",
+  "feetApart": 561,
+  "addressPanoToHud": 400
+ },
+ {
+  "id": "md-11085",
+  "name": "1910 University Blvd",
+  "address": "1910 University Boulevard W, Silver Spring, MD 20902",
+  "feetApart": 376,
+  "addressPanoToHud": 211
+ },
+ {
+  "id": "lihtc-MDA20060005",
+  "name": "Airpark Apartments",
+  "address": "8511 Snouffer School Rd, Gaithersburg, MD 20879",
+  "feetApart": 334,
+  "addressPanoToHud": 332
+ },
+ {
+  "id": "hud-800242598",
+  "name": "Arcola Towers",
+  "address": "1135 University Blvd W, Silver Spring, MD 20902",
+  "feetApart": 895,
+  "addressPanoToHud": 825
+ },
+ {
+  "id": "hud-800211661",
+  "name": "Andrew Kim House",
+  "address": "2100 Olney Sandy Spring Road, Olney, MD 20832",
+  "feetApart": 623,
+  "addressPanoToHud": 587
+ },
+ {
+  "id": "lihtc-MDA00000026",
+  "name": "Barrington Apartments Formally Rosemary Village",
+  "address": "1927 E W Hwy, Silver Spring, MD 20910",
+  "feetApart": 578,
+  "addressPanoToHud": 557
+ },
+ {
+  "id": "lihtc-MDA20060017",
+  "name": "Barclay One",
+  "address": "4716 Bradley Blvd, Chevy Chase, MD 20815",
+  "feetApart": 342,
+  "addressPanoToHud": 301
+ },
+ {
+  "id": "lihtc-MDA20171001",
+  "name": "Beall S Grant Apartments",
+  "address": "254 N. Washington, Rockville, MD 20850",
+  "feetApart": 343,
+  "addressPanoToHud": 336
+ },
+ {
+  "id": "md-5062",
+  "name": "Bethesda Commons Aka Fields of Bethesda",
+  "address": "5079 Bradley Blvd, Chevy Chase, MD 20815",
+  "feetApart": 513,
+  "addressPanoToHud": 517
+ },
+ {
+  "id": "hud-800009501",
+  "name": "Capital Area Housing Corporation",
+  "address": "1121 University Blvd W, Silver Spring, MD 20902",
+  "feetApart": 620,
+  "addressPanoToHud": 553
+ },
+ {
+  "id": "hud-800009136",
+  "name": "Chelsea Towers",
+  "address": "7401 Westlake Ter, Bethesda, MD 20817",
+  "feetApart": 569,
+  "addressPanoToHud": 558
+ },
+ {
+  "id": "md-5123",
+  "name": "Chase Grove II",
+  "address": "10004 Fields Rd, Gaithersburg, MD 20878",
+  "feetApart": 470,
+  "addressPanoToHud": 459
+ },
+ {
+  "id": "lihtc-MDA20070040",
+  "name": "Covenant Village",
+  "address": "18909 Waring Station Rd, Germantown, MD 20874",
+  "feetApart": 341,
+  "addressPanoToHud": 357
+ },
+ {
+  "id": "ph-MD007000001",
+  "name": "David Scull Courts",
+  "address": "1200 1st St Apt, Rockville, MD 20850",
+  "feetApart": 657,
+  "addressPanoToHud": 644
+ },
+ {
+  "id": "ph-MD007000002",
+  "name": "Fireside Park Apartments",
+  "address": "735 Monroe St, Rockville, MD 20850",
+  "feetApart": 668,
+  "addressPanoToHud": 479
+ },
+ {
+  "id": "lihtc-MDA20100040",
+  "name": "Gilbert Highlands",
+  "address": "8508 Flower Ave, Takoma Park, MD 20912",
+  "feetApart": 424,
+  "addressPanoToHud": 432
+ },
+ {
+  "id": "lihtc-MDA20070052",
+  "name": "Georgian Woods",
+  "address": "2121 Shorefield Rd, Wheaton, MD 20902",
+  "feetApart": 346,
+  "addressPanoToHud": 357
+ },
+ {
+  "id": "md-5244",
+  "name": "Gardens of Traville Seniors Apartments",
+  "address": "9600 Darnestown Rd, Rockville, MD 20850",
+  "feetApart": 613,
+  "addressPanoToHud": 610
+ },
+ {
+  "id": "lihtc-MDA20120901",
+  "name": "Halpine Hamlet",
+  "address": "5511 Halpine Pl, Rockville, MD 20851",
+  "feetApart": 533,
+  "addressPanoToHud": 472
+ },
+ {
+  "id": "lihtc-MDA20030035",
+  "name": "Hampshire Village",
+  "address": "3210 Norbeck Rd, Silver Spring, MD 20906",
+  "feetApart": 417,
+  "addressPanoToHud": 426
+ },
+ {
+  "id": "hud-800009290",
+  "name": "Hughes Housing Inc",
+  "address": "10720 Georgia Ave, Wheaton, MD 20902",
+  "feetApart": 555,
+  "addressPanoToHud": 505
+ },
+ {
+  "id": "hud-800009336",
+  "name": "Magruders Discovery",
+  "address": "10508  Westlake Drive Dr, Bethesda, MD 20817",
+  "feetApart": 1127,
+  "addressPanoToHud": 1129
+ },
+ {
+  "id": "lihtc-MDA00000045",
+  "name": "Mhlp X",
+  "address": "21121 Futura Ct, Germantown, MD 20876",
+  "feetApart": 466,
+  "addressPanoToHud": 311
+ },
+ {
+  "id": "hud-800009343",
+  "name": "Mcarc Randolph Rd 1600 E Randolph Silver Spring, M",
+  "address": "1600 E Randolph Rd, Silver Spring, MD 20904",
+  "feetApart": 526,
+  "addressPanoToHud": 511
+ },
+ {
+  "id": "hud-800249298",
+  "name": "Momentum at Shady Grove",
+  "address": "16011 Redland Rd, Derwood, MD 20855",
+  "feetApart": 5643,
+  "addressPanoToHud": 5579
+ },
+ {
+  "id": "lihtc-MDA20180020",
+  "name": "Mount Jezreel Senior Housing",
+  "address": "420 University Blvd East, Silver Spring, MD 20901",
+  "feetApart": 437,
+  "addressPanoToHud": 416
+ },
+ {
+  "id": "md-10310",
+  "name": "Mount Jezreel",
+  "address": "420 University Boulevard E, Silver Spring, MD 20901",
+  "feetApart": 370,
+  "addressPanoToHud": 219
+ },
+ {
+  "id": "hud-800219682",
+  "name": "New Hampshire Housing Development Corporation",
+  "address": "12407 New Hampshire Avenue, Silver Spring, MD 20904",
+  "feetApart": 357,
+  "addressPanoToHud": 312
+ },
+ {
+  "id": "md-10882",
+  "name": "North Frederick",
+  "address": "425 & 439 N Frederick Avenue, Gathersburg, MD 20877",
+  "feetApart": 423,
+  "addressPanoToHud": 382
+ },
+ {
+  "id": "lihtc-MDA20000037",
+  "name": "Park Montgomery",
+  "address": "8860 Piney Branch Rd, Silver Spring, MD 20903",
+  "feetApart": 419,
+  "addressPanoToHud": 388
+ },
+ {
+  "id": "lihtc-MDA20190010",
+  "name": "Park View at Aspen Hill",
+  "address": "3136 Bel Pre Road, Aspen Hill, MD 20906",
+  "feetApart": 692,
+  "addressPanoToHud": 702
+ },
+ {
+  "id": "lihtc-MDA19970075",
+  "name": "Randolph Village Apartments",
+  "address": "531 Randolph Rd, Silver Spring, MD 20904",
+  "feetApart": 1206,
+  "addressPanoToHud": 1192
+ },
+ {
+  "id": "md-10946",
+  "name": "Residence at Forest Glen 4%",
+  "address": "2106 Belvedere, Silver Spring, MD 20904",
+  "feetApart": 23384,
+  "addressPanoToHud": 23340
+ },
+ {
+  "id": "hud-800009418",
+  "name": "Revitz House",
+  "address": "6111 Montrose Rd, Rockville, MD 20852",
+  "feetApart": 794,
+  "addressPanoToHud": 810
+ },
+ {
+  "id": "hud-800009424",
+  "name": "Rock Creek Terrace",
+  "address": "12602 Viers Mill Rd, Rockville, MD 20853",
+  "feetApart": 340,
+  "addressPanoToHud": 349
+ },
+ {
+  "id": "hud-800009430",
+  "name": "Second Step",
+  "address": "9909 Sidney Road, Rockville, MD 20851",
+  "feetApart": 1243,
+  "addressPanoToHud": 1258
+ },
+ {
+  "id": "hud-800209609",
+  "name": "Shady Grove Apartments",
+  "address": "16125 Crabbs Branch Way, Derwood, MD 20855",
+  "feetApart": 527,
+  "addressPanoToHud": 503
+ },
+ {
+  "id": "hud-800235882",
+  "name": "Silver Flower Homes Aka Mcch, Tbd",
+  "address": "8316 Flower Avenue, Takoma Park, MD 20912",
+  "feetApart": 424,
+  "addressPanoToHud": 413
+ },
+ {
+  "id": "hud-800009449",
+  "name": "Snowdens Ridge",
+  "address": "2035 Harlequin Terrace, Silver Spring, MD 20904",
+  "feetApart": 353,
+  "addressPanoToHud": 372
+ },
+ {
+  "id": "hud-800009455",
+  "name": "St. Lukes Homes, Inc.",
+  "address": "9417 Horizon Run Road, Bethesda, MD 20814",
+  "feetApart": 53460,
+  "addressPanoToHud": 53450
+ },
+ {
+  "id": "hud-800009356",
+  "name": "The Flats at Columbia Pike",
+  "address": "11556 February Circle, Silver Spring, MD 20904",
+  "feetApart": 584,
+  "addressPanoToHud": 544
+ },
+ {
+  "id": "lihtc-MDA20000065",
+  "name": "University Manor Apartment",
+  "address": "820 University Blvd E, Silver Spring, MD 20903",
+  "feetApart": 419,
+  "addressPanoToHud": 387
+ },
+ {
+  "id": "hud-800250059",
+  "name": "Victory Haven",
+  "address": "9616 Main Street, Damascus, MD 20872",
+  "feetApart": 434,
+  "addressPanoToHud": 422
+ },
+ {
+  "id": "hud-800226252",
+  "name": "Victory Oaks at Saint Camillus",
+  "address": "700 Block Beacon Road, Silver Spring, MD 20901",
+  "feetApart": 7137,
+  "addressPanoToHud": 7158
+ },
+ {
+  "id": "lihtc-MDA20020103",
+  "name": "Waters Landing II",
+  "address": "12900 Falling Water Cir, Germantown, MD 20874",
+  "feetApart": 397,
+  "addressPanoToHud": 394
+ },
+ {
+  "id": "lihtc-MDA20164002",
+  "name": "Willow Manor at Fairland",
+  "address": "13605 Robey Road, Fairland, MD 20904",
+  "feetApart": 449,
+  "addressPanoToHud": 405
+ },
+ {
+  "id": "hud-800249043",
+  "name": "Woodfield Commons",
+  "address": "26380 Woodfield Rd, Damascus, MD 20872",
+  "feetApart": 492,
+  "addressPanoToHud": 520
+ },
+ {
+  "id": "lihtc-MDA20060010",
+  "name": "Alden Berkley Townhomes",
+  "address": "4906 Lakeland Rd, College Park, MD 20740",
+  "feetApart": 578,
+  "addressPanoToHud": 578
+ },
+ {
+  "id": "hud-800053811",
+  "name": "Alden Park",
+  "address": "4711 Berwyn House Rd, College Park, MD 20740",
+  "feetApart": 518,
+  "addressPanoToHud": 527
+ },
+ {
+  "id": "lihtc-MDA20000055",
+  "name": "Autumn Woods Phase I",
+  "address": "5033 57th Ave, Bladensburg, MD 20710",
+  "feetApart": 396,
+  "addressPanoToHud": 404
+ },
+ {
+  "id": "hud-800053922",
+  "name": "Avondale Park Apartments",
+  "address": "4915 Eastern Ave., Hyattsville, MD 20782",
+  "feetApart": 654,
+  "addressPanoToHud": 627
+ },
+ {
+  "id": "lihtc-MDA20020015",
+  "name": "Belle Haven",
+  "address": "1827 Belle Haven Dr, Landover, MD 20785",
+  "feetApart": 588,
+  "addressPanoToHud": 589
+ },
+ {
+  "id": "lihtc-MDA20180002",
+  "name": "Belnor Senior Residences",
+  "address": "3800 St. Barnabas Road, Suitland, MD 20746",
+  "feetApart": 440,
+  "addressPanoToHud": 449
+ },
+ {
+  "id": "hud-800241445",
+  "name": "Bladensburg Commons",
+  "address": "4200 58th Ave, Bladensburg, MD 20710",
+  "feetApart": 623,
+  "addressPanoToHud": 581
+ },
+ {
+  "id": "lihtc-MDA19980005",
+  "name": "Auburn Manor Apartments",
+  "address": "6821 River Rd, Riverdale, MD ",
+  "feetApart": 2216,
+  "addressPanoToHud": 2034
+ },
+ {
+  "id": "lihtc-MDA19920095",
+  "name": "Central Gardens Apartments II",
+  "address": "6800 Central Ave, Seat Pleasant, MD 20743",
+  "feetApart": 527,
+  "addressPanoToHud": 478
+ },
+ {
+  "id": "hud-800112448",
+  "name": "Dolly Housing, Inc.",
+  "address": "1836 Metzerott Rd, Adelphi, MD 20783",
+  "feetApart": 352,
+  "addressPanoToHud": 398
+ },
+ {
+  "id": "lihtc-MDA20070050",
+  "name": "Fort Washington Manor",
+  "address": "10900 Indian Head Hwy, Fort Washington, MD 20744",
+  "feetApart": 395,
+  "addressPanoToHud": 340
+ },
+ {
+  "id": "lihtc-MDA19900050",
+  "name": "Glenarden I",
+  "address": "2900 Brightseat Rd, Glenarden, MD 20706",
+  "feetApart": 446,
+  "addressPanoToHud": 421
+ },
+ {
+  "id": "lihtc-MDA20120035",
+  "name": "Glenreed Apartments",
+  "address": "3206 Reed St, Glenarden, MD 20706",
+  "feetApart": 346,
+  "addressPanoToHud": 404
+ },
+ {
+  "id": "hud-800213303",
+  "name": "Guide Trexler House",
+  "address": "6812 Trexler Road, Lanham, MD 20706",
+  "feetApart": 365,
+  "addressPanoToHud": 376
+ },
+ {
+  "id": "lihtc-MDA19990067",
+  "name": "Langley Garden Apartments",
+  "address": "8200 New Hampshire Ave, Hyattsville, MD ",
+  "feetApart": 2307,
+  "addressPanoToHud": 2178
+ },
+ {
+  "id": "hud-800009320",
+  "name": "Laurelwood Mutual 1",
+  "address": "11557 Laurelwalk Dr, Laurel, MD 20708",
+  "feetApart": 400,
+  "addressPanoToHud": 448
+ },
+ {
+  "id": "ph-MD015015003",
+  "name": "Marlborough Towne",
+  "address": "1801 Tanow Pl, District Heights, MD 20747",
+  "feetApart": 333,
+  "addressPanoToHud": 353
+ },
+ {
+  "id": "md-5403",
+  "name": "Marwood Elderly Apartments",
+  "address": "10000 Old Marlboro Pike, Upper Marlboro, MD 20772",
+  "feetApart": 2707,
+  "addressPanoToHud": 2701
+ },
+ {
+  "id": "lihtc-MDA20171009",
+  "name": "Park Tanglewood",
+  "address": "5309 Riverdale Road, Riverdale, MD 20737",
+  "feetApart": 558,
+  "addressPanoToHud": 505
+ },
+ {
+  "id": "lihtc-MDA20060045",
+  "name": "Overland Gardens",
+  "address": "3103 75th Ave, Landover, MD 20785",
+  "feetApart": 918,
+  "addressPanoToHud": 910
+ },
+ {
+  "id": "md-11037",
+  "name": "Park Place at Addison Road Metro",
+  "address": "6301 Central Avenue, Capitol Heights, MD 20743",
+  "feetApart": 464,
+  "addressPanoToHud": 354
+ },
+ {
+  "id": "lihtc-MDA20110027",
+  "name": "Park View at Laurel I",
+  "address": "9000 Briarcroft Ln, Laurel, MD 20708",
+  "feetApart": 649,
+  "addressPanoToHud": 646
+ },
+ {
+  "id": "lihtc-MDA19970065",
+  "name": "Park View at Laurel II",
+  "address": "9010 Briarcroft Ln, Laurel, MD 20708",
+  "feetApart": 553,
+  "addressPanoToHud": 554
+ },
+ {
+  "id": "lihtc-MDA19990105",
+  "name": "Parkview Manor",
+  "address": "5030 38th Ave, Hyattsville, MD 20782",
+  "feetApart": 384,
+  "addressPanoToHud": 351
+ },
+ {
+  "id": "lihtc-MDA20020900",
+  "name": "Parkway Terrace Apartments",
+  "address": "3400 Pkwy Ter Dr, Suitland, MD 20746",
+  "feetApart": 408,
+  "addressPanoToHud": 421
+ },
+ {
+  "id": "lihtc-MDA19960085",
+  "name": "Pin Oak Village I",
+  "address": "16010 Excalibur Rd, Bowie, MD 20716",
+  "feetApart": 412,
+  "addressPanoToHud": 356
+ },
+ {
+  "id": "lihtc-MDA20020092",
+  "name": "Quebec Arms Apartments",
+  "address": "8224 14th Ave, Hyattsville, MD 20783",
+  "feetApart": 536,
+  "addressPanoToHud": 549
+ },
+ {
+  "id": "lihtc-MDA20140729",
+  "name": "Ross Overlook Apartments",
+  "address": "1507 Ray Rd, Hyattsville, MD 20782",
+  "feetApart": 411,
+  "addressPanoToHud": 465
+ },
+ {
+  "id": "hud-800242337",
+  "name": "The Dussan Flats",
+  "address": "2521 Ewing Avenue, Suitland, MD 20746",
+  "feetApart": 474,
+  "addressPanoToHud": 428
+ },
+ {
+  "id": "md-5698",
+  "name": "University Landing Apartments",
+  "address": "1017 Merrimac Dr, Langley Park, MD 20903",
+  "feetApart": 479,
+  "addressPanoToHud": 487
+ },
+ {
+  "id": "hud-800009506",
+  "name": "Vesta Housing, Inc.",
+  "address": "9006 4th St, Glenarden, MD 20706",
+  "feetApart": 15121,
+  "addressPanoToHud": 15182
+ },
+ {
+  "id": "hud-800054048",
+  "name": "Vesta Three, Inc.",
+  "address": "4795 Town Square Blvd, Suitland, MD 20746",
+  "feetApart": 432,
+  "addressPanoToHud": 466
+ },
+ {
+  "id": "hud-800054043",
+  "name": "Vestas Hearth, Inc.",
+  "address": "3818 Cedar Drive, Suitland, MD 20746",
+  "feetApart": 386,
+  "addressPanoToHud": 338
+ },
+ {
+  "id": "lihtc-MDA20030094",
+  "name": "Windsor Crossing Senior Apartments",
+  "address": "4866 Eastern Ln, Suitland, MD ",
+  "feetApart": 330,
+  "addressPanoToHud": 351
+ },
+ {
+  "id": "lihtc-MDA19950907",
+  "name": "Woodside Village",
+  "address": "6801 Bock Rd, Fort Washington, MD 20744",
+  "feetApart": 844,
+  "addressPanoToHud": 809
+ },
+ {
+  "id": "lihtc-VAA20060761",
+  "name": "County Center Crossing",
+  "address": "7000 Lakota Dr, Woodbridge, VA 22192",
+  "feetApart": 465,
+  "addressPanoToHud": 479
+ },
+ {
+  "id": "hud-800022122",
+  "name": "Coverstone IV",
+  "address": "7645 Croce Court, T-1, Manassas, VA 20109",
+  "feetApart": 496,
+  "addressPanoToHud": 347
+ },
+ {
+  "id": "lihtc-VAA19960010",
+  "name": "Fields of Manassas",
+  "address": "7431 Willoughby Ln, Manassas, VA 20109",
+  "feetApart": 346,
+  "addressPanoToHud": 341
+ },
+ {
+  "id": "lihtc-VAA20040085",
+  "name": "Park Place (Manassas)",
+  "address": "9657 Manassas Dr, Manassas Park, VA 20111",
+  "feetApart": 3040,
+  "addressPanoToHud": 3024
+ },
+ {
+  "id": "lihtc-VAA20060795",
+  "name": "Potomac Woods Seniors II",
+  "address": "1093 Southampton St, Woodbridge, VA 22191",
+  "feetApart": 789,
+  "addressPanoToHud": 741
+ },
+ {
+  "id": "hud-800218053",
+  "name": "Willow Oaks Place at Birmingham Green",
+  "address": "8595 Centreville Rd, Manassas, VA 20110",
+  "feetApart": 1468,
+  "addressPanoToHud": 1434
+ },
+ {
+  "id": "lihtc-MDA20170001",
+  "name": "Adams Crossing II",
+  "address": "12330 Vivian Adams Drive, Waldorf, MD 20601",
+  "feetApart": 398,
+  "addressPanoToHud": 376
+ },
+ {
+  "id": "usda-ec332a7c3f",
+  "name": "Jaycee Apartments",
+  "address": "12150 Ell Ln, Waldorf, MD 20602",
+  "feetApart": 595,
+  "addressPanoToHud": 620
+ },
+ {
+  "id": "lihtc-MDA19920070",
+  "name": "Prince Frederick Villas",
+  "address": "480 Stamper Ct, Prince Frederick, MD 20678",
+  "feetApart": 354,
+  "addressPanoToHud": 320
+ },
+ {
+  "id": "hud-800499917",
+  "name": "Magnolia Gardens",
+  "address": "6014 Washington Ave, La Plata, MD 20646",
+  "feetApart": 11426,
+  "addressPanoToHud": 11279
+ },
+ {
+  "id": "hud-800009096",
+  "name": "Smallwood Gardens",
+  "address": "222 Smallwood Village Center, Waldorf, MD 20602",
+  "feetApart": 841,
+  "addressPanoToHud": 850
+ },
+ {
+  "id": "usda-181ce6e3d4",
+  "name": "Village Green Apartments",
+  "address": "12151 Ell Ln, Waldorf, MD 20602",
+  "feetApart": 601,
+  "addressPanoToHud": 578
+ },
+ {
+  "id": "lihtc-MDA20060105",
+  "name": "Walldorf Astor",
+  "address": "3605 Moses Way, Waldorf, MD 20602",
+  "feetApart": 464,
+  "addressPanoToHud": 557
+ }
+]
