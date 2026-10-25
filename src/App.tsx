@@ -1,4 +1,3 @@
-import { ShieldCheck } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
@@ -337,11 +336,6 @@ export default function App() {
             HomePick <span className="text-brand-strong">DMV</span>
           </span>
         </button>
-        <span className="inline-flex shrink-0 items-center gap-1 whitespace-nowrap rounded-full bg-ok-tint px-2 py-1 text-[11px] font-medium text-ok sm:px-2.5 sm:text-xs">
-          <ShieldCheck aria-hidden className="size-3.5" />
-          <span className="hidden sm:inline">Stays on this device</span>
-          <span className="sr-only sm:hidden">Your answers stay on this device</span>
-        </span>
         <button type="button" onClick={() => go('how')} aria-current={step === 'how' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[480px]:inline-flex sm:text-sm">
           How it works
         </button>
