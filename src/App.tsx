@@ -354,16 +354,16 @@ export default function App() {
         Skip to content
       </a>
       <nav aria-label="Site" className="pill-nav no-print fixed left-1/2 top-3 z-30 flex -translate-x-1/2 items-center gap-2 rounded-xl py-1.5 pl-3 pr-1.5 sm:top-5 sm:gap-3 sm:pl-4">
-        <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-full font-bold tracking-tight">
+        <button type="button" onClick={restart} className="group flex items-center gap-2 whitespace-nowrap rounded-lg font-bold tracking-tight">
           <LogoMark className="size-7 transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110" />
           <span className="font-display text-base sm:text-lg">
             HomePick <span className="text-brand-strong">DMV</span>
           </span>
         </button>
-        <button type="button" onClick={() => go('how')} aria-current={step === 'how' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[480px]:inline-flex sm:text-sm">
+        <button type="button" onClick={() => go('how')} aria-current={step === 'how' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-lg px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[480px]:inline-flex sm:text-sm">
           How it works
         </button>
-        <button type="button" onClick={() => go('about')} aria-current={step === 'about' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[560px]:inline-flex sm:text-sm">
+        <button type="button" onClick={() => go('about')} aria-current={step === 'about' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-lg px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[560px]:inline-flex sm:text-sm">
           Our goal
         </button>
         {step === 'start' || step === 'how' || step === 'about' ? (

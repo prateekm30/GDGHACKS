@@ -101,7 +101,7 @@ export function HowItWorks({
             <h2 id="how-heading" className="text-3xl font-extrabold sm:text-4xl">
               The three stops
             </h2>
-            <span className="font-hand text-2xl text-accent">three stops, about two minutes. try each one.</span>
+            <span className="font-hand text-2xl text-accent">try each one. nothing here is saved.</span>
           </div>
           {/* Each step pins while the next one slides over it. The previous card shrinks back as it is covered. */}
           <ol className="mt-8">

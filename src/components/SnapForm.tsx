@@ -171,7 +171,7 @@ export function SnapForm({ announce, standalone = false }: { announce: (msg: str
                     <span>
                       <span className="text-xs font-semibold uppercase tracking-wide text-brand">{TYPE_LABEL[it.type]}</span>
                       {it.risky && (
-                        <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-heavy px-2 py-0.5 text-[11px] font-bold text-white">
+                        <span className="ml-2 inline-flex items-center gap-1 rounded-md bg-heavy px-2 py-0.5 text-[11px] font-bold text-white">
                           <ShieldAlert aria-hidden className="size-3" />
                           Scam warning
                         </span>

@@ -178,7 +178,7 @@ export function AreaChecklist({
           return (
             <label
               key={a.id}
-              className={`group inline-flex shrink-0 snap-start items-center gap-2 rounded-full border-2 py-1.5 pl-1.5 pr-3 text-sm font-semibold lg:gap-1.5 lg:py-1 lg:pl-1 lg:pr-2.5 lg:text-[13px] transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand ${
+              className={`group inline-flex shrink-0 snap-start items-center gap-2 rounded-lg border-2 py-1.5 pl-1.5 pr-3 text-sm font-semibold lg:gap-1.5 lg:py-1 lg:pl-1 lg:pr-2.5 lg:text-[13px] transition duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-brand ${
                 checked ? 'border-dusk bg-dusk text-white shadow-lift' : 'border-white/70 bg-white/60 text-ink hover:-translate-y-0.5 hover:bg-white'
               }`}
             >
