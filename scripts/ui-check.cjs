@@ -73,6 +73,23 @@ async function walk(browser, { reducedMotion, viewport, mobile }) {
   const focusedResults = await p.evaluate(() => document.activeElement?.id)
   if (focusedResults !== 'main') fail(`${tag} results: focus is on #${focusedResults}, not main`)
   await axe(p, `${tag} results`)
+
+  // Print my plan: Chrome's print preview restarts CSS animations from frame one, so anything animated in
+  // must be static under print media, and the PDF must carry the text.
+  await p.emulateMedia({ media: 'print' })
+  const print = await p.evaluate(() => {
+    const animated = [...document.querySelectorAll('#main *')].filter((el) => getComputedStyle(el).animationName !== 'none').length
+    const faint = [...document.querySelectorAll('#matches *')].filter((el) => !el.closest('svg') && el.getBoundingClientRect().height > 20 && parseFloat(getComputedStyle(el).opacity) < 0.9).length
+    const h1 = document.querySelector('h1')
+    return { animated, faint, h1Shown: !!h1 && h1.getBoundingClientRect().height > 0 && getComputedStyle(h1).opacity === '1' }
+  })
+  if (print.animated) fail(`${tag} print: ${print.animated} elements still animate under print media`)
+  if (print.faint) fail(`${tag} print: ${print.faint} faded elements in the matches`)
+  if (!print.h1Shown) fail(`${tag} print: heading not visible`)
+  const pdf = await p.pdf({ format: 'Letter', printBackground: false })
+  if (pdf.length < 20_000) fail(`${tag} print: PDF is only ${pdf.length} bytes`)
+  else console.log(`${tag} print: ${Math.round(pdf.length / 1024)} KB PDF, nothing animating`)
+  await p.emulateMedia({ media: 'screen' })
   await ctx.close()
 }
 

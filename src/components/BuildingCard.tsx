@@ -16,6 +16,7 @@ import type { ReactNode } from 'react'
 import { areaInfo, areaLabel } from '../lib/areas'
 import { rentTable, type Assessment } from '../lib/eligibility'
 import { programLabel, sourceName } from '../lib/labels'
+import { incomeBasedHeadline } from '../lib/price'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { BuildingPhoto } from './BuildingPhoto'
 import { BurdenBadge, Note, money } from './ui'
@@ -46,7 +47,7 @@ export function summary(b: Building, a: Assessment): string {
     c.kind === 'income-based'
       ? c.monthly !== null
         ? `income-based rent, about ${money(c.monthly)} a month for you`
-        : 'income-based rent, about 30% of your income'
+        : 'rent set at 30% of your income'
       : c.kind === 'ceiling' && c.monthly !== null
         ? `rent up to ${money(c.monthly)} a month for a ${BR(c.bedrooms)}${c.burdenPct !== null ? `, about ${c.burdenPct}% of your income` : ''}`
         : 'rent varies by unit'
@@ -105,24 +106,16 @@ function MarketCompare({ b, monthly, bedrooms }: { b: Building; monthly: number 
 function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; limits: IncomeLimits; situation: Situation | null }) {
   const c = a.cost
   if (c.kind === 'income-based') {
+    const h = incomeBasedHeadline(a, b)
     return (
       <div className="rounded-2xl bg-ok-tint/70 p-4">
-        <p className="text-xs font-bold uppercase tracking-wide text-ok">What you'd pay</p>
+        <p className="text-xs font-bold uppercase tracking-wide text-ok">{h.label}</p>
         <p className="font-display mt-0.5 text-3xl font-extrabold text-ink">
-          {c.monthly !== null ? (
-            <>
-              {money(c.monthly)}
-              <span className="text-base font-bold text-ink-soft">/mo</span>
-            </>
-          ) : (
-            '30% of income'
-          )}
+          {h.value}
+          {h.per && <span className="text-base font-bold text-ink-soft">/mo</span>}
         </p>
-        <p className="mt-1 text-sm text-ink-soft">
-          Rent follows your income, not the apartment. That is why every income-based building shows the same number
-          {c.monthly !== null ? ' (30% of the income you entered)' : ''}.
-        </p>
-        <MarketCompare b={b} monthly={c.monthly} bedrooms={c.bedrooms} />
+        <p className="mt-1 text-sm text-ink-soft">{h.note}</p>
+        {!h.isMarket && <MarketCompare b={b} monthly={c.monthly} bedrooms={c.bedrooms} />}
       </div>
     )
   }
@@ -183,7 +176,7 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
   )
 }
 
-function LimitRow({ a, limits }: { a: Assessment; limits: IncomeLimits }) {
+function LimitRow({ a, limits, onAddIncome }: { a: Assessment; limits: IncomeLimits; onAddIncome?: () => void }) {
   const rows: Record<Assessment['limit'], { icon: LucideIcon; cls: string; text: string }> = {
     under: { icon: CircleCheck, cls: 'text-ok', text: 'You appear to be under the estimated income limit.' },
     maybe: { icon: CircleHelp, cls: 'text-stretch', text: 'You may be over the usual limit. Some HUD-assisted buildings admit up to 80% of area median income, so ask.' },
@@ -196,7 +189,13 @@ function LimitRow({ a, limits }: { a: Assessment; limits: IncomeLimits }) {
     <p className="flex gap-2 text-sm">
       <r.icon aria-hidden className={`mt-0.5 size-4 shrink-0 ${r.cls}`} />
       <span>
-        {r.text}{' '}
+        {a.limit === 'unknown' && onAddIncome ? (
+          <button type="button" onClick={(e) => { e.stopPropagation(); onAddIncome() }} className="font-semibold text-brand-strong underline-offset-4 hover:underline">
+            Add your income to check the income limit and see what you'd pay.
+          </button>
+        ) : (
+          r.text
+        )}{' '}
         {a.limit !== 'unknown' && (
           <span className="text-ink-soft">
             ({limits.effective} limits{a.limitAmount ? `, ${money(a.limitAmount)} for your household` : ''}. The property decides.)
@@ -263,6 +262,7 @@ export function BuildingCard({
   detailed = false,
   compact = false,
   badge,
+  onAddIncome,
 }: {
   b: Building
   a: Assessment
@@ -273,6 +273,8 @@ export function BuildingCard({
   /** Short card for the picker: the facts that decide a pick, with the rest behind "More". */
   compact?: boolean
   badge?: ReactNode
+  /** Results page: lets the card send the person back to the basics to add an income. */
+  onAddIncome?: () => void
 }) {
   const pb = programBadge(b)
   const info = areaInfo(b.area)
@@ -296,13 +298,14 @@ export function BuildingCard({
 
   if (compact) {
     const c = a.cost
+    const ib = c.kind === 'income-based' ? incomeBasedHeadline(a, b) : null
     const price =
-      c.kind === 'income-based'
-        ? { label: "What you'd pay", value: c.monthly !== null ? money(c.monthly) : '30% of income', per: c.monthly !== null, cls: 'bg-ok-tint/70', lcls: 'text-ok' }
+      ib
+        ? { label: ib.label, value: ib.value, per: ib.per, cls: 'bg-ok-tint/70', lcls: 'text-ok' }
         : c.kind === 'ceiling' && c.monthly !== null
           ? { label: `Rent cap${c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}`, value: money(c.monthly), per: true, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
           : { label: 'Rent cap', value: 'Varies', per: false, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
-    const market = b.marketRent?.[String(Math.min(c.bedrooms ?? 1, 4))]
+    const market = ib?.isMarket ? null : b.marketRent?.[String(Math.min(c.bedrooms ?? 1, 4))]
     const limitText = { under: 'Under the income limit (est.)', maybe: 'Over the usual limit, ask (est.)', over: 'Over the income limit (est.)', varies: 'Limit varies by unit', unknown: 'Add income to check the limit' }[a.limit]
     const LimitIcon = { under: CircleCheck, maybe: CircleHelp, over: CircleAlert, varies: CircleHelp, unknown: CircleHelp }[a.limit]
     const limitCls = { under: 'text-ok', maybe: 'text-stretch', over: 'text-heavy', varies: 'text-stretch', unknown: 'text-ink-soft' }[a.limit]
@@ -331,8 +334,8 @@ export function BuildingCard({
               <p className="mt-1 text-[11px] sm:text-sm">
                 <BurdenBadge level={c.level}>About {c.burdenPct}% of income</BurdenBadge>
               </p>
-            ) : c.kind === 'income-based' ? (
-              <p className="mt-0.5 text-[11px] text-ink-soft sm:text-xs">Rent follows your income</p>
+            ) : ib ? (
+              <p className="mt-0.5 text-[11px] text-ink-soft sm:text-xs">{c.monthly !== null ? '30% of your income' : 'Rent is set at 30% of your income'}</p>
             ) : null}
             {market && (
               <p className="mt-1 text-[11px] text-ink-soft sm:text-xs">
@@ -382,7 +385,7 @@ export function BuildingCard({
             <div className="mt-2 space-y-3">
               <p className="text-ink-soft">{addressLine(b)} · {areaLabel(b.area)}</p>
               <PricePanel b={b} a={a} limits={limits} situation={situation} />
-              <LimitRow a={a} limits={limits} />
+              <LimitRow a={a} limits={limits} onAddIncome={onAddIncome} />
               <UnitMix b={b} />
         <AmiMix b={b} />
             </div>
@@ -410,7 +413,7 @@ export function BuildingCard({
         </div>
 
         <PricePanel b={b} a={a} limits={limits} situation={situation} />
-        <LimitRow a={a} limits={limits} />
+        <LimitRow a={a} limits={limits} onAddIncome={onAddIncome} />
 
         <dl className="grid grid-cols-2 gap-2">
           <Stat icon={Building2} label="Homes" value={homes} />

@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useRef, useState, type CSSProperties } from 'react'
 import { assess } from '../lib/eligibility'
 import { programLabel } from '../lib/labels'
+import { incomeBasedHeadline } from '../lib/price'
 import type { Building, IncomeLimits, Situation } from '../lib/types'
 import { addressLine } from './BuildingCard'
 import { BuildingPhoto } from './BuildingPhoto'
@@ -27,6 +28,7 @@ export function SpotlightReveal({ b, limits, situation, onDone }: { b: Building;
   const monthly = a.cost.monthly
   const market = marketFor(b, a.cost.bedrooms)
   const saving = monthly !== null && market !== null && market > monthly ? market - monthly : null
+  const ib = a.cost.kind === 'income-based' ? incomeBasedHeadline(a, b) : null
   const words = b.name.split(' ')
 
   function close() {
@@ -77,17 +79,17 @@ export function SpotlightReveal({ b, limits, situation, onDone }: { b: Building;
           <BuildingPhoto b={b} className="h-48 sm:h-60" single />
           <dl className="grid grid-cols-2 gap-3 p-4 text-left sm:grid-cols-3 sm:p-5">
             <div>
-              <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/65">{a.cost.kind === 'income-based' ? "What you'd pay" : 'Rent cap'}</dt>
+              <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/65">{ib ? ib.label : 'Rent cap'}</dt>
               <dd className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl">
-                {monthly !== null ? <CountUp value={monthly} duration={1400} format={money} /> : a.cost.kind === 'income-based' ? '30% of income' : 'Varies'}
-                {monthly !== null && <span className="text-sm font-semibold text-white/70">/mo</span>}
+                {monthly !== null ? <CountUp value={monthly} duration={1400} format={money} /> : ib ? ib.value : 'Varies'}
+                {(monthly !== null || ib?.per) && <span className="text-sm font-semibold text-white/70">/mo</span>}
               </dd>
             </div>
             <div>
-              <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/65">Typical rent nearby</dt>
-              <dd className="font-display text-2xl font-extrabold tabular-nums sm:text-3xl">
-                {market !== null ? <CountUp value={market} duration={1400} format={money} /> : 'Not listed'}
-                {market !== null && <span className="text-sm font-semibold text-white/70">/mo</span>}
+              <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/65">{ib?.isMarket ? 'Your rent here' : 'Typical rent nearby'}</dt>
+              <dd className={`font-display font-extrabold tabular-nums ${ib?.isMarket ? 'text-lg sm:text-xl' : 'text-2xl sm:text-3xl'}`}>
+                {ib?.isMarket ? '30% of your income' : market !== null ? <CountUp value={market} duration={1400} format={money} /> : 'Not listed'}
+                {!ib?.isMarket && market !== null && <span className="text-sm font-semibold text-white/70">/mo</span>}
               </dd>
             </div>
             <div className="col-span-2 rounded-xl bg-accent/90 px-3 py-2 text-ink sm:col-span-1 sm:bg-transparent sm:p-0 sm:text-white">

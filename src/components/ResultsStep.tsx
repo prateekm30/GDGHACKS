@@ -72,7 +72,7 @@ export function ResultsStep({
   async function share() {
     const lines = shortlist.map((b, i) => {
       const c = assess(b, limits, situation).cost
-      const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent is 30% of income' : 'rent varies'
+      const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent set at 30% of your income' : 'rent varies'
       return `${i + 1}. ${b.name} — ${addressLine(b)} — ${cost}${b.contact.phone ? ` — ${b.contact.phone}` : ''}`
     })
     const text = ['My HomePick DMV shortlist (estimates; each property decides who qualifies):', ...lines, 'https://gdghacks-tau.vercel.app'].join('\n')
@@ -237,6 +237,7 @@ export function ResultsStep({
                   situation={situation}
                   reasons={whyReasons(b, weights, limits, situation)}
                   detailed
+                  onAddIncome={onEditSituation}
                   badge={
                     <span
                       className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${
