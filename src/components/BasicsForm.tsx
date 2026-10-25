@@ -47,17 +47,17 @@ export const toSituation = (b: Basics): Situation | null =>
     : null
 
 const PRIORITY_OPTIONS: { value: Feature; label: string; icon: LucideIcon; color: string }[] = [
-  { value: 'cost', label: 'Lowest rent', icon: Wallet, color: '#bfdbfe' },
-  { value: 'incomeBased', label: 'Rent based on my income', icon: Scale, color: '#a5f0e6' },
-  { value: 'metro', label: 'Close to Metro', icon: TrainFront, color: '#c7d2fe' },
-  { value: 'commute', label: 'Close to work or school', icon: Briefcase, color: '#bae6fd' },
-  { value: 'bedrooms', label: 'More bedrooms', icon: BedDouble, color: '#a5c8fd' },
-  { value: 'newer', label: 'Newer building', icon: Sparkles, color: '#b9c4fb' },
-  { value: 'cozy', label: 'Smaller, quieter building', icon: TreePine, color: '#a8ecf0' },
-  { value: 'size', label: 'Big community, more openings', icon: Building2, color: '#cfe0fb' },
+  { value: 'cost', label: 'Lowest rent', icon: Wallet, color: '#ffd0c4' },
+  { value: 'incomeBased', label: 'Rent based on my income', icon: Scale, color: '#ffd6b8' },
+  { value: 'metro', label: 'Close to Metro', icon: TrainFront, color: '#ffd6e6' },
+  { value: 'commute', label: 'Close to work or school', icon: Briefcase, color: '#ffe0a3' },
+  { value: 'bedrooms', label: 'More bedrooms', icon: BedDouble, color: '#ffbcb0' },
+  { value: 'newer', label: 'Newer building', icon: Sparkles, color: '#f4c6e8' },
+  { value: 'cozy', label: 'Smaller, quieter building', icon: TreePine, color: '#ffe0a3' },
+  { value: 'size', label: 'Big community, more openings', icon: Building2, color: '#ffdccc' },
 ]
 const MAX_PRIORITIES = 3
-const PEOPLE_COLORS = ['#2453c9', '#0e7490', '#4338ca', '#0891b2', '#1e3a8a', '#3b82f6', '#0f766e', '#4f46e5']
+const PEOPLE_COLORS = ['#cf2f6a', '#c2185b', '#7c4dff', '#d6264a', '#5b2a7a', '#ff8fb1', '#b3285c', '#9d6bff']
 
 const BEDROOM_OPTIONS: { value: number | null; label: string; beds: number }[] = [
   { value: null, label: 'Any', beds: 0 },

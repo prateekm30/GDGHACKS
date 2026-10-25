@@ -91,8 +91,8 @@ export function Landing({
         <div aria-hidden className="pointer-events-none absolute inset-0">
           <div className="px-sun absolute -right-20 -top-16 lg:left-[47%] lg:-top-12 lg:right-auto">
             <svg viewBox="0 0 200 200" className="sun-rise size-64 opacity-70 lg:size-32 lg:opacity-100">
-              <circle cx="100" cy="100" r="96" fill="#e6f6ff" className="sun-glow" />
-              <circle cx="100" cy="100" r="62" fill="#a9e4f0" />
+              <circle cx="100" cy="100" r="96" fill="#fff3b0" className="sun-glow" />
+              <circle cx="100" cy="100" r="62" fill="#ffc53d" />
             </svg>
           </div>
           <div className="px-cloud absolute inset-0">
@@ -116,7 +116,7 @@ export function Landing({
                   {word}
                   {word === 'afford,' && (
                     <svg aria-hidden viewBox="0 0 200 20" preserveAspectRatio="none" className="absolute -bottom-1.5 left-0 h-3 w-[92%]">
-                      <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#22b8cf" strokeWidth="6" strokeLinecap="round" className="draw" />
+                      <path d="M3 14 C 50 4, 120 4, 197 10" pathLength={1} fill="none" stroke="#ff9f43" strokeWidth="6" strokeLinecap="round" className="draw" />
                     </svg>
                   )}
                 </span>
@@ -181,8 +181,8 @@ export function Landing({
       {/* ---------- Afternoon: where ---------- */}
       <section id="areas" aria-labelledby="areas-heading" className="afternoon relative scroll-mt-20 overflow-hidden">
         <div aria-hidden className="pointer-events-none absolute inset-0">
-          <span className="glow-orb absolute -left-24 top-10 size-72 rounded-full" style={{ background: 'radial-gradient(circle, rgb(111 216 227 / 0.45), transparent 70%)' }} />
-          <span className="glow-orb glow-orb-late absolute -right-20 bottom-0 size-80 rounded-full" style={{ background: 'radial-gradient(circle, rgb(79 125 240 / 0.35), transparent 70%)' }} />
+          <span className="glow-orb absolute -left-24 top-10 size-72 rounded-full" style={{ background: 'radial-gradient(circle, rgb(255 197 61 / 0.45), transparent 70%)' }} />
+          <span className="glow-orb glow-orb-late absolute -right-20 bottom-0 size-80 rounded-full" style={{ background: 'radial-gradient(circle, rgb(255 95 162 / 0.35), transparent 70%)' }} />
         </div>
         <div className="relative mx-auto grid max-w-6xl items-start gap-6 px-4 py-14 lg:grid-cols-[1fr_1.05fr] lg:gap-10">
           <div className="reveal min-w-0 space-y-4">
@@ -242,10 +242,10 @@ export function Landing({
         </div>
         <ul className="relative mx-auto grid max-w-6xl grid-cols-2 gap-6 px-4 py-12 sm:grid-cols-4">
           {[
-            { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#7dd3fc' },
-            { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#a5b4fc' },
-            { big: 2026, small: 'income limits, checked against the source', color: '#6fd8e3', plain: true },
-            { big: 0, small: 'sign-ups. Your answers stay on your device', color: '#bae6fd' },
+            { big: buildings?.length ?? 900, small: 'real buildings from HUD data', color: '#ffd166' },
+            { big: AREAS.length, small: 'counties and cities across DC, MD, and VA', color: '#e0b3ff' },
+            { big: 2026, small: 'income limits, checked against the source', color: '#ffc53d', plain: true },
+            { big: 0, small: 'sign-ups. Your answers stay on your device', color: '#ffe0a3' },
           ].map((s, i) => (
             <li key={s.small} className="reveal" style={{ '--d': `${i * 110}ms` } as CSSProperties}>
               <span className="font-display block text-5xl font-extrabold" style={{ color: s.color }}>

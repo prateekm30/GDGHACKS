@@ -138,7 +138,7 @@ export function PickDemo({ buildings, limits }: { buildings: Building[] | null; 
                 aria-label={`Pick ${b.name}, ${b.city}: ${line(b)}`}
                 className={`demo-card group relative overflow-hidden rounded-2xl bg-white/10 p-3 text-left ring-1 ring-white/15 transition hover:bg-white/15 ${state} ${k === 0 ? 'in-left' : 'in-right'}`}
               >
-                <span className="relative block h-16 overflow-hidden rounded-xl" style={{ background: `linear-gradient(135deg, ${k === 0 ? '#2453c9' : '#0e7490'}, ${k === 0 ? '#4f46e5' : '#14b8a6'})` }}>
+                <span className="relative block h-16 overflow-hidden rounded-xl" style={{ background: `linear-gradient(135deg, ${k === 0 ? '#cf2f6a' : '#c2185b'}, ${k === 0 ? '#9d6bff' : '#ffac6b'})` }}>
                   {!failed.has(b.id) && <TileView b={b} layer="imagery" zoom={17} className="" onFail={() => setFailed((s) => new Set(s).add(b.id))} />}
                 </span>
                 <span className="mt-2 block truncate text-sm font-bold text-white">{b.name}</span>

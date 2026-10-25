@@ -21,7 +21,7 @@ import { BurdenBadge, Note, money } from './ui'
 
 const BR = (n: number | null) => (n === null ? '' : n === 0 ? 'studio' : `${n}BR`)
 const BR_SHORT = (n: number) => (n === 0 ? 'Studio' : `${n}BR`)
-const MIX_COLORS = ['#93c5fd', '#3b82f6', '#2453c9', '#1e3a8a', '#22b8cf']
+const MIX_COLORS = ['#ffd1a8', '#ff8fb1', '#cf2f6a', '#5b2a7a', '#ff9f43']
 
 /** One sentence a screen reader can hear on the pick button: where, what it costs, and the income limit. */
 export function summary(b: Building, a: Assessment): string {

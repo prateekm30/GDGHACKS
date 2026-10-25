@@ -10,7 +10,7 @@ export function Button({
   const styles = {
     primary: 'bg-brand text-white shadow-sm hover:bg-brand-strong hover:shadow-md active:scale-[0.98]',
     secondary: 'bg-surface text-ink border border-line hover:border-brand hover:text-brand active:scale-[0.98]',
-    ghost: 'text-brand hover:bg-brand-tint',
+    ghost: 'text-brand-strong hover:bg-brand-tint',
   }[variant]
   return (
     <button

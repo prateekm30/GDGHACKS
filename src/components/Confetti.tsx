@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { prefersReducedMotion } from '../lib/motion'
 
-const COLORS = ['#2453c9', '#3b82f6', '#60a5fa', '#22b8cf', '#6fd8e3', '#a5b4fc', '#ffffff']
+const COLORS = ['#cf2f6a', '#ff8fb1', '#ffb27a', '#ff9f43', '#ffc53d', '#e0b3ff', '#ffffff']
 
 /** One short burst of confetti from the top of the screen. Skipped with reduced motion. */
 export function Confetti() {

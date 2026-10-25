@@ -146,7 +146,7 @@ export function HeroReel({
               )}
               {/* Cinematic grade: a cool tint and a vignette so the labels read. */}
               <div className="absolute inset-0 bg-[linear-gradient(180deg,rgb(14_26_51/0.15),transparent_35%,transparent_55%,rgb(14_26_51/0.82))]" />
-              <div className="absolute inset-0 mix-blend-color" style={{ background: 'rgb(36 83 201 / 0.18)' }} />
+              <div className="absolute inset-0 mix-blend-color" style={{ background: 'rgb(255 95 162 / 0.18)' }} />
             </div>
           )
         })}

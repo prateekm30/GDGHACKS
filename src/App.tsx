@@ -264,7 +264,7 @@ export default function App() {
           <section
             aria-labelledby="basics-heading"
             className="rise-in relative overflow-hidden rounded-[2rem] p-5 shadow-card sm:p-10"
-            style={{ background: 'linear-gradient(160deg, #e4efff 0%, #d6e5fd 55%, #d8defa 100%)' }}
+            style={{ background: 'linear-gradient(160deg, #fff0dd 0%, #ffd9d2 55%, #f1d6f5 100%)' }}
           >
             <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
             <BasicsForm initial={basics} onDone={onBasicsDone} limits={limits} />

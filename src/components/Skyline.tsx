@@ -1,8 +1,8 @@
 // Hand-drawn DC rowhouses, the Capitol, the Monument, and a Metro train. All decorative SVG, no images.
 import { useRef, type PointerEvent } from 'react'
 
-const HOUSE_COLORS = ['#2453c9', '#3b82f6', '#60a5fa', '#1e3a8a', '#0e7490', '#14b8a6', '#4f46e5', '#818cf8', '#22a6c3', '#93c5fd']
-const TRIM = '#f8fbfe'
+const HOUSE_COLORS = ['#ff6b4a', '#ff8fb1', '#d6264a', '#ffb27a', '#ff5fa2', '#b88cff', '#ffc53d', '#ff9f43', '#e2548f', '#9d6bff']
+const TRIM = '#fff7ec'
 
 /** Small seeded random, so a building always gets the same houses. */
 function rng(seed: number) {
@@ -72,13 +72,13 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
             width={winW}
             height={floorH * 0.62}
             rx={1.5}
-            fill={lit ? '#dff3ff' : '#1b2350'}
+            fill={lit ? '#fff1c4' : '#2d1b4a'}
             className={flicker ? 'win' : undefined}
             style={flicker ? { animationDelay: `${(r() * -12).toFixed(1)}s`, animationDuration: `${(7 + r() * 8).toFixed(1)}s` } : undefined}
           />
           {/* Comes on as night falls (--night is driven by scroll) or when the pointer is near the house. */}
           {!lit && (
-            <rect x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill="#dff3ff" className="win-night" style={{ animationDelay: `${(r() * 1.2).toFixed(2)}s` }} />
+            <rect x={wx} y={wy} width={winW} height={floorH * 0.62} rx={1.5} fill="#fff1c4" className="win-night" style={{ animationDelay: `${(r() * 1.2).toFixed(2)}s` }} />
           )}
         </g>,
       )
@@ -88,16 +88,16 @@ function HouseShape({ house, ground, seed, animated }: { house: House; ground: n
   const doorW = winW + 4
   return (
     <g className="house" data-x={x + w / 2}>
-      {turret && <path d={`M${x + w * 0.2} ${top} L${x + w * 0.5} ${top - 34} L${x + w * 0.8} ${top} Z`} fill="#141a3f" />}
+      {turret && <path d={`M${x + w * 0.2} ${top} L${x + w * 0.5} ${top - 34} L${x + w * 0.8} ${top} Z`} fill="#2a1f4d" />}
       {gable && !turret && <path d={`M${x} ${top} L${x + w / 2} ${top - 22} L${x + w} ${top} Z`} fill={color} />}
       <rect x={x} y={top} width={w} height={h} fill={color} />
       <rect x={x + w * 0.72} y={top} width={w * 0.28} height={h} fill="#000" opacity={0.08} />
       {/* Cornice */}
-      <rect x={x - 2} y={top} width={w + 4} height={8} fill="#141a3f" opacity={0.85} />
+      <rect x={x - 2} y={top} width={w + 4} height={8} fill="#2a1f4d" opacity={0.85} />
       <rect x={x} y={top + 8} width={w} height={3} fill={TRIM} opacity={0.6} />
       {windows}
       {/* Door and stoop */}
-      <rect x={doorX} y={ground - 30} width={doorW} height={26} rx={doorW / 2} ry={6} fill="#141a3f" />
+      <rect x={doorX} y={ground - 30} width={doorW} height={26} rx={doorW / 2} ry={6} fill="#2a1f4d" />
       <rect x={doorX - 5} y={ground - 5} width={doorW + 10} height={5} fill={TRIM} opacity={0.85} />
     </g>
   )
@@ -141,14 +141,14 @@ export function Skyline({ className = '', animated = true, night = false }: { cl
         <g>
           {Array.from({ length: 40 }, (_, i) => {
             const r = rng(i * 7 + 3)
-            return <circle key={i} cx={r() * W} cy={r() * 150} r={0.8 + r() * 1.4} fill="#eaf6ff" className="star" style={{ animationDelay: `${(r() * -6).toFixed(1)}s` }} />
+            return <circle key={i} cx={r() * W} cy={r() * 150} r={0.8 + r() * 1.4} fill="#fff6e8" className="star" style={{ animationDelay: `${(r() * -6).toFixed(1)}s` }} />
           })}
-          <circle cx="1180" cy="70" r="26" fill="#eaf6ff" />
-          <circle cx="1192" cy="62" r="22" fill="#141a3f" />
+          <circle cx="1180" cy="70" r="26" fill="#fff6e8" />
+          <circle cx="1192" cy="62" r="22" fill="#2a1f4d" />
         </g>
       )}
       {/* Monuments, far away */}
-      <g fill={night ? '#3b4a86' : '#7d8fc9'} opacity="0.55">
+      <g fill={night ? '#5a3a6e' : '#d9a0b8'} opacity="0.55">
         <path d="M1010 250 L1016 40 L1022 30 L1028 40 L1034 250 Z" />
         <rect x="280" y="170" width="200" height="80" />
         <rect x="320" y="140" width="120" height="30" />
@@ -162,16 +162,16 @@ export function Skyline({ className = '', animated = true, night = false }: { cl
         ))}
       </g>
       {/* Street, track, and train */}
-      <rect x="0" y={ground} width={W} height="70" fill="#141a3f" />
-      <rect x="0" y={ground + 22} width={W} height="4" fill="#6fd8e3" opacity="0.9" />
+      <rect x="0" y={ground} width={W} height="70" fill="#2a1f4d" />
+      <rect x="0" y={ground + 22} width={W} height="4" fill="#ffc53d" opacity="0.9" />
       <g className={animated ? 'train' : undefined} style={animated ? undefined : { transform: 'translateX(55%)' }}>
         <g transform={`translate(0 ${ground + 30})`}>
           {[0, 1, 2].map((c) => (
             <g key={c} transform={`translate(${c * 128} 0)`}>
               <rect width="124" height="30" rx="8" fill="#d9dde0" />
-              <rect y="18" width="124" height="5" fill="#2453c9" />
+              <rect y="18" width="124" height="5" fill="#cf2f6a" />
               {[10, 34, 58, 82, 104].map((wx) => (
-                <rect key={wx} x={wx} y="5" width="14" height="10" rx="2" fill="#141a3f" />
+                <rect key={wx} x={wx} y="5" width="14" height="10" rx="2" fill="#2a1f4d" />
               ))}
             </g>
           ))}
@@ -191,7 +191,7 @@ export function RowhouseArt({ seed, className = '' }: { seed: number; className?
       {houses.map((h, i) => (
         <HouseShape key={i} house={h} ground={ground} seed={seed + i * 31} animated={false} />
       ))}
-      <rect x="0" y={ground} width={W} height="10" fill="#141a3f" />
+      <rect x="0" y={ground} width={W} height="10" fill="#2a1f4d" />
     </svg>
   )
 }

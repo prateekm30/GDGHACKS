@@ -7,32 +7,32 @@
   --font-hand: "Caveat", "Bricolage Grotesque", cursive;
 
   /* One cool family: navy, blue, indigo, teal. Text pairs are 4.5:1 or better. */
-  --color-ink: #0e1a33;
-  --color-ink-soft: #46546e;
-  --color-line: #d6e1ee;
-  --color-canvas: #edf3fa;
-  --color-surface: #f8fbfe;
+  --color-ink: #2a1a3a;
+  --color-ink-soft: #6b5a78;
+  --color-line: #f1dfd4;
+  --color-canvas: #fff3ea;
+  --color-surface: #fffaf6;
 
   /* Aqua for highlights. Text on it uses ink. */
-  --color-accent: #6fd8e3;
-  --color-accent-tint: #dff5f8;
+  --color-accent: #ffc53d;
+  --color-accent-tint: #fff3cf;
 
   /* Blue: buttons, links, the brand. White text on it passes AA. */
-  --color-brand: #2453c9;
-  --color-brand-strong: #1a3c96;
-  --color-brand-tint: #e2eafc;
+  --color-brand: #cf2f6a;
+  --color-brand-strong: #9e1b52;
+  --color-brand-tint: #ffe3ee;
 
   /* Illustration only (never body text). Neighboring hues so gradients stay calm. */
-  --color-coral: #4f7df0;
-  --color-pink: #7c8cf8;
-  --color-sky: #2f7fd8;
-  --color-violet: #4338ca;
-  --color-mint: #7fe0d3;
-  --color-dusk: #141a3f;
+  --color-coral: #ff6b4a;
+  --color-pink: #ff5fa2;
+  --color-sky: #ff8c6b;
+  --color-violet: #7c4dff;
+  --color-mint: #ffd38a;
+  --color-dusk: #2a1f4d;
 
   /* Affordability badges. Always paired with a text label, never color alone. */
-  --color-ok: #0b6f62;
-  --color-ok-tint: #dcf3ef;
+  --color-ok: #0b7a5c;
+  --color-ok-tint: #e2f7ee;
   --color-stretch: #8a5a00;
   --color-stretch-tint: #fff1cc;
   --color-heavy: #b42318;
@@ -64,14 +64,14 @@ body::before {
 }
 
 /* Accent stripe: navy to aqua. */
-.metro-stripe { background: linear-gradient(90deg, #1e3a8a, #2453c9 30%, #3b82f6 55%, #22b8cf 80%, #6fd8e3); }
+.metro-stripe { background: linear-gradient(90deg, #7c4dff, #ff5fa2 30%, #ff6b4a 55%, #ff9f43 80%, #ffc53d); }
 
 @keyframes pop { 0% { transform: scale(0.4) rotate(-20deg); opacity: 0; } 60% { transform: scale(1.18) rotate(6deg); opacity: 1; } 100% { transform: scale(1) rotate(0); } }
 .pop { animation: pop 380ms cubic-bezier(.2,.9,.3,1.4) both; }
 
 @keyframes shimmer { from { background-position: -400px 0; } to { background-position: 400px 0; } }
 .skeleton {
-  background: linear-gradient(90deg, var(--color-line) 0px, #f5f9ff 120px, var(--color-line) 240px);
+  background: linear-gradient(90deg, var(--color-line) 0px, #fff8f0 120px, var(--color-line) 240px);
   background-size: 800px 100%;
   animation: shimmer 1.2s linear infinite;
 }
@@ -99,7 +99,7 @@ body::before {
 @keyframes drift { from { transform: translateX(-12%); } to { transform: translateX(112%); } }
 .drift { animation: drift 60s linear infinite; }
 .drift-slow { animation: drift 95s linear -40s infinite; }
-@keyframes window-on { 0%, 40% { fill: #1b2350; } 50%, 100% { fill: #dff3ff; } }
+@keyframes window-on { 0%, 40% { fill: #2d1b4a; } 50%, 100% { fill: #fff1c4; } }
 .win { animation: window-on 6s steps(1) infinite; }
 @keyframes houses-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
 .houses-up { animation: houses-up 900ms cubic-bezier(.2,.8,.2,1) both; }
@@ -135,12 +135,12 @@ body::before {
 .glow-border { position: relative; isolation: isolate; border-radius: var(--radius-card); }
 .glow-border::before {
   content: ""; position: absolute; inset: -3px; z-index: -1; border-radius: calc(var(--radius-card) + 3px);
-  background: conic-gradient(from var(--angle), #1e3a8a, #2453c9, #3b82f6, #22b8cf, #6fd8e3, #22b8cf, #3b82f6, #1e3a8a);
+  background: conic-gradient(from var(--angle), #5b2a7a, #cf2f6a, #ff8fb1, #ff9f43, #ffc53d, #ff9f43, #ff8fb1, #5b2a7a);
   animation: spin-angle 5s linear infinite;
 }
 .glow-border::after {
   content: ""; position: absolute; inset: -3px; z-index: -2; border-radius: inherit; filter: blur(18px); opacity: 0.45;
-  background: conic-gradient(from var(--angle), #2453c9, #22b8cf, #6fd8e3, #3b82f6, #2453c9);
+  background: conic-gradient(from var(--angle), #cf2f6a, #ff9f43, #ffc53d, #ff8fb1, #cf2f6a);
   animation: spin-angle 5s linear infinite;
 }
 
@@ -234,8 +234,8 @@ html { scroll-behavior: smooth; }
 /* ---------- One day in the DMV: the landing page goes from morning to night as you scroll. ---------- */
 @property --night { syntax: "<number>"; initial-value: 0; inherits: true; }
 @keyframes night-fall { to { --night: 1; } }
-.hero { --night: 0; background: linear-gradient(170deg, #e2eeff 0%, #cfe0fe 45%, #c9d3fa 100%); }
-.night-veil { background: linear-gradient(180deg, #141a3f 0%, #1e3a8a 55%, #3b4fb0 100%); opacity: calc(var(--night) * 0.74); }
+.hero { --night: 0; background: linear-gradient(170deg, #ffe3b0 0%, #ffc1a8 40%, #ffa3c4 75%, #d7b8ff 100%); }
+.night-veil { background: linear-gradient(180deg, #2a1f4d 0%, #5b2a7a 55%, #7a3f8a 100%); opacity: calc(var(--night) * 0.74); }
 .stars {
   opacity: var(--night);
   background-image:
@@ -260,10 +260,10 @@ html { scroll-behavior: smooth; }
 @supports (animation-timeline: view()) {
   .hero { animation: night-fall linear both; animation-timeline: view(); animation-range: exit 8% exit 88%; }
 }
-.afternoon { background: linear-gradient(180deg, #dbe8fd 0%, #c6d6f7 60%, #9db0e6 100%); }
-.dusk { background: linear-gradient(180deg, #4a5bb0 0%, #1f2a6b 30%, #141a3f 100%); }
-.night { background: linear-gradient(180deg, #141a3f 0%, #0b1026 55%, #080c1f 100%); }
-.dusk-fade { background: linear-gradient(180deg, var(--color-canvas) 0%, #b9c7ea 22%, #4a5bb0 58%, #141a3f 100%); }
+.afternoon { background: linear-gradient(180deg, #ffe9d2 0%, #ffd1c4 60%, #e9a9c9 100%); }
+.dusk { background: linear-gradient(180deg, #8a4a8e 0%, #4a2a6e 30%, #2a1f4d 100%); }
+.night { background: linear-gradient(180deg, #2a1f4d 0%, #1a1030 55%, #120b22 100%); }
+.dusk-fade { background: linear-gradient(180deg, var(--color-canvas) 0%, #e9b8c8 22%, #8a4a8e 58%, #2a1f4d 100%); }
 @keyframes orb { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(24px, -18px) scale(1.08); } }
 .glow-orb { animation: orb 11s ease-in-out infinite; filter: blur(2px); }
 .glow-orb-late { animation-delay: -5s; }
@@ -271,7 +271,7 @@ html { scroll-behavior: smooth; }
 /* Glass on the night sections. */
 .glass-card { border-radius: 1.5rem; background: rgb(255 255 255 / 0.08); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 20px 50px -24px rgb(0 0 0 / 0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
 .night-card { background: linear-gradient(135deg, rgb(255 255 255 / 0.12), rgb(255 255 255 / 0.04)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 30px 70px -30px rgb(0 0 0 / 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
-.demo-range { accent-color: #6fd8e3; height: 1.5rem; }
+.demo-range { accent-color: #ffc53d; height: 1.5rem; }
 .demo-card { transform-origin: center; }
 .demo-card.picked { animation: picked 520ms cubic-bezier(.4,0,.2,1) 700ms both; }
 .demo-card.dropped { animation: dropped 420ms cubic-bezier(.4,0,1,1) 500ms both; }
@@ -282,22 +282,22 @@ html { scroll-behavior: smooth; }
 @keyframes fill-x { from { width: 0; } to { width: 100%; } }
 .reel-bar { animation: fill-x 4.6s linear both; }
 .reel-label { animation: rise-in 520ms cubic-bezier(.2,.8,.2,1) both; }
-@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(111 216 227 / 0.7); } 100% { box-shadow: 0 0 0 22px rgb(111 216 227 / 0); } }
+@keyframes ping { 0% { box-shadow: 0 0 0 0 rgb(255 197 61 / 0.7); } 100% { box-shadow: 0 0 0 22px rgb(255 197 61 / 0); } }
 .ping { animation: ping 1.8s cubic-bezier(.2,.8,.2,1) infinite; }
 
 /* A soft lamp that follows the pointer over the whole page. Mouse and pen only. */
 .lamp {
   position: fixed; inset: 0; z-index: 50; pointer-events: none; mix-blend-mode: screen;
-  background: radial-gradient(560px circle at var(--lx, 50%) var(--ly, 30%), rgb(111 216 227 / 0.18), rgb(79 125 240 / 0.08) 45%, transparent 70%);
+  background: radial-gradient(560px circle at var(--lx, 50%) var(--ly, 30%), rgb(255 197 61 / 0.18), rgb(255 95 162 / 0.08) 45%, transparent 70%);
   opacity: var(--lamp, 0); transition: opacity 500ms;
 }
 @media (hover: none) { .lamp { display: none; } }
 
 /* The flow screens shift shade too: morning for the questions, day for picking, evening for results. */
 [data-step] { transition: background 800ms ease; }
-[data-step="basics"] { background: linear-gradient(180deg, #edf3fa 0%, #e3edfb 100%); }
-[data-step="pick"] { background: linear-gradient(180deg, #e9f0fb 0%, #dce6f8 100%); }
-[data-step="results"] { background: radial-gradient(90% 40% at 50% 0%, #d7e4fb 0%, #edf3fa 70%); }
+[data-step="basics"] { background: linear-gradient(180deg, #fff3ea 0%, #ffe9db 100%); }
+[data-step="pick"] { background: linear-gradient(180deg, #fff1e3 0%, #ffe0d6 100%); }
+[data-step="results"] { background: radial-gradient(90% 40% at 50% 0%, #ffdcd0 0%, #fff3ea 70%); }
 
 @media (prefers-reduced-motion: reduce) {
   .lamp, .stars-on, .star, .ping, .glow-orb { animation: none; }
