@@ -88,33 +88,35 @@ def null_geometry(url, where):
     return {"total": total, "nullGeometry": nulls, "examples": rows}
 
 
-MD_COUNTIES = "('MONTGOMERY','PRINCE GEORGE''S','FREDERICK','CHARLES','CALVERT')"
-TARGETS = {
-    "hud.ph.dev": (f"{HUB}/Public_Housing_Developments/FeatureServer/0", (WHERE,)),
-    "hud.usda.assets": (f"{HUB}/USDA_Rural_Housing_Assets/FeatureServer/0", ("1=1",)),
-    "hud.mf.pipeline": (f"{HUB}/Multifamily_Properties_and_Pipeline/FeatureServer/0", (WHERE, "1=1")),
-    "hud.s202": (f"{HUB}/HUD_Section_202_Properties/FeatureServer/0", (WHERE, "1=1")),
-    "dc.affordable": ("https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62", ("1=1",)),
-    "dc.hfa": ("https://services.arcgis.com/neT9SoYxizqTHZPH/arcgis/rest/services/Housing_Finance_Agency_Portfolio/FeatureServer/0", ("1=1",)),
-    "alx.caf": ("https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/0", ("1=1",)),
-    "moco.mpdu": ("https://services.arcgis.com/hdlG36cOubTzNDBb/arcgis/rest/services/MoCo_Rental_MPDU_Locations_WFL1/FeatureServer/0", ("1=1",)),
-    "md.mfsites": ("https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0", ("1=1",)),
-    "shimberg.2026": ("https://services8.arcgis.com/GfH4uM8d7iVMXBlB/arcgis/rest/services/HUD_RD_Properties_as_of_2026_02_04/FeatureServer/0", ("1=1",)),
-    "pg.umd": ("https://services1.arcgis.com/qTQ6qYkHpxlu0G82/arcgis/rest/services/Prince_George_s_County_Affordable_Housing/FeatureServer/0", ("1=1",)),
-}
-for name, (url, wheres) in TARGETS.items():
-    probe(name, lambda u=url, w=wheres: arcgis_layer(u, w))
-probe("hud.lihtc.nullgeom", lambda: null_geometry(f"{HUB}/LIHTC/FeatureServer/0", WHERE))
-probe("hud.mf.nullgeom", lambda: null_geometry(f"{HUB}/MULTIFAMILY_PROPERTIES_ASSISTED/FeatureServer/0", WHERE))
-for site, q in (("gisdata-arlgis.opendata.arcgis.com", "affordable"), ("data-fairfaxcountygis.opendata.arcgis.com", "affordable housing"),
-                ("geohub-loudoungis.opendata.arcgis.com", "affordable"), ("gisdata.pgplanning.org", "affordable housing"),
-                ("data.princegeorgescountymd.gov", "affordable"), ("data-mcgov-gis.opendata.arcgis.com", "MPDU")):
-    probe(f"hub.{site.split('.')[0]}", lambda s=site, q=q: hub_search(s, q))
-probe("search.arlington2", lambda: arcgis_search("Arlington County affordable housing CAF", 'orgid:0HCyYvHeF3dpfdG4'))
-probe("search.arlington3", lambda: arcgis_search("Arlington committed affordable"))
-probe("search.fairfax2", lambda: arcgis_search("Fairfax County affordable dwelling unit rental"))
-probe("socrata.pg", lambda: socrata("data.princegeorgescountymd.gov", "affordable housing"))
-probe("socrata.moco.mpdu.rows", lambda: get_json("https://data.montgomerycountymd.gov/resource/pbh5-g4e5.json", {"$limit": 3}))
+def groups(url, field, where="1=1"):
+    j = get_json(url + "/query", {"where": where, "groupByFieldsForStatistics": field, "f": "json",
+                                  "outStatistics": json.dumps([{"statisticType": "count", "onStatisticField": "OBJECTID", "outStatisticFieldName": "n"}])})
+    return {str(f["attributes"].get(field)): f["attributes"]["n"] for f in j.get("features", [])}
+
+
+DC_AFF = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62"
+MD_SITES = "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0"
+MD_WHERE = "County IN ('Montgomery','Prince George''s','Prince Georges','Frederick','Charles','Calvert')"
+PH = f"{HUB}/Public_Housing_Developments/FeatureServer/0"
+USDA = f"{HUB}/USDA_Rural_Housing_Assets/FeatureServer/0"
+ALX = "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer"
+probe("dc.aff.status", lambda: groups(DC_AFF, "STATUS_PUBLIC"))
+probe("dc.aff.agency", lambda: groups(DC_AFF, "AGENCY_CALCULATED"))
+probe("dc.aff.completed.sample", lambda: sample(DC_AFF, "STATUS_PUBLIC = 'Completed 2015 to Date' AND TOTAL_AFFORDABLE_UNITS >= 20", 3))
+probe("md.sites.counties", lambda: groups(MD_SITES, "County"))
+probe("md.sites.programs", lambda: groups(MD_SITES, "MFPrograms", MD_WHERE))
+probe("md.sites.occ", lambda: groups(MD_SITES, "PrimOcc", MD_WHERE))
+probe("md.sites.sample", lambda: sample(MD_SITES, MD_WHERE, 3))
+probe("ph.status", lambda: groups(PH, "PD_STATUS_TYPE_CODE", WHERE))
+probe("ph.scattered", lambda: groups(PH, "SCATTERED_SITE_IND", WHERE))
+probe("ph.pha", lambda: groups(PH, "FORMAL_PARTICIPANT_NAME", WHERE))
+probe("ph.sample", lambda: get_json(PH + "/query", {"where": WHERE + " AND SCATTERED_SITE_IND = 'N'", "outFields": "PROJECT_NAME,DEVELOPMENT_CODE,PD_STATUS_TYPE_CODE,TOTAL_DWELLING_UNITS,ACC_UNITS,TOTAL_UNITS,PCT_BED1,PCT_BED2,PCT_BED3,MONTHS_WAITING,STD_ADDR,STD_CITY,STD_ST,STD_ZIP5,LAT,LON,COUNTY_LEVEL,HA_PHN_NUM,HA_EMAIL_ADDR_TEXT,FORMAL_PARTICIPANT_NAME", "resultRecordCount": 4, "f": "json"}).get("features"))
+probe("usda.count", lambda: count(USDA, WHERE))
+probe("usda.designation", lambda: groups(USDA, "RENTAL_DESIGNATION", WHERE))
+probe("usda.sample", lambda: get_json(USDA + "/query", {"where": WHERE, "outFields": "PROJECT_NAME,STD_ADDR,STD_CITY,STD_ST,STD_ZIP5,TOTAL_UNITS,RA_UNITS,HUD_UNITS,RENTAL_DESIGNATION,MGMT_AGENT_NAME,MGMT_AGENT_PH_NBR,MGMT_AGENT_EMAIL,STUDIO_COUNT,BEDROOM1_COUNT,BEDROOM2_COUNT,BEDROOM3_COUNT,BEDROOM4_COUNT,EFFECTIVE_DATE,RESTRICTIVE_CLAUSE_EXPIRATION,LAT,LON,COUNTY_LEVEL", "resultRecordCount": 4, "f": "json"}).get("features"))
+probe("alx.service", lambda: [(l["id"], l["name"]) for l in get_json(ALX, {"f": "json"}).get("layers", []) + get_json(ALX, {"f": "json"}).get("tables", [])])
+for i in range(3):
+    probe(f"alx.layer{i}", lambda i=i: arcgis_layer(f"{ALX}/{i}"))
 
 Path("probe").mkdir(exist_ok=True)
 Path("probe/report.json").write_text(json.dumps(report, indent=1, default=str))
