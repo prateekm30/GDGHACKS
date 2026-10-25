@@ -1,7 +1,7 @@
 /** The rent model: LIHTC = capped rent by income tier, HUD = rent follows income (about 30%). */
 export type Program = 'LIHTC' | 'HUD'
 /** Which public list the row comes from when it is not HUD's two main datasets. */
-export type Subsidy = 'public-housing' | 'usda' | 'dc' | 'md'
+export type Subsidy = 'public-housing' | 'usda' | 'dc' | 'md' | 'alexandria'
 /** Income tier as a percent of area median income. */
 export type Ceiling = 30 | 50 | 60 | 80
 export type Area =
@@ -39,6 +39,8 @@ export interface Building {
   subsidy?: Subsidy
   /** Public housing: average months on the waitlist for recent move-ins (HUD). Unknown when absent. */
   waitMonths?: number | null
+  /** The building's own site, when the source lists one (Alexandria). */
+  website?: string | null
   /** DC covenants: affordable homes by income tier ("30", "50", "60", "80" percent of median income). */
   amiMix?: Record<string, number>
   /** Bedroom sizes that exist in the building (0 = studio). Empty if unknown. */

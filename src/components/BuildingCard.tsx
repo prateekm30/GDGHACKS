@@ -455,7 +455,7 @@ export function BuildingCard({
             <p className="text-xs text-ink-soft">{sourceName(b)} doesn't list amenities like laundry or parking. Ask when you call.</p>
             {b.contact.phone || b.contact.org || b.contact.name ? (
               <>
-                <p className="font-medium">Contact (from HUD data, may not be the leasing office)</p>
+                <p className="font-medium">Contact (from {sourceName(b)}, may not be the leasing office)</p>
                 <p className="text-ink-soft">{[b.contact.org, b.contact.name].filter(Boolean).join(' · ')}</p>
                 {b.contact.phone && (
                   <a className="inline-block py-1 font-semibold text-brand-strong underline-offset-2 hover:underline" href={`tel:${b.contact.phone.replace(/[^\d+]/g, '')}`}>
@@ -465,6 +465,13 @@ export function BuildingCard({
               </>
             ) : (
               <p className="text-ink-soft">{sourceName(b)} has no phone for this building.</p>
+            )}
+            {b.website && /^https?:\/\//.test(b.website) && (
+              <p>
+                <a className="inline-block py-1 font-semibold text-brand-strong underline-offset-2 hover:underline" href={b.website} target="_blank" rel="noreferrer">
+                  Building website (from {sourceName(b)})
+                </a>
+              </p>
             )}
             <p>
               <a

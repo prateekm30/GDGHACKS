@@ -11,6 +11,8 @@ export function programLabel(b: Building): string {
       return b.incomeCeiling === 'avg' || b.incomeCeiling == null ? 'DC covenant' : `DC covenant · up to ${b.incomeCeiling}% MFI`
     case 'md':
       return 'Maryland-financed'
+    case 'alexandria':
+      return b.incomeCeiling === 'avg' || b.incomeCeiling == null ? 'Alexandria committed affordable' : `Alexandria affordable · ${b.incomeCeiling}% AMI`
   }
   if (b.program === 'HUD') return 'HUD-assisted'
   if (b.incomeCeiling === 'avg') return 'Tax credit · mixed tiers'
@@ -35,6 +37,8 @@ export function sourceName(b: Building): string {
       return "DC's affordable housing list"
     case 'md':
       return "Maryland's multifamily list"
+    case 'alexandria':
+      return "Alexandria's affordable rentals list"
   }
   return 'HUD data'
 }

@@ -36,6 +36,7 @@ PUBLIC_HOUSING_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/s
 USDA_URL = "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/USDA_Rural_Housing_Assets/FeatureServer/0"
 DC_AFFORDABLE_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Property_and_Land_WebMercator/FeatureServer/62"
 MD_SITES_URL = "https://mdgeodata.md.gov/imap/rest/services/BusinessEconomy/MD_MultifamilySites/FeatureServer/0"
+ALEXANDRIA_URL = "https://services2.arcgis.com/ChYV69FhfjwkvRmy/arcgis/rest/services/Committed_and_Affordable_Rentals/FeatureServer/20"
 STATIONS_URL = "https://maps2.dcgis.dc.gov/dcgis/rest/services/DCGIS_DATA/Transportation_Rail_Bus_WebMercator/MapServer/51"
 # Every county and city in HUD's Washington-Arlington-Alexandria, DC-VA-MD HUD Metro FMR Area, so one table of
 # income limits applies to all of them. Grouped into the areas people pick from.
@@ -81,12 +82,14 @@ DC_FIELDS = ["OBJECTID", "MAR_ID", "PROJECT_NAME", "ADDRESS", "FULLADDRESS", "ST
              "UNITS_TOTAL", "CONSTRUCTION_END_DATE", "LATITUDE", "LONGITUDE"]
 MD_FIELDS = ["ProjID", "ProjName", "MFPrograms", "PInitClos", "ResUnits", "PrimOcc", "Address", "City", "Zip", "County",
              "XCoord", "YCoord"]
+ALX_FIELDS = ["OBJECTID", "PROJECT_NAME", "ADDRESS", "COMMITTAFFORDABLE_COUNT", "AMILEVELOFAFFORDABILITY", "STATUS",
+              "SENIORONLY", "TOTALCOMPLEX_UNITCOUNT", "Website", "FORPUBLIC"]
 MD_COUNTY_AREA = {"Montgomery": "MONTGOMERY", "Prince George's": "PRINCE_GEORGES", "Prince Georges": "PRINCE_GEORGES",
                   "Frederick": "FREDERICK", "Charles": "SOUTHERN_MD", "Calvert": "SOUTHERN_MD"}
 MD_WHERE = "County IN (" + ",".join("'" + c.replace("'", "''") + "'" for c in MD_COUNTY_AREA) + ")"
 # Which row wins when two sources list the same building: HUD rows carry phones and unit mixes, then public
 # housing, the LIHTC database, USDA, the DC and Maryland agency lists (which carry the fewest fields).
-SOURCE_RANK = {"hud": 0, "ph": 1, "lihtc": 2, "usda": 3, "dc": 4, "md": 5}
+SOURCE_RANK = {"hud": 0, "ph": 1, "lihtc": 2, "usda": 3, "alx": 4, "dc": 5, "md": 6}
 
 
 def rank(b: dict) -> int:
@@ -479,6 +482,50 @@ def md_building(a: dict, today: str) -> dict | None:
     }
 
 
+def tier_of(text) -> int | None:
+    """'0-30%' -> 30, '60%' -> 60, '40-60%' -> 60, 'up to 80%' -> 80. Over 80% is not low income: None."""
+    nums = [int(n) for n in re.findall(r"\d+", str(text or ""))]
+    if not nums:
+        return None
+    top = max(nums)
+    return 30 if top <= 30 else 50 if top <= 50 else 60 if top <= 60 else 80 if top <= 80 else None
+
+
+def alx_building(a: dict, today: str) -> dict | None:
+    """Alexandria's committed affordable rentals: the city's own list, with the income tier and a website."""
+    if str(a.get("STATUS") or "").upper() != "CONSTRUCTED" or str(a.get("FORPUBLIC") or "Yes").lower() == "no":
+        return None
+    tier = tier_of(a.get("AMILEVELOFAFFORDABILITY"))
+    if tier is None:
+        return None
+    name = clean_name(title(clean(a.get("PROJECT_NAME")))) or "Unnamed property"
+    return {
+        "id": stable_id("alx", a.get("PROJECT_NAME"), a.get("ADDRESS")),
+        "name": name,
+        "address": title(clean(a.get("ADDRESS"))),
+        "city": "Alexandria",
+        "state": "VA",
+        "zip": "",
+        "area": "ALEXANDRIA",
+        "lat": a["_lat"], "lon": a["_lon"],
+        "program": "LIHTC",
+        "subsidy": "alexandria",
+        "totalUnits": num(a.get("TOTALCOMPLEX_UNITCOUNT")),
+        "affordableUnits": num(a.get("COMMITTAFFORDABLE_COUNT")),
+        "incomeCeiling": tier,
+        "bedrooms": [],
+        "unitMix": {},
+        "yearPlacedInService": None,
+        "seniorOnly": str(a.get("SENIORONLY") or "").lower() == "yes",
+        "disabilityOnly": False,
+        "website": clean(a.get("Website")),
+        "metroMiles": None,
+        "metroStation": None,
+        "contact": {"name": None, "org": None, "phone": None, "email": None},
+        "source": {"dataset": "City of Alexandria Committed Affordable Rentals", "url": ALEXANDRIA_URL, "retrieved": today},
+    }
+
+
 KEEP_UPPER = {"NW", "NE", "SW", "SE", "II", "III", "IV", "VI", "LP", "LLC", "DC", "VA", "MD", "US", "YMCA", "YWCA", "UDC", "GWU", "NIH"}
 
 
@@ -553,7 +600,7 @@ def dedupe(buildings: list[dict]) -> list[dict]:
 
 def fill_gaps(kept: dict, other: dict) -> None:
     for f in ("bedrooms", "yearPlacedInService", "totalUnits", "affordableUnits", "incomeCeiling", "unitMix", "marketRent",
-              "amiMix", "waitMonths"):
+              "amiMix", "waitMonths", "website"):
         if not kept.get(f) and other.get(f):
             kept[f] = other[f]
     if not kept["contact"]["phone"] and other["contact"]["phone"]:
@@ -650,6 +697,7 @@ def build_buildings(inspect: bool) -> None:
         ("USDA rural", USDA_URL, WHERE, USDA_FIELDS, usda_building),
         ("DC affordable", DC_AFFORDABLE_URL, "1=1", DC_FIELDS, dc_building),
         ("Maryland sites", MD_SITES_URL, MD_WHERE, MD_FIELDS, md_building),
+        ("Alexandria", ALEXANDRIA_URL, "1=1", ALX_FIELDS, alx_building),
     ):
         try:
             raw = query_layer(url, where, fields)

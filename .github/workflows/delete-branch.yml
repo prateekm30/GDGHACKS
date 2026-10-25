@@ -1,0 +1,21 @@
+# Deletes a scratch branch this repo's workflows created. Only the names listed below can be chosen.
+name: Delete scratch branch
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: Branch to delete
+        type: choice
+        options: [data-probe]
+
+permissions:
+  contents: write
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          git init -q
+          git push "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}" --delete "${{ inputs.branch }}"
