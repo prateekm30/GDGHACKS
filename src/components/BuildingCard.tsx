@@ -47,7 +47,7 @@ export function summary(b: Building, a: Assessment): string {
     c.kind === 'income-based'
       ? c.monthly !== null
         ? `income-based rent, about ${money(c.monthly)} a month for you`
-        : 'rent set at 30% of your income'
+        : 'rent set at about 30% of your income'
       : c.kind === 'ceiling' && c.monthly !== null
         ? `rent up to ${money(c.monthly)} a month for a ${BR(c.bedrooms)}${c.burdenPct !== null ? `, about ${c.burdenPct}% of your income` : ''}`
         : 'rent varies by unit'
@@ -176,26 +176,20 @@ function PricePanel({ b, a, limits, situation }: { b: Building; a: Assessment; l
   )
 }
 
-function LimitRow({ a, limits, onAddIncome }: { a: Assessment; limits: IncomeLimits; onAddIncome?: () => void }) {
+function LimitRow({ a, limits }: { a: Assessment; limits: IncomeLimits }) {
   const rows: Record<Assessment['limit'], { icon: LucideIcon; cls: string; text: string }> = {
     under: { icon: CircleCheck, cls: 'text-ok', text: 'You appear to be under the estimated income limit.' },
     maybe: { icon: CircleHelp, cls: 'text-stretch', text: 'You may be over the usual limit. Some HUD-assisted buildings admit up to 80% of area median income, so ask.' },
     over: { icon: CircleAlert, cls: 'text-heavy', text: "You appear to be over this building's estimated income limit." },
     varies: { icon: CircleHelp, cls: 'text-stretch', text: 'Income limit varies by unit. Ask the property.' },
-    unknown: { icon: CircleHelp, cls: 'text-ink-soft', text: 'Add your income to check the income limit.' },
+    unknown: { icon: CircleHelp, cls: 'text-ink-soft', text: 'Income limit not checked.' },
   }
   const r = rows[a.limit]
   return (
     <p className="flex gap-2 text-sm">
       <r.icon aria-hidden className={`mt-0.5 size-4 shrink-0 ${r.cls}`} />
       <span>
-        {a.limit === 'unknown' && onAddIncome ? (
-          <button type="button" onClick={(e) => { e.stopPropagation(); onAddIncome() }} className="font-semibold text-brand-strong underline-offset-4 hover:underline">
-            Add your income to check the income limit and see what you'd pay.
-          </button>
-        ) : (
-          r.text
-        )}{' '}
+        {r.text}{' '}
         {a.limit !== 'unknown' && (
           <span className="text-ink-soft">
             ({limits.effective} limits{a.limitAmount ? `, ${money(a.limitAmount)} for your household` : ''}. The property decides.)
@@ -262,7 +256,6 @@ export function BuildingCard({
   detailed = false,
   compact = false,
   badge,
-  onAddIncome,
 }: {
   b: Building
   a: Assessment
@@ -274,7 +267,6 @@ export function BuildingCard({
   compact?: boolean
   badge?: ReactNode
   /** Results page: lets the card send the person back to the basics to add an income. */
-  onAddIncome?: () => void
 }) {
   const pb = programBadge(b)
   const info = areaInfo(b.area)
@@ -306,7 +298,7 @@ export function BuildingCard({
           ? { label: `Rent cap${c.bedrooms !== null ? `, ${BR(c.bedrooms)}` : ''}`, value: money(c.monthly), per: true, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
           : { label: 'Rent cap', value: 'Varies', per: false, cls: 'bg-brand-tint/70', lcls: 'text-brand-strong' }
     const market = ib?.isMarket ? null : b.marketRent?.[String(Math.min(c.bedrooms ?? 1, 4))]
-    const limitText = { under: 'Under the income limit (est.)', maybe: 'Over the usual limit, ask (est.)', over: 'Over the income limit (est.)', varies: 'Limit varies by unit', unknown: 'Add income to check the limit' }[a.limit]
+    const limitText = { under: 'Under the income limit (est.)', maybe: 'Over the usual limit, ask (est.)', over: 'Over the income limit (est.)', varies: 'Limit varies by unit', unknown: 'Limit not checked' }[a.limit]
     const LimitIcon = { under: CircleCheck, maybe: CircleHelp, over: CircleAlert, varies: CircleHelp, unknown: CircleHelp }[a.limit]
     const limitCls = { under: 'text-ok', maybe: 'text-stretch', over: 'text-heavy', varies: 'text-stretch', unknown: 'text-ink-soft' }[a.limit]
     return (
@@ -335,7 +327,7 @@ export function BuildingCard({
                 <BurdenBadge level={c.level}>About {c.burdenPct}% of income</BurdenBadge>
               </p>
             ) : ib ? (
-              <p className="mt-0.5 text-[11px] text-ink-soft sm:text-xs">{c.monthly !== null ? '30% of your income' : 'Rent is set at 30% of your income'}</p>
+              <p className="mt-0.5 text-[11px] text-ink-soft sm:text-xs">{c.monthly !== null ? 'Est. 30% of your income' : 'Rent set at about 30% of your income'}</p>
             ) : null}
             {market && (
               <p className="mt-1 text-[11px] text-ink-soft sm:text-xs">
@@ -385,7 +377,7 @@ export function BuildingCard({
             <div className="mt-2 space-y-3">
               <p className="text-ink-soft">{addressLine(b)} · {areaLabel(b.area)}</p>
               <PricePanel b={b} a={a} limits={limits} situation={situation} />
-              <LimitRow a={a} limits={limits} onAddIncome={onAddIncome} />
+              <LimitRow a={a} limits={limits} />
               <UnitMix b={b} />
         <AmiMix b={b} />
             </div>
@@ -413,7 +405,7 @@ export function BuildingCard({
         </div>
 
         <PricePanel b={b} a={a} limits={limits} situation={situation} />
-        <LimitRow a={a} limits={limits} onAddIncome={onAddIncome} />
+        <LimitRow a={a} limits={limits} />
 
         <dl className="grid grid-cols-2 gap-2">
           <Stat icon={Building2} label="Homes" value={homes} />

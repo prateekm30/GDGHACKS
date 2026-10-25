@@ -24,8 +24,8 @@ import { money } from './ui'
 
 export interface Basics {
   householdSize: number
-  /** null when the person skipped income: no cost estimates, picks still work. */
-  income: number | null
+  /** Yearly household income before taxes. Required: the picker only shows buildings this income appears to fit. */
+  income: number
   /** How the person typed it; income above is always yearly. */
   incomePeriod?: IncomePeriod
   bedroomsNeeded: number | null
@@ -35,7 +35,6 @@ export interface Basics {
   /** A hub id from HUBS, for "close to work or school". */
   workHub?: string | null
   voucher?: boolean
-  hideOverLimit?: boolean
 }
 
 /**
@@ -47,6 +46,8 @@ export function sanitizeBasics(raw: unknown): Basics | null {
   const r = raw as Record<string, unknown>
   const int = (v: unknown, lo: number, hi: number) => (typeof v === 'number' && Number.isInteger(v) && v >= lo && v <= hi ? v : null)
   const income = typeof r.income === 'number' && Number.isFinite(r.income) && r.income >= 1 && r.income <= MAX_YEARLY_INCOME ? Math.floor(r.income) : null
+  // Answers saved before income was required come back without one: ask again instead of guessing.
+  if (income === null) return null
   return {
     householdSize: int(r.householdSize, 1, 8) ?? 1,
     income,
@@ -59,21 +60,17 @@ export function sanitizeBasics(raw: unknown): Basics | null {
     includeSeniorDisability: r.includeSeniorDisability === true,
     workHub: typeof r.workHub === 'string' && HUBS.some((h) => h.id === r.workHub) ? r.workHub : null,
     voucher: r.voucher === true,
-    hideOverLimit: r.hideOverLimit === true && income !== null,
   }
 }
 
-export const toSituation = (b: Basics): Situation | null =>
-  b.income
-    ? {
-        income: b.income,
-        householdSize: b.householdSize,
-        allFullTimeStudents: b.allFullTimeStudents,
-        includeSeniorDisability: b.includeSeniorDisability,
-        voucher: !!b.voucher,
-        bedroomsNeeded: b.bedroomsNeeded,
-      }
-    : null
+export const toSituation = (b: Basics): Situation => ({
+  income: b.income,
+  householdSize: b.householdSize,
+  allFullTimeStudents: b.allFullTimeStudents,
+  includeSeniorDisability: b.includeSeniorDisability,
+  voucher: !!b.voucher,
+  bedroomsNeeded: b.bedroomsNeeded,
+})
 
 const PRIORITY_OPTIONS: { value: Feature; label: string; icon: LucideIcon; color: string }[] = [
   { value: 'cost', label: 'Lowest rent', icon: Wallet, color: '#ffd0c4' },
@@ -147,11 +144,14 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
   const [senior, setSenior] = useState(initial?.includeSeniorDisability ?? false)
   const [hub, setHub] = useState<string>(initial?.workHub ?? '')
   const [voucher, setVoucher] = useState(initial?.voucher ?? false)
-  const [hideOver, setHideOver] = useState(initial?.hideOverLimit ?? false)
+  // Submit with the box empty: the error shows only after the first try, so the form does not open red.
+  const [tried, setTried] = useState(false)
   const typed = parseIncome(income)
   const problem = incomeProblem(typed, period)
   // Text in the box that is not a number at all ("abc", "1e9", "-500").
   const unreadable = income.trim() !== '' && typed === null
+  const missing = tried && income.trim() === ''
+  const incomeError = problem ?? (unreadable ? 'Type the income as a number, like 52,000 or 52k.' : missing ? 'Enter your household income so we only show buildings you appear to fit.' : null)
   /** Yearly, whatever the box says. All eligibility math stays yearly. */
   const incomeNum = typed && !problem ? toYearly(typed, period) : null
   const incomeRef = useRef<HTMLInputElement>(null)
@@ -179,7 +179,8 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
       className="grid gap-8 lg:grid-cols-[1fr_20rem]"
       onSubmit={(e) => {
         e.preventDefault()
-        if (problem || unreadable) {
+        setTried(true)
+        if (problem || unreadable || incomeNum === null) {
           incomeRef.current?.focus()
           return
         }
@@ -193,7 +194,6 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
           includeSeniorDisability: senior,
           workHub: hub || null,
           voucher,
-          hideOverLimit: hideOver && !!incomeNum,
         })
       }}
     >
@@ -242,7 +242,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
           </div>
         </Question>
 
-        <Question n={2} title="Household income, before taxes" hint="Optional. With it, we estimate rent and check each building's income limit.">
+        <Question n={2} title="Household income, before taxes" hint="Needed: we only show buildings your income appears to fit, and we estimate what you'd pay. It never leaves this device.">
           <div className="max-w-md space-y-3">
             <div role="radiogroup" aria-label="Is that a monthly or a yearly amount?" className="inline-flex rounded-full bg-white/70 p-1 text-sm font-bold">
               {(['month', 'year'] as const).map((p) => (
@@ -264,8 +264,9 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               <input
                 ref={incomeRef}
                 maxLength={INCOME_MAX_CHARS}
-                aria-invalid={problem || unreadable ? true : undefined}
-                aria-describedby={problem || unreadable ? `${id}-income-error` : undefined}
+                aria-invalid={incomeError ? true : undefined}
+                aria-describedby={incomeError ? `${id}-income-error` : undefined}
+                aria-required="true"
                 id={`${id}-income`}
                 aria-label={`${period === 'month' ? 'Monthly' : 'Yearly'} household income in dollars`}
                 inputMode="decimal"
@@ -291,9 +292,9 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
               onChange={(e) => setIncome(Number(e.target.value).toLocaleString('en-US'))}
               className="w-full accent-brand"
             />
-            {(problem || unreadable) && (
+            {incomeError && (
               <p id={`${id}-income-error`} role="alert" className="rounded-xl bg-heavy-tint px-3 py-2 text-sm font-medium text-heavy">
-                {problem ?? 'Type the income as a number, like 52,000 or 52k.'}
+                {incomeError}
               </p>
             )}
             {(looksMonthly || looksYearly) && (
@@ -403,13 +404,6 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
             <Toggle checked={voucher} onChange={setVoucher} hint="We'll show what you'd likely pay with it at tax-credit buildings.">
               I have a Housing Choice Voucher (Section 8)
             </Toggle>
-            <Toggle
-              checked={hideOver}
-              onChange={setHideOver}
-              hint={incomeNum ? undefined : 'Needs your income above.'}
-            >
-              Hide buildings I'm likely over the income limit for
-            </Toggle>
             <Toggle checked={senior} onChange={setSenior}>
               Include buildings for seniors (62+) or people with disabilities
             </Toggle>
@@ -445,14 +439,16 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-white/70">Income</p>
             <p key={incomeNum ?? 0} className="bump font-display text-3xl font-extrabold">
-              {incomeNum ? money(incomeNum) : 'Skipped'}
+              {incomeNum ? money(incomeNum) : 'Needed'}
             </p>
             {incomeNum && <p className="text-sm text-white/70">a year · {money(Math.round(incomeNum / 12))} a month</p>}
-            {incomeNum && (
+            {incomeNum ? (
               <p className="mt-1 text-sm text-white/85">
-                {incomeNum <= limit60 ? 'Under' : 'Over'} the 60% tax-credit limit · income-based rent would be about{' '}
-                {money(Math.round((incomeNum * 0.3) / 12))}/mo
+                {incomeNum <= limit60 ? 'Under' : 'Over'} the 60% tax-credit limit · income-based rent about{' '}
+                {money(Math.round((incomeNum * 0.3) / 12))}/mo (est.)
               </p>
+            ) : (
+              <p className="mt-1 text-sm text-white/70">Type it above and we show only buildings it appears to fit.</p>
             )}
           </div>
           <div>

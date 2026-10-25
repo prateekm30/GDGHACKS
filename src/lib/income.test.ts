@@ -94,14 +94,17 @@ describe('income edge cases', async () => {
   it('cleans saved answers someone edited by hand', () => {
     expect(sanitizeBasics(null)).toBeNull()
     expect(sanitizeBasics('x')).toBeNull()
-    const b = sanitizeBasics({ householdSize: 99, income: 1e20, bedroomsNeeded: -1, priorities: ['cost', 'evil', 'cost', 'metro', 'size', 'newer'], workHub: '<script>', voucher: 'yes', hideOverLimit: true })!
+    // No usable income means no usable answers: the form asks again.
+    expect(sanitizeBasics({ householdSize: 2, income: 1e20 })).toBeNull()
+    expect(sanitizeBasics({ householdSize: 2 })).toBeNull()
+    const b = sanitizeBasics({ householdSize: 99, income: 52000, bedroomsNeeded: -1, priorities: ['cost', 'evil', 'cost', 'metro', 'size', 'newer'], workHub: '<script>', voucher: 'yes', hideOverLimit: true })!
     expect(b.householdSize).toBe(1)
-    expect(b.income).toBeNull()
+    expect(b.income).toBe(52000)
     expect(b.bedroomsNeeded).toBeNull()
     expect(b.priorities).toEqual(['cost', 'metro', 'size'])
     expect(b.workHub).toBeNull()
     expect(b.voucher).toBe(false)
-    expect(b.hideOverLimit).toBe(false)
+    expect('hideOverLimit' in b).toBe(false)
     expect(sanitizeBasics({ householdSize: 3, income: 52000, incomePeriod: 'month', bedroomsNeeded: 2, priorities: ['cost'] })).toMatchObject({ householdSize: 3, income: 52000, incomePeriod: 'month', bedroomsNeeded: 2 })
   })
 })

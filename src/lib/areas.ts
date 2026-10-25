@@ -57,3 +57,40 @@ export function milesBetween(lat1: number, lon1: number, lat2: number, lon2: num
   const a = Math.sin(dp / 2) ** 2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2) ** 2
   return 2 * r * Math.asin(Math.sqrt(a))
 }
+
+/** Areas that touch, including across the Potomac. Used to widen a search that has too few fitting buildings. */
+export const NEIGHBORS: Record<Area, Area[]> = {
+  DC: ['ARLINGTON', 'ALEXANDRIA', 'MONTGOMERY', 'PRINCE_GEORGES'],
+  MONTGOMERY: ['DC', 'PRINCE_GEORGES', 'FREDERICK', 'FAIRFAX', 'LOUDOUN'],
+  PRINCE_GEORGES: ['DC', 'MONTGOMERY', 'SOUTHERN_MD'],
+  FREDERICK: ['MONTGOMERY', 'LOUDOUN'],
+  SOUTHERN_MD: ['PRINCE_GEORGES', 'FREDERICKSBURG'],
+  ARLINGTON: ['DC', 'ALEXANDRIA', 'FAIRFAX'],
+  ALEXANDRIA: ['ARLINGTON', 'FAIRFAX', 'DC'],
+  FAIRFAX: ['ARLINGTON', 'ALEXANDRIA', 'LOUDOUN', 'PRINCE_WILLIAM', 'MONTGOMERY'],
+  LOUDOUN: ['FAIRFAX', 'PRINCE_WILLIAM', 'FAUQUIER_CLARKE', 'FREDERICK', 'MONTGOMERY'],
+  PRINCE_WILLIAM: ['FAIRFAX', 'LOUDOUN', 'FAUQUIER_CLARKE', 'FREDERICKSBURG'],
+  FREDERICKSBURG: ['PRINCE_WILLIAM', 'FAUQUIER_CLARKE', 'SOUTHERN_MD'],
+  FAUQUIER_CLARKE: ['LOUDOUN', 'PRINCE_WILLIAM', 'FREDERICKSBURG'],
+}
+
+/**
+ * Grow a set of areas ring by ring (neighbors, then their neighbors) until `count` says there are at least `min`
+ * fitting buildings, or every area is in. An empty selection already means all of the DMV and is left alone.
+ * Returns the areas to search and the ones that were added, in the order they were added.
+ */
+export function widenAreas(selected: ReadonlySet<Area>, count: (areas: ReadonlySet<Area>) => number, min: number): { areas: ReadonlySet<Area>; added: Area[] } {
+  if (selected.size === 0) return { areas: selected, added: [] }
+  const areas = new Set(selected)
+  const added: Area[] = []
+  while (count(areas) < min && areas.size < AREAS.length) {
+    const ring = [...areas].flatMap((a) => NEIGHBORS[a] ?? []).filter((a, i, all) => !areas.has(a) && all.indexOf(a) === i)
+    // Keep the map's order so the note reads the same way the map does.
+    const next = ring.length ? AREAS.map((a) => a.id).filter((a) => ring.includes(a)) : AREAS.map((a) => a.id).filter((a) => !areas.has(a))
+    for (const a of next) {
+      areas.add(a)
+      added.push(a)
+    }
+  }
+  return { areas, added }
+}

@@ -10,7 +10,7 @@ import { Skyline } from './Skyline'
 const STEPS: { title: string; body: string; detail: string; icon: LucideIcon; time: string }[] = [
   {
     title: 'Tell us the basics',
-    body: 'Household size, bedrooms, where you work, and what matters most. Income is optional.',
+    body: 'Household size, income, bedrooms, where you work, and what matters most. You only ever see buildings your income appears to fit.',
     detail: 'Nothing you type leaves your phone. We use it only to estimate rent and check income limits.',
     icon: ShieldCheck,
     time: 'late afternoon',

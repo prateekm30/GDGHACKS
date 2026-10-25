@@ -40,6 +40,7 @@ export function ResultsStep({
   onRestart,
   announce,
   celebrate = false,
+  note,
 }: {
   shortlist: Building[]
   weights: Weights
@@ -52,6 +53,8 @@ export function ResultsStep({
   announce: (msg: string) => void
   /** True when the person just finished picking (not on refresh, Back, or Forward): spotlight and confetti. */
   celebrate?: boolean
+  /** Why the search is wider than the areas chosen, when it is. */
+  note?: string
 }) {
   const priorities = learnedPriorities(weights, prior, chosen)
   const max = Math.max(...priorities.map((p) => p.weight), 1)
@@ -72,7 +75,7 @@ export function ResultsStep({
   async function share() {
     const lines = shortlist.map((b, i) => {
       const c = assess(b, limits, situation).cost
-      const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent set at 30% of your income' : 'rent varies'
+      const cost = c.monthly !== null ? `${c.kind === 'income-based' ? 'est. ' : 'rent cap '}${money(c.monthly)}/mo` : c.kind === 'income-based' ? 'rent set at about 30% of your income' : 'rent varies'
       return `${i + 1}. ${b.name} — ${addressLine(b)} — ${cost}${b.contact.phone ? ` — ${b.contact.phone}` : ''}`
     })
     const text = ['My HomePick DMV shortlist, from 1,700 income-restricted buildings across the DMV (estimates; each property decides who qualifies):', ...lines, 'https://gdghacks-tau.vercel.app'].join('\n')
@@ -126,7 +129,7 @@ export function ResultsStep({
             </div>
             <div className="no-print flex gap-2">
               <Button variant="secondary" onClick={onEditSituation}>
-                {situation ? 'Edit my answers' : 'Add income for estimates'}
+                Edit my answers
               </Button>
               <Button variant="ghost" onClick={onRestart}>
                 Start over
@@ -164,6 +167,7 @@ export function ResultsStep({
             <h1 id="short-heading" className="text-3xl font-extrabold sm:text-4xl">
               Your top matches
             </h1>
+            {note && <p className="mt-1 max-w-xl text-sm text-ink-soft">{note}</p>}
           </div>
           <div className="no-print flex flex-wrap gap-2">
             <Button variant="secondary" onClick={share}>
@@ -237,7 +241,6 @@ export function ResultsStep({
                   situation={situation}
                   reasons={whyReasons(b, weights, limits, situation)}
                   detailed
-                  onAddIncome={onEditSituation}
                   badge={
                     <span
                       className={`absolute right-3 top-3 z-10 inline-flex items-center gap-1 rounded-full px-3 py-1 text-xs font-bold shadow-sm ${

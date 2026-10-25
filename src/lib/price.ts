@@ -31,7 +31,7 @@ export function incomeBasedHeadline(a: Assessment, b: Pick<Building, 'marketRent
       label: "What you'd pay",
       value: money(c.monthly),
       per: true,
-      note: '30% of the income you entered. Rent follows your income here, not the apartment.',
+      note: 'Estimate: 30% of the income you entered. The property sets the real rent from your adjusted income after deductions.',
       isMarket: false,
     }
   }
@@ -41,7 +41,7 @@ export function incomeBasedHeadline(a: Assessment, b: Pick<Building, 'marketRent
       label: 'Typical rent nearby (HUD)',
       value: money(market),
       per: true,
-      note: 'Here your rent would be set at 30% of your income, not this number. Add your income to see yours.',
+      note: 'Here your rent would be set at about 30% of your income, not this number.',
       isMarket: true,
     }
   }
@@ -49,7 +49,7 @@ export function incomeBasedHeadline(a: Assessment, b: Pick<Building, 'marketRent
     label: 'Rent set by your income',
     value: '30% of income',
     per: false,
-    note: 'Add your income to see what that comes to each month.',
+    note: 'The property sets rent at about 30% of your adjusted income.',
     isMarket: false,
   }
 }

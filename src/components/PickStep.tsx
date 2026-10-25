@@ -58,6 +58,7 @@ export function PickStep({
   canUndo,
   onFinish,
   announce,
+  note,
 }: {
   pair: [Building, Building]
   round: number
@@ -69,6 +70,8 @@ export function PickStep({
   canUndo: boolean
   onFinish: () => void
   announce?: (msg: string) => void
+  /** Why the search is wider than the areas chosen, when it is. */
+  note?: string
 }) {
   const groupRef = useRef<HTMLDivElement>(null)
   const [left, right] = pair
@@ -104,6 +107,11 @@ export function PickStep({
   return (
     <section aria-labelledby="pick-heading" className="space-y-3 sm:space-y-6">
       <MetroProgress value={round} max={rounds} />
+      {note && (
+        <p role="status" className="rounded-xl bg-accent/25 px-3 py-2 text-sm text-ink">
+          {note}
+        </p>
+      )}
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 id="pick-heading" className="text-xl font-extrabold sm:text-4xl">

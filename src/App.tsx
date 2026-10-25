@@ -7,10 +7,10 @@ import { Landing } from './components/Landing'
 import { HowItWorks } from './components/HowItWorks'
 import { SnapForm } from './components/SnapForm'
 import { LogoMark } from './components/Logo'
-import { Button, Card, Note, StepIndicator } from './components/ui'
+import { Button, Card, money, Note, StepIndicator } from './components/ui'
 import limitsJson from './data/limits.2026.json'
 import { assess, isVisible } from './lib/eligibility'
-import { AREAS, HUBS, milesBetween } from './lib/areas'
+import { AREAS, areaInfo, HUBS, milesBetween, widenAreas } from './lib/areas'
 import { fit, nextPair, priorFor, rank, shortlistFrom, type Pick } from './lib/ranking'
 import type { Area, Building, IncomeLimits } from './lib/types'
 import { prefersReducedMotion, withTransition } from './lib/motion'
@@ -20,6 +20,8 @@ import { Lamp } from './components/Lamp'
 
 const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
+/** Fewer fitting buildings than this in the chosen areas and the search widens to neighboring areas. */
+const MIN_POOL = ROUNDS * 2
 const BASICS_KEY = 'homepick.basics'
 
 type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap' | 'how'
@@ -147,16 +149,25 @@ export default function App() {
   const situation = useMemo(() => (basics ? toSituation(basics) : null), [basics])
   const hub = HUBS.find((h) => h.id === basics?.workHub) ?? null
   const prior = useMemo(() => priorFor(basics?.priorities ?? [], !!hub), [basics, hub])
-  const pool = useMemo(() => {
-    const kept = (buildings ?? []).filter(
+  // Only buildings the person appears to fit: never one whose estimated income limit their income is over.
+  // When the chosen areas hold too few of those for eight rounds, neighboring areas join in and the screens say so.
+  const { pool, widenNote } = useMemo(() => {
+    const fitting = (buildings ?? []).filter(
       (b) =>
-        (areas.size === 0 || areas.has(b.area)) &&
         isVisible(b, { includeSeniorDisability: basics?.includeSeniorDisability ?? false }) &&
         fitsBedrooms(b, basics?.bedroomsNeeded ?? null) &&
-        !(basics?.hideOverLimit && situation && assess(b, limits, situation).limit === 'over'),
+        (!situation || assess(b, limits, situation).limit !== 'over'),
     )
+    const inAreas = (set: ReadonlySet<Area>) => fitting.filter((b) => set.size === 0 || set.has(b.area))
+    const { areas: searched, added } = buildings ? widenAreas(areas, (set) => inAreas(set).length, MIN_POOL) : { areas, added: [] as Area[] }
+    const kept = inAreas(searched)
+    const names = (ids: Iterable<Area>) => new Intl.ListFormat('en', { type: 'conjunction' }).format([...ids].map((a) => areaInfo(a).short))
+    const here = inAreas(areas).length
+    const widenNote = added.length
+      ? `${here === 0 ? 'No buildings' : here === 1 ? 'Only 1 building' : `Only ${here} buildings`} in ${names(areas)} fit your answers, so we added ${names(added)}.`
+      : ''
     // Distance to work or school is worked out here in the browser and never saved.
-    return hub ? kept.map((b) => ({ ...b, commuteMiles: Math.round(milesBetween(b.lat, b.lon, hub.lat, hub.lon) * 10) / 10 })) : kept
+    return { pool: hub ? kept.map((b) => ({ ...b, commuteMiles: Math.round(milesBetween(b.lat, b.lon, hub.lat, hub.lon) * 10) / 10 })) : kept, widenNote }
   }, [buildings, areas, basics, situation, hub])
   const weights = useMemo(() => fit(picks, limits, situation, prior), [picks, situation, prior])
   const seen = useMemo(() => new Set(picks.flatMap((p) => [p.chosen.id, p.other.id])), [picks])
@@ -418,13 +429,19 @@ export default function App() {
             canUndo={picks.length > 0}
             onFinish={finish}
             announce={announce}
+            note={widenNote}
           />
         )}
         {buildings && step === 'pick' && !pair && picks.length === 0 && (
           <Card className="p-6 text-center">
-            <p className="font-medium">Not enough buildings here to compare.</p>
-            <Button variant="secondary" className="mt-3" onClick={restart}>
-              Choose another area
+            <p className="font-medium">No two buildings in the whole DMV fit those answers.</p>
+            <p className="mt-1 text-sm text-ink-soft">
+              {basics && basics.income > (limits.mtsp['60'][Math.min(basics.householdSize, 8) - 1] ?? 0)
+                ? `Income-restricted buildings here take households of ${basics.householdSize === 1 ? 'one' : basics.householdSize} up to about ${money(Math.round(((limits.mtsp['50'][Math.min(basics.householdSize, 8) - 1] ?? 0) * 1.6) / 10) * 10)} a year at the most (80% of area median), and most stop at ${money(limits.mtsp['60'][Math.min(basics.householdSize, 8) - 1] ?? 0)}. Check the income and household size.`
+                : 'Try a different bedroom size, include senior or disability buildings, or check the income and household size.'}
+            </p>
+            <Button variant="secondary" className="mt-3" onClick={() => go('basics')}>
+              Edit my answers
             </Button>
           </Card>
         )}
@@ -451,6 +468,7 @@ export default function App() {
             onRestart={restart}
             announce={announce}
             celebrate={celebrateRef.current}
+            note={widenNote}
           />
         )}
       </main>
