@@ -115,8 +115,8 @@ probe("usda.count", lambda: count(USDA, WHERE))
 probe("usda.designation", lambda: groups(USDA, "RENTAL_DESIGNATION", WHERE))
 probe("usda.sample", lambda: get_json(USDA + "/query", {"where": WHERE, "outFields": "PROJECT_NAME,STD_ADDR,STD_CITY,STD_ST,STD_ZIP5,TOTAL_UNITS,RA_UNITS,HUD_UNITS,RENTAL_DESIGNATION,MGMT_AGENT_NAME,MGMT_AGENT_PH_NBR,MGMT_AGENT_EMAIL,STUDIO_COUNT,BEDROOM1_COUNT,BEDROOM2_COUNT,BEDROOM3_COUNT,BEDROOM4_COUNT,EFFECTIVE_DATE,RESTRICTIVE_CLAUSE_EXPIRATION,LAT,LON,COUNTY_LEVEL", "resultRecordCount": 4, "f": "json"}).get("features"))
 probe("alx.service", lambda: [(l["id"], l["name"]) for l in get_json(ALX, {"f": "json"}).get("layers", []) + get_json(ALX, {"f": "json"}).get("tables", [])])
-for i in range(3):
-    probe(f"alx.layer{i}", lambda i=i: arcgis_layer(f"{ALX}/{i}"))
+probe("alx.layer20", lambda: arcgis_layer(f"{ALX}/20"))
+probe("alx.layer20.more", lambda: sample(f"{ALX}/20", "1=1", 4))
 
 Path("probe").mkdir(exist_ok=True)
 Path("probe/report.json").write_text(json.dumps(report, indent=1, default=str))
