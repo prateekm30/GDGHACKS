@@ -154,7 +154,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
             type="button"
             aria-label="Previous view"
             onClick={(e) => go(index - 1, e)}
-            className="absolute left-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow transition group-hover/photo:opacity-100 focus-visible:opacity-100"
+            className="absolute left-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow transition group-hover/photo:opacity-100 focus-visible:opacity-100 print:hidden"
           >
             <ChevronLeft aria-hidden className="size-5" />
           </button>
@@ -162,7 +162,7 @@ export function BuildingPhoto({ b, className = '', single = false }: { b: Buildi
             type="button"
             aria-label="Next view"
             onClick={(e) => go(index + 1, e)}
-            className="absolute right-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow transition group-hover/photo:opacity-100 focus-visible:opacity-100"
+            className="absolute right-2 top-1/2 z-10 grid size-9 -translate-y-1/2 place-items-center rounded-full bg-white/90 text-ink opacity-0 shadow transition group-hover/photo:opacity-100 focus-visible:opacity-100 print:hidden"
           >
             <ChevronRight aria-hidden className="size-5" />
           </button>
