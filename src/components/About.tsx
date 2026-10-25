@@ -6,12 +6,8 @@ import { Glossary } from './Glossary'
 import { Skyline } from './Skyline'
 import { money } from './ui'
 
-/** Who built it. Add names here. */
-const TEAM: { name: string; role: string }[] = [
-  { name: 'Prateek Malekar', role: 'Product, data, and build' },
-  { name: 'Sajjad Irshad', role: 'Design and testing' },
-  { name: 'Rishik Uppalapati', role: 'Pitch and demo' },
-]
+/** Who built it. */
+const TEAM = ['Prateek Malekar', 'Sajjad Irshad', 'Rishik Uppalapati']
 
 const WONT: { icon: LucideIcon; title: string; body: string }[] = [
   { icon: Ban, title: 'No scraped listings', body: 'Every building comes from a public dataset with an address and a program. Nothing is lifted from listing sites.' },
@@ -133,15 +129,12 @@ export function About({ buildings, limits, onBegin, onHow }: { buildings: Buildi
                 team of three Virginia Tech students, and we started because people we know were paying market rent a block from buildings they would have fit.
               </p>
               <ul className="mt-4 space-y-2">
-                {TEAM.map((t) => (
-                  <li key={t.name} className="flex items-center gap-3">
+                {TEAM.map((name) => (
+                  <li key={name} className="flex items-center gap-3">
                     <span className="grid size-9 place-items-center rounded-full bg-accent text-ink">
                       <Users aria-hidden className="size-4" />
                     </span>
-                    <span>
-                      <span className="font-bold">{t.name}</span>
-                      <span className="block text-sm text-white/70">{t.role}</span>
-                    </span>
+                    <span className="font-bold">{name}</span>
                   </li>
                 ))}
               </ul>
