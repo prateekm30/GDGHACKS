@@ -434,7 +434,7 @@ export function BasicsForm({ initial, onDone, limits }: { initial: Basics | null
 
       {/* Live summary: decorative restatement of the answers above. */}
       <aside aria-hidden className="hidden lg:block">
-        <div className="sticky top-24 space-y-4 rounded-[1.75rem] bg-dusk p-6 text-white shadow-lift">
+        <div className="glass-dark sticky top-24 space-y-4 p-6 text-white">
           <p className="font-hand text-2xl text-accent">your profile</p>
           <div>
             <p className="text-xs font-bold uppercase tracking-wide text-white/70">Household</p>

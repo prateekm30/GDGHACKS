@@ -4,6 +4,7 @@ import { PickStep } from './components/PickStep'
 import { ResultsStep } from './components/ResultsStep'
 import { BasicsForm, sanitizeBasics, toSituation, type Basics } from './components/BasicsForm'
 import { Landing } from './components/Landing'
+import { HowItWorks } from './components/HowItWorks'
 import { SnapForm } from './components/SnapForm'
 import { LogoMark } from './components/Logo'
 import { Button, Card, Note, StepIndicator } from './components/ui'
@@ -21,14 +22,15 @@ const limits = limitsJson as IncomeLimits
 const ROUNDS = 8
 const BASICS_KEY = 'homepick.basics'
 
-type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap'
-const STEPS: readonly Step[] = ['start', 'basics', 'pick', 'results', 'snap']
+type Step = 'start' | 'basics' | 'pick' | 'results' | 'snap' | 'how'
+const STEPS: readonly Step[] = ['start', 'basics', 'pick', 'results', 'snap', 'how']
 const TITLES: Record<Step, string> = {
   start: 'HomePick DMV: find a home you can afford',
   basics: 'Your basics · HomePick DMV',
   pick: 'Which would you rather live in? · HomePick DMV',
   results: 'Your top matches · HomePick DMV',
   snap: 'Snap a form · HomePick DMV',
+  how: 'How it works · HomePick DMV',
 }
 const stepFromState = (state: unknown): Step => {
   const s = (state as { step?: unknown } | null)?.step
@@ -309,7 +311,8 @@ export default function App() {
   return (
     <>
       {intro && <div aria-hidden className="intro-backdrop" />}
-      <div data-step={step} className={`app-shell relative min-h-dvh bg-canvas text-ink ${intro ? 'intro-run' : ''}`}>
+      <div data-step={step} className={`app-shell relative min-h-dvh text-ink ${intro ? 'intro-run' : ''}`}>
+      <div aria-hidden className="sky" />
       <Lamp />
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-40 focus:rounded-lg focus:bg-surface focus:px-3 focus:py-2">
         Skip to content
@@ -326,7 +329,10 @@ export default function App() {
           <span className="hidden sm:inline">Stays on this device</span>
           <span className="sr-only sm:hidden">Your answers stay on this device</span>
         </span>
-        {step === 'start' ? (
+        <button type="button" onClick={() => go('how')} aria-current={step === 'how' ? 'page' : undefined} className="hidden whitespace-nowrap rounded-full px-2 py-1 text-xs font-semibold text-ink/80 transition hover:text-brand-strong aria-[current=page]:text-brand-strong min-[480px]:inline-flex sm:text-sm">
+          How it works
+        </button>
+        {step === 'start' || step === 'how' ? (
           <button type="button" onClick={begin} className="inline-flex min-h-9 items-center rounded-full bg-dusk px-3.5 text-xs font-bold text-white transition hover:bg-ink sm:text-sm">
             Start
           </button>
@@ -337,8 +343,11 @@ export default function App() {
         )}
       </nav>
 
-      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 pb-5 pt-20 sm:space-y-6 sm:pb-8 sm:pt-24'}`}>
-        {step !== 'start' && step !== 'snap' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
+      <main id="main" tabIndex={-1} className={`outline-none ${step === 'start' || step === 'how' ? '' : 'mx-auto max-w-6xl space-y-4 px-4 pb-5 pt-20 sm:pb-8 sm:pt-24'}`}>
+        {step === 'how' && (
+          <HowItWorks buildings={buildings} limits={limits} searchLabel={areas.size === 0 ? 'Search all of the DMV' : `Search ${areas.size} ${areas.size === 1 ? 'area' : 'areas'}`} onBegin={begin} onSnap={() => go('snap')} />
+        )}
+        {step !== 'start' && step !== 'snap' && step !== 'how' && <StepIndicator current={step === 'basics' ? 0 : step === 'pick' ? 1 : 2} />}
         {isSample && (
           <Note tone="warn">
             Sample data. These buildings are made up for testing. Real HUD data loads once the data pipeline runs.
@@ -380,6 +389,7 @@ export default function App() {
             onStartIn={startIn}
             onSnap={() => go('snap')}
             firstVisit={introRan.current}
+            onHow={() => go('how')}
           />
         )}
 
@@ -422,8 +432,7 @@ export default function App() {
         {step === 'basics' && (
           <section
             aria-labelledby="basics-heading"
-            className="rise-in relative overflow-hidden rounded-[2rem] p-5 shadow-card sm:p-10"
-            style={{ background: 'linear-gradient(160deg, #fff0dd 0%, #ffd9d2 55%, #f1d6f5 100%)' }}
+            className="glass-panel rise-in relative overflow-hidden p-5 sm:p-10"
           >
             <span aria-hidden className="metro-stripe absolute inset-x-0 top-0 h-1.5" />
             <BasicsForm initial={basics} onDone={onBasicsDone} limits={limits} />
@@ -446,7 +455,7 @@ export default function App() {
         )}
       </main>
 
-      {step !== 'start' && (
+      {step !== 'how' && (
         <div aria-hidden className="dusk-fade no-print pt-10">
           <Skyline night className="block h-24 w-full sm:h-32" />
         </div>

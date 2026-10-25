@@ -162,7 +162,7 @@ export function HeroReel({
   return (
     <div
       ref={rootRef}
-      className={`tilt group/reel relative overflow-hidden rounded-[2rem] bg-dusk shadow-lift ring-1 ring-white/70 ${className}`}
+      className={`tilt group/reel relative overflow-hidden rounded-card bg-dusk shadow-lift ring-1 ring-white/70 ${className}`}
       {...tiltHandlers(4)}
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={(e) => {

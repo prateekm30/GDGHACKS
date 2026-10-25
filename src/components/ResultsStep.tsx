@@ -89,17 +89,17 @@ export function ResultsStep({
   }
 
   return (
-    <div ref={revealRef} className="space-y-10">
+    <div ref={revealRef} className="space-y-6">
       {spot && top && <SpotlightReveal b={top} limits={limits} situation={situation} onDone={() => setSpot(false)} />}
       {celebrate && shortlist.length > 0 && !spot && <Confetti />}
-      <nav aria-label="On this page" className="no-print flex gap-2 overflow-x-auto pb-1">
+      <nav aria-label="On this page" className="no-print flex gap-5 overflow-x-auto border-b border-ink/10 pb-0">
         {[
           ['#matches', 'Your matches'],
           ['#next-steps', 'Next steps'],
           ['#snap', 'Snap a form'],
           ['#words', 'Words to know'],
         ].map(([href, label]) => (
-          <a key={href} href={href} className="shrink-0 rounded-full bg-dusk px-3.5 py-2 text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-ink">
+          <a key={href} href={href} className="shrink-0 border-b-2 border-transparent px-1 py-1.5 text-xs font-bold uppercase tracking-[0.14em] text-ink/70 transition hover:border-brand hover:text-brand-strong">
             {label}
           </a>
         ))}
@@ -178,7 +178,7 @@ export function ResultsStep({
         {top && !allOver && (topMonthly !== null || topMarket !== null) && (
           <dl className="stat-strip grid grid-cols-2 gap-3 sm:grid-cols-3">
             {topMonthly !== null && (
-              <div className="rounded-2xl bg-surface p-4 shadow-card">
+              <div className="glass-panel p-4">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">{topCost?.cost.kind === 'income-based' ? "What you'd pay at #1" : 'Rent cap at #1'}</dt>
                 <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
                   <CountUp value={topMonthly} duration={1300} format={money} />
@@ -187,7 +187,7 @@ export function ResultsStep({
               </div>
             )}
             {topMarket !== null && (
-              <div className="rounded-2xl bg-surface p-4 shadow-card">
+              <div className="glass-panel p-4">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">Typical rent nearby (HUD)</dt>
                 <dd className="font-display text-3xl font-extrabold tabular-nums text-ink">
                   <CountUp value={topMarket} duration={1300} format={money} />
@@ -196,7 +196,7 @@ export function ResultsStep({
               </div>
             )}
             {saving !== null && (
-              <div className="col-span-2 rounded-2xl bg-dusk p-4 text-white shadow-card sm:col-span-1">
+              <div className="glass-dark col-span-2 p-4 text-white sm:col-span-1">
                 <dt className="text-[11px] font-semibold uppercase tracking-wider text-white/70">You could keep (est.)</dt>
                 <dd className="font-display text-3xl font-extrabold tabular-nums">
                   <CountUp value={saving * 12} duration={1600} format={money} />

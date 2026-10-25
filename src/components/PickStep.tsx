@@ -155,7 +155,7 @@ export function PickStep({
               <div
                 {...tiltHandlers()}
                 onClick={() => choose(b, other)}
-                className="tilt group relative flex h-full cursor-pointer flex-col overflow-hidden rounded-card border-2 border-white/80 bg-surface shadow-card hover:border-brand hover:shadow-lift"
+                className="tilt group relative flex h-full cursor-pointer flex-col overflow-hidden glass-panel rounded-card hover:ring-brand hover:shadow-lift"
               >
                 {chosenId === b.id && (
                   <span aria-hidden className="pop absolute right-3 top-3 z-20 grid size-10 place-items-center rounded-full bg-brand text-white shadow-lift ring-4 ring-white sm:size-14">

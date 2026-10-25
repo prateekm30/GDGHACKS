@@ -9,13 +9,13 @@ export function Button({
 }: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: 'primary' | 'secondary' | 'ghost' }) {
   const styles = {
     primary: 'bg-brand text-white shadow-sm hover:bg-brand-strong hover:shadow-md active:scale-[0.98]',
-    secondary: 'bg-surface text-ink border border-line hover:border-brand hover:text-brand active:scale-[0.98]',
+    secondary: 'bg-white/55 text-ink ring-1 ring-white/70 backdrop-blur hover:bg-white/85 hover:text-brand-strong active:scale-[0.98]',
     ghost: 'text-brand-strong hover:bg-brand-tint',
   }[variant]
   return (
     <button
       {...props}
-      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:pointer-events-none disabled:opacity-50 ${styles} ${props.className ?? ''}`}
+      className={`inline-flex min-h-11 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:pointer-events-none disabled:opacity-50 ${styles} ${props.className ?? ''}`}
     >
       {children}
     </button>
@@ -24,7 +24,7 @@ export function Button({
 
 export function Card({ children, className = '', style }: { children: ReactNode; className?: string; style?: CSSProperties }) {
   return (
-    <div className={`rounded-card bg-surface shadow-card border border-line ${className}`} style={style}>
+    <div className={`glass-panel ${className}`} style={style}>
       {children}
     </div>
   )
